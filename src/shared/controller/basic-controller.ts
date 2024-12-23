@@ -5,7 +5,7 @@
 import { type HttpRequest, type HttpResponse, type ResponseError, badRequest, conflict, notfound, serverError, unauthorized } from '@/shared/helpers'
 import { ValidationComposite, type Validator } from '@/shared/validation'
 import { BadRequestException, ConflictException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { type Request, type Response } from 'express'
+import { FastifyRequest as Request, FastifyReply as Response } from 'fastify'
 
 export interface Controller<T, Y> {
   perform: (httpRequest: HttpRequest<T>) => Promise<HttpResponse<Y | ResponseError | any>>

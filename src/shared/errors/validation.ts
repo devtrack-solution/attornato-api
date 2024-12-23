@@ -4,7 +4,7 @@ import { BadRequestException } from '@nestjs/common'
 export class RequiredFieldError extends BadRequestError {
   constructor(fieldName?: string) {
     super()
-    this.name = 'RequiredFieldError'
+    this.name = `RequiredFieldError ${fieldName}`
   }
 }
 
