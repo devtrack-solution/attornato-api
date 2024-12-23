@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+requirements
+.vscode
+jest.config.js
+jest.integration.config.js
+**/*.js
