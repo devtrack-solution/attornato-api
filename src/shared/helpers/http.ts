@@ -1,7 +1,7 @@
 import { ServerError } from '@/shared/errors'
 import { type BadRequestException, type ConflictException, HttpStatus, type NotFoundException, type UnauthorizedException } from '@nestjs/common'
 import { ApiProperty } from '@nestjs/swagger'
-import { type Request, type Response } from 'express'
+import { FastifyRequest as Request, FastifyReply as Response } from 'fastify'
 
 export class ResponseError {
   @ApiProperty()

@@ -24,7 +24,7 @@ export abstract class BasicController<T, Y> implements Controller<T, Y> {
 
   async handle(request: Request, response: Response, body: T | any, param: any, query: any): Promise<HttpResponse<Y | ResponseError>> {
     try {
-      const user = request.user as any
+      const user = request.headers.user as any
       this.sub = user?.userId ?? ''
       this.basicLogger.log(`Requested by account ${user?.userId ?? 'anonymous'}`)
       const error = this.validate({

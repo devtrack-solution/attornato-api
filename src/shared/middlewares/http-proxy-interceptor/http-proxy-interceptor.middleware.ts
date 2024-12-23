@@ -17,14 +17,14 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     console.log('URL:', url)
     if (!exceptionsUrl.includes(url)) {
       try {
-        if (req.headers.get('authorization') !== undefined) {
-          const token = (req?.headers?.get('authorization') as string)?.replace('Bearer ', '')
+        if (req.headers.authorization !== undefined) {
+          const token = (req?.headers?.authorization as string)?.replace('Bearer ', '')
           const tokenValue = await this.jwtService.verifyAsync(token, {
             secret: this.configService.get('jwt.privateKey'),
           })
-          req.headers.set('username', tokenValue.user.username ?? '')
-          req.headers.set('user_id', tokenValue.userId ?? '')
-          req.headers.set('roles', [tokenValue.user.role] as any)
+          req.headers.username = tokenValue.user.username ?? ''
+          req.headers.user_id = tokenValue.userId ?? ''
+          req.headers.roles = [tokenValue.user.role] as any
         }
       } catch (e: any) {
         console.error(e)
