@@ -29,6 +29,7 @@
     "@nestjs/platform-fastify": "^10.4.15",
     "@nestjs/schedule": "^4.1.2",
     "@nestjs/swagger": "^8.1.0",
+    "@types/passport-jwt": "^4.0.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.0",
     "nestjs-custom-injector": "^2.2.3",

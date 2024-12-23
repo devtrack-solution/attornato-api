@@ -63,11 +63,11 @@ export abstract class BasicController<T, Y> implements Controller<T, Y> {
   }
 
   protected async responseRequest(response: Response, data: HttpResponse<Y>): Promise<HttpResponse<Y>> {
-    return response.status(data.statusCode).json(data.data)
+    return response.status(data.statusCode).send(data.data)
   }
 
   protected async responseErrorRequest(response: Response, data: HttpResponse<ResponseError>): Promise<HttpResponse<ResponseError>> {
-    return response.status(data.statusCode).json({
+    return response.status(data.statusCode).send({
       statusCode: data.statusCode,
       message: data.data?.message ?? data.message,
       data: data.data?.data,
