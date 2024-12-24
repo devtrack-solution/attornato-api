@@ -1,25 +1,24 @@
 name: CI
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches: [main]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version: 20
 
-            - name: Run setup script
-              run: pnpm run prepare:setup
+      - name: Run setup script
+        run: pnpm run prepare:setup
 
-            - name: Run tests
-              run: pnpm run test
+      - name: Run tests
+        run: pnpm run test
