@@ -8,4 +8,4 @@ else
     echo "pnpm já está instalado."
 fi
 
-pnpm install
+pnpm install --no-frozen-lockfile
