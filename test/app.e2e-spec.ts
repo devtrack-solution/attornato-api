@@ -1,21 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { INestApplication } from '@nestjs/common'
-import * as request from 'supertest'
-import { AppModule } from './../src/app.module'
+import request from 'supertest'
+import { AppModule } from '@/app.module'
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+import { RootTestModule } from '@test/root-test.module'
 
 describe('AppController (e2e)', () => {
-  let app: INestApplication
+  let app: NestFastifyApplication
+  let server: any
+  let domain: string = 'localhost'
+  let port: number = 3000
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [RootTestModule],
     }).compile()
 
-    app = moduleFixture.createNestApplication()
+    app = moduleFixture.createNestApplication<NestFastifyApplication>(new FastifyAdapter())
     await app.init()
+
+    server = await app.listen(port, domain)
   })
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!')
+  afterEach(async () => {
+    await app.close()
+  })
+
+  it('/ (GET)', async () => {
+    const response = await request(server).get('/')
+    console.log('Response:', response.text)
+
+    expect(response.status).toBe(200)
+    expect(response.text).toBe('Hello World!')
   })
 })

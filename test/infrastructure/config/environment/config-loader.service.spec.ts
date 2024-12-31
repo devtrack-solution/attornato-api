@@ -1,7 +1,7 @@
-import { ConfigLoaderService } from './config-loader.service'
-import * as defaultConfig from './environment/default'
-import * as developmentConfig from './environment/development'
-import * as productionConfig from './environment/production'
+import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
+import * as defaultConfig from '@/infrastructure/config/environment/default'
+import * as developmentConfig from '@/infrastructure/config/environment/development'
+import * as productionConfig from '@/infrastructure/config/environment/production'
 
 describe('ConfigLoaderService', () => {
   let service: ConfigLoaderService
@@ -18,47 +18,37 @@ describe('ConfigLoaderService', () => {
       label: 'Default Application',
       appServer: 'http://localhost',
       port: 3000,
+      enableCors: { origin: [], methods: [] },
+      loggerLevel: [],
     })
 
     delete process.env.NODE_ENV
     const config = service.loadConfig()
 
-    expect(config).toEqual({
-      environment: 'DEFAULT',
-      database: { host: 'localhost', port: 5432 },
-      apiKey: 'default-key',
-      label: 'Default Application',
-      appServer: 'http://localhost',
-      port: 3000,
-    })
-
     expect(defaultSpy).toHaveBeenCalled()
+    expect(defaultSpy).toHaveBeenCalledTimes(1)
+    expect(config).toEqual(defaultSpy.mock.results[0].value)
     defaultSpy.mockRestore()
   })
 
-  it('should load development configuration when NODE_ENV is "development"', () => {
+  it('should load development configuration when NODE_ENV is "DEVELOPMENT"', () => {
     const developmentSpy = jest.spyOn(developmentConfig, 'default').mockReturnValue({
-      environment: 'DEVELOPMENNT',
-      database: { host: 'dev-db-host', port: 5432 },
+      environment: 'DEVELOPMENT',
+      database: { host: 'localhost', port: 5432 },
       apiKey: 'dev-key',
       label: 'Development Application',
-      appServer: 'http://dev.localhost',
+      appServer: 'http://localhost',
       port: 4000,
+      enableCors: { origin: [], methods: [] },
+      loggerLevel: [],
     })
 
-    process.env.NODE_ENV = 'development'
+    process.env.NODE_ENV = 'DEVELOPMENT'
     const config = service.loadConfig()
 
-    expect(config).toEqual({
-      environment: 'DEVELOPMENNT',
-      database: { host: 'dev-db-host', port: 5432 },
-      apiKey: 'dev-key',
-      label: 'Development Application',
-      appServer: 'http://dev.localhost',
-      port: 4000,
-    })
-
     expect(developmentSpy).toHaveBeenCalled()
+    expect(developmentSpy).toHaveBeenCalledTimes(1)
+    expect(config).toEqual(developmentSpy.mock.results[0].value)
     developmentSpy.mockRestore()
   })
 
@@ -70,21 +60,17 @@ describe('ConfigLoaderService', () => {
       label: 'Production Application',
       appServer: 'https://myapp.com',
       port: 8080,
+      enableCors: { origin: [], methods: [] },
+      loggerLevel: [],
     })
 
-    process.env.NODE_ENV = 'production'
+    process.env.NODE_ENV = 'PRODUCTION'
     const config = service.loadConfig()
 
-    expect(config).toEqual({
-      environment: 'PRODUCTION',
-      database: { host: 'prod-db-host', port: 5432 },
-      apiKey: 'prod-key',
-      label: 'Production Application',
-      appServer: 'https://myapp.com',
-      port: 8080,
-    })
-
     expect(productionSpy).toHaveBeenCalled()
+    expect(productionSpy).toHaveBeenCalledTimes(1)
+    expect(config).toEqual(productionSpy.mock.results[0].value)
+
     productionSpy.mockRestore()
   })
 })

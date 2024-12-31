@@ -1,7 +1,7 @@
 import process from 'node:process'
 
 export default () => ({
-  environment: process.env.ENVIRONMENT || 'PRODUCTION',
+  environment: process.env.ENVIRONMENT || 'HOMOLOGATION',
   label: process.env.LABEL,
   appServer: process.env.APP_SERVER,
   port: process.env.PORT || 8080,

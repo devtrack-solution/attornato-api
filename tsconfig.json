@@ -13,13 +13,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "*"
+        "./src/*"
       ],
-      "@/test/*": [
-        "../test/*"
+      "@test/*": [
+        "test/*"
       ]
     },
     "strict": true,
