@@ -19,7 +19,7 @@
     "test:watch": "pnpm run test --watch",
     "test:cov": "pnpm run test --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config test/e2e/jest-e2e.json",
     "test:e2e:cov": "pnpm run test:e2e --coverage",
     "ci": "pnpm fix-imports && pnpm test && pnpm build"
   },
