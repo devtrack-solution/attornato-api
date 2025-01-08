@@ -1,0 +1,43 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    # Agendado para executar toda segunda-feira às 02:00 UTC
+    - cron: '0 2 * * 1'
+
+jobs:
+  analyze-code:
+    if: ${{ env.DISABLE_WORKFLOW != 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Snyk Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=${{ env.SONAR_HOST_URL  }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+  deploy:
+    if: ${{ env.DISABLE_WORKFLOW != 'true' }}
+    needs: analyze-code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Staging
+        run: echo "Deploying application to staging..."
