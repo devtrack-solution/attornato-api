@@ -15,6 +15,7 @@ permissions:
 jobs:
   analyze:
     name: Analyse
+    if: ${{ env.DISABLE_WORKFLOW != 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
