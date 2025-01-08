@@ -11,7 +11,7 @@ on:
 
 jobs:
   analyze-code:
-    if: ${{ env.DISABLE_WORKFLOW != 'true' }}
+    if: ${{ vars.DISABLE_WORKFLOW != 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -28,13 +28,13 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
             -Dsonar.sources=. \
-            -Dsonar.host.url=${{ env.SONAR_HOST_URL  }} \
+            -Dsonar.host.url=${{ vars.SONAR_HOST_URL  }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   deploy:
-    if: ${{ env.DISABLE_WORKFLOW != 'true' }}
+    if: ${{ vars.DISABLE_WORKFLOW != 'true' }}
     needs: analyze-code
     runs-on: ubuntu-latest
 
