@@ -20,6 +20,9 @@ jobs:
       - name: Run setup script
         run: npm run prepare:setup
 
+      - name: Run Prettier and ESLint
+        run: pnpm run fix-imports
+
       - name: Run tests
         run: pnpm run test
 
