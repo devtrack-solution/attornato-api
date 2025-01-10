@@ -1,20 +1,8 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { Global, Module } from '@nestjs/common'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 
+@Global()
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [
-        () => {
-          const configLoader = new ConfigLoaderService()
-          return configLoader.loadConfig()
-        },
-      ],
-      cache: true,
-    }),
-  ],
   providers: [ConfigLoaderService],
   exports: [ConfigLoaderService],
 })
