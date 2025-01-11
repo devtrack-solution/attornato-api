@@ -1,3 +1,6 @@
+import { AppConfig } from '@/domain/app-config.interface'
+
 export interface ConfigPort {
-  loadConfig(): Record<string, any>
+  initialize(): AppConfig
+  loadConfig(): AppConfig
 }

@@ -2,22 +2,18 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigPort } from '@/core/ports/config.port'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
+import { AppConfig } from '@/domain/app-config.interface'
 
-// create a singleton service to load the configuration
 @Injectable()
 export class ConfigLoaderService implements ConfigPort {
   private readonly logger: Logger = new Logger(ConfigLoaderService.name)
-  private config: Record<string, any> | null = null
+  private config: AppConfig | null = null
 
-  loadConfig(): Record<string, any> {
-    if (this.config) {
-      return this.config
-    }
-
+  initialize(): AppConfig {
     const env = process.env.NODE_ENV || 'default'
     const ROOT_DIR = process.cwd()
     const envFilePath = path.resolve(ROOT_DIR, `.env.${env.toLowerCase()}`)
-    dotenv.config({ path: envFilePath })
+    dotenv.config({ path: envFilePath, override: true })
     this.logger.verbose(`NODE_ENV: ${env}`)
 
     switch (env) {
@@ -34,5 +30,12 @@ export class ConfigLoaderService implements ConfigPort {
         this.config = require('./environment/default').default()
     }
     return this.config!
+  }
+
+  loadConfig(): AppConfig {
+    if (this.config) {
+      return this.config
+    }
+    return this.initialize()
   }
 }

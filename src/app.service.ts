@@ -13,7 +13,7 @@ export class AppService {
     this.logger.error('ERROR HELLO')
     this.logger.fatal('FATAL HELLO')
     this.logger.verbose('VERBOSE HELLO')
-    this.logger.log(this.configLoaderService.loadConfig().overload)
+    this.logger.log(this.configLoaderService.loadConfig())
     return 'Hello World!'
   }
 }

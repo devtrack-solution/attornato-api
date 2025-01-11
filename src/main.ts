@@ -6,20 +6,26 @@ import '@/commons/settings/module-alias'
 import { ParseBooleanPipe } from '@/commons/utils/parse-boolean-pipe'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
+import { AppConfig } from '@/domain/app-config.interface'
 
 async function bootstrap() {
-  const service = new ConfigLoaderService()
-  const config: Record<string, any> = service.loadConfig()
-  const loggerLevels: LogLevel[] = config.loggerLevels
-  const log = new Logger('Bootstrap')
-
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { logger: loggerLevels })
+  const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
   app.useGlobalPipes(new ParseBooleanPipe())
-  const addressString = `${config.appServer}:${config.port}`
-  log.log(`Current Environment: ${config.environment}`)
-  log.log(`Database Host: ${config.database.host}`)
-  log.log(`App Server: ${config.appServer}`)
-  log.verbose(`Config: ${JSON.stringify(config)}`)
+  const configLoaderService: ConfigLoaderService = app.get(ConfigLoaderService)
+  const config: AppConfig = configLoaderService.initialize()
+  // const loggerLevels: LogLevel[] = config.loggerLevels || ['log', 'error', 'warn', 'debug', 'verbose']
+
+  const logger = new Logger('bootstrap')
+
+  const fastifyInstance = app.getHttpAdapter().getInstance()
+  fastifyInstance.log.level = 'info' // config.logLevel || 'fatal'
+  logger.log(`Logger Level fastifyInstance: ${fastifyInstance.log.level}`)
+  logger.log(`Logger Level config.logLevel: ${config.logLevel}`)
+  const addressString = `${config.appServer}:${config.apiPort}`
+  logger.log(`Current Environment: ${config.environment}`)
+  logger.log(`Database Host: ${config.database.host}`)
+  logger.log(`App Server: ${config.appServer}`)
+  logger.verbose(`Config: ${JSON.stringify(config)}`)
 
   app.enableCors({
     origin: config.enableCors.origin,
@@ -38,8 +44,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options)
 
   SwaggerModule.setup('/docs', app, document)
-  log.log(`${config.label} API Service in ${addressString}/docs`)
-  await app.listen(config.port)
+  logger.log(`${config.label} API Service in ${addressString}/docs`)
+  await app.listen(config.apiPort, config.apiHost)
 }
 
 bootstrap().then()

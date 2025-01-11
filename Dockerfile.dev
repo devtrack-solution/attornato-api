@@ -1,0 +1,23 @@
+# Use uma imagem base Node.js
+FROM node:20-alpine
+
+# Defina o diretório de trabalho no container
+WORKDIR /usr/src/app
+
+# Copie os arquivos de dependências para aproveitar o cache do Docker
+COPY package*.json pnpm-lock.yaml ./
+
+# Instale as dependências
+CMD ["npm", "run", "prepare:setup"]
+CMD ["pnpm", "install"]
+
+# Copie o restante do código-fonte
+COPY . .
+
+# Exponha a porta usada pela aplicação
+EXPOSE $API_PORT
+
+ENV NODE_ENV=DEVELOPMENT
+
+# Comando padrão para iniciar a aplicação em produção
+CMD ["npm", "run", "start:dev"]
