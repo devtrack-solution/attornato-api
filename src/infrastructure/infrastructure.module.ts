@@ -3,6 +3,9 @@ import { ConfigLoaderService } from '@/infrastructure/config/config-loader.servi
 
 @Global()
 @Module({
+  imports: [
+
+  ],
   providers: [ConfigLoaderService],
   exports: [ConfigLoaderService],
 })

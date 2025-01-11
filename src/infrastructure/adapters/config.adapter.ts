@@ -48,6 +48,12 @@ export class ConfigAdapter implements AppConfig {
       methods: this.configService.get<string[]>('enableCors.methods'),
     }
   }
+  get throttling(): AppConfig['throttling'] {
+    return {
+      ttl: this.configService.get<number>('throttling.ttl')!,
+      limit: this.configService.get<number>('throttling.limit')!,
+    }
+  }
   /**
    * export type pino. LevelWithSilentOrString = LevelWithSilent | string
    *

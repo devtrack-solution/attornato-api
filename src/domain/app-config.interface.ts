@@ -27,7 +27,11 @@ export interface AppConfig {
   redis: {
     host: string | undefined
     port: string | number | undefined
-  }
+  },
+  throttling: {
+    ttl: string | number,
+    limit: string | number,
+  },
   enableCors: {
     origin: string[] | undefined
     methods: string[] | undefined
