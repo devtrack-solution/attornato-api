@@ -14,5 +14,9 @@ export default () => ({
     origin: process.env.ENABLE_CORS_ORIGIN?.split(',') || [],
     methods: process.env.ENABLE_CORS_METHODS?.split(',') || [],
   },
+  throttling: {
+    ttl: process.env.THROTTLER_TTL || 60,
+    limit: process.env.THROTTLER_LIMIT || 10,
+  },
   loggerLevel: process.env.LOG_LEVEL?.split(',') || [],
 })

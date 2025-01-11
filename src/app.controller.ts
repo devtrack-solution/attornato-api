@@ -7,6 +7,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log('This endpoint is protected by throttling')
     return this.appService.getHello()
   }
 }
