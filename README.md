@@ -88,6 +88,155 @@ Check out a few resources that may come in handy when working with NestJS:
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
+## Project Checklist: api-template
+
+This checklist provides an overview of the project's implemented features and highlights areas that need improvement or additional development.
+
+### ✅ Implemented Features
+- [x] **Nest.js Basic Logger**: Basic logging capabilities integrated into the application.
+- [x] **Docker Development**:
+    - [x] Dockerized Nest.js application.
+    - [x] Redis container for caching.
+    - [x] PostgreSQL container for database management.
+- [x] **Testing**:
+    - [x] Add unit tests for core services.
+    - [x] Create end-to-end tests for API endpoints.
+- [x] **Configuration**:
+    - [x] Basic configuration management for development and production environments.
+    - [x] Support for environment variables.
+    - [x] Support for Docker configuration.
+    - [x] Support for different configuration files.
+    - [x] Support for configuration overrides.
+    - [x] Support for configuration validation.
+    - [x] Support for configuration defaults.
+    - [x] Support for configuration encryption.
+- [x] **API Documentation**:
+    - [x] Swagger API documentation.
+    - [ ] Compodoc API documentation.
+    - [ ] Postman collection.
+    - [ ] OpenAPI Specification.
+    - [ ] RAML.
+- [x] **Authentication**:
+    - [x] Basic authentication system.
+    - [ ] Support for user registration.
+    - [ ] Support for user login.
+    - [ ] Support for user logout.
+    - [ ] Support for user password reset.
+    - [ ] Support for user profile management.
+    - [ ] Support for user account deletion.
+    - [ ] Support for user account recovery.
+    - [ ] Support for user account verification.
+    - [ ] Support for user account suspension.
+    - [ ] Support for user account roles.
+    - [ ] Support for user account permissions.
+    - [ ] Support for user account ACL.
+    - [ ] Support for user account JWT.
+    - [ ] Support for user account OAuth.
+    - [ ] Support for user account SSO.
+    - [ ] Support for user account MFA.
+    - [ ] Support for user account TOTP.
+    - [ ] Support for user account U2F.
+    - [ ] Support for user account WebAuthn.
+    - [ ] Support for user account SAML.
+    - [ ] Support for user account OIDC.
+    - [ ] Support for user account SCIM.
+    - [ ] Support for user account LDAP.
+    - [ ] Support for user account Kerberos.
+    - [ ] Support for user account NTLM.
+    - [ ] Support for user account RADIUS.
+    - [ ] Support for user account OAuth2.
+    - [ ] Support for user account OpenID.
+    - [ ] Support for user account SAML2.
+    - [ ] Support for user account WS-Federation.
+--
+### 🛠️ Features to Improve or Implement
+- [ ] **Configuration**:
+    - [ ] Add support for environment variables by Docker.
+    - [ ] Implement configuration management for different environments.
+    - [ ] Add support for configuration files.
+    - [ ] Add support for configuration overrides.
+---
+- [ ] **Internacionalization**
+    -  [ ] Implements i18n
+        - [ ] pt
+        - [ ] en
+        - [ ] es
+---
+- [ ] **Enhance Nest.js Logger with wiston and OpenTelemetry**:
+    - [ ] Aspect.js
+    - [ ] Support for expiration time logging.
+    - [ ] Support for size file logging via environment variables.
+    - [ ] Make expiration time configurable via environment variables.
+    - [ ] Log expiration-related events more clearly.
+    - [ ] Add support for different log levels (e.g., debug, info, error).
+    - [ ] Enable structured logging for better log analysis by otel (OpenTelemetry)
+---
+- [ ] **Docker Configuration**:
+    - [ ] Optimize Dockerfile for production builds.
+    - [ ] Optimize Dockerfile for homologation builds.
+    - [ ] Include health checks for Redis and PostgreSQL containers.
+    - [ ] Add volume support for persistent data storage in PostgreSQL.
+---
+- [ ] **Authentication**: Secure user authentication.
+    - [ ] Implement JWT JSON WebTokens.
+    - [ ] Implement token refresh mechanism.
+    - [ ] Support for ACL (Access Control List).
+    - [ ] Implement [OAuth2](https://oauth.net/2/) Authenticator 
+        - [ ] Facebook
+        - [ ] Google
+        - [ ] LinkedIn
+        - [ ] Apple
+---
+- [ ] **Documentation**:
+    - [ ] Provide detailed setup instructions for Docker containers.
+    - [ ] Add examples for using the JWT authentication system.
+    - [ ] Add examples for using OAuth authentication system.
+    - [ ] Include API documentation for key endpoints.
+    - [ ] Compodoc.
+    - [ ] Swagger configured via environment variables.
+---
+- [x] **Testing**:
+    - [ ] Create test to infrastructure
+        - [ ] envorments configuration
+    - [ ] Automock
+---
+- [ ] **Resilience**:
+    - [ ] **Throttling**:
+        - [ ] Handle with multiple request  
+    - [ ] **Idempotence key**:  
+        - [ ] Suporte to idempotence key in RESTful.
+        - [ ] Cache time configurable via environment variables.
+---
+## 🚀 Future Enhancements
+- [ ] **CI/CD Pipeline**: Add automated testing and deployment pipeline.
+    - [ ] ***Code Quality***
+        - [ ] Create server SNYK
+        - [ ] Create server SonarQube
+        - [ ] Configure SNYK
+        - [ ] Configure SonarQube
+        - [ ] Improve tests
+        - [ ] Get 90% coverage
+---
+- [ ] **Monitoring**: Integrate tools like Prometheus or Grafana for system monitoring.
+    - [ ] Configure Grafana
+    - [ ] Configure Protheus
+    - [ ] Integrate Logs
+        - [ ] Divide logs by sections (system, business, database...) 
+---
+- [ ] **Scalability**:
+    - [ ] Implement Redis clustering for enhanced caching performance.
+    - [ ] Support for database replication in PostgreSQL.
+---
+  - [ ] **Handling**:
+    - [ ] Exception filters
+    - [ ] Guards 
+    - [ ] Interceptors 
+    - [ ] Health checks 
+    - [ ] CQRS - Saga
+---
+
+Feel free to contribute or suggest additional improvements!
+
 ## Stay in touch
 
 - Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
