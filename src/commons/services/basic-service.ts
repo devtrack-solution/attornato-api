@@ -4,15 +4,19 @@
 
 import { badRequest } from '@/commons/helpers'
 import { BadRequestException } from '@nestjs/common'
+import { ITransactionContext } from "@/core/ports/transaction-context";
+
+export interface ServiceIntegrate<T, Y> {
+  perform: (data: ITransactionContext<T | any>) => Promise<Y>
+}
 
 export interface Service<T, Y> {
-  perform: (data: T) => Promise<Y>
-  handle: (data: T | any) => Promise<Y>
+  handle: (data: ITransactionContext<T | any>) => Promise<Y>
 }
 export abstract class BasicService<T, Y> implements Service<T, Y> {
-  abstract perform(data: T): Promise<Y>
+  abstract perform(data: ITransactionContext<T | any>): Promise<Y>
 
-  async handle(data: T | any): Promise<Y> {
+  async handle(data: ITransactionContext<T | any>): Promise<Y> {
     try {
       if (data === undefined) {
         badRequest(new BadRequestException())

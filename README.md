@@ -201,8 +201,8 @@ This checklist provides an overview of the project's implemented features and hi
     - [ ] Automock
 ---
 - [ ] **Resilience**:
-    - [ ] **Throttling**:
-        - [ ] Handle with multiple request  
+    - [x] **Throttling**:
+        - [x] Handle with multiple request  
     - [ ] **Idempotence key**:  
         - [ ] Suporte to idempotence key in RESTful.
         - [ ] Cache time configurable via environment variables.

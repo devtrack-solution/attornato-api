@@ -15,6 +15,7 @@ module.exports = [
     },
     ignores: ['node_modules', 'dist', 'coverage', 'requirements', '.vscode', 'jest.config.js', 'jest.integration.config.js', '**/*.js', '{src,apps,libs,test}/**/*.ts'],
     rules: {
+      'unused': 'off',
       'valid-typeof': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       'unused-imports/no-unused-vars': 'off',

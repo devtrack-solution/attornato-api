@@ -21,7 +21,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config test/e2e/jest-e2e.json --detectOpenHandles",
     "test:e2e:cov": "pnpm run test:e2e --coverage",
-    "ci": "pnpm fix-imports && pnpm test && pnpm build"
+    "ci": "pnpm fix-imports && pnpm test && pnpm build",
+    "gs": "ts-node tools/generate-structure.tool.ts"
   },
   "dependencies": {
     "@fastify/middie": "^8.3.3",
