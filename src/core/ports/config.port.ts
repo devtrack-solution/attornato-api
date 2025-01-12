@@ -1,4 +1,4 @@
-import { AppConfig } from '@/domain/app-config.interface'
+import { AppConfig } from '@/application/domain/app-config.interface'
 
 export interface ConfigPort {
   initialize(): AppConfig
