@@ -13,13 +13,30 @@ describe('ConfigLoaderService', () => {
   it('should load default configuration when NODE_ENV is not set', () => {
     const defaultSpy = jest.spyOn(defaultConfig, 'default').mockReturnValue({
       environment: 'DEFAULT',
-      database: { host: 'localhost', port: 5432 },
+      database: {
+        host: 'localhost',
+        port: 5432,
+        name: 'api',
+        user: 'postgres',
+        password: 'postgres',
+        logging: false,
+        logLevel: 'error',
+      },
       apiKey: 'default-key',
       label: 'Default Application',
       appServer: 'http://localhost',
-      port: 3000,
+      apiPort: 3000,
       enableCors: { origin: [], methods: [] },
-      loggerLevel: [],
+      logLevel: 'error',
+      apiHost: '',
+      redis: {
+        host: undefined,
+        port: undefined,
+      },
+      throttling: {
+        ttl: '',
+        limit: '',
+      },
     })
 
     delete process.env.NODE_ENV
@@ -34,13 +51,30 @@ describe('ConfigLoaderService', () => {
   it('should load development configuration when NODE_ENV is "DEVELOPMENT"', () => {
     const developmentSpy = jest.spyOn(developmentConfig, 'default').mockReturnValue({
       environment: 'DEVELOPMENT',
-      database: { host: 'localhost', port: 5432 },
+      database: {
+        host: 'localhost',
+        port: 5432,
+        name: undefined,
+        user: undefined,
+        password: undefined,
+        logging: undefined,
+        logLevel: undefined,
+      },
       apiKey: 'dev-key',
       label: 'Development Application',
       appServer: 'http://localhost',
-      port: 4000,
+      apiPort: 4000,
       enableCors: { origin: [], methods: [] },
-      loggerLevel: [],
+      logLevel: 'error',
+      apiHost: '',
+      redis: {
+        host: undefined,
+        port: undefined,
+      },
+      throttling: {
+        ttl: '',
+        limit: '',
+      },
     })
 
     process.env.NODE_ENV = 'DEVELOPMENT'
@@ -62,6 +96,7 @@ describe('ConfigLoaderService', () => {
       port: 8080,
       enableCors: { origin: [], methods: [] },
       loggerLevel: [],
+      throttling: { ttl: '', limit: '' },
     })
 
     process.env.NODE_ENV = 'PRODUCTION'
