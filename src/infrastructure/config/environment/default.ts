@@ -24,6 +24,7 @@ export default (): AppConfig => ({
   redis: {
     host: process.env.REDIS_HOST || 'localhost',
     port: process.env.REDIS_PORT || 6379,
+    ttl: process.env.REDIS_TTL || 60,
   },
   throttling: {
     ttl: process.env.THROTTLER_TTL || 60,

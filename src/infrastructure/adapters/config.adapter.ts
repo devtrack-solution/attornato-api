@@ -40,6 +40,7 @@ export class ConfigAdapter implements AppConfig {
     return {
       host: this.configService.get<string>('redis.host'),
       port: this.configService.get<number>('redis.port'),
+      ttl: this.configService.get<number>('redis.ttl')!,
     }
   }
   get enableCors(): AppConfig['enableCors'] {

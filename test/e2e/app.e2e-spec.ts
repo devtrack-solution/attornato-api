@@ -1,20 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import request from 'supertest'
-import { AppModule } from '@/app.module'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { RootTestModule } from '@test/root-test.module'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ThrottlerGuard } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core'
-import { HttpStatus } from "@nestjs/common";
+import { HttpStatus } from '@nestjs/common'
 
 describe('AppController (e2e)', () => {
   let app: NestFastifyApplication
   let server: any
   let config: AppConfig
-  let domain: string = 'localhost'
-  let port: number = 3000
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -29,9 +26,9 @@ describe('AppController (e2e)', () => {
 
     app = moduleFixture.createNestApplication<NestFastifyApplication>(new FastifyAdapter())
     await app.init()
-    server = await app.listen(port, domain)
     const configLoaderService: ConfigLoaderService = app.get(ConfigLoaderService)
     config = configLoaderService.initialize()
+    server = await app.listen(config.apiPort, config.apiHost)
   })
 
   afterEach(async () => {
