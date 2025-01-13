@@ -1,5 +1,5 @@
 import * as process from 'node:process'
-import { AppConfig } from '@/domain/app-config.interface'
+import { AppConfig } from '@/application/domain/app-config.interface'
 
 export default (): AppConfig => ({
   environment: process.env.ENVIRONMENT || 'DEVELOPMENT',

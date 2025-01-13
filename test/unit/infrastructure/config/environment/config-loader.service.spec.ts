@@ -38,6 +38,16 @@ describe('ConfigLoaderService', () => {
         ttl: '',
         limit: '',
       },
+      logLevel: 'error',
+      apiHost: '',
+      redis: {
+        host: undefined,
+        port: undefined,
+      },
+      throttling: {
+        ttl: '',
+        limit: '',
+      },
     })
 
     delete process.env.NODE_ENV
@@ -72,6 +82,16 @@ describe('ConfigLoaderService', () => {
         host: undefined,
         port: undefined,
         ttl: '',
+      },
+      throttling: {
+        ttl: '',
+        limit: '',
+      },
+      logLevel: 'error',
+      apiHost: '',
+      redis: {
+        host: undefined,
+        port: undefined,
       },
       throttling: {
         ttl: '',

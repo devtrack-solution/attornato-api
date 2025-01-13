@@ -1,6 +1,6 @@
 import { Injectable, LogLevel } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { AppConfig } from '@/domain/app-config.interface'
+import { AppConfig } from '@/application/domain/app-config.interface'
 import process from 'node:process'
 
 @Injectable()

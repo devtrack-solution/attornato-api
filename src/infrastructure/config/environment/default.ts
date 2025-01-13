@@ -1,4 +1,4 @@
-import { AppConfig } from '@/domain/app-config.interface'
+import { AppConfig } from '@/application/domain/app-config.interface'
 import process from 'node:process'
 
 export default (): AppConfig => ({
