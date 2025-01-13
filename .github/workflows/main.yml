@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: ${{ vars.DISABLE_WORKFLOW != 'true' }}
     runs-on: ubuntu-latest
 
     steps:
