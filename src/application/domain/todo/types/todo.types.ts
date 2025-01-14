@@ -1,4 +1,3 @@
-
 export namespace Todo {
   export type Input = {
     id: string

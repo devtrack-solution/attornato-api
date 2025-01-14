@@ -1,4 +1,3 @@
-
 /**
  * `IClient` interface represents the structure of a client.
  * @example

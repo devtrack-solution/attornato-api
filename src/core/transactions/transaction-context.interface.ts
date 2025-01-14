@@ -1,6 +1,6 @@
-import { IUser } from "@/core/transactions/user.interface";
-import { IClient } from "@/core/transactions/client.interface";
-import { IRole } from "@/core/transactions/role.interface";
+import { IUser } from '@/core/transactions/user.interface'
+import { IClient } from '@/core/transactions/client.interface'
+import { IRole } from '@/core/transactions/role.interface'
 
 /**
  * `TransactionContext` interface represents the structure of a transactions context.
@@ -22,6 +22,6 @@ export interface ITransactionContext<T> {
   user: IUser
   roles: IRole[]
   client: IClient
-  metadata: Record<string,string>[]
+  metadata: Record<string, string>[]
   body: T
 }

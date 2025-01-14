@@ -4,7 +4,7 @@
 
 import { badRequest } from '@/application/commons/helpers'
 import { BadRequestException } from '@nestjs/common'
-import { ITransactionContext } from "@/core/transactions/transaction-context.interface";
+import { ITransactionContext } from '@/core/transactions/transaction-context.interface'
 
 export interface ServiceIntegrate<T, Y> {
   perform: (data: ITransactionContext<T | any>) => Promise<Y>

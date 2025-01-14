@@ -1,5 +1,3 @@
-
-
 export class Todo {
   private id: string
   private name: string
@@ -8,7 +6,7 @@ export class Todo {
   private isActive: boolean
   private height: number
 
-  constructor(props: { id: string, name: string, age: number, birthday: Date, isActive: boolean, height: number }) {
+  constructor(props: { id: string; name: string; age: number; birthday: Date; isActive: boolean; height: number }) {
     this.id = props.id
     this.name = props.name
     this.age = props.age
@@ -48,5 +46,4 @@ export class Todo {
   validateId(id: string): any[] {
     return []
   }
-
 }
