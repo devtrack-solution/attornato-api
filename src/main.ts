@@ -19,6 +19,10 @@ async function bootstrap() {
 
   const fastifyInstance = app.getHttpAdapter().getInstance()
   fastifyInstance.log.level = 'info' // config.logLevel || 'fatal'
+  /*  fastifyInstance.addHook('onSend', async (req, reply, payload) => {
+    console.log('Response payload:', reply)
+    return payload // Return the original or modified payload
+  })*/
   logger.log(`Logger Level fastifyInstance: ${fastifyInstance.log.level}`)
   logger.log(`Logger Level config.logLevel: ${config.logLevel}`)
   const addressString = `${config.appServer}:${config.apiPort}`

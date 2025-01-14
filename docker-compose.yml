@@ -8,6 +8,9 @@ services:
     container_name: api_template
     ports:
       - "${API_PORT:-3000}:${API_PORT:-3000}"
+      - "9229:9229"
+    networks:
+      - backend
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
@@ -34,6 +37,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${DB_PORT}:${DB_PORT}"
+    networks:
+      - backend
     volumes:
       - pg_data:/var/lib/postgresql/data
 
@@ -42,6 +47,8 @@ services:
     container_name: redis_server
     ports:
       - "${REDIS_PORT}:${REDIS_PORT}"
+    networks:
+      - backend
     volumes:
       - redis_data:/data      # Persiste dados do Redis, normalmente no diretório /data
 
@@ -50,3 +57,7 @@ volumes:
   redis_data:
   app_data:
   node_modules:
+
+networks:
+  backend:
+    driver: bridge

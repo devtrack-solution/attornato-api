@@ -13,6 +13,7 @@ COPY setup.sh ./
 
 # Instale as dependências com pnpm
 RUN pnpm install --no-frozen-lockfile
+# RUN pnpm install
 
 # Copie o restante do código-fonte
 COPY . .
@@ -24,4 +25,4 @@ EXPOSE $API_PORT
 ENV NODE_ENV=DEVELOPMENT
 
 # Comando padrão para iniciar a aplicação
-CMD ["pnpm", "run", "start:dev"]
+CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then pnpm run start:debug; else pnpm run start:dev; fi"]
