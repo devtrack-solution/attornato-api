@@ -1,9 +1,8 @@
-// infrastructure/services/redis-cache.service.ts
 import { Injectable, Logger } from '@nestjs/common'
-
 import { RedisClientType, createClient } from 'redis'
-import { DistributedCacheService } from '@/domain/distributed-cache-service.interface'
+
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
+import { DistributedCacheService } from '@/application/domain/distributed-cache-service.interface'
 
 @Injectable()
 export class RedisCacheService implements DistributedCacheService {
@@ -11,8 +10,9 @@ export class RedisCacheService implements DistributedCacheService {
   private client: RedisClientType
 
   constructor(private readonly configLoaderService: ConfigLoaderService) {
-    // this.logger.log('Redis URL: ', `redis://${this.configLoaderService.loadConfig().redis.host}:${this.configLoaderService.loadConfig().redis.port}`)
-    this.logger.log('Redis process.env.REDIS_URL: ', process.env.REDIS_URL)
+    this.logger.debug(`Redis process.env.REDIS_URL: redis://${this.configLoaderService.loadConfig().redis.host}:${this.configLoaderService.loadConfig().redis.port}`)
+    this.logger.debug(`Redis process.env.REDIS_HOST: ${this.configLoaderService.loadConfig().redis.host}`)
+    this.logger.debug(`Redis process.env.REDIS_PORT: ${this.configLoaderService.loadConfig().redis.port}`)
     this.client = createClient({
       url: `redis://${this.configLoaderService.loadConfig().redis.host}:${this.configLoaderService.loadConfig().redis.port}`,
     })

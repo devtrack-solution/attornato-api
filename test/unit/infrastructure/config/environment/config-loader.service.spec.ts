@@ -27,7 +27,6 @@ describe('ConfigLoaderService', () => {
       appServer: 'http://localhost',
       apiPort: 3000,
       enableCors: { origin: [], methods: [] },
-      logLevel: 'error',
       apiHost: '',
       redis: {
         host: undefined,
@@ -35,19 +34,10 @@ describe('ConfigLoaderService', () => {
         ttl: '',
       },
       throttling: {
-        ttl: '',
-        limit: '',
+        ttl: 60,
+        limit: 10,
       },
       logLevel: 'error',
-      apiHost: '',
-      redis: {
-        host: undefined,
-        port: undefined,
-      },
-      throttling: {
-        ttl: '',
-        limit: '',
-      },
     })
 
     delete process.env.NODE_ENV
@@ -76,7 +66,6 @@ describe('ConfigLoaderService', () => {
       appServer: 'http://localhost',
       apiPort: 4000,
       enableCors: { origin: [], methods: [] },
-      logLevel: 'error',
       apiHost: '',
       redis: {
         host: undefined,
@@ -84,19 +73,10 @@ describe('ConfigLoaderService', () => {
         ttl: '',
       },
       throttling: {
-        ttl: '',
-        limit: '',
+        ttl: 60,
+        limit: 10,
       },
       logLevel: 'error',
-      apiHost: '',
-      redis: {
-        host: undefined,
-        port: undefined,
-      },
-      throttling: {
-        ttl: '',
-        limit: '',
-      },
     })
 
     process.env.NODE_ENV = 'DEVELOPMENT'

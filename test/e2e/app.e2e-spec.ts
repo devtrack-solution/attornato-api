@@ -13,15 +13,9 @@ describe('AppController (e2e)', () => {
   let server: any
   let config: AppConfig
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [RootTestModule],
-      providers: [
-        {
-          provide: APP_GUARD,
-          useClass: ThrottlerGuard,
-        },
-      ],
     }).compile()
 
     app = moduleFixture.createNestApplication<NestFastifyApplication>(new FastifyAdapter())
@@ -31,7 +25,7 @@ describe('AppController (e2e)', () => {
     server = await app.listen(config.apiPort, config.apiHost)
   })
 
-  afterEach(async () => {
+  afterAll(async () => {
     await app.close()
   })
 
@@ -44,16 +38,26 @@ describe('AppController (e2e)', () => {
   })
 
   it('should enforce throttling limits on GET /', async () => {
-    const MAX_REQUESTS = config.throttling.limit as number
+    const MAX_REQUESTS = (config.throttling.limit as number) || 10
+    const TTL = (config.throttling.ttl as number) || 60
+
+    console.log('Throttling Config:', config.throttling)
+
     for (let i = 0; i < MAX_REQUESTS; i++) {
-      await request(app.getHttpServer()).get('/')
+      const res = await request(server).get('/')
+      expect(res.status).toBe(HttpStatus.OK)
     }
 
-    const res = await request(app.getHttpServer()).get('/')
+    const res = await request(server).get('/')
+
     expect(res.status).toBe(HttpStatus.TOO_MANY_REQUESTS)
     expect(res.body).toMatchObject({
       statusCode: HttpStatus.TOO_MANY_REQUESTS,
       message: 'ThrottlerException: Too Many Requests',
     })
+
+    await new Promise((resolve) => setTimeout(resolve, TTL * 1000))
+    const retryRes = await request(server).get('/')
+    expect(retryRes.status).toBe(HttpStatus.OK)
   })
 })
