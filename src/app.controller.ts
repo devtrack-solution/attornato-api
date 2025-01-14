@@ -1,15 +1,18 @@
-import { Controller, Get, HttpException } from "@nestjs/common";
+import { Controller, Get, HttpException } from '@nestjs/common'
 import { AppService } from './app.service'
-import { Throttle } from '@nestjs/throttler';
+import { Throttle } from '@nestjs/throttler'
+import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly configLoaderService: ConfigLoaderService,
+  ) {}
 
-  @Throttle({default: { limit: 10, ttl: 60 }})
   @Get()
   getHello(): string {
-      console.log('This endpoint is protected by throttling')
-      return this.appService.getHello()
+    console.log('This endpoint is protected by throttling')
+    return this.appService.getHello()
   }
 }

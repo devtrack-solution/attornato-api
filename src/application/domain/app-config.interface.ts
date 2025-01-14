@@ -1,13 +1,3 @@
-/*
-import { isNumber } from '@nestjs/common/utils/shared.utils'
-
-type DatabaseConfig = Record<'host' | 'port' | 'name' | 'user' | 'password', string | number>
-type RedisConfig = Record<'host' | 'port', string | number>
-
-type AppConfig = Record<'label' | 'appServer' | 'apiHost' | 'apiPort' | 'apiKey' | 'database' | 'redis', string | number | DatabaseConfig | RedisConfig>
-*/
-import { LogLevel } from '@nestjs/common'
-
 export interface AppConfig {
   environment: string | undefined
   label: string | undefined
@@ -27,11 +17,12 @@ export interface AppConfig {
   redis: {
     host: string | undefined
     port: string | number | undefined
-  },
+    ttl: string | number
+  }
   throttling: {
-    ttl: string | number,
-    limit: string | number,
-  },
+    ttl: string | number
+    limit: string | number
+  }
   enableCors: {
     origin: string[] | undefined
     methods: string[] | undefined
