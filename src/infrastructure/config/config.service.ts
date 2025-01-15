@@ -4,7 +4,7 @@ import { AppConfig } from '@/application/domain/app-config.interface'
 import process from 'node:process'
 
 @Injectable()
-export class ConfigAdapter implements AppConfig {
+export class ConfigService implements AppConfig {
   constructor(private readonly configService: ConfigService) {}
 
   get environment(): string | undefined {

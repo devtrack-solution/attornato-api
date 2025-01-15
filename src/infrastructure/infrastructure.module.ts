@@ -1,6 +1,6 @@
 import { forwardRef, Global, Module } from '@nestjs/common'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
-import { RedisCacheService } from '@/infrastructure/services/redis-cache.service'
+import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
 import { IdempotencyMiddleware } from '@/infrastructure/middleware/idempotency.middleware'
 import { CoreModule } from '@/core/core.module'
 
@@ -11,7 +11,7 @@ import { CoreModule } from '@/core/core.module'
     ConfigLoaderService,
     {
       provide: 'DistributedCacheService',
-      useClass: RedisCacheService,
+      useClass: RedisCacheAdapter,
     },
     IdempotencyMiddleware,
   ],

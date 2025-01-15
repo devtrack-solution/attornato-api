@@ -2,7 +2,7 @@ import { ICreateTodoUseCase } from '@/application/domain/todo/use-case/create/cr
 import { ITransactionContext } from '@/core/transactions/transaction-context.interface'
 import { Todo } from '@/application/domain/todo/types/todo.types'
 import { Injectable, Logger } from '@nestjs/common'
-import { ITodoRepository } from '@/application/domain/todo/repositories/todo.repository-interface'
+import { ITodoRepository } from '@/application/domain/todo/ports/todo-repository.port'
 import { BasicService } from '@/application/commons/services/basic-service'
 
 @Injectable()
@@ -14,6 +14,7 @@ export class CreateTodoUseCase extends BasicService<Todo.Input, Todo.Output> imp
   }
   async perform(payload: ITransactionContext<Todo.Input>): Promise<Todo.Output> {
     //const entityFormat convetToEntity.fromDto(payload)
+    // await this.todoRepository.save(payload.body)
     throw new Error('Method not implemented.')
   }
 }

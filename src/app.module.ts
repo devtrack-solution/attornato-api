@@ -8,6 +8,7 @@ import { ConfigLoaderService } from '@/infrastructure/config/config-loader.servi
 import { IdempotencyMiddleware } from '@/infrastructure/middleware/idempotency.middleware'
 import { CoreModule } from '@/core/core.module'
 import { IdempotencySaveInterceptor } from '@/infrastructure/iterceptors/idempotency-save.interceptor'
+import { ApplicationModule } from "@/application/application.module";
 
 @Global()
 @Module({
@@ -25,6 +26,7 @@ import { IdempotencySaveInterceptor } from '@/infrastructure/iterceptors/idempot
     }),
     InfrastructureModule,
     CoreModule,
+    ApplicationModule
   ],
   controllers: [AppController],
   providers: [

@@ -1,8 +1,8 @@
-import { RedisCacheService } from '@/infrastructure/services/redis-cache.service'
+import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 
-describe('RedisCacheService - Test-Driven', () => {
-  let redisCacheService: RedisCacheService
+describe('RedisCacheAdapter - Test-Driven', () => {
+  let redisCacheService: RedisCacheAdapter
   let mockClient: any
   let mockConfigLoaderService: ConfigLoaderService
 
@@ -28,7 +28,7 @@ describe('RedisCacheService - Test-Driven', () => {
       on: jest.fn(),
     }
 
-    redisCacheService = new RedisCacheService(mockConfigLoaderService)
+    redisCacheService = new RedisCacheAdapter(mockConfigLoaderService)
     ;(redisCacheService as any).client = mockClient
   })
 

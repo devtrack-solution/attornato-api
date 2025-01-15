@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { DistributedCacheService } from '@/application/domain/distributed-cache-service.interface'
+import { DistributedCacheService } from '@/application/domain/ports/distributed-cache.port'
 
 @Injectable()
 export class IdempotencyService {

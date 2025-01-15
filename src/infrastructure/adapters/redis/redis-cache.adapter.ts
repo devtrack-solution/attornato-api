@@ -2,11 +2,11 @@ import { Injectable, Logger } from '@nestjs/common'
 import { RedisClientType, createClient } from 'redis'
 
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
-import { DistributedCacheService } from '@/application/domain/distributed-cache-service.interface'
+import { IDistributedCachePort } from '@/application/domain/ports/distributed-cache.port'
 
 @Injectable()
-export class RedisCacheService implements DistributedCacheService {
-  private readonly logger: Logger = new Logger(RedisCacheService.name)
+export class RedisCacheAdapter implements IDistributedCachePort {
+  private readonly logger: Logger = new Logger(RedisCacheAdapter.name)
   private client: RedisClientType
 
   constructor(private readonly configLoaderService: ConfigLoaderService) {
