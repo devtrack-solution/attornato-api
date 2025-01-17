@@ -2,7 +2,11 @@ import { Injectable, Logger } from '@nestjs/common'
 import { RedisClientType, createClient } from 'redis'
 
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
+<<<<<<< Updated upstream:src/infrastructure/adapters/redis/redis-cache.adapter.ts
 import { IDistributedCachePort } from '@/application/domain/ports/distributed-cache.port'
+=======
+import { DistributedCacheService } from '@/domain/distributed-cache-service.interface'
+>>>>>>> Stashed changes:src/infrastructure/services/redis-cache.service.ts
 
 @Injectable()
 export class RedisCacheAdapter implements IDistributedCachePort {

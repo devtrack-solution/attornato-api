@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigPort } from '@/application/domain/ports/config.port'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
-import { AppConfig } from '@/application/domain/app-config.interface'
+import { AppConfig } from '@/domain/app-config.interface'
 
 @Injectable()
 export class ConfigLoaderService implements ConfigPort {

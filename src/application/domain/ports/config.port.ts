@@ -1,4 +1,4 @@
-import { AppConfig } from '@/application/domain/app-config.interface'
+import { AppConfig } from '@/domain/app-config.interface'
 
 export const ConfigPortSymbol = Symbol('ConfigPortSymbol')
 

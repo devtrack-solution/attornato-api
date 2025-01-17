@@ -3,10 +3,10 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import '@/infrastructure/settings/module-alias'
-import { ParseBooleanPipe } from '@/application/commons/utils/parse-boolean-pipe'
+import { ParseBooleanPipe } from '@/commons/utils/parse-boolean-pipe'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
-import { AppConfig } from '@/application/domain/app-config.interface'
+import { AppConfig } from '@/domain/app-config.interface'
 
 async function bootstrap() {
   const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())

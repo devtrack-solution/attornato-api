@@ -1,14 +1,17 @@
-import { Global, MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
+import { Global, MiddlewareConsumer, Module } from '@nestjs/common'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
-import { IdempotencyMiddleware } from '@/infrastructure/middleware/idempotency.middleware'
 import { CoreModule } from '@/core/core.module'
+<<<<<<< Updated upstream
 import { IdempotencySaveInterceptor } from '@/infrastructure/iterceptors/idempotency-save.interceptor'
 import { ApplicationModule } from "@/application/application.module";
+=======
+import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
+import { PresentationModule } from '@/presentation/presentation.module'
+import { ApplicationModule } from '@/application/application.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
+>>>>>>> Stashed changes
 
 @Global()
 @Module({
@@ -25,10 +28,11 @@ import { ApplicationModule } from "@/application/application.module";
       }),
     }),
     InfrastructureModule,
+    PresentationModule,
     CoreModule,
     ApplicationModule
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
     {
       provide: APP_GUARD,
@@ -38,11 +42,10 @@ import { ApplicationModule } from "@/application/application.module";
       provide: APP_INTERCEPTOR,
       useClass: IdempotencySaveInterceptor,
     },
-    AppService,
   ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IdempotencyMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL })
+    // consumer.apply(IdempotencyMiddleware).forRoutes({ path: '/', method: RequestMethod.ALL })
   }
 }

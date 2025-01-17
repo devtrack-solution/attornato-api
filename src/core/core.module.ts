@@ -1,5 +1,5 @@
 import { forwardRef, Module } from '@nestjs/common'
-import { IdempotencyService } from './services/idempotency.service'
+import { IdempotencyService } from '../infrastructure/services/idempotency.service'
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Module({

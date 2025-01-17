@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common'
-import { AppService } from '@/app.service'
-import { AppController } from '@/app.controller'
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service' // Certifique-se do caminho correto
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
-import { IdempotencySaveInterceptor } from '@/infrastructure/iterceptors/idempotency-save.interceptor'
+import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { CoreModule } from '@/core/core.module'
 
 @Module({
@@ -24,7 +22,7 @@ import { CoreModule } from '@/core/core.module'
     InfrastructureModule,
     CoreModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
     {
       provide: APP_GUARD,
@@ -34,8 +32,7 @@ import { CoreModule } from '@/core/core.module'
       provide: APP_INTERCEPTOR,
       useClass: IdempotencySaveInterceptor,
     },
-    AppService,
   ],
-  exports: [AppService],
+  exports: [],
 })
 export class RootTestModule {}
