@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { ConfigPort } from '@/application/domain/ports/config.port'
+import { ConfigPort } from '@/application/ports/config.port'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 import { AppConfig } from '@/domain/app-config.interface'
@@ -8,6 +8,10 @@ import { AppConfig } from '@/domain/app-config.interface'
 export class ConfigLoaderService implements ConfigPort {
   private readonly logger: Logger = new Logger(ConfigLoaderService.name)
   private config: AppConfig | null = null
+
+  constructor() {
+    this.loadConfig()
+  }
 
   initialize(): AppConfig {
     const env = process.env.NODE_ENV || 'default'
@@ -37,5 +41,14 @@ export class ConfigLoaderService implements ConfigPort {
       return this.config
     }
     return this.initialize()
+  }
+
+  configThrottling() {
+    return {
+      throttling: {
+        ttl: 60,
+        limit: 10,
+      },
+    }
   }
 }

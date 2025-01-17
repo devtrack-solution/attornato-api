@@ -1,10 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { IDistributedCachePort } from '@/domain/distributed-cache-service.interface'
+
+import { DistributedCachePortSymbol, IDistributedCachePort } from '@/application/ports/distributed-cache.port'
 
 @Injectable()
 export class IdempotencyService {
   constructor(
-    @Inject('IDistributedCachePort')
+    @Inject(DistributedCachePortSymbol)
     private readonly distributedCache: IDistributedCachePort,
   ) {}
 

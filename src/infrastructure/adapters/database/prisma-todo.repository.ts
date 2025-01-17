@@ -8,10 +8,12 @@ import { Bind } from '@/infrastructure/decorators/bind.decorator'
 export class PrismaTodoRepository implements TodoRepositoryOutboundPort {
   async save(todo: Todo): Promise<void> {
     // Save todo using Prisma ORM
+    console.log('Saving todo:', todo)
   }
 
   async findById(id: string): Promise<Todo | null> {
     // Find todo by ID
+    console.log('Finding todo by Id:', id)
     return null
   }
 }

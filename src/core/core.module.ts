@@ -4,7 +4,7 @@ import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Module({
   imports: [forwardRef(() => InfrastructureModule)],
-  providers: [IdempotencyService],
-  exports: [IdempotencyService],
+  providers: [],
+  exports: [],
 })
 export class CoreModule {}

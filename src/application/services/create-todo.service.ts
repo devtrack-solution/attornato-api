@@ -5,7 +5,10 @@ import { Todo } from '@/domain/todo/entities/todo.entity'
 
 @Injectable()
 export class CreateTodoService implements CreateTodoInboundPort {
-  constructor(@Inject(TodoRepositoryOutboundPortToken) private readonly todoRepository: TodoRepositoryOutboundPort) {}
+  constructor(
+    @Inject(TodoRepositoryOutboundPortToken)
+    private readonly todoRepository: TodoRepositoryOutboundPort,
+  ) {}
 
   async execute(data: { title: string }): Promise<Todo> {
     const todo = new Todo(Date.now().toString(), data.title)
