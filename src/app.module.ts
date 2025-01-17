@@ -3,15 +3,10 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 import { CoreModule } from '@/core/core.module'
-<<<<<<< Updated upstream
-import { IdempotencySaveInterceptor } from '@/infrastructure/iterceptors/idempotency-save.interceptor'
-import { ApplicationModule } from "@/application/application.module";
-=======
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
+import { ApplicationModule } from '@/application/application.module'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PresentationModule } from '@/presentation/presentation.module'
-import { ApplicationModule } from '@/application/application.module'
-import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
->>>>>>> Stashed changes
 
 @Global()
 @Module({
@@ -30,7 +25,7 @@ import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
     InfrastructureModule,
     PresentationModule,
     CoreModule,
-    ApplicationModule
+    ApplicationModule,
   ],
   controllers: [],
   providers: [

@@ -1,8 +1,8 @@
 import { Injectable, NestMiddleware, BadRequestException, Logger } from '@nestjs/common'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
-import { IdempotencyService } from '@/infrastructure/services/idempotency.service'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
+import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 
 @Injectable()
 export class IdempotencyMiddleware implements NestMiddleware {

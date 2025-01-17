@@ -1,10 +1,9 @@
 import { Injectable, LogLevel } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { AppConfig } from '@/domain/app-config.interface'
-import process from 'node:process'
 
 @Injectable()
-export class ConfigService implements AppConfig {
+export class ConfigEnvironmentService implements AppConfig {
   constructor(private readonly configService: ConfigService) {}
 
   get environment(): string | undefined {

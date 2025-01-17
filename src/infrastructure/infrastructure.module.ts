@@ -1,14 +1,10 @@
 import { forwardRef, Global, Module } from '@nestjs/common'
 import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
-<<<<<<< Updated upstream
-import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
-import { IdempotencyMiddleware } from '@/infrastructure/middleware/idempotency.middleware'
-=======
-import { RedisCacheService } from '@/infrastructure/services/redis-cache.service'
-import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
->>>>>>> Stashed changes
+
 import { CoreModule } from '@/core/core.module'
 import { PrismaTodoRepository } from '@/infrastructure/adapters/database/prisma-todo.repository'
+import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
+import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 
 @Global()
 @Module({
@@ -25,6 +21,6 @@ import { PrismaTodoRepository } from '@/infrastructure/adapters/database/prisma-
     },
     IdempotencyMiddleware,
   ],
-  exports: [ConfigLoaderService, 'DistributedCacheService', IdempotencyMiddleware],
+  exports: [ConfigLoaderService, IdempotencyMiddleware],
 })
 export class InfrastructureModule {}

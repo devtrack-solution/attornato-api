@@ -1,9 +1,9 @@
 import { ICreateTodoUseCase } from '@/application/domain/todo/use-case/create/create-todo.use-case-interface'
 import { ITransactionContext } from '@/core/transactions/transaction-context.interface'
-import { Todo } from '@/application/domain/todo/types/todo.types'
 import { Injectable, Logger } from '@nestjs/common'
-import { ITodoRepository } from '@/application/domain/todo/ports/todo-repository.port'
-import { BasicService } from '@/application/commons/services/basic-service'
+import { BasicService } from '@/commons/services/basic-service'
+import { Todo } from '@/domain/todo/types/todo.types'
+import { ITodoRepository } from '@/domain/todo/ports/todo-repository.port'
 
 @Injectable()
 export class CreateTodoUseCase extends BasicService<Todo.Input, Todo.Output> implements ICreateTodoUseCase {

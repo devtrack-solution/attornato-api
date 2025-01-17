@@ -1,7 +1,7 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { IdempotencyService } from '@/infrastructure/services/idempotency.service'
+import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 
 @Injectable()
 export class IdempotencySaveInterceptor implements NestInterceptor {

@@ -1,21 +1,20 @@
-import { Module } from "@nestjs/common";
-import { ConfigPortSymbol } from "@/application/domain/ports/config.port";
-import { ConfigService } from "@/infrastructure/config/config.service";
-
+import { Module } from '@nestjs/common'
+import { ConfigPortSymbol } from '@/application/domain/ports/config.port'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 @Module({
   imports: [],
   providers: [
     {
       provide: ConfigPortSymbol,
-      useClass: ConfigService
-    }
+      useClass: ConfigEnvironmentService,
+    },
   ],
   exports: [
     {
       provide: ConfigPortSymbol,
-      useClass: ConfigService
-    }
+      useClass: ConfigEnvironmentService,
+    },
   ],
 })
 export class ConfigModule {}

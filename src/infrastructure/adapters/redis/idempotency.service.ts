@@ -1,15 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common'
-<<<<<<< Updated upstream:src/core/services/idempotency.service.ts
-import { DistributedCacheService } from '@/application/domain/ports/distributed-cache.port'
-=======
-import { DistributedCacheService } from '@/domain/distributed-cache-service.interface'
->>>>>>> Stashed changes:src/infrastructure/services/idempotency.service.ts
+import { IDistributedCachePort } from '@/domain/distributed-cache-service.interface'
 
 @Injectable()
 export class IdempotencyService {
   constructor(
-    @Inject('DistributedCacheService')
-    private readonly distributedCache: DistributedCacheService,
+    @Inject('IDistributedCachePort')
+    private readonly distributedCache: IDistributedCachePort,
   ) {}
 
   async getKey(key: string): Promise<string | null> {
