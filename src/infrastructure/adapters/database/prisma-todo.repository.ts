@@ -3,7 +3,8 @@ import { type TodoRepositoryOutboundPort } from '@/domain/todo/ports/outbound/to
 import { Injectable } from '@nestjs/common'
 import { Bind } from '@/infrastructure/decorators/bind.decorator'
 
-@Bind(TodoRepositoryOutboundPort, PrismaTodoRepository)
+// @Bind(PrismaTodoRepository, PrismaTodoRepository)
+@Injectable()
 export class PrismaTodoRepository implements TodoRepositoryOutboundPort {
   async save(todo: Todo): Promise<void> {
     // Save todo using Prisma ORM

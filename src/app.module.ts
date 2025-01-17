@@ -22,10 +22,7 @@ import { PresentationModule } from '@/presentation/presentation.module'
         ],
       }),
     }),
-    InfrastructureModule,
     PresentationModule,
-    CoreModule,
-    ApplicationModule,
   ],
   controllers: [],
   providers: [

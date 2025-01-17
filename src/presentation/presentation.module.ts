@@ -5,8 +5,8 @@ import { CreateTodoService } from '@/application/services/todo/create-todo.servi
 
 @Module({
   imports: [ApplicationModule],
-  providers: [CreateTodoService],
+  providers: [ApplicationModule],
   controllers: [TodoHttpController],
-  exports: [CreateTodoService],
+  exports: [ApplicationModule],
 })
 export class PresentationModule {}
