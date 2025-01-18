@@ -1,8 +1,15 @@
+/*
+*  This file contains the base class for the mappers.
+*  The mappers are used to convert the domain entities to the database entities and vice versa.
+*/
+
 export interface IMapper<Y,T> {
   toPersistence(): Y
 }
 
-// Example of a base class implementing the Mapper interface
+/**
+ * Base class for the mappers.
+ */
 export abstract class Mapper<Y, T> implements IMapper<Y, T> {
   /**
    * Implement the toPersistent method for the specific entity.

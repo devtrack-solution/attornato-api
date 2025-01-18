@@ -7,12 +7,12 @@ import { ValidationBuilder, Validator } from "@/core/domain/validators";
 export interface ITodo extends  TodoTypes.Input {}
 
 export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, Validator {
-  private _id!: IdentityVo
-  private _name!: string
-  private _age!: number
-  private _birthday!: Date
-  private _isActive!: boolean
-  private _height!: number
+  private _id!: IdentityVo // deve ser único
+  private _name!: string // deve exitir não ser nulo e ter no máximo 200 caracteres
+  private _age!: number // deve ser maior que 0 e menor que 130
+  private _birthday!: Date // deve ser uma data válida no formato YYYY-MM-DDTHH:MM:SS e deve ser menor que a data atual
+  private _isActive!: boolean // deve ser um booleano
+  private _height!: number // deve ser maior que 10 e menor que 300 metros
 
   private loadData(data: TodoTypes.Input): ITodo {
     this._id = data?.id ? IdentityVo.create(data.id) : IdentityVo.generate()
