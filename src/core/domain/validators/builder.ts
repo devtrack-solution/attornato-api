@@ -1,11 +1,11 @@
-import { type Validator, AllowedMimeTypes, type Extension, MaxFileSize, Required, RequiredBuffer, RequiredString } from '@/commons/validation/index'
-import { DateFormatValidator } from '@/commons/validation/date-format'
-import { EndsWithZeroValidator } from '@/commons/validation/end-zero'
-import { IsEmail } from '@/commons/validation/is-email'
-import { MaxValue } from '@/commons/validation/max-length'
-import { MinValue } from '@/commons/validation/min-length'
-import { IsUUID } from '@/commons/validation/is-uuid'
-import { ExpectedAndRequiredVariable } from '@/commons/validation/ExpectedAndRequiredVariable'
+import { type Validator, AllowedMimeTypes, type Extension, MaxFileSize, Required, RequiredBuffer, RequiredString } from '@/core/domain/validators/index'
+import { DateFormatValidator } from '@/core/domain/validators/date-format'
+import { EndsWithZeroValidator } from '@/core/domain/validators/end-zero'
+import { IsEmail } from '@/core/domain/validators/is-email'
+import { MaxValue } from '@/core/domain/validators/max-length'
+import { MinValue } from '@/core/domain/validators/min-length'
+import { IsUUID } from '@/core/domain/validators/is-uuid'
+import { ExpectedAndRequiredVariable } from '@/core/domain/validators/ExpectedAndRequiredVariable'
 
 export class ValidationBuilder {
   private constructor(
@@ -86,7 +86,7 @@ export class ValidationBuilder {
     return this
   }
 
-  dateFormat(formats?: Array<{ regex: RegExp; description: string }>): ValidationBuilder {
+  dateFormat(formats?: { regex: string; description: string }[]): ValidationBuilder {
     this.validators.push(new DateFormatValidator(this.value, this.fieldName, formats))
     return this
   }

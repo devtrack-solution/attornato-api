@@ -1,4 +1,4 @@
-import { type Validator } from '@/commons/validation/validator'
+import { type Validator } from '@/core/domain/validators/validator'
 import { ValueIsNotValidUuidError } from '@/commons/errors'
 
 /**

@@ -3,7 +3,7 @@
  */
 
 import { type HttpRequest, type HttpResponse, type ResponseError, badRequest, conflict, notfound, serverError, unauthorized } from '@/commons/helpers'
-import { ValidationComposite, type Validator } from '@/commons/validation'
+import { ValidationComposite, type Validator } from '@/core/domain/validators'
 import { BadRequestException, ConflictException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { FastifyRequest as Request, FastifyReply as Response } from 'fastify'
 

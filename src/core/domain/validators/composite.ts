@@ -2,7 +2,7 @@
  * Created by Wilton Oliveira Ferreira on 17/01/2023
  */
 
-import { type Validator } from '@/commons/validation/index'
+import { type Validator } from '@/core/domain/validators/index'
 import { type ResponseError } from '@/commons/helpers'
 
 export class ValidationComposite implements Validator {

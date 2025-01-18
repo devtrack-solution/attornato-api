@@ -3,7 +3,7 @@
  */
 
 import { ValueIsNotValidError, MaxValueError } from '@/commons/errors'
-import { type Validator } from '@/commons/validation/validator'
+import { type Validator } from '@/core/domain/validators/validator'
 
 export class MaxValue implements Validator {
   constructor(

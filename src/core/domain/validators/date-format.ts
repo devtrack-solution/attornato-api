@@ -3,7 +3,7 @@
  */
 
 import { InvalidDateFormatError } from '@/commons/errors'
-import { type Validator } from '@/commons/validation/validator'
+import { type Validator } from '@/core/domain/validators/validator'
 
 export class DateFormatValidator implements Validator {
   private readonly regexPatterns: RegExp[]

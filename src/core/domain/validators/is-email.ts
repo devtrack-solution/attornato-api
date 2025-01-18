@@ -4,7 +4,7 @@
 
 import { ValueIsNotValidEmailError } from '@/commons/errors'
 import validator from 'validator'
-import { type Validator } from '@/commons/validation/validator'
+import { type Validator } from '@/core/domain/validators/validator'
 
 export class IsEmail implements Validator {
   constructor(
