@@ -3,7 +3,7 @@ import { type Validator } from '@/core/domain/validators/validator'
 
 import { z, ZodSchema, ZodString } from "zod";
 
-const dateFormatSchemas: ZodString[] = [
+const defaultFormats: ZodString[] = [
   z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/, { message: 'YYYY-MM-DDTHH:MM:SS' }),
   z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}$/, { message: 'YYYY-MM-DDTHH:MM' }),
   z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: 'YYYY-MM-DD' }),
@@ -23,7 +23,7 @@ export class DateFormatValidator implements Validator {
   ) {}
 
   validate(): Error | undefined {
-    const formatsToCheck = this.customFormats || dateFormatSchemas
+    const formatsToCheck = this.customFormats || defaultFormats
 
     // Verifica se pelo menos um dos schemas aceita o valor
     const isValid = formatsToCheck.some((schema) => {
@@ -32,8 +32,15 @@ export class DateFormatValidator implements Validator {
     })
 
     if (!isValid) {
-      const formatDescriptions = formatsToCheck.map((format) => format.description || 'Custom Format').filter(Boolean)
-      return new InvalidDateFormatError(this.fieldName, formatDescriptions, this.value)
+     // Extract descriptions for the error message
+      const formatDescriptions = this.customFormats?.map((format) => format.description || 'Custom Format')
+        || defaultFormats.map((format) => format.description);
+
+      return new InvalidDateFormatError(
+        this.fieldName,
+        formatDescriptions,
+        this.value
+      );
     }
   }
 }
