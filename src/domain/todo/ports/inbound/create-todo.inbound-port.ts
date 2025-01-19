@@ -1,4 +1,4 @@
-import { TodoTypes } from "@/domain/todo/types/todo.types";
+import { TodoTypes } from '@/domain/todo/types/todo.types'
 
 export const CreateTodoInputPortToken = Symbol.for('CreateTodoInputPortToken')
 

@@ -1,5 +1,5 @@
 export class IdentityVo {
-  private readonly value: string;
+  private readonly value: string
 
   /**
    * Creates a new Identity instance.
@@ -7,8 +7,8 @@ export class IdentityVo {
    * @throws Error if the id is invalid.
    */
   private constructor(id: string) {
-    this.ensureIsValidId(id);
-    this.value = id;
+    this.ensureIsValidId(id)
+    this.value = id
   }
 
   /**
@@ -17,7 +17,7 @@ export class IdentityVo {
    * @returns An Identity instance.
    */
   static create(id: string): IdentityVo {
-    return new IdentityVo(id);
+    return new IdentityVo(id)
   }
 
   /**
@@ -25,8 +25,8 @@ export class IdentityVo {
    * @returns A new Identity instance.
    */
   static generate(): IdentityVo {
-    const uuid = IdentityVo.generateUuid();
-    return new IdentityVo(uuid);
+    const uuid = IdentityVo.generateUuid()
+    return new IdentityVo(uuid)
   }
 
   /**
@@ -34,7 +34,7 @@ export class IdentityVo {
    * @returns The identifier as a string.
    */
   toString(): string {
-    return this.value;
+    return this.value
   }
 
   /**
@@ -43,7 +43,7 @@ export class IdentityVo {
    * @returns True if both identities are equal, false otherwise.
    */
   equals(other: IdentityVo): boolean {
-    return this.value === other.value;
+    return this.value === other.value
   }
 
   /**
@@ -52,14 +52,14 @@ export class IdentityVo {
    * @throws Error if the identifier is invalid.
    */
   private ensureIsValidId(id: string): void {
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
     if (!id || id.trim().length === 0) {
-      throw new Error("Identity cannot be empty.");
+      throw new Error('Identity cannot be empty.')
     }
 
     if (!uuidRegex.test(id)) {
-      throw new Error(`Invalid Identity format: ${id}`);
+      throw new Error(`Invalid Identity format: ${id}`)
     }
   }
 
@@ -68,10 +68,10 @@ export class IdentityVo {
    * @returns A string representing a UUID v4.
    */
   private static generateUuid(): string {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
-      const random = (Math.random() * 16) | 0;
-      const value = char === "x" ? random : (random & 0x3) | 0x8;
-      return value.toString(16);
-    });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+      const random = (Math.random() * 16) | 0
+      const value = char === 'x' ? random : (random & 0x3) | 0x8
+      return value.toString(16)
+    })
   }
 }

@@ -1,5 +1,3 @@
-import { IdentityVo } from "@/core/domain/value-objects/identity.vo";
-
 export namespace TodoTypes {
   export type Input = {
     id?: string

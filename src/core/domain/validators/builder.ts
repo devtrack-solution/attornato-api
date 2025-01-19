@@ -6,6 +6,7 @@ import { MaxValue } from '@/core/domain/validators/max-length'
 import { MinValue } from '@/core/domain/validators/min-length'
 import { IsUUID } from '@/core/domain/validators/is-uuid'
 import { ExpectedAndRequiredVariable } from '@/core/domain/validators/ExpectedAndRequiredVariable'
+import { ZodFormat } from '@/core/utils/zod.util'
 
 export class ValidationBuilder {
   private constructor(
@@ -86,7 +87,7 @@ export class ValidationBuilder {
     return this
   }
 
-  dateFormat(formats?: { regex: string; description: string }[]): ValidationBuilder {
+  dateFormat(formats?: ZodFormat[]): ValidationBuilder {
     this.validators.push(new DateFormatValidator(this.value, this.fieldName, formats))
     return this
   }

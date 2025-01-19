@@ -1,10 +1,9 @@
-import { TodoTypes } from "@/domain/todo/types/todo.types";
-import { Mapper } from "@/domain/mappers/mapper";
-import { IdentityVo } from "@/core/domain/value-objects/identity.vo";
-import { ValidationBuilder, Validator } from "@/core/domain/validators";
+import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { Mapper } from '@/domain/mappers/mapper'
+import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
+import { ValidationBuilder, Validator } from '@/core/domain/validators'
 
-
-export interface ITodo extends  TodoTypes.Input {}
+export interface ITodo extends TodoTypes.Input {}
 
 export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, Validator {
   private _id!: IdentityVo // deve ser único
@@ -85,8 +84,10 @@ export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, 
   }
 
   validate(): Error | undefined {
-    ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' }).dateFormat([{ regex: '^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$', description: 'YYYY-MM-DDTHH:MM:SS'}]).required().build()
-    return undefined;
+    ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
+      .dateFormat([{ regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, description: 'YYYY-MM-DDTHH:MM:SS' }])
+      .required()
+      .build()
+    return undefined
   }
-
 }

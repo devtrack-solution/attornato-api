@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { TodoTypes } from "@/domain/todo/types/todo.types";
+import { TodoTypes } from '@/domain/todo/types/todo.types'
 
 export class CreateTodoDto implements TodoTypes.Input {
   @ApiProperty({ description: 'The name of the todo' })
@@ -14,13 +14,12 @@ export class CreateTodoDto implements TodoTypes.Input {
   isActive!: boolean
 }
 
-export class UpdateTodoDto extends CreateTodoDto implements TodoTypes.Identity {
+export class UpdateTodoDto extends CreateTodoDto implements TodoTypes.Input {
   @ApiProperty({ description: 'The id of the todo' })
-  id!: string;
+  id!: string
 }
 
-
-export class CustomUpdateTodoDto implements TodoTypes.Identity, TodoTypes.CustomInputUpdate {
+export class CustomUpdateTodoDto implements TodoTypes.CustomInputUpdate {
   @ApiProperty({ description: 'The id of the todo' })
   id!: string
 

@@ -71,10 +71,8 @@ export class MaxValueError extends ValueIsNotValidError {
   }
 }
 export class InvalidDateFormatError extends BadRequestException {
-  constructor(fieldName: string, allowedFormats: string[], value?: string) {
-    const formats = allowedFormats.join(', ')
-    const errorMessage = `O valor fornecido para o campo "${fieldName}" não está em um formato válido. Valor atual: "${value}". Formatos permitidos: ${formats}.`
-    super(errorMessage)
+  constructor(fieldName: string, formats: string[], value: string) {
+    super(`O valor fornecido para o campo "${fieldName}" não está em um formato válido. Formatos permitidos: ${formats.join(', ')}. Valor recebido: ${value}.`)
     this.name = 'InvalidDateFormatError'
   }
 }
