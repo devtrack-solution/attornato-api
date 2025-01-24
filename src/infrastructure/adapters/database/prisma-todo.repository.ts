@@ -1,10 +1,11 @@
 import { Todo } from '@/domain/todo/entities/todo.entity'
-import { type TodoRepositoryOutboundPort } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
+import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortToken } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
 import { Injectable } from '@nestjs/common'
 import * as console from 'node:console'
 import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { Bind } from '@/infrastructure/decorators/bind.decorator'
 
-// @Bind(PrismaTodoRepository, PrismaTodoRepository)
+@Bind(TodoRepositoryOutboundPortToken, PrismaTodoRepository)
 @Injectable()
 export class PrismaTodoRepository implements TodoRepositoryOutboundPort {
   async save(todo: Todo): Promise<void> {
