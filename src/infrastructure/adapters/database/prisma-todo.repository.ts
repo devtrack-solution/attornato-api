@@ -1,12 +1,10 @@
 import { Todo } from '@/domain/todo/entities/todo.entity'
-import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortToken } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
-import { Injectable } from '@nestjs/common'
-import * as console from 'node:console'
+import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
 import { TodoTypes } from '@/domain/todo/types/todo.types'
-import { Bind } from '@/infrastructure/decorators/bind.decorator'
+import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
+import { undefined } from 'zod'
 
-@Bind(TodoRepositoryOutboundPortToken, PrismaTodoRepository)
-@Injectable()
+@BindProvider(TodoRepositoryOutboundPortSymbol)
 export class PrismaTodoRepository implements TodoRepositoryOutboundPort {
   async save(todo: Todo): Promise<void> {
     // Save todo using Prisma ORM
@@ -17,5 +15,17 @@ export class PrismaTodoRepository implements TodoRepositoryOutboundPort {
     // Find todo by Criteria
     console.log('Finding todo by Criteria: ', JSON.stringify(props))
     return null
+  }
+
+  delete(id: string): Promise<void> {
+    return Promise.resolve()
+  }
+
+  findAllByCriteria(props: TodoTypes.Criteria): Promise<TodoTypes.Repository[]> {
+    return Promise.resolve([])
+  }
+
+  update(todo: TodoTypes.Input): Promise<void> {
+    return Promise.resolve()
   }
 }

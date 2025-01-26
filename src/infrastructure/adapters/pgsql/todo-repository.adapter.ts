@@ -9,4 +9,16 @@ export class TodoRepositoryAdapter implements TodoRepositoryOutboundPort {
   findByCriteria(props: TodoTypes.Criteria): Promise<TodoTypes.Repository | null> {
     return Promise.resolve(null)
   }
+
+  delete(id: string): Promise<void> {
+    return Promise.resolve()
+  }
+
+  findAllByCriteria(props: TodoTypes.Criteria): Promise<TodoTypes.Repository[]> {
+    return Promise.resolve([])
+  }
+
+  update(todo: TodoTypes.Input): Promise<void> {
+    return Promise.resolve()
+  }
 }

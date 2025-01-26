@@ -5,7 +5,7 @@ import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Global()
 @Module({
-  imports: [ApplicationModule, InfrastructureModule, PresentationModule],
+  imports: [ApplicationModule, InfrastructureModule.forRoot(), PresentationModule],
   controllers: [],
   providers: [],
 })

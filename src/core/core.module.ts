@@ -3,7 +3,7 @@ import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Module({
-  imports: [forwardRef(() => InfrastructureModule)],
+  imports: [forwardRef(() => InfrastructureModule.forRoot())],
   providers: [],
   exports: [],
 })
