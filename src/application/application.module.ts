@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
-import { TodoModule } from '@/application/services/todo.module'
-import { TodoHttpControllerModule } from '@/presentation/controllers/http/todo/todo-http-controller.module'
+import { TodoModule } from '@/application/services/todo/todo.module'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 
 @Module({

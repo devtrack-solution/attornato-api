@@ -3,18 +3,23 @@ import { CreateTodoInboundPort } from '@/domain/todo/ports/inbound/create-todo.i
 import { TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
 import { TodoTypes } from '@/domain/todo/types/todo.types'
 import { Todo } from '@/domain/todo/entities/todo.entity'
+import { TodoCreatedEvent, TodoCreatedEventSymbol } from '@/application/services/todo/todo-created.event'
+import { EventBase } from '@/core/event/event-base.emitter'
 
 @Injectable()
 export class CreateTodoService implements CreateTodoInboundPort {
   constructor(
     @Inject(TodoRepositoryOutboundPortSymbol)
     private readonly todoRepository: TodoRepositoryOutboundPort,
+    private readonly eventBase: EventBase,
   ) {}
 
   async execute(data: TodoTypes.Input): Promise<TodoTypes.Output> {
     let todo = new Todo(data)
 
     await this.todoRepository.save(todo.toPersistence())
+    const event = new TodoCreatedEvent(todo)
+    this.eventBase.emit(TodoCreatedEventSymbol, event)
     return todo
   }
 }

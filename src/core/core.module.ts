@@ -1,10 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common'
-import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
+import { EventBase } from '@/core/event/event-base.emitter'
 
 @Module({
   imports: [forwardRef(() => InfrastructureModule.forRoot())],
-  providers: [],
-  exports: [],
+  providers: [EventBase],
+  exports: [EventBase],
 })
 export class CoreModule {}
