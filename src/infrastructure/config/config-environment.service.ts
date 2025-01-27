@@ -1,57 +1,57 @@
 import { Injectable, LogLevel } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { AppConfig } from '@/domain/app-config.interface'
+import process from 'node:process'
 
 @Injectable()
 export class ConfigEnvironmentService implements AppConfig {
-  constructor(private readonly configService: ConfigService) {}
+  constructor() {}
 
   get environment(): string | undefined {
-    return this.configService.get<string>('environment')
+    return process.env.ENVIRONMENT || 'DEVELOPMENT'
   }
   get label(): string | undefined {
-    return this.configService.get<string>('label')
+    return process.env.LABEL
   }
   get appServer(): string | undefined {
-    return this.configService.get<string>('appServer')
+    return process.env.APP_SERVER
   }
   get apiHost(): string {
-    return this.configService.get<string>('apiHost') || '0.0.0.0'
+    return process.env.API_HOST || '0.0.0.0'
   }
   get apiPort(): number {
-    return this.configService.get<number>('apiPort') || 3000
+    return Number(process.env.API_PORT) || 3000
   }
   get apiKey(): string | undefined {
-    return this.configService.get<string>('apiKey')
+    return process.env.API_KEY
   }
   get database(): AppConfig['database'] {
     return {
-      host: this.configService.get<string>('database.host'),
-      port: this.configService.get<number>('database.port'),
-      name: this.configService.get<string>('database.name'),
-      user: this.configService.get<string>('database.user'),
-      password: this.configService.get<string>('database.password'),
-      logging: this.configService.get<boolean>('database.logging'),
-      logLevel: this.configService.get<string>('database.logLevel'),
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT || 5432,
+      name: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      logging: process.env.DB_LOGGING === 'true',
+      logLevel: process.env.DB_LOG_LEVEL,
     }
   }
   get redis(): AppConfig['redis'] {
     return {
-      host: this.configService.get<string>('redis.host'),
-      port: this.configService.get<number>('redis.port'),
-      ttl: this.configService.get<number>('redis.ttl')!,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT || 6379,
+      ttl: process.env.REDIS_TTL || 60,
     }
   }
   get enableCors(): AppConfig['enableCors'] {
     return {
-      origin: this.configService.get<string[]>('enableCors.origin'),
-      methods: this.configService.get<string[]>('enableCors.methods'),
+      origin: process.env.ENABLE_CORS_ORIGIN?.split(',') || [],
+      methods: process.env.ENABLE_CORS_METHODS?.split(',') || [],
     }
   }
   get throttling(): AppConfig['throttling'] {
     return {
-      ttl: this.configService.get<number>('throttling.ttl')!,
-      limit: this.configService.get<number>('throttling.limit')!,
+      ttl: process.env.THROTTLER_TTL || 60,
+      limit: process.env.THROTTLER_LIMIT || 10,
     }
   }
   /**
@@ -60,7 +60,13 @@ export class ConfigEnvironmentService implements AppConfig {
    * Initial type:
    * "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "silent" | string
    */
-  get logLevel(): string {
-    return this.configService.get<string>('logLevel') || 'fatal'
+  get logLevel(): string[] {
+    return process.env.LOG_LEVEL?.split(',') || ['log', 'error', 'warn', 'debug', 'verbose']
+  }
+
+  get fastify(): AppConfig['fastify'] {
+    return {
+      logLevel: process.env.FASTIFY_LOG_LEVEL || 'info',
+    }
   }
 }

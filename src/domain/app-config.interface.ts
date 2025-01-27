@@ -27,5 +27,8 @@ export interface AppConfig {
     origin: string[] | undefined
     methods: string[] | undefined
   }
-  logLevel: string
+  logLevel: string[]
+  fastify: {
+    logLevel: string
+  }
 }

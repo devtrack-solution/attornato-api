@@ -5,31 +5,29 @@ import { AppModule } from './app.module'
 import '@/infrastructure/settings/module-alias'
 import { ParseBooleanPipe } from '@/commons/utils/parse-boolean-pipe'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
-import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 import { AppConfig } from '@/domain/app-config.interface'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 async function bootstrap() {
-  const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
-  app.useGlobalPipes(new ParseBooleanPipe())
-  const configLoaderService: ConfigLoaderService = app.get(ConfigLoaderService)
-  const config: AppConfig = configLoaderService.initialize()
-  // const loggerLevels: LogLevel[] = config.loggerLevels || ['log', 'error', 'warn', 'debug', 'verbose']
+  const config: AppConfig = new ConfigEnvironmentService()
 
-  const logger = new Logger('bootstrap')
+  if (!config) {
+    throw new Error('Configuration service is not available')
+  }
+
+  const loggerLevels: LogLevel[] = config.logLevel as LogLevel[]
+  const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { logger: loggerLevels })
+  app.useGlobalPipes(new ParseBooleanPipe())
 
   const fastifyInstance = app.getHttpAdapter().getInstance()
-  fastifyInstance.log.level = 'info' // config.logLevel || 'fatal'
-  /*  fastifyInstance.addHook('onSend', async (req, reply, payload) => {
-    console.log('Response payload:', reply)
-    return payload // Return the original or modified payload
-  })*/
+  fastifyInstance.log.level = config.fastify.logLevel || 'warn'
+  const logger = new Logger('bootstrap')
   logger.log(`Logger Level fastifyInstance: ${fastifyInstance.log.level}`)
   logger.log(`Logger Level config.logLevel: ${config.logLevel}`)
   const addressString = `${config.appServer}:${config.apiPort}`
   logger.log(`Current Environment: ${config.environment}`)
   logger.log(`Database Host: ${config.database.host}`)
   logger.log(`App Server: ${config.appServer}`)
-  logger.verbose(`Config: ${JSON.stringify(config)}`)
 
   app.enableCors({
     origin: config.enableCors.origin,

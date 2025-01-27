@@ -1,8 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { ApplicationModule } from '@/application/application.module'
-import { ConfigModule } from '@/infrastructure/config/config.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
-import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service'
 import { TodoHttpControllerModule } from '@/presentation/controllers/http/todo/todo-http-controller.module'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'

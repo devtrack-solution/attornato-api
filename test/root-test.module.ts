@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
-import { ConfigLoaderService } from '@/infrastructure/config/config-loader.service' // Certifique-se do caminho correto
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
@@ -9,12 +8,12 @@ import { CoreModule } from '@/core/core.module'
 @Module({
   imports: [
     ThrottlerModule.forRootAsync({
-      inject: [ConfigLoaderService],
-      useFactory: (configService: ConfigLoaderService) => ({
+      inject: [],
+      useFactory: () => ({
         throttlers: [
           {
-            ttl: (configService.loadConfig().throttling.ttl as number) || 60,
-            limit: (configService.loadConfig().throttling.limit as number) || 10,
+            ttl: 60,
+            limit: 10,
           },
         ],
       }),

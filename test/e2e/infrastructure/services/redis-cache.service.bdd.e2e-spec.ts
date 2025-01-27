@@ -1,23 +1,16 @@
 import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 describe('RedisCacheAdapter - Behavior-Driven', () => {
   let redisCacheService: RedisCacheAdapter
   let mockClient: any
-  let mockConfigLoaderService: any
+  let mockConfigEnvironmentService: any
 
   beforeEach(() => {
     jest.spyOn(console, 'log').mockImplementation(() => {})
     jest.spyOn(console, 'error').mockImplementation(() => {})
 
-    mockConfigLoaderService = {
-      loadConfig: jest.fn().mockReturnValue({
-        redis: {
-          host: 'localhost',
-          port: 6379,
-          ttl: 600,
-        },
-      }),
-    }
+    mockConfigEnvironmentService = new ConfigEnvironmentService()
 
     mockClient = {
       connect: jest.fn().mockResolvedValue(undefined),
@@ -28,7 +21,7 @@ describe('RedisCacheAdapter - Behavior-Driven', () => {
       on: jest.fn(),
     }
 
-    redisCacheService = new RedisCacheAdapter(mockConfigLoaderService)
+    redisCacheService = new RedisCacheAdapter(mockConfigEnvironmentService)
     ;(redisCacheService as any).client = mockClient
   })
 
@@ -42,7 +35,7 @@ describe('RedisCacheAdapter - Behavior-Driven', () => {
 
     await redisCacheService.set(key, value)
 
-    expect(mockClient.set).toHaveBeenCalledWith(key, JSON.stringify(value), expect.objectContaining({ EX: 600 }))
+    expect(mockClient.set).toHaveBeenCalledWith(key, JSON.stringify(value), expect.objectContaining({ EX: 60 }))
   })
 
   it('should retrieve a value from the cache', async () => {
