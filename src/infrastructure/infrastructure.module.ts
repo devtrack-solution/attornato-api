@@ -3,6 +3,8 @@ import path from 'path'
 import { getAllFiles, REGISTERED_PROVIDERS } from '@/infrastructure/decorators/bind.decorator'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { AdapterModule } from '@/infrastructure/adapters/adapter.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
 
 @Global()
 @Module({})
@@ -77,7 +79,7 @@ export class InfrastructureModule implements NestModule {
 
         this.instance = {
           global: true,
-          imports: [AdapterModule],
+          imports: [AdapterModule, TypeOrmModule.forRoot(typeOrmConfig), TypeOrmModule.forFeature([])],
           module: InfrastructureModule,
           providers,
           exports: [AdapterModule, ...toExport],

@@ -6,13 +6,15 @@ export interface AppConfig {
   apiPort: string | number
   apiKey: string | undefined
   database: {
+    type: string
     host: string | undefined
-    port: string | number | undefined
+    port: string | number
     name: string | undefined
     user: string | undefined
     password: string | undefined
     logging: boolean | undefined
-    logLevel: string | undefined
+    logLevel: string[]
+    sync: boolean | undefined
   }
   redis: {
     host: string | undefined
