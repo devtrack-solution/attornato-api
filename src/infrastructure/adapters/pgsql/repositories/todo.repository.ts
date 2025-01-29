@@ -1,5 +1,5 @@
 import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
-import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { TodoType } from '@/domain/todo/types/todo.type'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { DataSource, Repository } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
@@ -14,7 +14,7 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
     super(TodoEntity, dataSource.createEntityManager(), dataSource.createQueryRunner())
   }
 
-  async saveObject(todo: Partial<TodoTypes.Input>): Promise<void> {
+  async saveObject(todo: Partial<TodoType.Input>): Promise<void> {
     try {
       await this.save(todo)
     } catch (e) {
@@ -23,7 +23,7 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
     }
   }
 
-  async findByCriteria(props: TodoTypes.Criteria): Promise<TodoTypes.Repository | null> {
+  async findByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository> | null> {
     try {
       return await this.findOneBy(props)
     } catch (e) {
@@ -43,7 +43,7 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
     }
   }
 
-  async findAllByCriteria(props: TodoTypes.Criteria): Promise<TodoTypes.Repository[]> {
+  async findAllByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository>[]> {
     try {
       return await this.findBy(props)
     } catch (e) {
@@ -52,7 +52,7 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
     }
   }
 
-  async updateObject(todo: Partial<TodoTypes.Input>): Promise<void> {
+  async updateObject(todo: Partial<TodoType.Input>): Promise<void> {
     try {
       const loadTodo = await this.findOneBy({ id: todo.id })
       if (!loadTodo) {

@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:docker": "docker compose -f /Volumes/WORKSPACE/LABORATORIOS/api-template/docker-compose.yml -p api-template up -d",
+    "start:docker": "docker compose -f docker-compose.yml -p api-template up -d",
     "start:dev": "nest start --watch --poll=1000",
     "start:debug": "nest start --debug 0.0.0.0:9229 --watch",
     "start:prod": "node dist/main",

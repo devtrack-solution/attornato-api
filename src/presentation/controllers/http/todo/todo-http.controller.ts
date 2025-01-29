@@ -1,7 +1,9 @@
-import { Controller, Post, Body, Inject, Get } from '@nestjs/common'
+import { Controller, Post, Body, Inject, Get, Put, Param } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger'
 import { CreateTodoInboundPort, CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
-import { CreateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-todo.dto'
+import { CreateTodoDto, UpdateTodoDto } from "@/presentation/controllers/http/todo/dtos/create-todo.dto";
+import { TodoType } from "@/domain/todo/types/todo.type";
+import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
 
 @ApiTags('todos')
 @ApiHeader({
@@ -11,13 +13,20 @@ import { CreateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-
 })
 @Controller('todos')
 export class TodoHttpController {
-  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort) {}
+  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort<TodoType.Input, TodoType.Output>, @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort<TodoType.Input, TodoType.Output>) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new Todo' })
   @ApiResponse({ status: 201, description: 'The todo has been created.' })
   async create(@Body() body: CreateTodoDto) {
     return this.createTodoService.execute(body)
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Update a new Todo' })
+  @ApiResponse({ status: 200, description: 'The todo has been updated.' })
+  async update(@Param('id') id: string, @Body() body: UpdateTodoDto) {
+    return this.updateTodoService.execute({ ...body, id })
   }
 
   @Get()

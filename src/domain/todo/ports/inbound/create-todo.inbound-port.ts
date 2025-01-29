@@ -1,7 +1,5 @@
-import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { IInboundPort } from "@/core/domain/ports/inbound/inbound.port";
 
 export const CreateTodoInputPortToken = Symbol.for('CreateTodoInputPortToken')
 
-export interface CreateTodoInboundPort {
-  execute: (data: TodoTypes.Input) => Promise<TodoTypes.Output>
-}
+export interface CreateTodoInboundPort<Y,T> extends IInboundPort<Y,T> {}

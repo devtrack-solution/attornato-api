@@ -1,12 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
-import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { TodoType } from '@/domain/todo/types/todo.type'
 import { EntityBase } from "@/infrastructure/adapters/pgsql/entities/entity-base";
 
 @Entity('todos')
-export class TodoEntity extends EntityBase implements TodoTypes.Repository {
-  @PrimaryColumn({ type: 'uuid' })
-  id!: string
-
+export class TodoEntity extends EntityBase implements TodoType.Repository {
   @Column()
   name!: string
 

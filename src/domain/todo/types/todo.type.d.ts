@@ -1,10 +1,11 @@
-export namespace TodoTypes {
+export namespace TodoType {
   export type Input = {
     id?: string
     name: string
+    email: string
     age: number
     birthday: Date
-    enable?: boolean
+    enable: boolean
     height: number
   }
 

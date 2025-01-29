@@ -1,30 +1,40 @@
-import { TodoTypes } from '@/domain/todo/types/todo.types'
+import { TodoType } from '@/domain/todo/types/todo.type'
 import { Mapper } from '@/domain/mappers/mapper'
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { ValidationBuilder, Validator } from '@/core/domain/validators'
 
-export interface ITodo extends TodoTypes.Input {}
 
-export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, Validator {
+export interface IEntity<Y,T> {
+  equals(other: Y): boolean
+  toPersistence(): T
+  toJson(): T
+}
+
+export interface ITodo<Y,T> extends IEntity<Y,T> {
+}
+
+export class Todo extends Mapper<TodoType.Repository, ITodo<TodoType.Input, TodoType.Output>> implements ITodo<TodoType.Input, TodoType.Output>, Validator {
   private _id!: IdentityVo // deve ser único
   private _name!: string // deve exitir não ser nulo e ter no máximo 200 caracteres
+  private _email!: string
   private _age!: number // deve ser maior que 0 e menor que 130
   private _birthday!: Date // deve ser uma data válida no formato YYYY-MM-DDTHH:MM:SS e deve ser menor que a data atual
-  private _isActive!: boolean // deve ser um booleano
+  private _enable!: boolean // deve ser um booleano
   private _height!: number // deve ser maior que 10 e menor que 300 metros
 
-  private loadData(data: TodoTypes.Input): ITodo {
+  private loadData(data: TodoType.Input): TodoType.Output {
     this._id = data?.id ? IdentityVo.create(data.id) : IdentityVo.generate()
     this._name = data.name
+    this._email = data.email
     this._age = data.age
     this._birthday = data.birthday
-    this._isActive = data.isActive
+    this._enable = data.enable
     this._height = data.height
 
     return this
   }
 
-  constructor(props: TodoTypes.Input) {
+  constructor(props: TodoType.Input) {
     super()
     this.loadData(props)
   }
@@ -37,6 +47,10 @@ export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, 
     return this._name
   }
 
+  get email(): string {
+    return this._email
+  }
+
   get age(): number {
     return this._age
   }
@@ -45,26 +59,39 @@ export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, 
     return this._birthday
   }
 
-  get isActive(): boolean {
-    return this._isActive
+  get enable(): boolean {
+    return this._enable
   }
 
   get height(): number {
     return this._height
   }
 
-  toPersistence(): TodoTypes.Output {
+  toPersistence(): TodoType.Output {
     return {
       id: this.id,
       name: this.name,
+      email: this.email,
       age: this.age,
       birthday: this.birthday,
-      isActive: this.isActive,
+      enable: this.enable,
       height: this.height,
     }
   }
 
-  static override fromRepositoryToDomain(data: TodoTypes.Repository): ITodo {
+  toJson(): TodoType.Output {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      age: this.age,
+      birthday: this.birthday,
+      enable: this.enable,
+      height: this.height,
+    }
+  }
+
+  static override fromRepositoryToDomain(data: TodoType.Repository): TodoType.Output {
     return new Todo(data)
   }
 
@@ -73,7 +100,7 @@ export class Todo extends Mapper<TodoTypes.Repository, ITodo> implements ITodo, 
    * @param other - Another Identity instance.
    * @returns True if both identities are equal, false otherwise.
    */
-  equals(other: ITodo): boolean {
+  equals(other: TodoType.Input): boolean {
     if (!other) {
       return false
     } else if (other.id === undefined) {

@@ -1,4 +1,4 @@
-import { TodoCreatedEvent, TodoCreatedEventSymbol } from '@/application/services/todo/todo-created.event'
+import { TodoCreatedEvent, TodoCreatedEventSymbol } from '@/application/services/todo/events/todo-created.event'
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 

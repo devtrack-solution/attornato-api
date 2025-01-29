@@ -2,9 +2,12 @@
  * Created by Wilton Oliveira Ferreira on 24/01/2023
  */
 
-import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn, PrimaryColumn } from "typeorm";
 
 export abstract class EntityBase extends BaseEntity {
+  @PrimaryColumn({ type: 'uuid' })
+  id!: string
+
   @CreateDateColumn({ name: 'created_at' })
   @Index({ unique: false })
   createdAt!: Date
@@ -24,7 +27,7 @@ export abstract class EntityBase extends BaseEntity {
     default: true,
   })
   @Index({ unique: false })
-  enable?: boolean
+  enable!: boolean
 
   @Column({ name: 'last_change_by_user_id', nullable: true })
   @Index({ unique: false })

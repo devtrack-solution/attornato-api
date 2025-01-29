@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common'
-import { TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
-import { TodoRepository } from '@/infrastructure/adapters/pgsql/repositories/todo.repository'
 import { CreateTodoService } from '@/application/services/todo/create-todo.service'
 import { CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
-import { TodoCreatedListener } from '@/application/services/todo/todo-created.listener'
-import { TodoCreatedEvent, TodoCreatedEventSymbol } from '@/application/services/todo/todo-created.event'
-import { EventBase } from '@/core/event/event-base.emitter'
+import { TodoCreatedListener } from '@/application/services/todo/listeners/todo-created.listener'
+import { TodoCreatedEventSymbol } from '@/application/services/todo/events/todo-created.event'
 import { CoreModule } from '@/core/core.module'
+import { UpdateTodoInputPortToken } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
+import { UpdateTodoService } from "@/application/services/todo/update-todo.service";
 
 @Module({
   imports: [CoreModule],
@@ -14,6 +13,10 @@ import { CoreModule } from '@/core/core.module'
     {
       provide: CreateTodoInputPortToken,
       useClass: CreateTodoService,
+    },
+    {
+      provide: UpdateTodoInputPortToken,
+      useClass: UpdateTodoService,
     },
     {
       provide: TodoCreatedEventSymbol,
@@ -24,6 +27,10 @@ import { CoreModule } from '@/core/core.module'
     {
       provide: CreateTodoInputPortToken,
       useClass: CreateTodoService,
+    },
+    {
+      provide: UpdateTodoInputPortToken,
+      useClass: UpdateTodoService,
     },
     {
       provide: TodoCreatedEventSymbol,
