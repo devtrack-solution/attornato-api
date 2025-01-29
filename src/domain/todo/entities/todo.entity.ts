@@ -3,15 +3,13 @@ import { Mapper } from '@/domain/mappers/mapper'
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { ValidationBuilder, Validator } from '@/core/domain/validators'
 
-
-export interface IEntity<Y,T> {
+export interface IEntity<Y, T> {
   equals(other: Y): boolean
   toPersistence(): T
   toJson(): T
 }
 
-export interface ITodo<Y,T> extends IEntity<Y,T> {
-}
+export interface ITodo<Y, T> extends IEntity<Y, T> {}
 
 export class Todo extends Mapper<TodoType.Repository, ITodo<TodoType.Input, TodoType.Output>> implements ITodo<TodoType.Input, TodoType.Output>, Validator {
   private _id!: IdentityVo // deve ser único
@@ -37,6 +35,7 @@ export class Todo extends Mapper<TodoType.Repository, ITodo<TodoType.Input, Todo
   constructor(props: TodoType.Input) {
     super()
     this.loadData(props)
+    this.validate()
   }
 
   get id(): string {
@@ -110,11 +109,10 @@ export class Todo extends Mapper<TodoType.Repository, ITodo<TodoType.Input, Todo
     }
   }
 
-  validate(): Error | undefined {
+  validate(): void {
     ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
       .dateFormat([{ regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, description: 'YYYY-MM-DDTHH:MM:SS' }])
       .required()
       .build()
-    return undefined
   }
 }

@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Inject, Get, Put, Param } from "@nestjs/common";
+import { Controller, Post, Body, Inject, Get, Put, Param, UseFilters } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger'
 import { CreateTodoInboundPort, CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
-import { CreateTodoDto, UpdateTodoDto } from "@/presentation/controllers/http/todo/dtos/create-todo.dto";
-import { TodoType } from "@/domain/todo/types/todo.type";
-import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
+import { CreateTodoDto, UpdateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-todo.dto'
+import { TodoType } from '@/domain/todo/types/todo.type'
+import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
+import { ValidationErrorResponse, ValidationExceptionFilter } from '@/presentation/filters/validation-exception.filter'
 
 @ApiTags('todos')
 @ApiHeader({
@@ -11,13 +12,22 @@ import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from "@/domain/todo/p
   description: 'A unique key to ensure idempotency for the request',
   required: true,
 })
+@UseFilters(ValidationExceptionFilter)
 @Controller('todos')
 export class TodoHttpController {
-  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort<TodoType.Input, TodoType.Output>, @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort<TodoType.Input, TodoType.Output>) {}
+  constructor(
+    @Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort<TodoType.Input, TodoType.Output>,
+    @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort<TodoType.Input, TodoType.Output>,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new Todo' })
   @ApiResponse({ status: 201, description: 'The todo has been created.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation error',
+    type: ValidationErrorResponse,
+  })
   async create(@Body() body: CreateTodoDto) {
     return this.createTodoService.execute(body)
   }
