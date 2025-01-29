@@ -13,7 +13,7 @@ import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from "@/domain/todo/p
 })
 @Controller('todos')
 export class TodoHttpController {
-  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort<TodoType.Input, TodoType.Output>, @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort<TodoType.Input, TodoType.Output>) {}
+  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort, @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new Todo' })

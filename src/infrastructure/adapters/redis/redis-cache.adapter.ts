@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { RedisClientType, createClient } from 'redis'
 
 import { IDistributedCachePort } from '@/application/ports/distributed-cache.port'

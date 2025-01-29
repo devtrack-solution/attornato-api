@@ -2,18 +2,19 @@ import { TodoType } from '@/domain/todo/types/todo.type'
 import { Mapper } from '@/domain/mappers/mapper'
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { ValidationBuilder, Validator } from '@/core/domain/validators'
+import { IEntity } from "@/core/domain/business-objects/entity.bo";
 
 
-export interface IEntity<Y,T> {
-  equals(other: Y): boolean
-  toPersistence(): T
-  toJson(): T
-}
+/**
+ * Interface representing a Todo entity with methods for equality check,
+ * persistence conversion, and JSON conversion.
+ *
+ * @template Y - The type of the input data.
+ * @template T - The type of the output data.
+ */
+export interface ITodo extends IEntity<TodoType.Input, TodoType.Output> {}
 
-export interface ITodo<Y,T> extends IEntity<Y,T> {
-}
-
-export class Todo extends Mapper<TodoType.Repository, ITodo<TodoType.Input, TodoType.Output>> implements ITodo<TodoType.Input, TodoType.Output>, Validator {
+export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, Validator {
   private _id!: IdentityVo // deve ser único
   private _name!: string // deve exitir não ser nulo e ter no máximo 200 caracteres
   private _email!: string

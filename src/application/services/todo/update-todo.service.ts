@@ -6,11 +6,11 @@ import {
   TodoRepositoryOutboundPortSymbol
 } from "@/domain/todo/ports/outbound/todo-repository.outbound-port";
 import { EventBase } from "@/core/event/event-base.emitter";
-import { Todo } from "@/domain/todo/entities/todo.entity";
+import { Todo } from "@/domain/todo/business-objects/todo.bo";
 import { TodoUpdatedEvent, TodoUpdatedEventSymbol } from "@/application/services/todo/events/todo-update.event";
 
 @Injectable()
-export class UpdateTodoService implements CreateTodoInboundPort<TodoType.Input, TodoType.Output> {
+export class UpdateTodoService implements CreateTodoInboundPort {
   constructor(
     @Inject(TodoRepositoryOutboundPortSymbol)
     private readonly todoRepository: TodoRepositoryOutboundPort,
