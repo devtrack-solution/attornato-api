@@ -32,9 +32,11 @@ export class ConfigEnvironmentService implements AppConfig {
       name: process.env.DB_NAME,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      logging: process.env.DB_LOGGING === 'true',
+      debug: process.env.DB_DEBUG === 'true',
       logLevel: process.env.DB_LOG_LEVEL?.split(',') || [],
       sync: process.env.DB_SYNC === 'true',
+      format: process.env.DB_LOG_FORMAT,
+      timezone: process.env.DB_TIMEZONE,
     }
   }
   get redis(): AppConfig['redis'] {

@@ -23,6 +23,10 @@
     "test:e2e:cov": "pnpm run test:e2e --coverage",
     "ci": "pnpm fix-imports && pnpm test && pnpm build",
     "gs": "ts-node tools/generate-structure.tool.ts",
+    "typeorm": "typeorm-ts-node-esm",
+    "typeorm:migration:generate": "pnpm typeorm migration:generate -d src/infrastructure/config/typeorm.config.ts -n",
+    "typeorm:migration:run": "pnpm typeorm migration:run -d src/infrastructure/config/typeorm.config.ts",
+    "typeorm:migration": "pnpm run typeorm:migration:generate -- $npm_config_message && pnpm run typeorm:migration:run",
     "prepare": "husky"
   },
   "dependencies": {

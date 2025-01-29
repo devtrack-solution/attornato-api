@@ -26,8 +26,11 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: config.database.user,
   password: config.database.password,
   database: config.database.name,
-  entities: [__dirname + '/../database/entities/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
+  entities: [__dirname + '/../adapters/pgsql/entities/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../adapters/pgsql/migrations/*{.ts,.js}'],
   synchronize: config.database.sync,
   logging: parseLogLevels(config.database.logLevel),
+  logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
+  timezone: config.database.timezone,
+  debug: config.database.debug,
 }

@@ -12,9 +12,11 @@ export interface AppConfig {
     name: string | undefined
     user: string | undefined
     password: string | undefined
-    logging: boolean | undefined
+    debug: boolean | undefined
     logLevel: string[]
     sync: boolean | undefined
+    format: string | undefined
+    timezone: string | undefined
   }
   redis: {
     host: string | undefined

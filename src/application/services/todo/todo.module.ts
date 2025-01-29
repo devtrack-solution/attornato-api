@@ -12,10 +12,6 @@ import { CoreModule } from '@/core/core.module'
   imports: [CoreModule],
   providers: [
     {
-      provide: TodoRepositoryOutboundPortSymbol,
-      useClass: TodoRepository,
-    },
-    {
       provide: CreateTodoInputPortToken,
       useClass: CreateTodoService,
     },
@@ -25,10 +21,6 @@ import { CoreModule } from '@/core/core.module'
     },
   ],
   exports: [
-    {
-      provide: TodoRepositoryOutboundPortSymbol,
-      useClass: TodoRepository,
-    },
     {
       provide: CreateTodoInputPortToken,
       useClass: CreateTodoService,

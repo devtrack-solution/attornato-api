@@ -17,7 +17,7 @@ export class CreateTodoService implements CreateTodoInboundPort {
   async execute(data: TodoTypes.Input): Promise<TodoTypes.Output> {
     let todo = new Todo(data)
 
-    await this.todoRepository.save(todo.toPersistence())
+    await this.todoRepository.saveObject(todo.toPersistence())
     const event = new TodoCreatedEvent(todo)
     this.eventBase.emit(TodoCreatedEventSymbol, event)
     return todo

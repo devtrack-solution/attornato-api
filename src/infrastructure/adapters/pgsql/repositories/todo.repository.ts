@@ -1,11 +1,10 @@
-import { Todo } from '@/domain/todo/entities/todo.entity'
 import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
 import { TodoTypes } from '@/domain/todo/types/todo.types'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
-import { DataSource, Repository } from "typeorm";
+import { DataSource, Repository } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
-import { TodoEntity } from "@/infrastructure/adapters/pgsql/entities/todo.entity";
-import { Logger } from "@nestjs/common";
+import { TodoEntity } from '@/infrastructure/adapters/pgsql/entities/todo.entity'
+import { Logger } from '@nestjs/common'
 
 @BindProvider(TodoRepositoryOutboundPortSymbol)
 export class TodoRepository extends Repository<TodoEntity> implements TodoRepositoryOutboundPort {
@@ -17,7 +16,7 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
 
   async saveObject(todo: Partial<TodoTypes.Input>): Promise<void> {
     try {
-      await this.save(todo);
+      await this.save(todo)
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e
@@ -35,8 +34,8 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
 
   async deleteObject(id: string): Promise<void> {
     try {
-      if (await this.existsBy({id})) {
-        await this.softRemove({id})
+      if (await this.existsBy({ id })) {
+        await this.softRemove({ id })
       }
     } catch (e) {
       this.logger.error(`Error: ${e}`)
@@ -55,12 +54,12 @@ export class TodoRepository extends Repository<TodoEntity> implements TodoReposi
 
   async updateObject(todo: Partial<TodoTypes.Input>): Promise<void> {
     try {
-      const loadTodo = await this.findOneBy({id: todo.id})
+      const loadTodo = await this.findOneBy({ id: todo.id })
       if (!loadTodo) {
-        throw new Error("Dados não encontrado");
+        throw new Error('Dados não encontrado')
       }
-      Object.assign(loadTodo, todo);
-      await this.save(loadTodo);
+      Object.assign(loadTodo, todo)
+      await this.save(loadTodo)
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e

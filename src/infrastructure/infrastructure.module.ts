@@ -79,7 +79,7 @@ export class InfrastructureModule implements NestModule {
 
         this.instance = {
           global: true,
-          imports: [AdapterModule, TypeOrmModule.forRoot(typeOrmConfig), TypeOrmModule.forFeature([])],
+          imports: [AdapterModule],
           module: InfrastructureModule,
           providers,
           exports: [AdapterModule, ...toExport],

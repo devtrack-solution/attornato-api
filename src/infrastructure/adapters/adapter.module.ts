@@ -8,9 +8,10 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule } from '@/infrastructure/config/config.module'
+import { PGSQLModule } from '@/infrastructure/adapters/pgsql/pgsql.module'
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, PGSQLModule],
   providers: [
     {
       provide: DistributedCachePortSymbol,

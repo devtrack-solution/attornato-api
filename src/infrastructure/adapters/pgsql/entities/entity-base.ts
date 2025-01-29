@@ -2,14 +2,7 @@
  * Created by Wilton Oliveira Ferreira on 24/01/2023
  */
 
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Index,
-  DeleteDateColumn
-} from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn } from 'typeorm'
 
 export abstract class EntityBase extends BaseEntity {
   @CreateDateColumn({ name: 'created_at' })
@@ -26,7 +19,7 @@ export abstract class EntityBase extends BaseEntity {
 
   @Column({
     name: 'is_active',
-    type: 'tinyint',
+    type: 'boolean',
     nullable: false,
     default: true,
   })
