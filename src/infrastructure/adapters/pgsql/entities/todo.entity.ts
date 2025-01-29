@@ -22,6 +22,4 @@ export class TodoEntity extends EntityBase implements TodoTypes.Repository {
   @Column()
   height!: number
 
-  @Column()
-  isActive!: boolean
 }

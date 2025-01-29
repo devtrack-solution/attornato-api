@@ -10,6 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "start:docker": "docker compose -f /Volumes/WORKSPACE/LABORATORIOS/api-template/docker-compose.yml -p api-template up -d",
     "start:dev": "nest start --watch --poll=1000",
     "start:debug": "nest start --debug 0.0.0.0:9229 --watch",
     "start:prod": "node dist/main",
@@ -23,10 +24,10 @@
     "test:e2e:cov": "pnpm run test:e2e --coverage",
     "ci": "pnpm fix-imports && pnpm test && pnpm build",
     "gs": "ts-node tools/generate-structure.tool.ts",
-    "typeorm": "typeorm-ts-node-esm",
-    "typeorm:migration:generate": "pnpm typeorm migration:generate -d src/infrastructure/config/typeorm.config.ts -n",
-    "typeorm:migration:run": "pnpm typeorm migration:run -d src/infrastructure/config/typeorm.config.ts",
-    "typeorm:migration": "pnpm run typeorm:migration:generate -- $npm_config_message && pnpm run typeorm:migration:run",
+    "migration:generate": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ./src/infrastructure/adapters/pgsql/migrations/migration",
+    "migration:create": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts  ./src/infrastructure/adapters/pgsql/migrations/migration",
+    "migration:run": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ",
+    "migration:revert": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ",
     "prepare": "husky"
   },
   "dependencies": {

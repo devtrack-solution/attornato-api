@@ -4,7 +4,7 @@ export namespace TodoTypes {
     name: string
     age: number
     birthday: Date
-    isActive: boolean
+    enable?: boolean
     height: number
   }
 
