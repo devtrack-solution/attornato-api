@@ -4,9 +4,9 @@
 
 import { ValueIsNotValidEmailError } from '@/commons/errors'
 import validator from 'validator'
-import { type Validator } from '@/core/domain/validators/validator'
+import { type IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
-export class IsEmail implements Validator {
+export class IsEmail implements IValidator {
   constructor(
     readonly value: any,
     readonly fieldName?: string,

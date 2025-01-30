@@ -1,10 +1,10 @@
-import { type Validator } from '@/core/domain/validators/validator'
+import { type IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 import { ValueIsNotValidUuidError } from '@/commons/errors'
 
 /**
  * Created by Laércio on 17/06/2024
  */
-export class IsUUID implements Validator {
+export class IsUUID implements IValidator {
   constructor(
     readonly value: string | string[],
     readonly fieldName?: string,

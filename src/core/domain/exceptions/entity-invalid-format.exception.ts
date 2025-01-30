@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
+import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
 export class EntityInvalidFormatException extends HttpException {
-  public errors: any[]
+  error: ValidationErrorResponse | any[]
 
-  constructor(errorDetails: { message: string; errors: any[] }) {
-    super(errorDetails, HttpStatus.BAD_REQUEST)
-    this.errors = errorDetails.errors
+  constructor(error: ValidationErrorResponse) {
+    super(error, HttpStatus.BAD_REQUEST)
+    this.error = Array.isArray(error.errors) ? error : []
   }
 }

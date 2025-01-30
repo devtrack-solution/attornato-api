@@ -3,9 +3,9 @@
  */
 
 import { ValueIsNotValidError, MaxValueError } from '@/commons/errors'
-import { type Validator } from '@/core/domain/validators/validator'
+import { IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
-export class MaxValue implements Validator {
+export class MaxValue implements IValidator {
   constructor(
     readonly value: any,
     readonly max: number,

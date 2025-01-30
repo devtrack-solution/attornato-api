@@ -2,11 +2,11 @@
  * Created by Wilton Oliveira Ferreira on 17/01/2023
  */
 
-import { type Validator } from '@/core/domain/validators/index'
-import { type ResponseError } from '@/commons/helpers'
+import { IValidator } from '@/core/domain/validators/index'
+import { ResponseError } from '@/commons/helpers'
 
-export class ValidationComposite implements Validator {
-  constructor(private readonly validators: Validator[]) {}
+export class ValidationComposite implements IValidator {
+  constructor(private readonly validators: IValidator[]) {}
 
   validate(): ResponseError | any {
     try {

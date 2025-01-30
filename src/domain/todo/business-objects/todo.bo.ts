@@ -1,9 +1,8 @@
 import { TodoType } from '@/domain/todo/types/todo.type'
 import { Mapper } from '@/domain/mappers/mapper'
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
-import { ValidationBuilder, Validator } from '@/core/domain/validators'
-import { IEntity } from "@/core/domain/business-objects/entity.bo";
-
+import { ValidationBuilder, IValidator } from '@/core/domain/validators'
+import { IEntity } from '@/core/domain/business-objects/entity.bo'
 
 /**
  * Interface representing a Todo entity with methods for equality check,
@@ -14,7 +13,7 @@ import { IEntity } from "@/core/domain/business-objects/entity.bo";
  */
 export interface ITodo extends IEntity<TodoType.Input, TodoType.Output> {}
 
-export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, Validator {
+export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, IValidator {
   private _id!: IdentityVo // deve ser único
   private _name!: string // deve exitir não ser nulo e ter no máximo 200 caracteres
   private _email!: string
@@ -24,13 +23,15 @@ export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, V
   private _height!: number // deve ser maior que 10 e menor que 300 metros
 
   private loadData(data: TodoType.Input): TodoType.Output {
-    this._id = data?.id ? IdentityVo.create(data.id) : IdentityVo.generate()
-    this._name = data.name
-    this._email = data.email
-    this._age = data.age
-    this._birthday = data.birthday
-    this._enable = data.enable
-    this._height = data.height
+    try {
+      this._id = data?.id ? IdentityVo.create(data.id) : IdentityVo.generate()
+      this._name = data.name
+      this._email = data.email
+      this._age = data.age
+      this._birthday = data.birthday
+      this._enable = data.enable
+      this._height = data.height
+    } catch (e) {}
 
     return this
   }
@@ -116,6 +117,10 @@ export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, V
     ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
       .dateFormat([{ regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, description: 'YYYY-MM-DDTHH:MM:SS' }])
       .required()
-      .build()
+      .of({ value: this._email, fieldName: 'email' })
+      .required()
+      .isEmail()
+      .emailBelongsToCorporateCompany()
+      .build('Falha ao validar regras de negocio para criar uma task')
   }
 }

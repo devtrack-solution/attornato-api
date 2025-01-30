@@ -1,109 +1,88 @@
-import { AllowedMimeTypes, type Extension, MaxFileSize, Required, RequiredBuffer, RequiredString, type Validator } from '@/core/domain/validators/index'
-import { DateFormatValidator } from '@/core/domain/validators/date-format'
-import { EndsWithZeroValidator } from '@/core/domain/validators/end-zero'
-import { IsEmail } from '@/core/domain/validators/is-email'
-import { MaxValue } from '@/core/domain/validators/max-length'
-import { MinValue } from '@/core/domain/validators/min-length'
-import { IsUUID } from '@/core/domain/validators/is-uuid'
-import { ExpectedAndRequiredVariable } from '@/core/domain/validators/ExpectedAndRequiredVariable'
-import { ZodFormat } from '@/core/utils/zod.util'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions/entity-invalid-format.exception'
+import { ValidationErrorDetail } from '@/core/domain/validators/validation-error-detail'
+import { IValidationError } from '@/core/domain/validators/interfaces/validation-error.interface'
+import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
 export class ValidationBuilder {
-  private constructor(
-    private readonly value: any,
-    private readonly fieldName?: string,
-    private readonly validators: Validator[] = [],
-  ) {}
+  private validations: ValidationErrorDetail[] = []
+  private currentField?: IValidationError
+  private hasErrors = false
 
-  static of({ value, fieldName }: { value: any; fieldName?: string }): ValidationBuilder {
-    return new ValidationBuilder(value, fieldName)
+  private constructor() {}
+
+  static of({ value, fieldName, message }: { value: any; fieldName: string; message?: string }): ValidationBuilder {
+    const instance = new ValidationBuilder()
+    instance.currentField = new ValidationErrorDetail({ fieldName, value, message })
+    return instance
   }
 
-  required(): ValidationBuilder {
-    if (this.value === undefined) {
-      this.validators.push(new Required(this.value, this.fieldName))
-    } else if (this.value instanceof Buffer) {
-      this.validators.push(new RequiredBuffer(this.value, this.fieldName))
-    } else if (typeof this.value === 'string') {
-      this.validators.push(new RequiredString(this.value, this.fieldName))
+  private addError(description: string): void {
+    if (this.currentField) {
+      this.hasErrors = true
+      this.validations.push(
+        new ValidationErrorDetail({
+          fieldName: this.currentField.fieldName,
+          value: this.currentField.value,
+          message: this.currentField.message || description,
+        }),
+      )
+    }
+  }
+
+  required(): this {
+    if (this.currentField && (this.currentField.value === null || this.currentField.value === undefined || this.currentField.value === '')) {
+      this.addError('Field is required')
+    }
+    return this
+  }
+
+  dateFormat(validators: { regex: RegExp; description: string }[]): this {
+    if (this.currentField) {
+      const isValid = validators.some(({ regex }) => regex.test(this.currentField!.value))
+      if (!isValid) {
+        this.addError(`Invalid date format. Expected: ${validators.map((v) => v.description).join(', ')}`)
+      }
+    }
+    return this
+  }
+
+  isEmail(): this {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (this.currentField && !emailRegex.test(this.currentField.value)) {
+      this.addError('Invalid email format')
+    }
+    return this
+  }
+
+  emailBelongsToCorporateCompany(): this {
+    const corporateDomains = ['company.com', 'business.org']
+    if (this.currentField) {
+      const domain = this.currentField.value.split('@')[1]
+      if (!corporateDomains.includes(domain)) {
+        this.addError('Email does not belong to a corporate domain')
+      }
+    }
+    return this
+  }
+
+  of({ value, fieldName }: { value: any; fieldName: string }): this {
+    if (this.hasErrors) {
+      this.hasErrors = false
     } else {
-      this.validators.push(new Required(this.value, this.fieldName))
-      if (this.value.buffer !== undefined) {
-        this.validators.push(new RequiredBuffer(this.value.buffer, this.fieldName))
-      }
+      this.validations = this.validations.filter((v) => v.fieldName !== this.currentField?.fieldName)
     }
+
+    this.currentField = new ValidationErrorDetail({ fieldName, value })
     return this
   }
 
-  image({ allowed, maxSizeInMb }: { allowed: Extension[]; maxSizeInMb: number }): ValidationBuilder {
-    if (this.value.mimeType !== undefined) {
-      this.validators.push(new AllowedMimeTypes(allowed, this.value.mimeType))
+  build(failMessage?: string): void {
+    if (!this.hasErrors) {
+      this.validations = this.validations.filter((v) => v.message)
     }
-    if (this.value.buffer !== undefined) {
-      this.validators.push(new MaxFileSize(maxSizeInMb, this.value.buffer))
-    }
-    return this
-  }
 
-  uuid(): ValidationBuilder {
-    if (typeof this.value === 'string' || Array.isArray(this.value)) {
-      this.validators.push(new IsUUID(this.value, this.fieldName))
-    }
-    return this
-  }
-
-  uuidForFields(fields: Array<{ value: any; fieldName: string }>): ValidationBuilder {
-    fields.forEach((field) => {
-      if (field.value !== undefined && field.value !== null) {
-        this.validators.push(new IsUUID(field.value, field.fieldName))
-      }
-    })
-    return this
-  }
-
-  ExpectedAndRequiredVariable(expectedProperties: Record<string, string | string[]>, requiredProperties: string[] = []): ValidationBuilder {
-    this.validators.push(new ExpectedAndRequiredVariable(this.value, expectedProperties, requiredProperties, this.fieldName))
-    return this
-  }
-
-  isEmail(): ValidationBuilder {
-    if (typeof this.value === 'string') {
-      this.validators.push(new IsEmail(this.value, this.fieldName))
-    }
-    return this
-  }
-
-  minLength(min: number): ValidationBuilder {
-    if (this.value !== undefined) {
-      this.validators.push(new MinValue(this.value, min, this.fieldName))
-    }
-    return this
-  }
-
-  maxLength(length: number): ValidationBuilder {
-    if (this.value !== undefined) {
-      this.validators.push(new MaxValue(this.value, length, this.fieldName))
-    }
-    return this
-  }
-
-  dateFormat(formats?: ZodFormat[]): ValidationBuilder {
-    this.validators.push(new DateFormatValidator(this.value, this.fieldName, formats))
-    return this
-  }
-
-  endsWithZero(): ValidationBuilder {
-    this.validators.push(new EndsWithZeroValidator(this.value, this.fieldName))
-    return this
-  }
-
-  build(): void {
-    if (this.validators.length > 0) {
-      throw new EntityInvalidFormatException({
-        message: 'Validation failed',
-        errors: this.validators,
-      })
+    if (this.validations.length > 0) {
+      throw new EntityInvalidFormatException(new ValidationErrorResponse(failMessage || 'Validation failed', this.validations))
     }
   }
 }

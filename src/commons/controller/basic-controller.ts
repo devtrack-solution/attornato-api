@@ -3,7 +3,7 @@
  */
 
 import { type HttpRequest, type HttpResponse, type ResponseError, badRequest, conflict, notfound, serverError, unauthorized } from '@/commons/helpers'
-import { ValidationComposite, type Validator } from '@/core/domain/validators'
+import { ValidationComposite, type IValidator } from '@/core/domain/validators'
 import { BadRequestException, ConflictException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { FastifyRequest as Request, FastifyReply as Response } from 'fastify'
 
@@ -17,7 +17,7 @@ export abstract class BasicController<T, Y> implements Controller<T, Y> {
 
   abstract perform(httpRequest: HttpRequest<T>): Promise<HttpResponse<Y | ResponseError | any>>
 
-  buildValidators(httpRequest: any): Validator[] {
+  buildValidators(httpRequest: any): IValidator[] {
     console.log(httpRequest)
     return []
   }

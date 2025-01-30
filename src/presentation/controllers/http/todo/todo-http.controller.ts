@@ -3,7 +3,8 @@ import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger'
 import { CreateTodoInboundPort, CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
 import { CreateTodoDto, UpdateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-todo.dto'
 import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
-import { ValidationErrorResponse, ValidationExceptionFilter } from '@/presentation/filters/validation-exception.filter'
+import { ValidationExceptionFilter } from '@/core/presentation/filters/validation-exception.filter'
+import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
 @ApiTags('todos')
 @ApiHeader({
@@ -14,7 +15,10 @@ import { ValidationErrorResponse, ValidationExceptionFilter } from '@/presentati
 @UseFilters(ValidationExceptionFilter)
 @Controller('todos')
 export class TodoHttpController {
-  constructor(@Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort, @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort) {}
+  constructor(
+    @Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort,
+    @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new Todo' })

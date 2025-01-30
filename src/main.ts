@@ -7,7 +7,7 @@ import { ParseBooleanPipe } from '@/commons/utils/parse-boolean-pipe'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
-import { ValidationExceptionFilter } from '@/presentation/filters/validation-exception.filter'
+import { ValidationExceptionFilter } from '@/core/presentation/filters/validation-exception.filter'
 
 async function bootstrap() {
   const config: AppConfig = new ConfigEnvironmentService()

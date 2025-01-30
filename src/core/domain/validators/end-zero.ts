@@ -3,9 +3,9 @@
  */
 
 import { ValueIsNotValidError } from '@/commons/errors'
-import { type Validator } from '@/core/domain/validators/validator'
+import { type IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
-export class EndsWithZeroValidator implements Validator {
+export class EndsWithZeroValidator implements IValidator {
   constructor(
     private readonly value: string,
     private readonly fieldName?: string,

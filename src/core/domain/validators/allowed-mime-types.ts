@@ -1,8 +1,9 @@
 import { InvalidMimeTypeError } from '@/commons/errors'
+import { type IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
 export type Extension = 'png' | 'jpg'
 
-export class AllowedMimeTypes {
+export class AllowedMimeTypes implements IValidator {
   constructor(
     private readonly allowed: Extension[],
     private readonly mimeType: string,

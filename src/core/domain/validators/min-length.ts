@@ -3,9 +3,9 @@
  */
 
 import { ValueIsNotValidError, MinValueError } from '@/commons/errors'
-import { type Validator } from '@/core/domain/validators/validator'
+import { IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
-export class MinValue implements Validator {
+export class MinValue implements IValidator {
   constructor(
     readonly value: any,
     readonly min: number,

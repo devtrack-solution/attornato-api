@@ -1,6 +1,7 @@
 import { MaxFileSizeError } from '@/commons/errors'
+import { IValidator } from '@/core/domain/validators/interfaces/validator.interface'
 
-export class MaxFileSize {
+export class MaxFileSize implements IValidator {
   constructor(
     private readonly maxSizeInMb: number,
     private readonly value: Buffer,
