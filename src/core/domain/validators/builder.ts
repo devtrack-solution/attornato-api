@@ -1,4 +1,4 @@
-import { type Validator, AllowedMimeTypes, type Extension, MaxFileSize, Required, RequiredBuffer, RequiredString } from '@/core/domain/validators/index'
+import { AllowedMimeTypes, type Extension, MaxFileSize, Required, RequiredBuffer, RequiredString, type Validator } from '@/core/domain/validators/index'
 import { DateFormatValidator } from '@/core/domain/validators/date-format'
 import { EndsWithZeroValidator } from '@/core/domain/validators/end-zero'
 import { IsEmail } from '@/core/domain/validators/is-email'
@@ -7,6 +7,7 @@ import { MinValue } from '@/core/domain/validators/min-length'
 import { IsUUID } from '@/core/domain/validators/is-uuid'
 import { ExpectedAndRequiredVariable } from '@/core/domain/validators/ExpectedAndRequiredVariable'
 import { ZodFormat } from '@/core/utils/zod.util'
+import { EntityInvalidFormatException } from '@/core/domain/exceptions/entity-invalid-format.exception'
 
 export class ValidationBuilder {
   private constructor(
@@ -97,7 +98,12 @@ export class ValidationBuilder {
     return this
   }
 
-  build(): Validator[] {
-    return this.validators
+  build(): void {
+    if (this.validators.length > 0) {
+      throw new EntityInvalidFormatException({
+        message: 'Validation failed',
+        errors: this.validators,
+      })
+    }
   }
 }

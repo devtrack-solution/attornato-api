@@ -7,6 +7,7 @@ import { ParseBooleanPipe } from '@/commons/utils/parse-boolean-pipe'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { ValidationExceptionFilter } from '@/presentation/filters/validation-exception.filter'
 
 async function bootstrap() {
   const config: AppConfig = new ConfigEnvironmentService()
@@ -18,6 +19,7 @@ async function bootstrap() {
   const loggerLevels: LogLevel[] = config.logLevel as LogLevel[]
   const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { logger: loggerLevels })
   app.useGlobalPipes(new ParseBooleanPipe())
+  app.useGlobalFilters(new ValidationExceptionFilter())
 
   const fastifyInstance = app.getHttpAdapter().getInstance()
   fastifyInstance.log.level = config.fastify.logLevel || 'warn'

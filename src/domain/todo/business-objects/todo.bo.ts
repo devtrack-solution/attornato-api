@@ -38,6 +38,7 @@ export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, V
   constructor(props: TodoType.Input) {
     super()
     this.loadData(props)
+    this.validate()
   }
 
   get id(): string {
@@ -111,11 +112,10 @@ export class Todo extends Mapper<TodoType.Repository, ITodo> implements ITodo, V
     }
   }
 
-  validate(): Error | undefined {
+  validate(): void {
     ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
       .dateFormat([{ regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, description: 'YYYY-MM-DDTHH:MM:SS' }])
       .required()
       .build()
-    return undefined
   }
 }
