@@ -18,7 +18,8 @@ export class IdempotencyMiddleware implements NestMiddleware {
     const user = (req.headers['username'] as string) || 'unknown'
     const path = req.routerPath || '/'
     if (!idempotencyKey) {
-      throw new BadRequestException('Idempotency key is missing')
+      // throw new BadRequestException('Idempotency key is missing')
+      httpAdapter.reply(res, 'Idempotency key is missing', 400)
     }
 
     const newIdempotencyKey = generateIdempotencyKey(idempotencyKey, user, path)
