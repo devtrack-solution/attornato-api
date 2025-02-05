@@ -30,6 +30,7 @@ export interface AppConfig {
   enableCors: {
     origin: string[] | undefined
     methods: string[] | undefined
+    allowedHeaders: string[] | undefined
   }
   logLevel: string[]
   fastify: {

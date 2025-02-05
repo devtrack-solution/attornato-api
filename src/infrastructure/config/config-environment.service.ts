@@ -50,6 +50,7 @@ export class ConfigEnvironmentService implements AppConfig {
     return {
       origin: process.env.ENABLE_CORS_ORIGIN?.split(',') || [],
       methods: process.env.ENABLE_CORS_METHODS?.split(',') || [],
+      allowedHeaders: process.env.ENABLE_CORS_ALLOWED_HEADERS?.split(',') || [],
     }
   }
   get throttling(): AppConfig['throttling'] {
