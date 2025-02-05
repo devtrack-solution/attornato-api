@@ -1,0 +1,20 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "../../",
+  "globalSetup": "<rootDir>/test/e2e/setup.ts",
+  "testEnvironment": "node",
+  "testTimeout": 30000,
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": ["ts-jest", {
+      "isolatedModules": true,
+      "useESM": false
+    }]
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@test/(.*)$": "<rootDir>/test/$1"
+  },
+  "coverageDirectory": "./coverage/e2e",
+  "forceExit": true
+}

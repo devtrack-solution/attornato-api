@@ -1,0 +1,28 @@
+# Use uma imagem base Node.js
+FROM node:20-alpine
+
+# Instale o pnpm globalmente
+RUN npm install -g pnpm
+
+# Defina o diretório de trabalho no container
+WORKDIR /usr/src/app
+
+# Copie os arquivos de dependências para aproveitar o cache do Docker
+COPY package.json ./
+COPY setup.sh ./
+
+# Instale as dependências com pnpm
+RUN pnpm install --no-frozen-lockfile
+# RUN pnpm install
+
+# Copie o restante do código-fonte
+COPY . .
+
+# Exponha a porta usada pela aplicação
+EXPOSE $API_PORT
+
+# Defina o ambiente
+ENV NODE_ENV=DEVELOPMENT
+
+# Comando padrão para iniciar a aplicação
+CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then pnpm run start:debug; else pnpm run start:dev; fi"]

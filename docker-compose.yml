@@ -1,0 +1,63 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env.development
+    container_name: api_template
+    ports:
+      - "${API_PORT:-3000}:${API_PORT:-3000}"
+      - "9229:9229"
+    networks:
+      - backend
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - app_data:/usr/src/app/data   # Exemplo de volume para dados persistentes do app
+      # Para desenvolvimento, você pode adicionar:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+
+  db:
+    image: postgres:17.0-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    networks:
+      - backend
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis_server
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data      # Persiste dados do Redis, normalmente no diretório /data
+
+volumes:
+  pg_data:
+  redis_data:
+  app_data:
+  node_modules:
+
+networks:
+  backend:
+    driver: bridge

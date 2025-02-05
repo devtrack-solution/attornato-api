@@ -1,0 +1,5 @@
+export enum Roles {
+  ADMINISTRATOR = 'ADMINISTRATOR',
+  WEIGHER = 'WEIGHER',
+  DRIVER = 'DRIVER',
+}
