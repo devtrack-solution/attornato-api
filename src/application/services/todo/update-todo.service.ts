@@ -1,5 +1,4 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { CreateTodoInboundPort } from "@/domain/todo/ports/inbound/create-todo.inbound-port";
 import { TodoType } from "@/domain/todo/types/todo.type";
 import {
   TodoRepositoryOutboundPort,
@@ -8,9 +7,10 @@ import {
 import { EventBase } from "@/core/event/event-base.emitter";
 import { Todo } from "@/domain/todo/business-objects/todo.bo";
 import { TodoUpdatedEvent, TodoUpdatedEventSymbol } from "@/application/services/todo/events/todo-update.event";
+import { UpdateTodoInboundPort } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
 
 @Injectable()
-export class UpdateTodoService implements CreateTodoInboundPort {
+export class UpdateTodoService implements UpdateTodoInboundPort {
   constructor(
     @Inject(TodoRepositoryOutboundPortSymbol)
     private readonly todoRepository: TodoRepositoryOutboundPort,
