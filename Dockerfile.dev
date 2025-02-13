@@ -1,28 +1,63 @@
-# Use uma imagem base Node.js
-FROM node:20-alpine
+# ==========================================
+# 🏗️  Build Stage
+# ==========================================
+FROM node:20-alpine AS build
 
-# Instale o pnpm globalmente
+# Install pnpm globally
 RUN npm install -g pnpm
 
-# Defina o diretório de trabalho no container
+# Set PNPM_HOME manually
+ENV PNPM_HOME="/root/.pnpm-store"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+# Create PNPM home directory manually
+RUN mkdir -p $PNPM_HOME
+
+# Install NestJS CLI globally (without pnpm setup)
+RUN npm add -g @nestjs/cli
+
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copie os arquivos de dependências para aproveitar o cache do Docker
+# Copy package.json and install dependencies
 COPY package.json ./
-COPY setup.sh ./
+COPY pnpm-lock.yaml ./
+RUN yes | pnpm install --no-frozen-lockfile
 
-# Instale as dependências com pnpm
-RUN pnpm install --no-frozen-lockfile
-# RUN pnpm install
-
-# Copie o restante do código-fonte
+# Copy source code
 COPY . .
 
-# Exponha a porta usada pela aplicação
-EXPOSE $API_PORT
+# Build TypeScript
+# RUN pnpm run build
 
-# Defina o ambiente
+# ==========================================
+# 🚀 App Stage (Final Minimal Image)
+# ==========================================
+FROM node:20-alpine AS app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Set PNPM_HOME manually
+ENV PNPM_HOME="/root/.pnpm-store"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+# Create PNPM home directory manually
+RUN mkdir -p $PNPM_HOME
+
+# Install NestJS CLI globally (without pnpm setup)
+RUN npm add -g @nestjs/cli
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy necessary files from build stage
+COPY --from=build /usr/src/app .
+
+RUN yes | pnpm install --no-frozen-lockfile
+
+# Set environment variable
 ENV NODE_ENV=DEVELOPMENT
 
-# Comando padrão para iniciar a aplicação
-CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then pnpm run start:debug; else pnpm run start:dev; fi"]
+# Start application dynamically based on RUN_DEBUG
+CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then RUN pnpm run start:debug; else RUN pnpm run start:dev; fi"]
