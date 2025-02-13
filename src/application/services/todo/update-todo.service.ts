@@ -1,13 +1,10 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { TodoType } from "@/domain/todo/types/todo.type";
-import {
-  TodoRepositoryOutboundPort,
-  TodoRepositoryOutboundPortSymbol
-} from "@/domain/todo/ports/outbound/todo-repository.outbound-port";
-import { EventBase } from "@/core/event/event-base.emitter";
-import { Todo } from "@/domain/todo/business-objects/todo.bo";
-import { TodoUpdatedEvent, TodoUpdatedEventSymbol } from "@/application/services/todo/events/todo-update.event";
-import { UpdateTodoInboundPort } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
+import { Inject, Injectable } from '@nestjs/common'
+import { TodoType } from '@/domain/todo/types/todo.type'
+import { TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
+import { EventBase } from '@/core/event/event-base.emitter'
+import { Todo } from '@/domain/todo/business-objects/todo.bo'
+import { TodoUpdatedEvent, TodoUpdatedEventSymbol } from '@/application/services/todo/events/todo-update.event'
+import { UpdateTodoInboundPort } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
 
 @Injectable()
 export class UpdateTodoService implements UpdateTodoInboundPort {
@@ -22,7 +19,7 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
 
     await this.todoRepository.updateObject(todo.toPersistence())
     const event = new TodoUpdatedEvent(todo)
-    this.eventBase.emit(TodoUpdatedEventSymbol, event)
+    this.eventBase.send(TodoUpdatedEventSymbol, event)
     return todo.toJson()
   }
 }
