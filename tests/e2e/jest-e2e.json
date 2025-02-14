@@ -13,7 +13,7 @@
   },
   "moduleNameMapper": {
     "^@/(.*)$": "<rootDir>/src/$1",
-    "^@test/(.*)$": "<rootDir>/test/$1"
+    "^@tests/(.*)$": "<rootDir>/tests/$1"
   },
   "coverageDirectory": "./coverage/e2e",
   "forceExit": true

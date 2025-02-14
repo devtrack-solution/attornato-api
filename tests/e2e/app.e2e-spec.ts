@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import request from 'supertest'
+
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
-import { RootTestModule } from '@test/root-test.module'
+import { RootTestModule } from '@tests/root-test.module'
 import { AppConfig } from '@/domain/app-config.interface'
-import { HttpStatus } from '@nestjs/common'
+
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { ConfigModule } from '@nestjs/config'
 
