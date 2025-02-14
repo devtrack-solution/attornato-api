@@ -2,7 +2,6 @@ import { BaseType } from '@/core/domain/type/base.type'
 
 export namespace TodoType {
   export type Input = {
-    id?: string
     name: string
     email: string
     age: number
@@ -20,7 +19,9 @@ export namespace TodoType {
 
   export type Repository = Output
 
-  export type Criteria = {
-    id: string
-  } | null
+  export type Criteria =
+    | {
+        id: string
+      }
+    | undefined
 }

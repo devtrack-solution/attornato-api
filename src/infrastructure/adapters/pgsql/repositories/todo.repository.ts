@@ -5,7 +5,7 @@ import { DataSource, Repository } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { TodoEntity } from '@/infrastructure/adapters/pgsql/entities/todo.entity'
 import { Logger } from '@nestjs/common'
-import { RepositoryBase } from "@/infrastructure/adapters/pgsql/repositories/repository-base";
+import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
 
 @BindProvider(TodoRepositoryOutboundPortSymbol)
 export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRepositoryOutboundPort {
@@ -26,7 +26,8 @@ export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRe
 
   async findByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository> | null> {
     try {
-      return await this.findOneBy(props)
+      return await this.findOneBy({ ...props })
+      return null
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e
@@ -46,7 +47,7 @@ export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRe
 
   async findAllByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository>[]> {
     try {
-      return await this.findBy(props)
+      return await this.findBy({ ...props })
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e

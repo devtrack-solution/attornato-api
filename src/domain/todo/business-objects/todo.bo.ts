@@ -5,7 +5,6 @@ import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-obje
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
-
 /**
  * Interface representing a Todo entity with methods for equality check,
  * persistence conversion, and JSON conversion.
@@ -16,7 +15,6 @@ import { ValidationErrorResponse } from '@/core/domain/validators/validation-err
 export interface ITodo extends IBusinessObject<TodoType.Input, TodoType.Output> {}
 
 export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Output> implements ITodo, IValidator {
-
   private _name!: string // deve exitir não ser nulo e ter no máximo 200 caracteres
   private _email!: string
   private _age!: number // deve ser maior que 0 e menor que 130
@@ -73,7 +71,6 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
   }
 
   update(data: Partial<TodoType.Input>): Todo {
-
     this._name = data.name || this._name
     this._email = data.email || this._email
     this._age = data.age || this._age
@@ -137,7 +134,14 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
 
   validate(): void {
     ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
-      .dateFormat([{ regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, description: 'YYYY-MM-DDTHH:MM:SS' }])
+      /*.dateFormat([
+        {
+          regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)\.\d{3}Z$/,
+          description: 'YYYY-MM-DDTHH:MM:SS.SSSZ',
+        },
+      ])*/
+      .required()
+      .of({ value: this._name, fieldName: 'name' })
       .required()
       .of({ value: this._email, fieldName: 'email' })
       .required()

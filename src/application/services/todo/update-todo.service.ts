@@ -14,8 +14,8 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
     private readonly eventBase: EventBase,
   ) {}
 
-  async execute(data: TodoType.Input,  criteria: TodoType.Criteria): Promise<TodoType.Output> {
-    const value = await this.todoRepository.findByCriteria({ id: data.id as string })
+  async execute(data: TodoType.Input, criteria: TodoType.Criteria): Promise<TodoType.Output> {
+    const value = await this.todoRepository.findByCriteria(criteria)
 
     let todo = Todo.fromRepositoryToDomain(value as TodoType.Repository)
 
@@ -23,8 +23,17 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
 
     await this.todoRepository.updateObject(updatedTodo.toPersistence())
 
-    const event = new TodoUpdatedEvent(todo)
-    this.eventBase.send(TodoUpdatedEventSymbol, event)
+    try {
+      const event = new TodoUpdatedEvent(todo)
+      this.eventBase.send(TodoUpdatedEventSymbol, event)
+    } catch (error) {
+      if (error instanceof Error) {
+        console.warn('Event send failure, but update succeeded:', error.message)
+      } else {
+        console.warn('Event send failure, but update succeeded:', error)
+      }
+    }
+
     return todo.toJson()
   }
 }

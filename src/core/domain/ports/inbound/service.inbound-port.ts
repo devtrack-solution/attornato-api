@@ -12,5 +12,5 @@ export interface IServiceInboundPort<Y, X, T> {
    * @param criteria
    * @returns A promise that resolves to the output data.
    */
-  execute(data: Y, criteria: X ): Promise<T>;
+  execute(data: Y, criteria?: X): Promise<T>
 }

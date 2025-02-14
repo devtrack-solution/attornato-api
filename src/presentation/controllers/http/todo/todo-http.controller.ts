@@ -29,7 +29,7 @@ export class TodoHttpController {
     type: ValidationErrorResponse,
   })
   async create(@Body() body: CreateTodoDto) {
-    return this.createTodoService.execute(body, null)
+    return this.createTodoService.execute(body)
   }
 
   @Put(':id')
@@ -42,6 +42,6 @@ export class TodoHttpController {
   @Get()
   @ApiOperation({ summary: 'Find an Todo' })
   async find(@Body() body: CreateTodoDto) {
-    return this.createTodoService.execute(body, null)
+    return this.createTodoService.execute(body)
   }
 }
