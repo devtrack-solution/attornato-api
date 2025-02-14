@@ -60,4 +60,4 @@ RUN yes | pnpm install --no-frozen-lockfile
 ENV NODE_ENV=DEVELOPMENT
 
 # Start application dynamically based on RUN_DEBUG
-CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then RUN pnpm run start:debug; else RUN pnpm run start:dev; fi"]
+CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then exec pnpm run start:debug; else exec pnpm run start:dev; fi"]
