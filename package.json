@@ -24,8 +24,8 @@
     "test:e2e:cov": "pnpm run test:e2e --coverage",
     "ci": "pnpm fix-imports && pnpm test && pnpm build",
     "gs": "ts-node tools/generate-structure.tool.ts",
-    "migration:generate": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ./src/infrastructure/adapters/pgsql/migrations/migration",
-    "migration:create": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts  ./src/infrastructure/adapters/pgsql/migrations/migration",
+    "migration:generate": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate ./src/infrastructure/adapters/pgsql/migrations/migration -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts",
+    "migration:create": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create ./src/infrastructure/adapters/pgsql/migrations/migration -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts",
     "migration:run": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ",
     "migration:revert": "npx ts-node -P ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/infrastructure/adapters/pgsql/typeorm.config.ts ",
     "prepare": "husky"
