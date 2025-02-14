@@ -29,19 +29,19 @@ export class TodoHttpController {
     type: ValidationErrorResponse,
   })
   async create(@Body() body: CreateTodoDto) {
-    return this.createTodoService.execute(body)
+    return this.createTodoService.execute(body, null)
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Update a new Todo' })
   @ApiResponse({ status: 200, description: 'The todo has been updated.' })
   async update(@Param('id') id: string, @Body() body: UpdateTodoDto) {
-    return this.updateTodoService.execute({ ...body, id })
+    return this.updateTodoService.execute({ ...body }, { id })
   }
 
   @Get()
   @ApiOperation({ summary: 'Find an Todo' })
   async find(@Body() body: CreateTodoDto) {
-    return this.createTodoService.execute(body)
+    return this.createTodoService.execute(body, null)
   }
 }

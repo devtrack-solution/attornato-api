@@ -14,10 +14,15 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
     private readonly eventBase: EventBase,
   ) {}
 
-  async execute(data: TodoType.Input): Promise<TodoType.Output> {
-    let todo = new Todo(data)
+  async execute(data: TodoType.Input,  criteria: TodoType.Criteria): Promise<TodoType.Output> {
+    const value = await this.todoRepository.findByCriteria({ id: data.id as string })
 
-    await this.todoRepository.updateObject(todo.toPersistence())
+    let todo = Todo.fromRepositoryToDomain(value as TodoType.Repository)
+
+    const updatedTodo = todo.update(data)
+
+    await this.todoRepository.updateObject(updatedTodo.toPersistence())
+
     const event = new TodoUpdatedEvent(todo)
     this.eventBase.send(TodoUpdatedEventSymbol, event)
     return todo.toJson()

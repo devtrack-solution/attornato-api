@@ -16,7 +16,7 @@ export class CreateTodoService implements CreateTodoInboundPort {
     private readonly eventQueue: EventQueueService,
   ) {}
 
-  async execute(data: TodoType.Input): Promise<TodoType.Output> {
+  async execute(data: TodoType.Input, criteria: TodoType.Criteria): Promise<TodoType.Output> {
     let todo = new Todo(data)
     const event = new TodoCreatedEvent(todo)
 
