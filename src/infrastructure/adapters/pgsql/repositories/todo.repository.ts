@@ -5,9 +5,10 @@ import { DataSource, Repository } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { TodoEntity } from '@/infrastructure/adapters/pgsql/entities/todo.entity'
 import { Logger } from '@nestjs/common'
+import { RepositoryBase } from "@/infrastructure/adapters/pgsql/repositories/repository-base";
 
 @BindProvider(TodoRepositoryOutboundPortSymbol)
-export class TodoRepository extends Repository<TodoEntity> implements TodoRepositoryOutboundPort {
+export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRepositoryOutboundPort {
   private readonly logger = new Logger(TodoRepository.name)
 
   constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {

@@ -4,16 +4,16 @@ import { EntityBase } from "@/infrastructure/adapters/pgsql/entities/entity-base
 
 @Entity('todos')
 export class TodoEntity extends EntityBase implements TodoType.Repository {
-  @Column()
+  @Column({ type: 'varchar', length: 100, name: 'name' })
   name!: string
 
   @Column()
   email!: string
 
-  @Column()
+  @Column({ type: 'int', name: 'ages' })
   age!: number
 
-  @Column()
+  @Column({ type: 'date', name: 'birthday' })
   birthday!: Date
 
   @Column()
