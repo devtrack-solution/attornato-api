@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Inject, Get, Put, Param, UseFilters } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger'
-import { CreateTodoInboundPort, CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
+import { CreateTodoInboundPort, CreateTodoInboundPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
 import { CreateTodoDto, UpdateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-todo.dto'
-import { UpdateTodoInboundPort, UpdateTodoInputPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
+import { UpdateTodoInboundPort, UpdateTodoInboundPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
 import { ValidationExceptionFilter } from '@/core/presentation/filters/validation-exception.filter'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
@@ -16,8 +16,8 @@ import { ValidationErrorResponse } from '@/core/domain/validators/validation-err
 @Controller('todos')
 export class TodoHttpController {
   constructor(
-    @Inject(CreateTodoInputPortToken) private readonly createTodoService: CreateTodoInboundPort,
-    @Inject(UpdateTodoInputPortToken) private readonly updateTodoService: UpdateTodoInboundPort,
+    @Inject(CreateTodoInboundPortToken) private readonly createTodoService: CreateTodoInboundPort,
+    @Inject(UpdateTodoInboundPortToken) private readonly updateTodoService: UpdateTodoInboundPort,
   ) {}
 
   @Post()
@@ -36,7 +36,7 @@ export class TodoHttpController {
   @ApiOperation({ summary: 'Update a new Todo' })
   @ApiResponse({ status: 200, description: 'The todo has been updated.' })
   async update(@Param('id') id: string, @Body() body: UpdateTodoDto) {
-    return this.updateTodoService.execute({ ...body, id })
+    return this.updateTodoService.execute({ ...body }, { id })
   }
 
   @Get()

@@ -4,22 +4,27 @@ import { TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/
 import { TodoType } from '@/domain/todo/types/todo.type'
 import { Todo } from '@/domain/todo/business-objects/todo.bo'
 import { TodoCreatedEvent, TodoCreatedEventSymbol } from '@/application/services/todo/events/todo-created.event'
-import { EventBase } from '@/core/event/event-base.emitter'
+import { EventEmitter2 } from '@nestjs/event-emitter'
+import { EventQueueService } from '@/application/services/todo/listeners/event-queue.service'
 
 @Injectable()
 export class CreateTodoService implements CreateTodoInboundPort {
   constructor(
     @Inject(TodoRepositoryOutboundPortSymbol)
     private readonly todoRepository: TodoRepositoryOutboundPort,
-    private readonly eventBase: EventBase,
+    private eventEmitter: EventEmitter2,
+    private readonly eventQueue: EventQueueService,
   ) {}
 
   async execute(data: TodoType.Input): Promise<TodoType.Output> {
     let todo = new Todo(data)
+    const event = new TodoCreatedEvent(todo)
 
     await this.todoRepository.saveObject(todo.toPersistence())
-    const event = new TodoCreatedEvent(todo)
-    this.eventBase.emit(TodoCreatedEventSymbol, event)
+
+    this.eventEmitter.emit(TodoCreatedEventSymbol.toString(), event)
+    this.eventQueue.enqueue(TodoCreatedEventSymbol, event)
+
     return todo.toJson()
   }
 }

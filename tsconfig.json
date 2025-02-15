@@ -18,8 +18,8 @@
       "@/*": [
         "src/*"
       ],
-      "@test/*": [
-        "test/*"
+      "@tests/*": [
+        "tests/*"
       ]
     },
     "strict": true,

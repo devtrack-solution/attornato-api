@@ -1,41 +1,40 @@
 import { Module } from '@nestjs/common'
 import { CreateTodoService } from '@/application/services/todo/create-todo.service'
-import { CreateTodoInputPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
+import { CreateTodoInboundPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
 import { TodoCreatedListener } from '@/application/services/todo/listeners/todo-created.listener'
-import { TodoCreatedEventSymbol } from '@/application/services/todo/events/todo-created.event'
 import { CoreModule } from '@/core/core.module'
-import { UpdateTodoInputPortToken } from "@/domain/todo/ports/inbound/update-todo.inbound-port";
-import { UpdateTodoService } from "@/application/services/todo/update-todo.service";
+import { UpdateTodoInboundPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
+import { UpdateTodoService } from '@/application/services/todo/update-todo.service'
+import { EventQueueService } from '@/application/services/todo/listeners/event-queue.service'
+import { NotificationService } from '@/application/services/todo/listeners/notification.service'
 
 @Module({
   imports: [CoreModule],
   providers: [
     {
-      provide: CreateTodoInputPortToken,
+      provide: CreateTodoInboundPortToken,
       useClass: CreateTodoService,
     },
     {
-      provide: UpdateTodoInputPortToken,
+      provide: UpdateTodoInboundPortToken,
       useClass: UpdateTodoService,
     },
-    {
-      provide: TodoCreatedEventSymbol,
-      useClass: TodoCreatedListener,
-    },
+    TodoCreatedListener,
+    EventQueueService,
+    NotificationService,
   ],
   exports: [
     {
-      provide: CreateTodoInputPortToken,
+      provide: CreateTodoInboundPortToken,
       useClass: CreateTodoService,
     },
     {
-      provide: UpdateTodoInputPortToken,
+      provide: UpdateTodoInboundPortToken,
       useClass: UpdateTodoService,
     },
-    {
-      provide: TodoCreatedEventSymbol,
-      useClass: TodoCreatedListener,
-    },
+    TodoCreatedListener,
+    EventQueueService,
+    NotificationService,
   ],
 })
 export class TodoModule {}
