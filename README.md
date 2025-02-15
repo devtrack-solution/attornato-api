@@ -88,7 +88,7 @@ Check out a few resources that may come in handy when working with NestJS:
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Project Checklist: codam-erp-api
+## Project Checklist: api-template
 
 This checklist provides an overview of the project's implemented features and highlights areas that need improvement or additional development.
 

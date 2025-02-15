@@ -3,8 +3,7 @@ import path from 'path'
 import { getAllFiles, REGISTERED_PROVIDERS } from '@/infrastructure/decorators/bind.decorator'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { AdapterModule } from '@/infrastructure/adapters/adapter.module'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
+
 
 @Global()
 @Module({})

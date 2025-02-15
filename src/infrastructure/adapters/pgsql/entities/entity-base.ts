@@ -53,4 +53,11 @@ export abstract class EntityBase extends BaseEntity {
   @Column({ name: 'last_change_by_user_id', nullable: true })
   @Index({ unique: false })
   lastUpdatedByUser!: string
+
+  /**
+   * Identifier of the user who last updated the entity.
+   */
+  @Column({ name: 'created_by_user_id', nullable: true })
+  @Index({ unique: false })
+  createdByUser!: string
 }

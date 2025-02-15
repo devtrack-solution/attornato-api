@@ -23,9 +23,6 @@ COPY . .
 # RUN npm run build
 RUN pnpm build
 
-# Exponha a porta usada pela aplicação
-EXPOSE $API_PORT || 3000
-
 # Comando padrão para iniciar a aplicação em produção
 #CMD ["yarn", "start:prod"]
 # ou:
