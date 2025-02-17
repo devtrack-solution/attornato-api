@@ -1,4 +1,4 @@
-import { BaseType } from '@/core/domain/type/base.type'
+import { BaseType } from '@/core/domain/types/base.type'
 
 export namespace TodoType {
   export type Input = {
@@ -18,10 +18,4 @@ export namespace TodoType {
   }
 
   export type Repository = Output
-
-  export type Criteria =
-    | {
-        id: string
-      }
-    | undefined
 }

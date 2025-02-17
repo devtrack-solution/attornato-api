@@ -5,6 +5,7 @@ import { EventBase } from '@/core/event/event-base.emitter'
 import { Todo } from '@/domain/todo/business-objects/todo.bo'
 import { TodoUpdatedEvent, TodoUpdatedEventSymbol } from '@/application/services/todo/events/todo-update.event'
 import { UpdateTodoInboundPort } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
+import { Criteria } from '@/core/domain/types/criteria.type'
 
 @Injectable()
 export class UpdateTodoService implements UpdateTodoInboundPort {
@@ -14,14 +15,14 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
     private readonly eventBase: EventBase,
   ) {}
 
-  async execute(data: TodoType.Input, criteria: TodoType.Criteria): Promise<TodoType.Output> {
+  async execute(data: TodoType.Input, criteria: Criteria.ById): Promise<TodoType.Output> {
     const value = await this.todoRepository.findByCriteria(criteria)
 
     let todo = Todo.fromRepositoryToDomain(value as TodoType.Repository)
 
     const updatedTodo = todo.update(data)
 
-    await this.todoRepository.updateObject(updatedTodo.toPersistence())
+    await this.todoRepository.updateObject(updatedTodo.toPersistence(), criteria)
 
     try {
       const event = new TodoUpdatedEvent(todo)

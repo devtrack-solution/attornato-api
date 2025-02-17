@@ -11,12 +11,12 @@ export interface ConfigPort {
    *
    * @returns The application configuration.
    */
-  initialize(): AppConfig;
+  initialize(): AppConfig
 
   /**
    * Loads the configuration.
    *
    * @returns The application configuration.
    */
-  loadConfig(): AppConfig;
+  loadConfig(): AppConfig
 }

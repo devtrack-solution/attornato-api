@@ -4,7 +4,6 @@ import { getAllFiles, REGISTERED_PROVIDERS } from '@/infrastructure/decorators/b
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { AdapterModule } from '@/infrastructure/adapters/adapter.module'
 
-
 @Global()
 @Module({})
 export class InfrastructureModule implements NestModule {

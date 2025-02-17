@@ -12,19 +12,19 @@ export interface IEntity<Y, T> {
    * @param other - Another entity instance.
    * @returns True if both business-objects are equal, false otherwise.
    */
-  equals(other: Y): boolean;
+  equals(other: Y): boolean
 
   /**
    * Converts the entity to a persistence format.
    *
    * @returns The entity in persistence format.
    */
-  toPersistence(): T;
+  toPersistence(): T
 
   /**
    * Converts the entity to a JSON format.
    *
    * @returns The entity in JSON format.
    */
-  toJson(): T;
+  toJson(): T
 }
