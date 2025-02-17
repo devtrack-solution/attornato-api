@@ -7,7 +7,7 @@ export namespace BaseType {
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date
-    enable: boolean
+    enable?: boolean
   }
 
   export type Output = {
@@ -17,6 +17,6 @@ export namespace BaseType {
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date
-    enable: boolean
+    enable?: boolean
   }
 }

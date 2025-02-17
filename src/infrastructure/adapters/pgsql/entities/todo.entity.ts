@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm'
 import { TodoType } from '@/domain/todo/types/todo.type'
-import { EntityBase } from "@/infrastructure/adapters/pgsql/entities/entity-base";
+import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 
 @Entity('todos')
 export class TodoEntity extends EntityBase implements TodoType.Repository {
@@ -18,5 +18,4 @@ export class TodoEntity extends EntityBase implements TodoType.Repository {
 
   @Column()
   height!: number
-
 }

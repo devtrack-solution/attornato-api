@@ -1,12 +1,12 @@
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class EventBase {
-  private readonly eventEmitter: EventEmitter2;
+  private readonly eventEmitter: EventEmitter2
 
   constructor(eventEmitter: EventEmitter2) {
-    this.eventEmitter = eventEmitter;
+    this.eventEmitter = eventEmitter
   }
 
   /**
@@ -15,7 +15,7 @@ export class EventBase {
    * @param payload - Data to send
    */
   send(event: symbol, payload: any): void {
-    this.eventEmitter.emit(event, payload);
+    this.eventEmitter.emit(event, payload)
   }
 
   /**
@@ -24,7 +24,7 @@ export class EventBase {
    * @param callback - Function to execute when the event occurs
    */
   listen<T>(event: symbol, callback: (payload: T) => void): void {
-    this.eventEmitter.on(event, callback);
+    this.eventEmitter.on(event, callback)
   }
 
   /**
@@ -33,7 +33,7 @@ export class EventBase {
    * @param callback - Function to execute when the event occurs
    */
   listenOnce<T>(event: symbol, callback: (payload: T) => void): void {
-    this.eventEmitter.once(event, callback);
+    this.eventEmitter.once(event, callback)
   }
 
   /**
@@ -42,7 +42,7 @@ export class EventBase {
    * @param callback - The function to remove
    */
   removeListener(event: symbol, callback: (...args: any[]) => void): void {
-    this.eventEmitter.off(event, callback);
+    this.eventEmitter.off(event, callback)
   }
 
   /**
@@ -50,6 +50,6 @@ export class EventBase {
    * @param event - Symbol representing the event
    */
   removeAll(event: symbol): void {
-    this.eventEmitter.removeAllListeners(event);
+    this.eventEmitter.removeAllListeners(event)
   }
 }

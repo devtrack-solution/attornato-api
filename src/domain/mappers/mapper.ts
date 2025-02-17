@@ -11,5 +11,5 @@ export interface IMapper<Y, T> {
    *
    * @returns The entity in JSON format.
    */
-  toJson(): T;
+  toJson(): T
 }

@@ -14,6 +14,6 @@ export class IdempotencyService {
   }
 
   async saveKey(key: string, response: any): Promise<void> {
-    await this.distributedCache.set(key, response)
+    await this.distributedCache.set(key, response ?? '')
   }
 }

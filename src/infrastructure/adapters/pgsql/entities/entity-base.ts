@@ -2,7 +2,7 @@
  * Created by Wilton Oliveira Ferreira on 24/01/2023
  */
 
-import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn, PrimaryColumn } from 'typeorm'
 
 /**
  * Abstract base class for business-objects with common fields such as ID, creation date, update date, deletion date, and more.

@@ -5,6 +5,7 @@ import { TodoHttpControllerModule } from '@/presentation/controllers/http/todo/t
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
+import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempoten
       },
     ]),
     ApplicationModule,
-    TodoHttpControllerModule,
+    PermissionHttpControllerModule,
   ],
   providers: [
     {

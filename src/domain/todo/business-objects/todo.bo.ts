@@ -27,7 +27,6 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
       this._email = data.email
       this._age = data.age
       this._birthday = data.birthday
-      this._enable = data.enable
       this._height = data.height
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Erro ao carregar os dados da entidade Todo`))
@@ -40,10 +39,6 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
     super(props)
     this.loadData(props)
     this.validate()
-  }
-
-  get id(): string {
-    return this._id.toString()
   }
 
   get name(): string {
@@ -75,7 +70,6 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
     this._email = data.email || this._email
     this._age = data.age || this._age
     this._birthday = data.birthday || this._birthday
-    this._enable = data.enable || this._enable
     this._height = data.height || this._height
 
     this.validate()
@@ -84,12 +78,12 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
 
   toPersistence(): TodoType.Output {
     return {
-      id: this.id,
+      id: this._id.toString(),
       name: this.name,
       email: this.email,
       age: this.age,
       birthday: this.birthday,
-      enable: this.enable,
+      enable: this._enable,
       height: this.height,
       createdUserId: this._createdUserId?.toString(),
       lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
@@ -98,7 +92,7 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
 
   toJson(): TodoType.Output {
     return {
-      id: this.id,
+      id: this._id.toString(),
       name: this.name,
       email: this.email,
       age: this.age,

@@ -29,6 +29,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/../adapters/pgsql/entities/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../adapters/pgsql/migrations/*{.ts,.js}'],
   synchronize: config.database.sync,
+  dropSchema: false,
   logging: parseLogLevels(config.database.logLevel),
   logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
   timezone: config.database.timezone,

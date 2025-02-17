@@ -3,6 +3,8 @@ import { TodoRepository } from '@/infrastructure/adapters/pgsql/repositories/tod
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
+import { PermissionRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/permission-repository.outbound-port'
+import { PermissionRepository } from '@/infrastructure/adapters/pgsql/repositories/permission.repository'
 
 @Module({
   imports: [
@@ -16,11 +18,19 @@ import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
       provide: TodoRepositoryOutboundPortSymbol,
       useClass: TodoRepository,
     },
+    {
+      provide: PermissionRepositoryOutboundPortSymbol,
+      useClass: PermissionRepository,
+    },
   ],
   exports: [
     {
       provide: TodoRepositoryOutboundPortSymbol,
       useClass: TodoRepository,
+    },
+    {
+      provide: PermissionRepositoryOutboundPortSymbol,
+      useClass: PermissionRepository,
     },
   ],
 })

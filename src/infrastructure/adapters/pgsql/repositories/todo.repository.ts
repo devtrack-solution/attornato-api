@@ -6,16 +6,16 @@ import { InjectDataSource } from '@nestjs/typeorm'
 import { TodoEntity } from '@/infrastructure/adapters/pgsql/entities/todo.entity'
 import { Logger } from '@nestjs/common'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
+import { Criteria } from '@/core/domain/types/criteria.type'
+import { undefined } from 'zod'
 
 @BindProvider(TodoRepositoryOutboundPortSymbol)
 export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRepositoryOutboundPort {
-  private readonly logger = new Logger(TodoRepository.name)
-
   constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {
     super(TodoEntity, dataSource.createEntityManager(), dataSource.createQueryRunner())
   }
-
-  async saveObject(todo: Partial<TodoType.Input>): Promise<void> {
+  /*
+  override async saveObject(todo: Partial<TodoType.Input>): Promise<void> {
     try {
       await this.save(todo)
     } catch (e) {
@@ -24,7 +24,7 @@ export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRe
     }
   }
 
-  async findByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository> | null> {
+  async findByCriteria(props: Criteria.ById): Promise<Partial<TodoType.Repository> | null> {
     try {
       return await this.findOneBy({ ...props })
       return null
@@ -45,7 +45,7 @@ export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRe
     }
   }
 
-  async findAllByCriteria(props: TodoType.Criteria): Promise<Partial<TodoType.Repository>[]> {
+  async findAllByCriteria(props: Criteria.ById): Promise<Partial<TodoType.Repository>[]> {
     try {
       return await this.findBy({ ...props })
     } catch (e) {
@@ -67,4 +67,10 @@ export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRe
       throw e
     }
   }
+
+  patchObject(todo: Partial<TodoType.Input>, props: Criteria.ById): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+
+ */
 }

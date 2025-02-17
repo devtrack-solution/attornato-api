@@ -1,6 +1,6 @@
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { IMapper } from '@/domain/mappers/mapper'
-import { BaseType } from '@/core/domain/type/base.type'
+import { BaseType } from '@/core/domain/types/base.type'
 
 /**
  * Interface representing a generic entity with methods for equality check,
@@ -16,7 +16,7 @@ export interface IBusinessObject<Y, T> {
    * @param other - Another entity instance.
    * @returns True if both business-objects are equal, false otherwise.
    */
-  equals(other: Y): boolean;
+  equals(other: Y): boolean
 }
 
 export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>, IMapper<Y, T> {
@@ -30,6 +30,7 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
 
   private load(props: BaseType.Input): void {
     this._id = props.id ? IdentityVo.create(props.id) : IdentityVo.generate()
+    this._enable = props.enable || true
     if (props.userId) {
       this._lastUpdatedUserId = IdentityVo.create(props.userId)
       this._createdUserId = IdentityVo.create(props.userId)
@@ -37,7 +38,6 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
       this._lastUpdatedUserId = props.lastUpdatedUserId ? IdentityVo.create(props.lastUpdatedUserId) : undefined
       this._createdUserId = props.createdUserId ? IdentityVo.create(props.createdUserId) : undefined
     }
-
   }
 
   protected constructor(props: BaseType.Input) {
@@ -58,21 +58,21 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
    * @param other - Another entity instance.
    * @returns True if both business-objects are equal, false otherwise.
    */
-  abstract equals(other: Y): boolean;
+  abstract equals(other: Y): boolean
 
   /**
    * Converts the entity to a persistence format.
    *
    * @returns The entity in persistence format.
    */
-  abstract toPersistence(): Y;
+  abstract toPersistence(): Y
 
   /**
    * Converts the entity to a JSON format.
    *
    * @returns The entity in JSON format.
    */
-  abstract toJson(): T;
+  abstract toJson(): T
 
   /**
    * Implement the fromRepositoryToDomain method for the specific entity.

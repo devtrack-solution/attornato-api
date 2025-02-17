@@ -34,7 +34,7 @@ async function bootstrap() {
   app.enableCors({
     origin: config.enableCors.origin,
     methods: config.enableCors.methods,
-    allowedHeaders: config.enableCors.allowedHeaders
+    allowedHeaders: config.enableCors.allowedHeaders,
   })
 
   const options = new DocumentBuilder()
@@ -47,6 +47,14 @@ async function bootstrap() {
     .addServer(addressString)
     .build()
   const document = SwaggerModule.createDocument(app, options)
+
+  // Add descriptions to API tags
+  // document.tags = [
+  //   {
+  //     name: 'Permissions',
+  //     description: 'Endpoints related to managing permissions in the system',
+  //   },
+  // ];
 
   SwaggerModule.setup('/docs', app, document)
   logger.log(`${config.label} API Service in ${addressString}/docs`)
