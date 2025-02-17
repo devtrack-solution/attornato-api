@@ -1,6 +1,7 @@
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { IMapper } from '@/domain/mappers/mapper'
 import { BaseType } from '@/core/domain/types/base.type'
+import { PermissionType } from '@/domain/todo/types/permission.type'
 
 /**
  * Interface representing a generic entity with methods for equality check,
@@ -40,7 +41,7 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
     }
   }
 
-  protected constructor(props: BaseType.Input) {
+  protected constructor(protected props: BaseType.Input) {
     this.load(props)
     /*
       this._lastUpdatedUserId = props.lastUpdatedUserId ? IdentityVo.create(props.lastUpdatedUserId) : undefined
@@ -65,14 +66,35 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
    *
    * @returns The entity in persistence format.
    */
-  abstract toPersistence(): Y
+  protected abstract toPersistenceObject(): Y
+
+  /**
+   * Converts the entity to a persistence format.
+   *
+   * @returns The entity in persistence format.
+   */
+  public toPersistence(): BaseType.Input & Y {
+    return {
+      id: this._id.toString(),
+      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
+      createdUserId: this._createdUserId?.toString(),
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
+      deletedAt: this._deletedAt,
+      enable: this._enable,
+      ...this.toPersistenceObject(),
+    }
+  }
 
   /**
    * Converts the entity to a JSON format.
    *
    * @returns The entity in JSON format.
    */
-  abstract toJson(): T
+  // abstract toJson(): T
+  public toJson(): T {
+    return this.toPersistence() as unknown as T
+  }
 
   /**
    * Implement the fromRepositoryToDomain method for the specific entity.

@@ -6,7 +6,6 @@ export namespace TodoType {
     email: string
     age: number
     birthday: Date
-    enable: boolean
     height: number
   } & BaseType.Input
 

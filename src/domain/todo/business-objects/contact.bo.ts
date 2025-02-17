@@ -41,12 +41,8 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
     return this._value
   }
 
-  toPersistence(): ContactType.Output {
+  toPersistenceObject(): ContactType.Output {
     return { contactType: this.contactType, name: this.name, value: this.value }
-  }
-
-  toJson(): ContactType.Output {
-    return this.toPersistence()
   }
 
   /**

@@ -76,34 +76,13 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
     return this
   }
 
-  toPersistence(): TodoType.Output {
+  toPersistenceObject(): TodoType.Output {
     return {
-      id: this._id.toString(),
       name: this.name,
       email: this.email,
       age: this.age,
       birthday: this.birthday,
-      enable: this._enable,
       height: this.height,
-      createdUserId: this._createdUserId?.toString(),
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-    }
-  }
-
-  toJson(): TodoType.Output {
-    return {
-      id: this._id.toString(),
-      name: this.name,
-      email: this.email,
-      age: this.age,
-      birthday: this.birthday,
-      enable: this.enable,
-      height: this.height,
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      deletedAt: this._deletedAt,
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-      createdUserId: this._createdUserId?.toString(),
     }
   }
 

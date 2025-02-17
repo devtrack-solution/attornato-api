@@ -66,32 +66,13 @@ export class User extends BaseBusinessObject<UserType.Repository, UserType.Outpu
     return this
   }
 
-  toPersistence(): UserType.Output {
+  toPersistenceObject(): UserType.Output {
     return {
-      id: this._id?.toString(),
       username: this.username,
       email: this.email,
       status: this.status,
       userCredential: this.userCredential.toPersistence(),
       roles: this.roles.map((role) => role.toPersistence()),
-      createdUserId: this._createdUserId?.toString(),
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-    }
-  }
-
-  toJson(): UserType.Output {
-    return {
-      id: this._id?.toString(),
-      username: this.username,
-      email: this.email,
-      status: this.status,
-      userCredential: this.userCredential.toJson(),
-      roles: this.roles.map((role) => role.toJson()),
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      deletedAt: this._deletedAt,
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-      createdUserId: this._createdUserId?.toString(),
     }
   }
 

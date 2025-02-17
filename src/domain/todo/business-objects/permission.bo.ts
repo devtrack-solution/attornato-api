@@ -41,17 +41,12 @@ export class Permission extends BaseBusinessObject<PermissionType.Repository, Pe
     return this._resource
   }
 
-  toPersistence(): PermissionType.Output {
+  protected toPersistenceObject(): PermissionType.Output {
     return {
-      id: this._id.toString(),
       name: this.name,
       description: this.description,
       resource: this.resource,
     }
-  }
-
-  toJson(): PermissionType.Output {
-    return this.toPersistence()
   }
 
   equals(other: PermissionType.Input): boolean {
@@ -62,6 +57,12 @@ export class Permission extends BaseBusinessObject<PermissionType.Repository, Pe
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().of({ value: this._resource, fieldName: 'resource' }).required().build('Failed to validate permission rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
+      .required()
+      .of({ value: this._description, fieldName: 'description' })
+      .required()
+      .of({ value: this._resource, fieldName: 'resource' })
+      .required()
+      .build('Failed to validate permission rules')
   }
 }

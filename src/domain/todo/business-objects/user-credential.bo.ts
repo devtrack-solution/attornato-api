@@ -51,30 +51,13 @@ export class UserCredential extends BaseBusinessObject<UserCredentialType.Reposi
     return this._resetPasswordCode
   }
 
-  toPersistence(): UserCredentialType.Output {
+  toPersistenceObject(): UserCredentialType.Output {
     return {
-      id: this._id.toString(),
       lastLogin: this.lastLogin,
       passwordHash: this.passwordHash,
       expiredAt: this.expiredAt,
       resetPasswordToken: this.resetPasswordToken,
       resetPasswordCode: this.resetPasswordCode,
-      enable: this._enable,
-      createdUserId: this._createdUserId?.toString(),
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-    }
-  }
-
-  toJson(): UserCredentialType.Output {
-    return {
-      id: this._id.toString(),
-      lastLogin: this.lastLogin,
-      expiredAt: this.expiredAt,
-      resetPasswordToken: this.resetPasswordToken,
-      resetPasswordCode: this.resetPasswordCode,
-      enable: this._enable,
-      createdUserId: this._createdUserId?.toString(),
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
     }
   }
 

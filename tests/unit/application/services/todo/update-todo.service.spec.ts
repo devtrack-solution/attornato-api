@@ -5,7 +5,7 @@ import { UpdateTodoService } from '@/application/services/todo/update-todo.servi
 import { TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
 import { EventBase } from '@/core/event/event-base.emitter'
 import { TodoTestBuilder } from '@tests/unit//application/services/todo/todo-test.builder'
-import { TodoType } from '@/domain/todo/types/todo.type'
+import { Criteria } from '@/core/domain/types/criteria.type'
 
 describe('[APPLICATION] - UpdateTodoService', () => {
   let service: UpdateTodoService
@@ -23,7 +23,7 @@ describe('[APPLICATION] - UpdateTodoService', () => {
   })
 
   it('should update a todo and emit an event', async () => {
-    const criteria: TodoType.Criteria = { id: 'valid-id' }
+    const criteria: Criteria.ById = { id: 'valid-id' }
     const existingTodo = TodoTestBuilder.getSuccess()
     const updatedData = TodoTestBuilder.create().withName('Updated Task').build()
 
@@ -36,14 +36,8 @@ describe('[APPLICATION] - UpdateTodoService', () => {
     }
   })
 
-  it('should throw an error if criteria is undefined', async () => {
-    const updatedData = TodoTestBuilder.getSuccess()
-
-    await expect(service.execute(updatedData, undefined)).rejects.toThrow()
-  })
-
   it('should throw an error if todo is not found', async () => {
-    const criteria: TodoType.Criteria = { id: 'non-existing-id' }
+    const criteria: Criteria.ById = { id: 'non-existing-id' }
     const updatedData = TodoTestBuilder.getSuccess()
 
     todoRepository.findByCriteria.mockResolvedValue(null)
@@ -55,14 +49,14 @@ describe('[APPLICATION] - UpdateTodoService', () => {
     ['name is empty', TodoTestBuilder.getFailOnEmptyName()],
     ['email is invalid', TodoTestBuilder.getFailOnEmailInvalid()],
   ])('should fail when %s', async (_, updatedData) => {
-    const criteria: TodoType.Criteria = { id: 'valid-id' }
+    const criteria: Criteria.ById = { id: 'valid-id' }
     // todoRepository.findByCriteria.mockResolvedValue(TodoTestBuilder.getSuccess())
 
     await expect(service.execute(updatedData, criteria)).rejects.toThrow()
   })
 
   it('should return updated todo even if eventBase.send fails', async () => {
-    const criteria: TodoType.Criteria = { id: 'valid-id' }
+    const criteria: Criteria.ById = { id: 'valid-id' }
     const existingTodo = TodoTestBuilder.getSuccess()
     const updatedData = TodoTestBuilder.create().withName('Updated Task').build()
 

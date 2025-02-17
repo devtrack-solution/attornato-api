@@ -48,18 +48,13 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
     return this._permissions
   }
 
-  toPersistence(): RoleType.Output {
+  toPersistenceObject(): RoleType.Output {
     return {
-      id: this._id.toString(),
       name: this.name,
       description: this.description,
       level: this.level,
       permissions: this.permissions.map((p) => p.toPersistence()),
     }
-  }
-
-  toJson(): RoleType.Output {
-    return this.toPersistence()
   }
 
   equals(other: RoleType.Input): boolean {
