@@ -14,7 +14,7 @@ export class ListToSelectPermissionService implements ListToSelectPermissionInbo
   ) {}
 
   async execute(criteria: Criteria.FindBy): Promise<PermissionType.Output[]> {
-    let permissions = await this.permissionRepository.listToSelectByCriteria(criteria)
+    let permissions = await this.permissionRepository.findForSelectByCriteria(criteria)
     return permissions.map((permission) => new Permission(permission as PermissionType.Output).toJson())
   }
 }

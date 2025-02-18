@@ -3,6 +3,7 @@ import { TodoModule } from '@/application/services/todo/todo.module'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { PermissionModule } from '@/application/services/permission/permission.module'
+import { MachineModule } from '@/application/services/machine/machine.module'
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -11,6 +12,7 @@ import { PermissionModule } from '@/application/services/permission/permission.m
     }),
     TodoModule,
     PermissionModule,
+    MachineModule,
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],

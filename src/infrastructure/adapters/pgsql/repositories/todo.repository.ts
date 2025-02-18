@@ -1,13 +1,9 @@
 import { type TodoRepositoryOutboundPort, TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
-import { TodoType } from '@/domain/todo/types/todo.type'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
-import { DataSource, Repository } from 'typeorm'
+import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { TodoEntity } from '@/infrastructure/adapters/pgsql/entities/todo.entity'
-import { Logger } from '@nestjs/common'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import { Criteria } from '@/core/domain/types/criteria.type'
-import { undefined } from 'zod'
 
 @BindProvider(TodoRepositoryOutboundPortSymbol)
 export class TodoRepository extends RepositoryBase<TodoEntity> implements TodoRepositoryOutboundPort {

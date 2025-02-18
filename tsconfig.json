@@ -4,7 +4,7 @@
     "outDir": "dist",
     "rootDirs": [
       "src",
-      "test"
+      "tests"
     ],
     "target": "ES2022",
     "sourceMap": true,
@@ -31,7 +31,7 @@
   },
   "include": [
     "src",
-    "test",
+    "tests",
     "typings",
     "src/**/*.json"
   ],

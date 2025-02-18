@@ -21,7 +21,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param props - The criteria to find the object.
    * @returns A promise that resolves to the found object or null if not found.
    */
-  findByCriteria(props: X): Promise<Partial<T> | null>
+  findOneByCriteria(props: X): Promise<Partial<T> | null>
 
   /**
    * Finds all objects by criteria.
@@ -29,7 +29,12 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param props - The criteria to find the objects.
    * @returns A promise that resolves to an array of found objects.
    */
-  findAllByCriteria(props: X): Promise<Partial<T>[]>
+  findAllByCriteria(props: Criteria.Paginated): Promise<{
+    count: number
+    limit: number
+    offset: number
+    data: Partial<T>[]
+  }>
 
   /**
    * Finds all objects by criteria.
@@ -37,7 +42,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param props - The criteria to find the objects.
    * @returns A promise that resolves to an array of found objects.
    */
-  listToSelectByCriteria(props: Criteria.FindBy): Promise<Partial<T>[]>
+  findForSelectByCriteria(props: Criteria.FindBy): Promise<Partial<T>[]>
 
   /**
    * Updates an object in the database.

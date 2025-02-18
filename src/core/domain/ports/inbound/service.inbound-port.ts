@@ -33,7 +33,7 @@ export interface IServiceWithDataInboundPort<Y, X, T> {
 /**
  * Interface representing a service inbound port with a single execute method.
  *
- * @template Y - The type of the input data.
+ * @template X - The type of the criteria data.
  * @template T - The type of the output data.
  */
 export interface IServiceWithCriteriaInboundPort<X, T> {
@@ -43,5 +43,5 @@ export interface IServiceWithCriteriaInboundPort<X, T> {
    * @param criteria
    * @returns A promise that resolves to the output data.
    */
-  execute(criteria?: X): Promise<T>
+  execute(criteria: X): Promise<T>
 }

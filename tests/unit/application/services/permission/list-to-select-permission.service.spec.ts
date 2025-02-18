@@ -22,7 +22,7 @@ describe('[APPLICATION] - ListToSelectPermissionService', () => {
     const criteria: Criteria.FindBy = { search: 'user_management' }
     const permissions = [PermissionTestBuilder.getSuccess()]
 
-    permissionRepository.listToSelectByCriteria.mockResolvedValue(permissions)
+    permissionRepository.findForSelectByCriteria.mockResolvedValue(permissions)
 
     const result = await service.execute(criteria)
 

@@ -16,7 +16,7 @@ export class UpdateTodoService implements UpdateTodoInboundPort {
   ) {}
 
   async execute(data: TodoType.Input, criteria: Criteria.ById): Promise<TodoType.Output> {
-    const value = await this.todoRepository.findByCriteria(criteria)
+    const value = await this.todoRepository.findOneByCriteria(criteria)
 
     let todo = Todo.fromRepositoryToDomain(value as TodoType.Repository)
 

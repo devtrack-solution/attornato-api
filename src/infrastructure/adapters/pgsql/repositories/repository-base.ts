@@ -21,7 +21,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async findByCriteria(props: Criteria.ById): Promise<Partial<T> | null> {
+  async findOneByCriteria(props: Criteria.ById): Promise<Partial<T> | null> {
     try {
       const filters: FindOptionsWhere<T | any> = {
         where: {
@@ -40,26 +40,39 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async findAllByCriteria(props: Criteria.ById): Promise<Partial<T>[]> {
+  async findAllByCriteria(props: Criteria.Paginated): Promise<{
+    count: number
+    limit: number
+    offset: number
+    data: Partial<T>[]
+  }> {
     try {
-      const filters: FindOptionsWhere<T | any> = {
+      const filters: FindManyOptions<T | any> = {
         where: {
-          id: props?.id,
-          // name: undefined,
-          // description: props?.search ? ILike(`%${props.search}%`) : undefined,
-          enable: true,
+          description: props?.search ? ILike(`%${props.search}%`) : undefined,
+          enable: props.isActive,
         },
         order: { description: 'ASC' },
         withDeleted: false,
+        take: props.limit,
+        skip: props.offset,
       }
-      return await this.findBy(filters)
+      const repository: Repository<T> = this.manager.getRepository(this.target)
+      const [data, count] = await repository.findAndCount(filters)
+
+      return {
+        count,
+        limit: props.limit,
+        offset: props.offset,
+        data,
+      }
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e
     }
   }
 
-  async listToSelectByCriteria(props: Criteria.FindBy): Promise<T[]> {
+  async findForSelectByCriteria(props: Criteria.FindBy): Promise<T[]> {
     try {
       const filters: FindManyOptions<T | any> = {
         where: {

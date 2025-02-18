@@ -27,7 +27,7 @@ describe('[APPLICATION] - UpdateTodoService', () => {
     const existingTodo = TodoTestBuilder.getSuccess()
     const updatedData = TodoTestBuilder.create().withName('Updated Task').build()
 
-    todoRepository.findByCriteria.mockResolvedValue(existingTodo)
+    todoRepository.findOneByCriteria.mockResolvedValue(existingTodo)
 
     try {
       await service.execute(updatedData, criteria)
@@ -40,7 +40,7 @@ describe('[APPLICATION] - UpdateTodoService', () => {
     const criteria: Criteria.ById = { id: 'non-existing-id' }
     const updatedData = TodoTestBuilder.getSuccess()
 
-    todoRepository.findByCriteria.mockResolvedValue(null)
+    todoRepository.findOneByCriteria.mockResolvedValue(null)
 
     await expect(service.execute(updatedData, criteria)).rejects.toThrow()
   })
@@ -60,7 +60,7 @@ describe('[APPLICATION] - UpdateTodoService', () => {
     const existingTodo = TodoTestBuilder.getSuccess()
     const updatedData = TodoTestBuilder.create().withName('Updated Task').build()
 
-    todoRepository.findByCriteria.mockResolvedValue(existingTodo)
+    todoRepository.findOneByCriteria.mockResolvedValue(existingTodo)
     todoRepository.updateObject.mockResolvedValue(undefined)
     eventBase.send.mockImplementation(() => {
       throw new Error('Event send failure')
@@ -68,7 +68,7 @@ describe('[APPLICATION] - UpdateTodoService', () => {
 
     const result = await service.execute(updatedData, criteria)
 
-    expect(todoRepository.findByCriteria).toHaveBeenCalledWith(criteria)
+    expect(todoRepository.findOneByCriteria).toHaveBeenCalledWith(criteria)
     expect(todoRepository.updateObject).toHaveBeenCalled()
     expect(result.name).toEqual('Updated Task')
   })

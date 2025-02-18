@@ -6,6 +6,7 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
+import { MachineHttpControllerModule } from '@/presentation/controllers/http/machine/machine-http-controller.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PermissionHttpControllerModule } from '@/presentation/controllers/http/
     ]),
     ApplicationModule,
     PermissionHttpControllerModule,
+    MachineHttpControllerModule,
   ],
   providers: [
     {
