@@ -76,13 +76,6 @@ export class User extends BaseBusinessObject<UserType.Repository, UserType.Outpu
     }
   }
 
-  equals(other: UserType.Input): boolean {
-    if (!other || other.id === undefined) {
-      return false
-    }
-    return this._id.equals(IdentityVo.create(other.id))
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._username, fieldName: 'username' })
       .required()

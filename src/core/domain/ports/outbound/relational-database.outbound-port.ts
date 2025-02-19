@@ -1,4 +1,5 @@
 import { Criteria } from '@/core/domain/types/criteria.type'
+import { DeepPartial } from 'typeorm'
 
 /**
  * Interface representing a relational database outbound port with methods for saving, finding, updating, and deleting objects.
@@ -13,23 +14,25 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param todo - The object to be saved.
    * @returns A promise that resolves when the object is saved.
    */
-  saveObject(todo: Partial<Y>): Promise<void>
+  saveObject(todo: DeepPartial<Y>): Promise<void>
 
   /**
    * Finds an object by criteria.
    *
    * @param props - The criteria to find the object.
+   * @param relations - Objects relative to return.
    * @returns A promise that resolves to the found object or null if not found.
    */
-  findOneByCriteria(props: X): Promise<Partial<T> | null>
+  findOneByCriteria(props: X, relations?: string[]): Promise<Partial<T> | null>
 
   /**
    * Finds all objects by criteria.
    *
    * @param props - The criteria to find the objects.
+   * @param relations - Objects relative to return.
    * @returns A promise that resolves to an array of found objects.
    */
-  findAllByCriteria(props: Criteria.Paginated): Promise<{
+  findAllByCriteria(props: Criteria.Paginated, relations?: string[]): Promise<{
     count: number
     limit: number
     offset: number
@@ -49,18 +52,20 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    *
    * @param todo - The object to be updated.
    * @param props - The criteria to find the objects.
+   * @param relations - Objects relative to return.
    * @returns A promise that resolves when the object is updated.
    */
-  updateObject(todo: Y, props: X): Promise<void>
+  updateObject(todo: Y, props: X, relations?: string[]): Promise<void>
 
   /**
    * Partially updates an object in the database.
    *
    * @param todo - The object to be updated.
    * @param props - The criteria to find the objects.
+   * @param relations - Objects relative to return.
    * @returns A promise that resolves when the object is updated.
    */
-  patchObject(todo: Partial<Y>, props: X): Promise<void>
+  patchObject(todo: Partial<Y>, props: X, relations?: string[]): Promise<void>
 
   /**
    * Deletes an object from the database by ID.

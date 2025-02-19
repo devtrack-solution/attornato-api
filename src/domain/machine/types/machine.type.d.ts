@@ -18,7 +18,7 @@ export namespace MachineType {
     machineCode: string
     // machineGroupId: string
     status: string
-    // technicalSpecification: TechnicalSpecificationType.Input
+    technicalSpecification?: TechnicalSpecificationType.Input
     // location: LocationType.Input
     // productionCapacity: ProductionCapacityType.Input
     // operators: OperatorType.Input[]

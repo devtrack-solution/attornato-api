@@ -1,7 +1,7 @@
 import { ApiHeader, ApiResponse } from '@nestjs/swagger'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { UseFilters } from '@nestjs/common'
-import { ValidationExceptionFilter } from '@/core/presentation/filters/validation-exception.filter'
+import { ValidationExceptionFilter } from '@/core/presentation/http/filters/validation-exception.filter'
 
 @ApiHeader({
   name: 'x-idempotency-key',

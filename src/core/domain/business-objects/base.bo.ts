@@ -2,6 +2,7 @@ import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { IMapper } from '@/domain/mappers/mapper'
 import { BaseType } from '@/core/domain/types/base.type'
 import { PermissionType } from '@/domain/todo/types/permission.type'
+import { TodoType } from '@/domain/todo/types/todo.type'
 
 /**
  * Interface representing a generic entity with methods for equality check,
@@ -59,7 +60,13 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
    * @param other - Another entity instance.
    * @returns True if both business-objects are equal, false otherwise.
    */
-  abstract equals(other: Y): boolean
+  // abstract equals(other: Y): boolean
+  equals(other: Y): boolean {
+    if (!other || (other as any).id === undefined) {
+      return false
+    }
+    return this._id.equals(IdentityVo.create((other as any).id))
+  }
 
   /**
    * Converts the entity to a persistence format.

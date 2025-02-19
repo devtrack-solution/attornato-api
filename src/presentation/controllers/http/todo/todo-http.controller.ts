@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger'
 import { CreateTodoInboundPort, CreateTodoInboundPortToken } from '@/domain/todo/ports/inbound/create-todo.inbound-port'
 import { CreateTodoDto, UpdateTodoDto } from '@/presentation/controllers/http/todo/dtos/create-todo.dto'
 import { UpdateTodoInboundPort, UpdateTodoInboundPortToken } from '@/domain/todo/ports/inbound/update-todo.inbound-port'
-import { ValidationExceptionFilter } from '@/core/presentation/filters/validation-exception.filter'
+import { ValidationExceptionFilter } from '@/core/presentation/http/filters/validation-exception.filter'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
 @ApiTags('todos')

@@ -1,27 +1,36 @@
-import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository } from 'typeorm'
+import {
+  FindManyOptions,
+  FindOptionsWhere,
+  ILike,
+  ObjectLiteral,
+  Repository,
+  DeepPartial
+} from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
 import { Logger } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
+import { IRelationalDatabaseOutboundPort } from '@/core/domain/ports/outbound/relational-database.outbound-port'
 
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
   protected readonly logger: Logger
+
   protected constructor(target: EntityTarget<T>, manager: EntityManager, queryRunner?: QueryRunner) {
     super(target, manager, queryRunner)
     this.logger = new Logger(this.constructor.name)
   }
 
-  async saveObject(input: T): Promise<void> {
+  async saveObject(input: DeepPartial<T>): Promise<void> {
     try {
-      await this.save(input)
+      await this.manager.getRepository(this.target).save(input)
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e
     }
   }
 
-  async findOneByCriteria(props: Criteria.ById): Promise<Partial<T> | null> {
+  async findOneByCriteria(props: Criteria.ById, relations?: string[]): Promise<Partial<T> | null> {
     try {
       const filters: FindOptionsWhere<T | any> = {
         where: {
@@ -30,17 +39,18 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
           // description: props?.search ? ILike(`%${props.search}%`) : undefined,
           enable: true,
         },
+        relations,
         order: { description: 'ASC' },
         withDeleted: false,
       }
-      return await this.findOneBy(filters)
+      return await this.findOne(filters)
     } catch (e) {
       this.logger.error(`Error: ${e}`)
       throw e
     }
   }
 
-  async findAllByCriteria(props: Criteria.Paginated): Promise<{
+  async findAllByCriteria(props: Criteria.Paginated, relations?: string[]): Promise<{
     count: number
     limit: number
     offset: number
@@ -52,13 +62,14 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
           description: props?.search ? ILike(`%${props.search}%`) : undefined,
           enable: props.isActive,
         },
+        relations,
         order: { description: 'ASC' },
         withDeleted: false,
         take: props.limit,
         skip: props.offset,
       }
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      const [data, count] = await repository.findAndCount(filters)
+
+      const [data, count] = await this.manager.getRepository(this.target).findAndCount(filters)
 
       return {
         count,
@@ -91,31 +102,39 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async updateObject(input: Partial<T>): Promise<void> {
+  async updateObject(input: Partial<T>, props: Criteria.ById, relations?: string[]): Promise<void> {
     try {
-      const loadInput = await this.findOneBy({ id: input.id })
+      const repository: Repository<T> = this.manager.getRepository(this.target)
+      const loadInput = await repository.findOne({
+        where: { id: input.id },
+        relations,
+      })
       if (!loadInput) {
         throw new Error('Dados não encontrado')
       }
       Object.assign(loadInput, input)
-      await this.save(loadInput)
+      await repository.save(loadInput)
     } catch (e) {
-      this.logger.error(`Error: ${e}`)
+      this.logger.error(`Error updating object: ${e}`)
       throw e
     }
   }
 
-  async patchObject(input: Partial<T>, props: Criteria.ById): Promise<void> {
+  async patchObject(input: Partial<T>, props: Criteria.ById, relations?: string[]): Promise<void> {
     try {
       const repository: Repository<T> = this.manager.getRepository(this.target)
       const where: FindOptionsWhere<T | any> = { id: props.id, enable: true }
 
-      const loadInput = await repository.findOneBy(where)
+      const loadInput = await repository.findOne({
+        where,
+        relations,
+      })
+
       if (!loadInput) {
         throw new Error('Dados não encontrado')
       }
       Object.assign(loadInput, input)
-      await this.save(loadInput)
+      await repository.save(loadInput)
     } catch (e) {
       this.logger.error(`[pathObject] Error: ${e}`)
       throw e

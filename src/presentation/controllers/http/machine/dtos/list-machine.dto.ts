@@ -8,7 +8,7 @@ export class ListMachineDto implements Criteria.Paginated {
   @ApiPropertyOptional({ description: 'Search filter by', example: 'laser,cutter' })
   filterBy: string[] = []
 
-  @ApiPropertyOptional({ description: 'isActive relative to deleted', example: 'Laser Cutter' })
+  @ApiPropertyOptional({ description: 'isActive relative to deleted' })
   isActive?: boolean
 
   @ApiPropertyOptional({

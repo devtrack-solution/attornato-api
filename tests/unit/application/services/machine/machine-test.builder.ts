@@ -81,6 +81,11 @@ export class MachineTestBuilder {
     return { limit: 10, offset: 0, search: '' }
   }
 
+// 🔹 Standardized relations criteria for this entity
+  static getRelationsCriteria(): string[] {
+    return ['technicalSpecification', 'technicalSpecification.manuals'];
+  }
+
   // 🔹 Mocked repository response (with multiple machines)
   static getRepositoryResponse(): { count: number; limit: number; offset: number; data: MachineType.Input[] } {
     const mockMachines = MachineTestBuilder.getMultiple(3)

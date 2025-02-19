@@ -45,21 +45,6 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
     return { contactType: this.contactType, name: this.name, value: this.value }
   }
 
-  /**
-   * Checks if another Identity is equal to the current one.
-   * @param other - Another Identity instance.
-   * @returns True if both identities are equal, false otherwise.
-   */
-  equals(other: ContactType.Input): boolean {
-    if (!other) {
-      return false
-    } else if (other.id === undefined) {
-      return false
-    } else {
-      return this._id.equals(IdentityVo.create(other.id))
-    }
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().of({ value: this._value, fieldName: 'value' }).required().build('Failed to validate contact rules')
   }

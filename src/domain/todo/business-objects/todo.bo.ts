@@ -90,21 +90,6 @@ export class Todo extends BaseBusinessObject<TodoType.Repository, TodoType.Outpu
     return new Todo(data)
   }
 
-  /**
-   * Checks if another Identity is equal to the current one.
-   * @param other - Another Identity instance.
-   * @returns True if both identities are equal, false otherwise.
-   */
-  equals(other: TodoType.Input): boolean {
-    if (!other) {
-      return false
-    } else if (other.id === undefined) {
-      return false
-    } else {
-      return this._id.equals(IdentityVo.create(other.id))
-    }
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._birthday, fieldName: 'birthday' })
       /*.dateFormat([

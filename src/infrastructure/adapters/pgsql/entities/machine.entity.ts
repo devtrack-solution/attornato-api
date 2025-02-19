@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
+import { TechnicalSpecificationEntity } from '@/infrastructure/adapters/pgsql/entities/technical-specification.entity'
 
 @Entity('machines')
 export class MachineEntity extends EntityBase {
@@ -19,11 +20,12 @@ export class MachineEntity extends EntityBase {
 
   @Column({ type: 'varchar', length: 50 })
   status!: string
-  /*
-    @OneToOne(() => TechnicalSpecification, { cascade: true })
-    @JoinColumn()
-    technicalSpecification!: TechnicalSpecification
 
+  @OneToOne(() => TechnicalSpecificationEntity, (technicalSpec) => technicalSpec.machine, { nullable: true, eager: false, cascade: true })
+  @JoinColumn()
+  technicalSpecification?: TechnicalSpecificationEntity
+
+  /*
     @OneToOne(() => Location, { cascade: true })
     @JoinColumn()
     location!: Location

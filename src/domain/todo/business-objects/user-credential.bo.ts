@@ -60,19 +60,4 @@ export class UserCredential extends BaseBusinessObject<UserCredentialType.Reposi
       resetPasswordCode: this.resetPasswordCode,
     }
   }
-
-  /**
-   * Checks if another Identity is equal to the current one.
-   * @param other - Another Identity instance.
-   * @returns True if both identities are equal, false otherwise.
-   */
-  equals(other: UserCredentialType.Input): boolean {
-    if (!other) {
-      return false
-    } else if (other.id === undefined) {
-      return false
-    } else {
-      return this._id.equals(IdentityVo.create(other.id))
-    }
-  }
 }

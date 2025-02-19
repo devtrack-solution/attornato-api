@@ -49,13 +49,6 @@ export class Permission extends BaseBusinessObject<PermissionType.Repository, Pe
     }
   }
 
-  equals(other: PermissionType.Input): boolean {
-    if (!other || other.id === undefined) {
-      return false
-    }
-    return this._id.equals(IdentityVo.create(other.id))
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
       .required()

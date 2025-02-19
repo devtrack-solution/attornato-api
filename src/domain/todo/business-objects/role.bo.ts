@@ -57,13 +57,6 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
     }
   }
 
-  equals(other: RoleType.Input): boolean {
-    if (!other || other.id === undefined) {
-      return false
-    }
-    return this._id.equals(IdentityVo.create(other.id))
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().of({ value: this._level, fieldName: 'level' }).required().build('Failed to validate role rules')
   }

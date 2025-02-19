@@ -4,6 +4,7 @@ import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-obje
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { MachineType } from '@/domain/machine/types/machine.type'
+import { TechnicalSpecification } from '@/domain/machine/business-objects/technical-specification.bo'
 
 export interface IMachine extends IBusinessObject<MachineType.Input, MachineType.Output> {}
 
@@ -13,7 +14,7 @@ export class Machine extends BaseBusinessObject<MachineType.Repository, MachineT
   private _machineCode!: string
   // private _machineGroupId!: string
   private _status!: string
-  // private _technicalSpecification!: TechnicalSpecification
+  private _technicalSpecification?: TechnicalSpecification
   // private _location!: Location
   // private _productionCapacity!: ProductionCapacity
   // private _operators!: Operator[]
@@ -26,7 +27,7 @@ export class Machine extends BaseBusinessObject<MachineType.Repository, MachineT
       this._machineCode = data.machineCode
       // this._machineGroupId = data.machineGroupId
       this._status = data.status
-      // this._technicalSpecification = new TechnicalSpecification(data.technicalSpecification)
+      this._technicalSpecification = data.technicalSpecification ? new TechnicalSpecification(data.technicalSpecification) : undefined
       // this._location = new Location(data.location)
       // this._productionCapacity = new ProductionCapacity(data.productionCapacity)
       // this._operators = data.operators.map((op) => new Operator(op))
@@ -34,7 +35,7 @@ export class Machine extends BaseBusinessObject<MachineType.Repository, MachineT
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Machine entity`))
     }
-    return this
+    return this.toJson()
   }
 
   get name(): string {
@@ -59,13 +60,6 @@ export class Machine extends BaseBusinessObject<MachineType.Repository, MachineT
     this.validate()
   }
 
-  equals(other: MachineType.Input): boolean {
-    if (!other || other.id === undefined) {
-      return false
-    }
-    return this._id.equals(IdentityVo.create(other.id))
-  }
-
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
       .required()
@@ -82,8 +76,8 @@ export class Machine extends BaseBusinessObject<MachineType.Repository, MachineT
       machineCode: this._machineCode,
       // machineGroupId: this._machineGroupId,
       status: this._status,
-      /*technicalSpecification: this._technicalSpecification.toPersistenceObject(),
-      location: this._location.toPersistenceObject(),
+      technicalSpecification: this._technicalSpecification?.toPersistence(),
+      /*location: this._location.toPersistenceObject(),
       productionCapacity: this._productionCapacity.toPersistenceObject(),
       operators: this._operators.map((op) => op.toPersistenceObject()),
       maintenances: this._maintenances.map((mt) => mt.toPersistenceObject()),*/

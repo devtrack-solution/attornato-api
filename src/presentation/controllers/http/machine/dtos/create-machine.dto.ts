@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { MachineType } from '@/domain/machine/types/machine.type'
+import { TechnicalSpecificationDto } from '@/presentation/controllers/http/machine/dtos/technical-specification.dto'
 
 export class CreateMachineDto implements MachineType.Input {
   @ApiProperty({ description: 'The name of the machine', example: 'Laser Cutter', required: true })
@@ -17,10 +18,10 @@ export class CreateMachineDto implements MachineType.Input {
   @ApiProperty({ description: 'The current status of the machine', example: 'Available', required: true })
   status!: string
 
-  /*  @ApiProperty({ description: 'Technical specifications of the machine', required: true })
-  technicalSpecification!: MachineType.Input['technicalSpecification']
+  @ApiProperty({ description: 'Technical specifications of the machine', required: false })
+  technicalSpecification!: TechnicalSpecificationDto
 
-  @ApiProperty({ description: 'Machine location', required: true })
+  /* @ApiProperty({ description: 'Machine location', required: true })
   location!: MachineType.Input['location']
 
   @ApiProperty({ description: 'Production capacity details', required: true })
