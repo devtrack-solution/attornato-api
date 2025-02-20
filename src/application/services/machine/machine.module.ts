@@ -10,9 +10,10 @@ import { ListToSelectMachineInboundPortToken } from '@/domain/machine/ports/inbo
 import { ListToSelectMachineService } from '@/application/services/machine/list-to-select-machine.service'
 import { PatchMachineInboundPortToken } from '@/domain/machine/ports/inbound/patch-machine.inbound-port'
 import { PatchMachineService } from '@/application/services/machine/patch-machine.service'
+import { MachineGroupModule } from '@/application/services/machine/group/machine-group.module'
 
 @Module({
-  imports: [CoreModule],
+  imports: [CoreModule, MachineGroupModule],
   controllers: [],
   providers: [
     {
