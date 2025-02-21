@@ -28,6 +28,7 @@
   "scripts": {
     "prepare:setup": "chmod +x setup.sh && ./setup.sh",
     "build": "nest build",
+    "build:prod": "chmod +x load-env.sh && load-env.sh && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "start": "nest start",
     "start:docker": "docker compose -f docker-compose.yml -p api-template up -d",
