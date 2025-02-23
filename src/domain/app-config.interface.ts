@@ -2,6 +2,7 @@ export interface AppConfig {
   environment: string | undefined
   label: string | undefined
   appServer: string | undefined
+  swaggerServerUrl: string | undefined
   apiHost: string
   apiPort: string | number
   apiKey: string | undefined

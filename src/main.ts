@@ -26,7 +26,7 @@ async function bootstrap() {
   const logger = new Logger('bootstrap')
   logger.log(`Logger Level fastifyInstance: ${fastifyInstance.log.level}`)
   logger.log(`Logger Level config.logLevel: ${config.logLevel}`)
-  const addressString = `${config.appServer}:${config.apiPort}`
+  const addressString = `${config.swaggerServerUrl}`
   logger.log(`Current Environment: ${config.environment}`)
   logger.log(`Database Host: ${config.database.host}`)
   logger.log(`App Server: ${config.appServer}`)

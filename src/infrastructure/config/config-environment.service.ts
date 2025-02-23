@@ -21,6 +21,10 @@ export class ConfigEnvironmentService implements AppConfig {
   get apiPort(): number {
     return Number(process.env.API_PORT) || 3000
   }
+
+  get swaggerServerUrl(): string {
+    return process.env.SWAGGER_SERVER_URL || 'http://localhost:3000'
+  }
   get apiKey(): string | undefined {
     return process.env.API_KEY
   }

@@ -7,6 +7,7 @@ export default (): any => ({
   label: process.env.APP_LABEL,
   corsConfig: process.env.APP_CORS_CONFIG,
   appServer: process.env.APP_SERVER_PATH,
+  swaggerServerUrl: process.env.APP_SWAGGER_SERVER_URL,
   database: {
     host: process.env.TYPEORM_HOST,
     port: process.env.TYPEORM_PORT ? parseInt(process.env.TYPEORM_PORT, 10) : undefined,
