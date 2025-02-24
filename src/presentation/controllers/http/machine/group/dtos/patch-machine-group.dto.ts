@@ -1,9 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger'
+import { CreateMachineGroupDto } from '@/presentation/controllers/http/machine/group/dtos/create-machine-group.dto'
+import { MachineGroupDto } from '@/presentation/controllers/http/machine/group/dtos/machine-group.dto'
 
-export class PatchMachineGroupDto {
-  @ApiProperty({ description: 'Updated name of the machine group', example: 'Heavy Excavators', required: false })
-  groupName?: string;
-
-  @ApiProperty({ description: 'Updated slug for the machine group', example: 'heavy-excavators', required: false })
-  slug?: string;
+export class PatchMachineGroupDto extends OmitType(CreateMachineGroupDto, ['groupCode']) {
+  // extends PartialType(CreateMachineGroupDto) {
 }

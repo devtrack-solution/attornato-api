@@ -1,12 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger'
+import { MachineGroupType } from '@/domain/machine/group/types/machine-group.type'
+import { MachineGroupDto } from '@/presentation/controllers/http/machine/group/dtos/machine-group.dto'
 
-export class CreateMachineGroupDto {
-  @ApiProperty({ description: 'Name of the machine group', example: 'Heavy Excavators', required: true })
-  groupName!: string;
-
-  @ApiProperty({ description: 'Slug for the machine group', example: 'heavy-excavators', required: true })
-  slug!: string;
-
-  @ApiProperty({ description: 'Unique group code', example: 'TEX1234S1', required: true })
-  groupCode!: string;
-}
+export class CreateMachineGroupDto extends OmitType(MachineGroupDto, ['id', 'userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable']) implements MachineGroupType.Input {}

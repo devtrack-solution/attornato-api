@@ -1,11 +1,8 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger'
 
 export class ListMachineGroupDto {
   @ApiPropertyOptional({ description: 'Search term to filter', example: 'Some Text' })
   search!: string
-
-  @ApiPropertyOptional({ description: 'Search filter by', example: 'some,text' })
-  filterBy: string[] = []
 
   @ApiPropertyOptional({ description: 'isActive relative to deleted' })
   isActive?: boolean
