@@ -10,10 +10,7 @@ describe('[APPLICATION] - ListMachineService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ListMachineService,
-        { provide: MachineRepositoryOutboundPortSymbol, useValue: mock<MachineRepositoryOutboundPort>() },
-      ],
+      providers: [ListMachineService, { provide: MachineRepositoryOutboundPortSymbol, useValue: mock<MachineRepositoryOutboundPort>() }],
     }).compile()
 
     service = module.get<ListMachineService>(ListMachineService)
@@ -22,7 +19,7 @@ describe('[APPLICATION] - ListMachineService', () => {
 
   it('should return paginated machines', async () => {
     const criteria = MachineTestBuilder.getPaginatedCriteria()
-    const relations =  MachineTestBuilder.getRelationsCriteria()
+    const relations = MachineTestBuilder.getRelationsCriteria()
     const mockResponse = MachineTestBuilder.getRepositoryResponse()
 
     machineRepository.findAllByCriteria.mockResolvedValue(mockResponse)
@@ -36,7 +33,7 @@ describe('[APPLICATION] - ListMachineService', () => {
 
   it('should return an empty list if no machines are found', async () => {
     const criteria = MachineTestBuilder.getPaginatedCriteria()
-    const relations =  MachineTestBuilder.getRelationsCriteria()
+    const relations = MachineTestBuilder.getRelationsCriteria()
     const emptyResponse = MachineTestBuilder.getEmptyResponse()
 
     machineRepository.findAllByCriteria.mockResolvedValue(emptyResponse)
@@ -49,7 +46,7 @@ describe('[APPLICATION] - ListMachineService', () => {
 
   it('should throw an error if repository fails', async () => {
     const criteria = MachineTestBuilder.getPaginatedCriteria()
-    const relations =  MachineTestBuilder.getRelationsCriteria()
+    const relations = MachineTestBuilder.getRelationsCriteria()
 
     machineRepository.findAllByCriteria.mockRejectedValue(new Error('Database error'))
 

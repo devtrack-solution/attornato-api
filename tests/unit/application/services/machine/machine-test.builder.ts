@@ -72,7 +72,7 @@ export class MachineTestBuilder {
       MachineTestBuilder.create()
         .withName(`Machine ${i + 1}`)
         .withMachineCode(`CODE-${i + 1}`)
-        .build()
+        .build(),
     )
   }
 
@@ -81,9 +81,9 @@ export class MachineTestBuilder {
     return { limit: 10, offset: 0, search: '' }
   }
 
-// 🔹 Standardized relations criteria for this entity
+  // 🔹 Standardized relations criteria for this entity
   static getRelationsCriteria(): string[] {
-    return ['technicalSpecification', 'technicalSpecification.manuals'];
+    return ['technicalSpecification', 'technicalSpecification.manuals']
   }
 
   // 🔹 Mocked repository response (with multiple machines)
