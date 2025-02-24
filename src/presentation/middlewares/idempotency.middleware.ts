@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware, BadRequestException, Logger } from '@nestjs/common'
+import { Injectable, NestMiddleware, BadRequestException, Logger, Req, RequestMethod } from '@nestjs/common'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
@@ -12,19 +12,19 @@ export class IdempotencyMiddleware implements NestMiddleware {
     private readonly idempotencyService: IdempotencyService,
   ) {}
 
-  async use(req: FastifyRequest, res: FastifyReply, next: () => void) {
+  async use(@Req() req: FastifyRequest, res: FastifyReply, next: () => void) {
     const httpAdapter = this.adapterHost.httpAdapter
     this.logger.log(`HTTP Request: ${req}`)
     const idempotencyKey = req.headers['x-idempotency-key'] as string
     this.logger.log(`Idempotency key: ${idempotencyKey}`)
     const user = (req.headers['username'] as string) || 'unknown'
     const path = req.routerPath || '/'
-    if (!idempotencyKey) {
+    if (!idempotencyKey && RequestMethod[req.method as keyof typeof RequestMethod] !== RequestMethod.OPTIONS) {
       // throw new BadRequestException('Idempotency key is missing')
       httpAdapter.reply(res, 'Idempotency key is missing', 400)
     }
 
-    const newIdempotencyKey = generateIdempotencyKey(idempotencyKey, user, path)
+    const newIdempotencyKey = generateIdempotencyKey(idempotencyKey, user, path, req.method)
 
     const cachedResponse = await this.idempotencyService.getKey(newIdempotencyKey)
 

@@ -52,6 +52,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@fastify/cors": "^8.5.0",
     "@fastify/middie": "^8.3.3",
     "@fastify/static": "^7.0.4",
     "@nestjs/config": "^3.3.0",

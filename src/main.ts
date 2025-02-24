@@ -8,6 +8,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { ValidationExceptionFilter } from '@/core/presentation/http/filters/validation-exception.filter'
+import fastifyCors from '@fastify/cors'
 
 async function bootstrap() {
   const config: AppConfig = new ConfigEnvironmentService()
@@ -31,9 +32,11 @@ async function bootstrap() {
   logger.log(`Database Host: ${config.database.host}`)
   logger.log(`App Server: ${config.appServer}`)
 
-  app.enableCors({
+  fastifyInstance.register(fastifyCors, {
     origin: config.enableCors.origin,
-    methods: config.enableCors.methods
+    methods: config.enableCors.methods,
+    allowedHeaders: config.enableCors.allowedHeaders,
+    credentials: true,
   })
 
   const options = new DocumentBuilder()

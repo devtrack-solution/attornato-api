@@ -35,6 +35,6 @@ import { MachineHttpControllerModule } from '@/presentation/controllers/http/mac
 })
 export class PresentationModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IdempotencyMiddleware).exclude({ path: '/docs(.*)', method: RequestMethod.ALL }).forRoutes({ path: '*', method: RequestMethod.ALL })
+    consumer.apply(IdempotencyMiddleware).exclude({ path: '/docs(.*)', method: RequestMethod.ALL }, { path: '*', method: RequestMethod.OPTIONS }).forRoutes({ path: '*', method: RequestMethod.ALL })
   }
 }
