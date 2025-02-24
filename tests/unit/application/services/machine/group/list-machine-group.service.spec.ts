@@ -19,7 +19,6 @@ describe('[APPLICATION] - ListMachineGroupService', () => {
 
   it('should return paginated machine groups', async () => {
     const criteria = MachineGroupTestBuilder.getPaginatedCriteria()
-    const relations = MachineGroupTestBuilder.getRelationsCriteria()
     const mockResponse = MachineGroupTestBuilder.getRepositoryResponse()
 
     machineGroupRepository.findAllByCriteria.mockResolvedValue(mockResponse)
@@ -27,13 +26,12 @@ describe('[APPLICATION] - ListMachineGroupService', () => {
     const result = await service.execute(criteria)
 
     expect(result).toEqual(MachineGroupTestBuilder.getExpectedOutput())
-    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria, relations)
+    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria)
     expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledTimes(1)
   })
 
   it('should return an empty list if no machine groups are found', async () => {
     const criteria = MachineGroupTestBuilder.getPaginatedCriteria()
-    const relations = MachineGroupTestBuilder.getRelationsCriteria()
     const emptyResponse = MachineGroupTestBuilder.getEmptyResponse()
 
     machineGroupRepository.findAllByCriteria.mockResolvedValue(emptyResponse)
@@ -41,15 +39,14 @@ describe('[APPLICATION] - ListMachineGroupService', () => {
     const result = await service.execute(criteria)
 
     expect(result).toEqual(emptyResponse)
-    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria, relations)
+    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria)
   })
 
   it('should throw an error if repository fails', async () => {
     const criteria = MachineGroupTestBuilder.getPaginatedCriteria()
-    const relations = MachineGroupTestBuilder.getRelationsCriteria()
     machineGroupRepository.findAllByCriteria.mockRejectedValue(new Error('Database error'))
 
     await expect(service.execute(criteria)).rejects.toThrow('Database error')
-    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria, relations)
+    expect(machineGroupRepository.findAllByCriteria).toHaveBeenCalledWith(criteria)
   })
 })

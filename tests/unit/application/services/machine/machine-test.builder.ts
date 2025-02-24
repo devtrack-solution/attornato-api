@@ -86,6 +86,18 @@ export class MachineTestBuilder {
     return ['technicalSpecification', 'technicalSpecification.manuals']
   }
 
+  static getSelect(): string[] {
+    return ['id', 'name', 'status', 'createdAt']
+  }
+
+  static getSearchFields(): string[] {
+    return ['name', 'description']
+  }
+
+  static getOrder(): Record<string, string> {
+    return  {"createdAt": "ASC"}
+  }
+
   // 🔹 Mocked repository response (with multiple machines)
   static getRepositoryResponse(): { count: number; limit: number; offset: number; data: MachineType.Input[] } {
     const mockMachines = MachineTestBuilder.getMultiple(3)

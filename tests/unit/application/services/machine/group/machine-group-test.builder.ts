@@ -57,6 +57,18 @@ export class MachineGroupTestBuilder {
     return []
   }
 
+  static getSelect(): string[] | undefined {
+    return undefined
+  }
+
+  static getSearchFields(): string[] | undefined {
+    return undefined
+  }
+
+  static getOrder(): Record<string, string> | undefined {
+    return  undefined
+  }
+
   static getRepositoryResponse(): { count: number; limit: number; offset: number; data: MachineGroupType.Input[] } {
     const mockGroups = MachineGroupTestBuilder.getMultiple(3)
     return {
