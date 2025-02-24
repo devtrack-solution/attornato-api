@@ -14,7 +14,9 @@ export class IdempotencyMiddleware implements NestMiddleware {
 
   async use(req: FastifyRequest, res: FastifyReply, next: () => void) {
     const httpAdapter = this.adapterHost.httpAdapter
+    this.logger.log(`HTTP Request: ${req}`)
     const idempotencyKey = req.headers['x-idempotency-key'] as string
+    this.logger.log(`Idempotency key: ${idempotencyKey}`)
     const user = (req.headers['username'] as string) || 'unknown'
     const path = req.routerPath || '/'
     if (!idempotencyKey) {

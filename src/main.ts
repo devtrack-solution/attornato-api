@@ -33,8 +33,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: config.enableCors.origin,
-    methods: config.enableCors.methods,
-    allowedHeaders: config.enableCors.allowedHeaders,
+    methods: config.enableCors.methods
   })
 
   const options = new DocumentBuilder()
