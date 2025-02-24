@@ -13,7 +13,11 @@ export class ListMachineService implements ListMachineInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<MachineType.OutputPaginated> {
-    let result = await this.machineRepository.findAllByCriteria(criteria, ['technicalSpecification', 'technicalSpecification.manuals'])
+    const select: string[] = ['id', 'name', 'status', 'createdAt']
+    const relations: string[] = ['technicalSpecification', 'technicalSpecification.manuals']
+    const searchFields: string[] = ['name', 'description']
+    const order = { createdAt: 'ASC' }
+    let result = await this.machineRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let machines = result.data.map((machine) => new Machine(machine as MachineType.Output).toJson())
     return {
       count: result.count,

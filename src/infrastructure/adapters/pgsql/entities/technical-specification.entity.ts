@@ -1,16 +1,7 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  ManyToOne,
-  OneToMany
-} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { MachineEntity } from '@/infrastructure/adapters/pgsql/entities/machine.entity'
 import { EquipmentCategoryEntity } from '@/infrastructure/adapters/pgsql/entities/equipment-category.entity'
 import { ManualEntity } from '@/infrastructure/adapters/pgsql/entities/manual.entity'
-
 
 @Entity('technical_specifications')
 export class TechnicalSpecificationEntity {
@@ -50,7 +41,7 @@ export class TechnicalSpecificationEntity {
   @OneToOne(() => MachineEntity, (machine) => machine.technicalSpecification, { onDelete: 'CASCADE' })
   machine!: MachineEntity
 
-/*  @ManyToOne(() => EquipmentCategoryEntity, (category) => category.technicalSpecifications, { onDelete: 'SET NULL' })
+  /*  @ManyToOne(() => EquipmentCategoryEntity, (category) => category.technicalSpecifications, { onDelete: 'SET NULL' })
   @JoinColumn()
   equipmentCategory?: EquipmentCategoryEntity*/
 

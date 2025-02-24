@@ -3,8 +3,7 @@ import { TechnicalSpecificationEntity } from '@/infrastructure/adapters/pgsql/en
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 
 @Entity('manuals')
-export class ManualEntity  extends EntityBase {
-
+export class ManualEntity extends EntityBase {
   @Column({ type: 'varchar', length: 255 })
   link!: string
 

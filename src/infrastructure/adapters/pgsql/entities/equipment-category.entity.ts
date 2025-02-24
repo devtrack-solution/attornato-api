@@ -16,6 +16,6 @@ export class EquipmentCategoryEntity {
   @Column({ type: 'varchar', length: 100 })
   alias!: string
 
-/*  @OneToMany(() => TechnicalSpecificationEntity, (spec) => spec.equipmentCategory)
+  /*  @OneToMany(() => TechnicalSpecificationEntity, (spec) => spec.equipmentCategory)
   technicalSpecifications!: TechnicalSpecificationEntity[]*/
 }

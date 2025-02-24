@@ -1,68 +1,68 @@
-import { ValidationBuilder, IValidator } from '@/core/domain/validators';
-import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo';
-import { EntityBadDataLoadException } from '@/core/domain/exceptions';
-import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response';
+import { ValidationBuilder, IValidator } from '@/core/domain/validators'
+import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
+import { EntityBadDataLoadException } from '@/core/domain/exceptions'
+import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { MachineGroupType, WorkScheduleType } from '@/domain/machine/group/types/machine-group.type'
-import { Machine } from '@/domain/machine/business-objects/machine.bo';
+import { Machine } from '@/domain/machine/business-objects/machine.bo'
 
 export interface IMachineGroup extends IBusinessObject<MachineGroupType.Input, MachineGroupType.Output> {}
 
 export class MachineGroup extends BaseBusinessObject<MachineGroupType.Repository, MachineGroupType.Output> implements IMachineGroup, IValidator {
-  private _groupName!: string;
-  private _slug!: string;
-  private _groupCode!: string;
-  private _machines: Machine[] = [];
-  private _averageHourlyRate!: number;
-  private _maxDailyProductivity!: number;
-  private _workSchedules?: null;
+  private _groupName!: string
+  private _slug!: string
+  private _groupCode!: string
+  private _machines: Machine[] = []
+  private _averageHourlyRate!: number
+  private _maxDailyProductivity!: number
+  private _workSchedules?: null
 
   private loadData(data: MachineGroupType.Input): MachineGroupType.Output {
     try {
-      this._groupName = data.groupName;
-      this._slug = data.slug;
-      this._groupCode = data.groupCode;
+      this._groupName = data.groupName
+      this._slug = data.slug
+      this._groupCode = data.groupCode
       this._machines = [] // data.machines ? data.machines.map(machine => new Machine(machine)) : [];
-      this._averageHourlyRate = data.averageHourlyRate ? data.averageHourlyRate : 0;
-      this._maxDailyProductivity = data.maxDailyProductivity ? data.maxDailyProductivity : 0;
-      this._workSchedules = null;
+      this._averageHourlyRate = data.averageHourlyRate ? data.averageHourlyRate : 0
+      this._maxDailyProductivity = data.maxDailyProductivity ? data.maxDailyProductivity : 0
+      this._workSchedules = null
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading MachineGroup entity`));
+      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading MachineGroup entity`))
     }
-    return this.toJson();
+    return this.toJson()
   }
 
   get groupName(): string {
-    return this._groupName;
+    return this._groupName
   }
 
   get slug(): string {
-    return this._slug;
+    return this._slug
   }
 
   get groupCode(): string {
-    return this._groupCode;
+    return this._groupCode
   }
 
   get machines(): Machine[] {
-    return this._machines;
+    return this._machines
   }
 
   get averageHourlyRate(): number {
-    return this._averageHourlyRate;
+    return this._averageHourlyRate
   }
 
   get maxDailyProductivity(): number {
-    return this._maxDailyProductivity;
+    return this._maxDailyProductivity
   }
 
   get workSchedules(): WorkScheduleType | undefined | null {
-    return this._workSchedules;
+    return this._workSchedules
   }
 
   constructor(props: MachineGroupType.Input) {
-    super(props);
-    this.loadData(props);
-    this.validate();
+    super(props)
+    this.loadData(props)
+    this.validate()
   }
 
   validate(): void {
@@ -76,7 +76,7 @@ export class MachineGroup extends BaseBusinessObject<MachineGroupType.Repository
       .required()
       .of({ value: this._maxDailyProductivity, fieldName: 'maxDailyProductivity' })
       .required()
-      .build('Failed to validate MachineGroup rules');
+      .build('Failed to validate MachineGroup rules')
   }
 
   toPersistenceObject(): MachineGroupType.Output {
@@ -88,6 +88,6 @@ export class MachineGroup extends BaseBusinessObject<MachineGroupType.Repository
       averageHourlyRate: this._averageHourlyRate,
       maxDailyProductivity: this._maxDailyProductivity,
       workSchedules: this._workSchedules,
-    };
+    }
   }
 }

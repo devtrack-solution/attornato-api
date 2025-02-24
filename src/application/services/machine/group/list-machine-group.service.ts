@@ -13,7 +13,7 @@ export class ListMachineGroupService implements ListMachineGroupInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<MachineGroupType.OutputPaginated> {
-    let result = await this.machineGroupRepository.findAllByCriteria(criteria, [])
+    let result = await this.machineGroupRepository.findAllByCriteria(criteria)
     let machines = result.data.map((machine) => new MachineGroup(machine as MachineGroupType.Output).toJson())
     return {
       count: result.count,

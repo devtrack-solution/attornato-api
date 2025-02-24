@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger'
 import { EquipmentCategoryDto } from '@/presentation/controllers/http/machine/dtos/equipment-category.dto'
 import { ManualDto } from '@/presentation/controllers/http/machine/dtos/manual.dto'
 
-
 export class TechnicalSpecificationDto {
   @ApiProperty({ description: 'Manufacturer of the machine', example: 'LaserTech', required: true })
   manufacturer!: string
@@ -34,7 +33,7 @@ export class TechnicalSpecificationDto {
   @ApiProperty({ description: 'Energy consumption (watts)', example: 500, required: true })
   energyConsumption!: number
 
-/*  @ApiProperty({ description: 'Equipment category details', required: false, type: EquipmentCategoryDto })
+  /*  @ApiProperty({ description: 'Equipment category details', required: false, type: EquipmentCategoryDto })
   equipmentCategory?: EquipmentCategoryDto*/
 
   @ApiProperty({ description: 'List of manuals related to the machine', required: false, type: [ManualDto] })

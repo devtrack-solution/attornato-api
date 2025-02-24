@@ -28,7 +28,7 @@ export class TechnicalSpecification extends BaseBusinessObject<TechnicalSpecific
     this._model = props.model
     this._serialNumber = props.serialNumber
     this._requiredAreaM2 = props.requiredAreaM2 ?? 0
-    this._acquisitionAt =   props.acquisitionAt ? new Date(props.acquisitionAt) : undefined
+    this._acquisitionAt = props.acquisitionAt ? new Date(props.acquisitionAt) : undefined
     this._acquisitionValue = props.acquisitionValue ?? 0
     this._depreciatedMarketValue = props.depreciatedMarketValue ?? 0
     this._usefulLife = props.usefulLife ?? 0
@@ -40,10 +40,14 @@ export class TechnicalSpecification extends BaseBusinessObject<TechnicalSpecific
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._manufacturer, fieldName: 'manufacturer' }).required()
-      .of({ value: this._manufactureYear, fieldName: 'manufactureYear' }).required()
-      .of({ value: this._acquisitionValue, fieldName: 'acquisitionValue' }).required()
-      .of({ value: this._usefulLife, fieldName: 'usefulLife' }).required()
+    ValidationBuilder.of({ value: this._manufacturer, fieldName: 'manufacturer' })
+      .required()
+      .of({ value: this._manufactureYear, fieldName: 'manufactureYear' })
+      .required()
+      .of({ value: this._acquisitionValue, fieldName: 'acquisitionValue' })
+      .required()
+      .of({ value: this._usefulLife, fieldName: 'usefulLife' })
+      .required()
       .build('Failed to validate Technical Specification rules')
   }
 
@@ -60,7 +64,7 @@ export class TechnicalSpecification extends BaseBusinessObject<TechnicalSpecific
       usefulLife: this._usefulLife,
       energyConsumption: this._energyConsumption,
       /*equipmentCategory: this._equipmentCategory?.toPersistence(),*/
-      manuals: this._manuals ? this._manuals.map((m) => m.toPersistence()) : undefined
+      manuals: this._manuals ? this._manuals.map((m) => m.toPersistence()) : undefined,
     }
   }
 }

@@ -5,7 +5,6 @@ import { TechnicalSpecification } from '@/domain/machine/business-objects/techni
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
-
 export interface IManual extends IBusinessObject<ManualType.Input, ManualType.Output> {}
 
 export class Manual extends BaseBusinessObject<ManualType.Repository, ManualType.Output> implements IManual, IValidator {
@@ -29,9 +28,7 @@ export class Manual extends BaseBusinessObject<ManualType.Repository, ManualType
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._link, fieldName: 'link' }).required()
-      .of({ value: this._description, fieldName: 'description' }).required()
-      .build('Failed to validate Manual rules')
+    ValidationBuilder.of({ value: this._link, fieldName: 'link' }).required().of({ value: this._description, fieldName: 'description' }).required().build('Failed to validate Manual rules')
   }
 
   toPersistenceObject(): ManualType.Output {

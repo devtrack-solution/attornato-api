@@ -1,7 +1,6 @@
 export namespace Criteria {
   export type FindBy = {
     search: string
-    filterBy?: string[]
     isActive?: boolean
   }
   export type Paginated = FindBy & {

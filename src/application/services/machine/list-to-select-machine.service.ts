@@ -13,7 +13,10 @@ export class ListToSelectMachineService implements ListToSelectMachineInboundPor
   ) {}
 
   async execute(criteria: Criteria.FindBy): Promise<Partial<MachineType.Output[]>> {
-    let machines = await this.machineRepository.findForSelectByCriteria(criteria)
+    const select: string[] = ['id', 'name', 'status']
+    const searchFields: string[] = ['name']
+    const order = { name: 'ASC' }
+    let machines = await this.machineRepository.findForSelectByCriteria(criteria, order, select, searchFields)
     return machines.map((machine) => new Machine(machine as MachineType.Output).toJson())
   }
 }

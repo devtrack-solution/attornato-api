@@ -4,7 +4,6 @@ import { EquipmentCategoryType } from '@/domain/machine/types/equipment-category
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 
-
 export interface IEquipmentCategory extends IBusinessObject<EquipmentCategoryType.Input, EquipmentCategoryType.Output> {}
 
 export class EquipmentCategory extends BaseBusinessObject<EquipmentCategoryType.Repository, EquipmentCategoryType.Output> implements IEquipmentCategory, IValidator {
@@ -30,9 +29,7 @@ export class EquipmentCategory extends BaseBusinessObject<EquipmentCategoryType.
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required()
-      .of({ value: this._alias, fieldName: 'alias' }).required()
-      .build('Failed to validate Equipment Category rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().of({ value: this._alias, fieldName: 'alias' }).required().build('Failed to validate Equipment Category rules')
   }
 
   toPersistenceObject(): EquipmentCategoryType.Output {

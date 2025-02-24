@@ -1,17 +1,22 @@
-import {
-  FindManyOptions,
-  FindOptionsWhere,
-  ILike,
-  ObjectLiteral,
-  Repository,
-  DeepPartial
-} from 'typeorm'
+import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial } from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
 import { Logger } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { IRelationalDatabaseOutboundPort } from '@/core/domain/ports/outbound/relational-database.outbound-port'
+
+function getSearches(searchFields: string[], props: Criteria.FindBy) {
+  return searchFields
+    ? searchFields.reduce(
+        (acc, field) => {
+          const formattedField = field?.includes('.') ? `"${field}"` : field
+          acc[formattedField] = props?.search ? ILike(`%${props.search}%`) : undefined
+          return acc
+        },
+        {} as Record<string, any>,
+      )
+    : undefined
+}
 
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
   protected readonly logger: Logger
@@ -50,21 +55,30 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async findAllByCriteria(props: Criteria.Paginated, relations?: string[]): Promise<{
+  async findAllByCriteria(
+    props: Criteria.Paginated,
+    order: Record<string, string> = { createdAt: 'ASC' },
+    select: string[] = [],
+    searchFields: string[] = [],
+    relations: string[] = [],
+  ): Promise<{
     count: number
     limit: number
     offset: number
     data: Partial<T>[]
   }> {
     try {
+      const searches = getSearches(searchFields, props)
+
       const filters: FindManyOptions<T | any> = {
+        select,
         where: {
-          description: props?.search ? ILike(`%${props.search}%`) : undefined,
-          enable: props.isActive,
+          ...searches,
+          // enable: props.isActive,
         },
         relations,
-        order: { description: 'ASC' },
-        withDeleted: false,
+        order,
+        withDeleted: props.isActive != undefined ? !props.isActive : undefined,
         take: props.limit,
         skip: props.offset,
       }
@@ -83,16 +97,17 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async findForSelectByCriteria(props: Criteria.FindBy): Promise<T[]> {
+  async findForSelectByCriteria(props: Criteria.FindBy, order: Record<string, string> = { createdAt: 'ASC' }, select: string[] = [], searchFields: string[] = []): Promise<T[]> {
     try {
+      const searches = getSearches(searchFields, props)
       const filters: FindManyOptions<T | any> = {
+        select,
         where: {
-          name: undefined,
-          description: props?.search ? ILike(`%${props.search}%`) : undefined,
-          enable: true,
+          ...searches,
+          // enable: true,
         },
-        order: { description: 'ASC' },
-        withDeleted: false,
+        order,
+        withDeleted: props.isActive != undefined ? !props.isActive : undefined,
       }
       const repository: Repository<T> = this.manager.getRepository(this.target)
       return await repository.find(filters)
