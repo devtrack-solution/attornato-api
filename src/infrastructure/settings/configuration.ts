@@ -15,6 +15,7 @@ export default (): any => ({
     user: process.env.TYPEORM_USERNAME,
     pass: process.env.TYPEORM_PASSWORD,
     synchronize: Boolean(process.env.TYPEORM_SYNCHRONIZE),
+    ssl: { rejectUnauthorized: Boolean(process.env.TYPEORM_SSL) },
   },
   redis: {
     port: process.env.REDIS_PORT,
