@@ -18,7 +18,7 @@ export interface AppConfig {
     sync: boolean | undefined
     format: string | undefined
     timezone: string | undefined
-    ssl?: { rejectUnauthorized: boolean } | undefined
+    ssl: boolean
   }
   redis: {
     host: string | undefined
