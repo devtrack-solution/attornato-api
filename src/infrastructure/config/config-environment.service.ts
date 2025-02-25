@@ -41,6 +41,7 @@ export class ConfigEnvironmentService implements AppConfig {
       sync: process.env.DB_SYNC === 'true',
       format: process.env.DB_LOG_FORMAT,
       timezone: process.env.DB_TIMEZONE,
+      ssl: Boolean(process.env.DB_SSL),
     }
   }
   get redis(): AppConfig['redis'] {
