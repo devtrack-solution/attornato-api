@@ -34,5 +34,8 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
   timezone: config.database.timezone,
   debug: config.database.debug,
-  ssl: config.database.ssl,
+  ssl:
+    process.env. NODE_ENV !== 'DEVELOPMENT'
+      ? { rejectUnauthorized: config.database.ssl }
+      : config.database.ssl,
 }
