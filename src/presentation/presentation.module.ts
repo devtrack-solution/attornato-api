@@ -7,6 +7,9 @@ import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.mi
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
 import { MachineHttpControllerModule } from '@/presentation/controllers/http/machine/machine-http-controller.module'
+import {
+  MachineGroupHttpControllerModule
+} from '@/presentation/controllers/http/machine/group/machine-group-http-controller.module'
 
 @Module({
   imports: [

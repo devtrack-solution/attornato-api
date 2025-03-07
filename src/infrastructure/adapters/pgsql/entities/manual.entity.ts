@@ -10,6 +10,9 @@ export class ManualEntity extends EntityBase {
   @Column({ type: 'text', nullable: true })
   description?: string
 
-  @ManyToOne(() => TechnicalSpecificationEntity, (spec) => spec.manuals, { onDelete: 'CASCADE', cascade: true })
-  technicalSpecification!: TechnicalSpecificationEntity
+  @ManyToOne(() => TechnicalSpecificationEntity, (spec) => spec.manuals, {
+    onDelete: 'CASCADE'
+  })
+  technicalSpecification!: TechnicalSpecificationEntity;
+
 }

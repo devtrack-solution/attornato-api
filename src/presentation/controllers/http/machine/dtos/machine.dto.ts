@@ -1,10 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { MachineStatus, MachineType } from '@/domain/machine/types/machine.type'
+
 import { TechnicalSpecificationDto } from '@/presentation/controllers/http/machine/dtos/technical-specification.dto'
 import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 
+export enum MachineStatus {
+  MAINTENANCE = 'Em manutenção',
+  STOPPED = 'Parada',
+  ADJUSTMENTS = 'Ajustes',
+  TESTING = 'Em testes',
+  AWAITING_MAINTENANCE = 'Aguardando manutenção',
+  AVAILABLE = 'Disponível',
+  PREPARING = 'Em preparação',
+  INACTIVE = 'Inativa',
+}
 
-export class MachineDto extends BasicDto implements MachineType.Input {
+
+export class MachineDto extends BasicDto {
   @ApiProperty({ description: 'The name of the machine', example: 'Laser Cutter', required: true })
   name!: string
 

@@ -54,14 +54,10 @@ WORKDIR /usr/src/app
 # Copy necessary files from build stage
 COPY --from=build /usr/src/app .
 
-RUN pnpm config set allow-scripts true
 RUN yes | pnpm install --no-frozen-lockfile
 
 # Set environment variable
 ENV NODE_ENV=DEVELOPMENT
-
-# Run migrations
-# RUN pnpm migration:run
 
 # Start application dynamically based on RUN_DEBUG
 CMD ["sh", "-c", "if [ \"$RUN_DEBUG\" = \"true\" ]; then exec pnpm run start:debug; else exec pnpm run start:dev; fi"]

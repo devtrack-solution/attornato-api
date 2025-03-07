@@ -72,10 +72,9 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
 
       const filters: FindManyOptions<T | any> = {
         select,
-        where: {
+        where: searches?.length > 0 ? {
           ...searches,
-          // enable: props.isActive,
-        },
+        } : {},
         relations,
         order,
         withDeleted: props.isActive != undefined ? !props.isActive : undefined,
