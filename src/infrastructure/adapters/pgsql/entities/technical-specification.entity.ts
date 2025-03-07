@@ -45,6 +45,6 @@ export class TechnicalSpecificationEntity {
   @JoinColumn()
   equipmentCategory?: EquipmentCategoryEntity*/
 
-  @OneToMany(() => ManualEntity, (manual) => manual.technicalSpecification, { eager: false })
+  @OneToMany(() => ManualEntity, (manual) => manual.technicalSpecification, { nullable: true, eager: false, cascade: true })
   manuals?: ManualEntity[]
 }

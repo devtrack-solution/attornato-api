@@ -13,6 +13,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
     "baseUrl": "./",
     "paths": {
       "@/*": [
@@ -33,7 +35,8 @@
     "src",
     "tests",
     "typings",
-    "src/**/*.json"
+    "src/**/*.json",
+    "src/**/*.d.ts"
   ],
   "tsc-alias": {
     "verbose": false,

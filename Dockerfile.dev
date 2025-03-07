@@ -54,6 +54,7 @@ WORKDIR /usr/src/app
 # Copy necessary files from build stage
 COPY --from=build /usr/src/app .
 
+RUN pnpm config set allow-scripts true
 RUN yes | pnpm install --no-frozen-lockfile
 
 # Set environment variable

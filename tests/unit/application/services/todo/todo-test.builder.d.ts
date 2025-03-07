@@ -1,0 +1,33 @@
+import { TodoType } from '@/domain/todo/types/todo.type';
+export declare class TodoTestBuilder {
+    private id;
+    private name;
+    private email;
+    private age;
+    private birthday;
+    private enable;
+    private height;
+    private createdAt;
+    private updatedAt;
+    private deletedAt;
+    private createdUserId;
+    private lastUpdatedUserId;
+    static create(): TodoTestBuilder;
+    withId(id: string): this;
+    withName(name: string): this;
+    withEmail(email: string): this;
+    withAge(age: number): this;
+    withBirthday(birthday: Date): this;
+    withHeight(height: number): this;
+    withEnable(enable: boolean): this;
+    withDeletedAt(deletedAt: Date | undefined): this;
+    withCreatedUserId(createdUserId: string): this;
+    withLastUpdatedUserId(lastUpdatedUserId: string): this;
+    build(): TodoType.Input;
+    static getSuccess(): TodoType.Input;
+    static getFailOnEmptyName(): TodoType.Input;
+    static getFailOnEmailInvalid(): TodoType.Input;
+    static getFailOnInvalidAge(): TodoType.Input;
+    static getFailOnInvalidHeight(): TodoType.Input;
+    static getFailOnDeletedTodo(): TodoType.Input;
+}

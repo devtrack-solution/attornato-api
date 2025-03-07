@@ -6,10 +6,12 @@ import { PatchMachineInboundPort, PatchMachineInboundPortToken } from '@/domain/
 import { DeleteMachineInboundPort, DeleteMachineInboundPortToken } from '@/domain/machine/ports/inbound/delete-machine.inbound-port'
 import { ListToSelectMachineInboundPort, ListToSelectMachineInboundPortToken } from '@/domain/machine/ports/inbound/list-to-select-machine.inbound-port'
 import { CreateMachineDto } from '@/presentation/controllers/http/machine/dtos/create-machine.dto'
-import { UpdateMachineDto } from '@/presentation/controllers/http/machine/dtos/update-machine.dto'
+import { PatchMachineDto } from '@/presentation/controllers/http/machine/dtos/patch-machine.dto'
 import { ListToSelectMachineDto } from '@/presentation/controllers/http/machine/dtos/list-to-select-machine.dto'
 import { ListMachineDto } from '@/presentation/controllers/http/machine/dtos/list-machine.dto'
 import { ListMachineInboundPort, ListMachineInboundPortToken } from '@/domain/machine/ports/inbound/list-machine.inbound-port'
+import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
+import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
 
 @ApiTags('Machines')
 @Controller('machines')
@@ -33,15 +35,15 @@ export class MachineHttpController extends BaseHttpController {
 
   @Get()
   @ApiOperation({ summary: 'Find a Machine List' })
-  @ApiResponse({ status: 200, description: 'The item has been listed.' })
-  async find(@Query() query: ListMachineDto) {
+  @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListMachineDto })
+  async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listMachineService.execute(query)
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Patch a Machine' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
-  async patch(@Param('id') id: string, @Body() body: UpdateMachineDto) {
+  async patch(@Param('id') id: string, @Body() body: PatchMachineDto) {
     return this.patchMachineService.execute(body, { id })
   }
 
@@ -54,8 +56,8 @@ export class MachineHttpController extends BaseHttpController {
 
   @Get('to/selects')
   @ApiOperation({ summary: 'List Machine List to select' })
-  @ApiResponse({ status: 200, description: 'The item has been listed to select.' })
-  async findToSelect(@Query() query: ListToSelectMachineDto) {
+  @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectMachineDto })
+  async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectMachineService.execute(query)
   }
 }
