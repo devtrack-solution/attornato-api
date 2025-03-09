@@ -74,10 +74,11 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    *
    * @param todo - The object to be updated.
    * @param props - The criteria to find the objects.
+   * @param EntityClass - To create a new instance of the object and validate updates.
    * @param relations - Objects relative to return.
    * @returns A promise that resolves when the object is updated.
    */
-  patchObject(todo: Partial<Y>, props: X, relations?: string[]): Promise<void>
+  patchObject(todo: Partial<Y>, props: X, EntityClass: new (...args: any[]) => Y, relations?: string[]): Promise<void>
 
   /**
    * Deletes an object from the database by ID.

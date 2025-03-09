@@ -1,4 +1,5 @@
 import { BaseType } from '@/core/domain/types/base.type'
+import { MachineType } from '@/domain/machine/types/machine.type'
 
 export namespace MachineGroupType {
   export type Input = {
@@ -23,17 +24,6 @@ export namespace MachineGroupType {
   export type Repository = Output
 
   export type RepositoryPaginated = OutputPaginated
-}
-
-export namespace MachineType {
-  export type Input = {
-    id: number
-    name: string
-    hourlyRate: number
-    maxDailyProductivity: number
-  }
-
-  export type Output = Input
 }
 
 export type WorkScheduleType = {

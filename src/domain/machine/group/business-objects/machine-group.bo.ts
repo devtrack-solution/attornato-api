@@ -21,7 +21,7 @@ export class MachineGroup extends BaseBusinessObject<MachineGroupType.Repository
       this._groupName = data.groupName
       this._slug = data.slug
       this._groupCode = data.groupCode
-      this._machines = [] // data.machines ? data.machines.map(machine => new Machine(machine)) : [];
+      this._machines = data.machines ? data.machines.map(machine => new Machine(machine)) : []
       this._averageHourlyRate = data.averageHourlyRate ? data.averageHourlyRate : 0
       this._maxDailyProductivity = data.maxDailyProductivity ? data.maxDailyProductivity : 0
       this._workSchedules = null

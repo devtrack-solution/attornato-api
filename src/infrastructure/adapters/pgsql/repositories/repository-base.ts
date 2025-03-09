@@ -134,7 +134,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  async patchObject(input: Partial<T>, props: Criteria.ById, relations?: string[]): Promise<void> {
+  async patchObject(input: Partial<T>, props: Criteria.ById, EntityClass: new (...args: any[]) => T, relations?: string[]): Promise<void> {
     try {
       const repository: Repository<T> = this.manager.getRepository(this.target)
       const where: FindOptionsWhere<T | any> = { id: props.id, enable: true }
@@ -148,7 +148,11 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
         throw new Error('Dados não encontrado')
       }
       Object.assign(loadInput, input)
-      await repository.save(loadInput)
+      if (!EntityClass) {
+        throw new Error('EntityClass is required to instantiate the object');
+      }
+      const newObject = new EntityClass(loadInput);
+      await repository.save(newObject.toPersistence())
     } catch (e) {
       this.logger.error(`[pathObject] Error: ${e}`)
       throw e
