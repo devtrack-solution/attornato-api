@@ -1,18 +1,18 @@
 {
-  "name": "codam-erp-api",
+  "name": "attornato-api",
   "version": "0.0.0",
-  "description": "Codam ERP API - A backend service built with NestJS",
+  "description": "Attornato API - A backend service built with NestJS",
   "author": "DevTrack <contato@devtrack.com.br>",
   "private": true,
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "https://github.com/devtrack-solution/codam-erp-api.git"
+    "url": "https://github.com/devtrack-solution/attornato-api.git"
   },
   "bugs": {
-    "url": "https://github.com/devtrack-solution/codam-erp-api/issues"
+    "url": "https://github.com/devtrack-solution/attornato-api/issues"
   },
-  "homepage": "https://devtrack.io/codam-erp-api",
+  "homepage": "https://devtrack.io/attornato-api",
   "contributors": [
     {
       "name": "Wilton Oliveira Ferreira",
@@ -31,7 +31,7 @@
     "build:prod": "chmod +x load-env.sh && load-env.sh && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "start": "nest start",
-    "start:docker": "docker compose -f docker-compose.yml -p codam-erp-api up -d",
+    "start:docker": "docker compose -f docker-compose.yml -p attornato-api up -d",
     "start:dev": "nest start --watch --poll=1000",
     "start:debug": "nest start --debug 0.0.0.0:9229 --watch",
     "start:prod": "node dist/main",
