@@ -26,8 +26,8 @@ services:
     volumes:
       - app_data:/usr/src/app/data
       - .:/usr/src/app
-      - ./node_modules:/usr/src/app/node_modules:delegate
-      - ./.pnpm-store:/usr/src/app/.pnpm-store:delegate
+      - node_modules:/usr/src/app/node_modules
+      - pnpm_store:/root/.pnpm-store:delegated
 
   db:
     image: postgres:17.0-alpine
@@ -57,6 +57,8 @@ volumes:
   pg_data:
   redis_data:
   app_data:
+  node_modules:
+  pnpm_store:
 
 networks:
   backend:
