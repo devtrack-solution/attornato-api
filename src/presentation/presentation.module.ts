@@ -1,13 +1,10 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { ApplicationModule } from '@/application/application.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
-import { TodoHttpControllerModule } from '@/presentation/controllers/http/todo/todo-http-controller.module'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
-import { MachineHttpControllerModule } from '@/presentation/controllers/http/machine/machine-http-controller.module'
-import { MachineGroupHttpControllerModule } from '@/presentation/controllers/http/machine/group/machine-group-http-controller.module'
 import { GroupProcessHttpControllerModule } from '@/presentation/controllers/http/group-process/group-process-http-controller.module'
 
 @Module({
@@ -20,7 +17,6 @@ import { GroupProcessHttpControllerModule } from '@/presentation/controllers/htt
     ]),
     ApplicationModule,
     PermissionHttpControllerModule,
-    MachineHttpControllerModule,
     GroupProcessHttpControllerModule,
   ],
   providers: [

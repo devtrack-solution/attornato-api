@@ -3,7 +3,6 @@ import { TodoModule } from '@/application/services/todo/todo.module'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { PermissionModule } from '@/application/services/permission/permission.module'
-import { MachineModule } from '@/application/services/machine/machine.module'
 import {GroupProcessModule} from "@/application/services/group-process/group-process.module";
 @Module({
   imports: [
@@ -13,7 +12,6 @@ import {GroupProcessModule} from "@/application/services/group-process/group-pro
     }),
     TodoModule,
     PermissionModule,
-    MachineModule,
     GroupProcessModule,
   ],
   providers: [IdempotencyService],

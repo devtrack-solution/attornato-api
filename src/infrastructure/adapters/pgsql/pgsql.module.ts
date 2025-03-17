@@ -5,8 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
 import { PermissionRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/permission-repository.outbound-port'
 import { PermissionRepository } from '@/infrastructure/adapters/pgsql/repositories/permission.repository'
-import { MachineRepositoryOutboundPortSymbol } from '@/domain/machine/ports/outbound/machine-repository.outbound-port'
-import { MachineRepository } from '@/infrastructure/adapters/pgsql/repositories/machine.repository'
 import {GroupProcessRepository} from "@/infrastructure/adapters/pgsql/repositories/group-process.repository";
 import {
   GroupProcessRepositoryOutboundPortSymbol
@@ -29,10 +27,6 @@ import {
       useClass: PermissionRepository,
     },
     {
-      provide: MachineRepositoryOutboundPortSymbol,
-      useClass: MachineRepository,
-    },
-    {
       provide: GroupProcessRepositoryOutboundPortSymbol,
       useClass: GroupProcessRepository,
     },
@@ -45,10 +39,6 @@ import {
     {
       provide: PermissionRepositoryOutboundPortSymbol,
       useClass: PermissionRepository,
-    },
-    {
-      provide: MachineRepositoryOutboundPortSymbol,
-      useClass: MachineRepository,
     },
     {
       provide: GroupProcessRepositoryOutboundPortSymbol,
