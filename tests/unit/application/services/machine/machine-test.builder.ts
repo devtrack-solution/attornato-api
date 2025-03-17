@@ -87,7 +87,7 @@ export class MachineTestBuilder {
   }
 
   static getSelect(): string[] {
-    return ['id', 'name', 'status', 'createdAt']
+    return []
   }
 
   static getSearchFields(): string[] {
