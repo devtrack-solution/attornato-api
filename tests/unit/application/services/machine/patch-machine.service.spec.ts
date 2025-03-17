@@ -4,6 +4,7 @@ import { PatchMachineService } from '@/application/services/machine/patch-machin
 import { MachineRepositoryOutboundPort, MachineRepositoryOutboundPortSymbol } from '@/domain/machine/ports/outbound/machine-repository.outbound-port'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { MachineTestBuilder } from './machine-test.builder'
+import { Machine } from '@/domain/machine/business-objects/machine.bo'
 
 describe('[APPLICATION] - PatchMachineService', () => {
   let service: PatchMachineService
@@ -20,12 +21,13 @@ describe('[APPLICATION] - PatchMachineService', () => {
 
   it('should patch a machine successfully', async () => {
     const criteria: Criteria.ById = { id: 'valid-id' }
+    const relations = MachineTestBuilder.getRelationsCriteria()
     const updatedData = MachineTestBuilder.create().withName('UPDATED_MACHINE_NAME').build()
 
     machineRepository.patchObject.mockResolvedValue(undefined)
 
     await service.execute(updatedData, criteria)
 
-    expect(machineRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria)
+    expect(machineRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria, Machine, relations)
   })
 })

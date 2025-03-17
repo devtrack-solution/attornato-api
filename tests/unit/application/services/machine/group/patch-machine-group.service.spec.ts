@@ -4,6 +4,7 @@ import { PatchMachineGroupService } from '@/application/services/machine/group/p
 import { MachineGroupRepositoryOutboundPort, MachineGroupRepositoryOutboundPortSymbol } from '@/domain/machine/group/ports/outbound/machine-group-repository.outbound-port'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { MachineGroupTestBuilder } from './machine-group-test.builder'
+import { MachineGroup } from '@/domain/machine/group/business-objects/machine-group.bo'
 
 describe('[APPLICATION] - PatchMachineGroupService', () => {
   let service: PatchMachineGroupService
@@ -26,7 +27,7 @@ describe('[APPLICATION] - PatchMachineGroupService', () => {
 
     await service.execute(updatedData, criteria)
 
-    expect(machineGroupRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria)
+    expect(machineGroupRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria, MachineGroup)
     expect(machineGroupRepository.patchObject).toHaveBeenCalledTimes(1)
   })
 
@@ -37,6 +38,6 @@ describe('[APPLICATION] - PatchMachineGroupService', () => {
     machineGroupRepository.patchObject.mockRejectedValue(new Error('Database error'))
 
     await expect(service.execute(updatedData, criteria)).rejects.toThrow('Database error')
-    expect(machineGroupRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria)
+    expect(machineGroupRepository.patchObject).toHaveBeenCalledWith(updatedData, criteria, MachineGroup)
   })
 })
