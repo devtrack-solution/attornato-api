@@ -7,6 +7,10 @@ import { PermissionRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outb
 import { PermissionRepository } from '@/infrastructure/adapters/pgsql/repositories/permission.repository'
 import { MachineRepositoryOutboundPortSymbol } from '@/domain/machine/ports/outbound/machine-repository.outbound-port'
 import { MachineRepository } from '@/infrastructure/adapters/pgsql/repositories/machine.repository'
+import {GroupProcessRepository} from "@/infrastructure/adapters/pgsql/repositories/group-process.repository";
+import {
+  GroupProcessRepositoryOutboundPortSymbol
+} from "@/domain/group-process/ports/outbound/group-process-repository.outbound-port";
 
 @Module({
   imports: [
@@ -28,6 +32,10 @@ import { MachineRepository } from '@/infrastructure/adapters/pgsql/repositories/
       provide: MachineRepositoryOutboundPortSymbol,
       useClass: MachineRepository,
     },
+    {
+      provide: GroupProcessRepositoryOutboundPortSymbol,
+      useClass: GroupProcessRepository,
+    },
   ],
   exports: [
     {
@@ -41,6 +49,10 @@ import { MachineRepository } from '@/infrastructure/adapters/pgsql/repositories/
     {
       provide: MachineRepositoryOutboundPortSymbol,
       useClass: MachineRepository,
+    },
+    {
+      provide: GroupProcessRepositoryOutboundPortSymbol,
+      useClass: GroupProcessRepository,
     },
   ],
 })

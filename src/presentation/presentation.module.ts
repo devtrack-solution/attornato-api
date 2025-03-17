@@ -7,9 +7,8 @@ import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.mi
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
 import { MachineHttpControllerModule } from '@/presentation/controllers/http/machine/machine-http-controller.module'
-import {
-  MachineGroupHttpControllerModule
-} from '@/presentation/controllers/http/machine/group/machine-group-http-controller.module'
+import { MachineGroupHttpControllerModule } from '@/presentation/controllers/http/machine/group/machine-group-http-controller.module'
+import { GroupProcessHttpControllerModule } from '@/presentation/controllers/http/group-process/group-process-http-controller.module'
 
 @Module({
   imports: [
@@ -22,6 +21,7 @@ import {
     ApplicationModule,
     PermissionHttpControllerModule,
     MachineHttpControllerModule,
+    GroupProcessHttpControllerModule,
   ],
   providers: [
     {
@@ -38,6 +38,15 @@ import {
 })
 export class PresentationModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IdempotencyMiddleware).exclude({ path: '/docs(.*)', method: RequestMethod.ALL }, { path: '*', method: RequestMethod.OPTIONS }).forRoutes({ path: '*', method: RequestMethod.ALL })
+    consumer
+      .apply(IdempotencyMiddleware)
+      .exclude(
+        { path: '/docs(.*)', method: RequestMethod.ALL },
+        {
+          path: '*',
+          method: RequestMethod.OPTIONS,
+        },
+      )
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
   }
 }
