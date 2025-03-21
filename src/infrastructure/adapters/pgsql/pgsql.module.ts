@@ -9,6 +9,10 @@ import {GroupProcessRepository} from "@/infrastructure/adapters/pgsql/repositori
 import {
   GroupProcessRepositoryOutboundPortSymbol
 } from "@/domain/group-process/ports/outbound/group-process-repository.outbound-port";
+import { ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
+import { ResponsibleRepository } from './repositories/responsible.repository'
+import { PhaseRepository } from './repositories/phase.repository'
+import { PhaseRepositoryOutboundPortSymbol } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
 
 @Module({
   imports: [
@@ -30,6 +34,14 @@ import {
       provide: GroupProcessRepositoryOutboundPortSymbol,
       useClass: GroupProcessRepository,
     },
+    {
+      provide: ResponsibleRepositoryOutboundPortSymbol,
+      useClass: ResponsibleRepository,
+    },
+    {
+      provide: PhaseRepositoryOutboundPortSymbol,
+      useClass: PhaseRepository,
+    }
   ],
   exports: [
     {
@@ -44,6 +56,14 @@ import {
       provide: GroupProcessRepositoryOutboundPortSymbol,
       useClass: GroupProcessRepository,
     },
+    {
+      provide: ResponsibleRepositoryOutboundPortSymbol,
+      useClass: ResponsibleRepository,
+    },
+    {
+      provide: PhaseRepositoryOutboundPortSymbol,
+      useClass: PhaseRepository,
+    }
   ],
 })
 export class PGSQLModule {}

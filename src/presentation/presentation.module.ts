@@ -6,6 +6,8 @@ import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.mi
 import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempotency-save.interceptor'
 import { PermissionHttpControllerModule } from '@/presentation/controllers/http/permission/permission-http-controller.module'
 import { GroupProcessHttpControllerModule } from '@/presentation/controllers/http/group-process/group-process-http-controller.module'
+import { ResponsibleHttpControllerModule } from './controllers/http/responsible/responsible-http-controller.module'
+import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-controller.module'
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { GroupProcessHttpControllerModule } from '@/presentation/controllers/htt
     ApplicationModule,
     PermissionHttpControllerModule,
     GroupProcessHttpControllerModule,
+    ResponsibleHttpControllerModule,
+    PhaseHttpControllerModule
   ],
   providers: [
     {
