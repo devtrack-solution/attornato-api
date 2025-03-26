@@ -8,6 +8,8 @@ import { PermissionHttpControllerModule } from '@/presentation/controllers/http/
 import { GroupProcessHttpControllerModule } from '@/presentation/controllers/http/group-process/group-process-http-controller.module'
 import { ResponsibleHttpControllerModule } from './controllers/http/responsible/responsible-http-controller.module'
 import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-controller.module'
+import { LocatorHttpControllerModule } from './controllers/http/locator/locator-http-controller.module'
+import { CountyHttpControllerModule } from './controllers/http/county/county-http-controller.module'
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-c
     PermissionHttpControllerModule,
     GroupProcessHttpControllerModule,
     ResponsibleHttpControllerModule,
-    PhaseHttpControllerModule
+    PhaseHttpControllerModule,
+    LocatorHttpControllerModule,
+    CountyHttpControllerModule
   ],
   providers: [
     {

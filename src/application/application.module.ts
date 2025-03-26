@@ -6,6 +6,8 @@ import { PermissionModule } from '@/application/services/permission/permission.m
 import {GroupProcessModule} from "@/application/services/group-process/group-process.module";
 import { ResponsibleModule } from './services/responsible/responsible.module'
 import { PhaseModule } from './services/phase/phase.module'
+import { CountyModule } from './services/county/county.module'
+import { LocatorModule } from './services/locator/locator.module'
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -16,7 +18,9 @@ import { PhaseModule } from './services/phase/phase.module'
     PermissionModule,
     GroupProcessModule,
     ResponsibleModule,
-    PhaseModule
+    CountyModule,
+    PhaseModule,
+    LocatorModule
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],

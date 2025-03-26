@@ -13,6 +13,10 @@ import { ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/po
 import { ResponsibleRepository } from './repositories/responsible.repository'
 import { PhaseRepository } from './repositories/phase.repository'
 import { PhaseRepositoryOutboundPortSymbol } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
+import { CountyRepositoryOutboundPortSymbol } from '@/domain/county/ports/outbound/county-repository.outbound-port'
+import { LocatorRepositoryOutboundPortSymbol } from '@/domain/locator/ports/outbound/locator-repository.outbound-port'
+import { CountyRepository } from './repositories/county.repository'
+import { LocatorRepository } from './repositories/locator.repository'
 
 @Module({
   imports: [
@@ -41,6 +45,14 @@ import { PhaseRepositoryOutboundPortSymbol } from '@/domain/phase/ports/outbound
     {
       provide: PhaseRepositoryOutboundPortSymbol,
       useClass: PhaseRepository,
+    },
+    {
+      provide: CountyRepositoryOutboundPortSymbol,
+      useClass: CountyRepository,
+    },
+    {
+      provide: LocatorRepositoryOutboundPortSymbol,
+      useClass: LocatorRepository,
     }
   ],
   exports: [
@@ -63,6 +75,14 @@ import { PhaseRepositoryOutboundPortSymbol } from '@/domain/phase/ports/outbound
     {
       provide: PhaseRepositoryOutboundPortSymbol,
       useClass: PhaseRepository,
+    },
+    {
+      provide: CountyRepositoryOutboundPortSymbol,
+      useClass: CountyRepository,
+    },
+    {
+      provide: LocatorRepositoryOutboundPortSymbol,
+      useClass: LocatorRepository,
     }
   ],
 })
