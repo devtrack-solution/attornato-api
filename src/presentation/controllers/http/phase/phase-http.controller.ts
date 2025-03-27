@@ -11,7 +11,7 @@ import { PatchPhaseInboundPortToken, PatchPhaseInboundPort } from '@/domain/phas
 import { CreatePhaseDto } from './dtos/create-phase.dto'
 import { ListPhaseDto } from './dtos/list-phase.dto'
 import { ListToSelectPhaseDto } from './dtos/list-to-select-phase.dto'
-import { PatchPhaseDto } from './dtos/patch-responsible.dto'
+import { PatchPhaseDto } from '@/presentation/controllers/http/phase/dtos/patch-phase.dto'
 
 @ApiTags('Phases')
 @Controller('phases')

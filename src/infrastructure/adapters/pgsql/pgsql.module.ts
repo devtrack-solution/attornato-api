@@ -25,6 +25,12 @@ import {
 } from '@/domain/action-object/ports/outbound/action-object-repository.outbound-port'
 import { ActionObjectRepository } from '@/infrastructure/adapters/pgsql/repositories/action-object.repository'
 import { PracticeAreaRepository } from '@/infrastructure/adapters/pgsql/repositories/practice-area.repository'
+import {
+  ProceduralStatusRepositoryOutboundPortSymbol
+} from '@/domain/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
+import { SubjectRepositoryOutboundPortSymbol } from '@/domain/subject/ports/outbound/subject-repository.outbound-port'
+import { SubjectRepository } from '@/infrastructure/adapters/pgsql/repositories/subject.repository'
+import { ProceduralStatusRepository } from '@/infrastructure/adapters/pgsql/repositories/procedural-status.repository'
 
 @Module({
   imports: [
@@ -69,6 +75,14 @@ import { PracticeAreaRepository } from '@/infrastructure/adapters/pgsql/reposito
     {
       provide: ActionObjectRepositoryOutboundPortSymbol,
       useClass: ActionObjectRepository,
+    },
+    {
+      provide: SubjectRepositoryOutboundPortSymbol,
+      useClass: SubjectRepository,
+    },
+    {
+      provide: ProceduralStatusRepositoryOutboundPortSymbol,
+      useClass: ProceduralStatusRepository,
     }
   ],
   exports: [
@@ -107,6 +121,14 @@ import { PracticeAreaRepository } from '@/infrastructure/adapters/pgsql/reposito
     {
       provide: ActionObjectRepositoryOutboundPortSymbol,
       useClass: ActionObjectRepository,
+    },
+    {
+      provide: SubjectRepositoryOutboundPortSymbol,
+      useClass: SubjectRepository,
+    },
+    {
+      provide: ProceduralStatusRepositoryOutboundPortSymbol,
+      useClass: ProceduralStatusRepository,
     }
   ],
 })

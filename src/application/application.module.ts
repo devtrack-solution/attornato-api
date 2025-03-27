@@ -10,6 +10,8 @@ import { CountyModule } from './services/county/county.module'
 import { LocatorModule } from './services/locator/locator.module'
 import { PracticeAreaModule } from '@/application/services/practice-area/practice-area.module'
 import { ActionObjectModule } from '@/application/services/action-object/action-object.module'
+import { SubjectModule } from '@/application/services/subject/subject.module'
+import { ProceduralStatusModule } from '@/application/services/procedural-status/procedural-status.module'
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -24,7 +26,9 @@ import { ActionObjectModule } from '@/application/services/action-object/action-
     PhaseModule,
     LocatorModule,
     PracticeAreaModule,
-    ActionObjectModule
+    ActionObjectModule,
+    SubjectModule,
+    ProceduralStatusModule
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],

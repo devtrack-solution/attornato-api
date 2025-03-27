@@ -16,6 +16,10 @@ import {
 import {
   ActionObjectHttpControllerModule
 } from '@/presentation/controllers/http/action-object/action-object-http-controller.module'
+import { SubjectHttpControllerModule } from '@/presentation/controllers/http/subject/subject-http-controller.module'
+import {
+  ProceduralStatusHttpControllerModule
+} from '@/presentation/controllers/http/procedural-status/procedural-status-http-controller.module'
 
 @Module({
   imports: [
@@ -33,7 +37,9 @@ import {
     LocatorHttpControllerModule,
     CountyHttpControllerModule,
     PracticeAreaHttpControllerModule,
-    ActionObjectHttpControllerModule
+    ActionObjectHttpControllerModule,
+    SubjectHttpControllerModule,
+    ProceduralStatusHttpControllerModule
   ],
   providers: [
     {
