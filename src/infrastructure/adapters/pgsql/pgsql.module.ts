@@ -17,6 +17,14 @@ import { CountyRepositoryOutboundPortSymbol } from '@/domain/county/ports/outbou
 import { LocatorRepositoryOutboundPortSymbol } from '@/domain/locator/ports/outbound/locator-repository.outbound-port'
 import { CountyRepository } from './repositories/county.repository'
 import { LocatorRepository } from './repositories/locator.repository'
+import {
+  PracticeAreaRepositoryOutboundPortSymbol
+} from '@/domain/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import {
+  ActionObjectRepositoryOutboundPortSymbol
+} from '@/domain/action-object/ports/outbound/action-object-repository.outbound-port'
+import { ActionObjectRepository } from '@/infrastructure/adapters/pgsql/repositories/action-object.repository'
+import { PracticeAreaRepository } from '@/infrastructure/adapters/pgsql/repositories/practice-area.repository'
 
 @Module({
   imports: [
@@ -53,6 +61,14 @@ import { LocatorRepository } from './repositories/locator.repository'
     {
       provide: LocatorRepositoryOutboundPortSymbol,
       useClass: LocatorRepository,
+    },
+    {
+      provide: PracticeAreaRepositoryOutboundPortSymbol,
+      useClass: PracticeAreaRepository,
+    },
+    {
+      provide: ActionObjectRepositoryOutboundPortSymbol,
+      useClass: ActionObjectRepository,
     }
   ],
   exports: [
@@ -83,6 +99,14 @@ import { LocatorRepository } from './repositories/locator.repository'
     {
       provide: LocatorRepositoryOutboundPortSymbol,
       useClass: LocatorRepository,
+    },
+    {
+      provide: PracticeAreaRepositoryOutboundPortSymbol,
+      useClass: PracticeAreaRepository,
+    },
+    {
+      provide: ActionObjectRepositoryOutboundPortSymbol,
+      useClass: ActionObjectRepository,
     }
   ],
 })

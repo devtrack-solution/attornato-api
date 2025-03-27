@@ -10,6 +10,12 @@ import { ResponsibleHttpControllerModule } from './controllers/http/responsible/
 import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-controller.module'
 import { LocatorHttpControllerModule } from './controllers/http/locator/locator-http-controller.module'
 import { CountyHttpControllerModule } from './controllers/http/county/county-http-controller.module'
+import {
+  PracticeAreaHttpControllerModule
+} from '@/presentation/controllers/http/practice-area/practice-area-http-controller.module'
+import {
+  ActionObjectHttpControllerModule
+} from '@/presentation/controllers/http/action-object/action-object-http-controller.module'
 
 @Module({
   imports: [
@@ -25,7 +31,9 @@ import { CountyHttpControllerModule } from './controllers/http/county/county-htt
     ResponsibleHttpControllerModule,
     PhaseHttpControllerModule,
     LocatorHttpControllerModule,
-    CountyHttpControllerModule
+    CountyHttpControllerModule,
+    PracticeAreaHttpControllerModule,
+    ActionObjectHttpControllerModule
   ],
   providers: [
     {

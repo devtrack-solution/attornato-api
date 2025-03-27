@@ -3,7 +3,7 @@ import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 
 
 
-export class GroupProcessDto extends BasicDto {
+export class PracticeAreaDto extends BasicDto {
   @ApiProperty({ description: 'The name of the practice-area', example: 'Administrativo', required: true })
   name!: string
 }

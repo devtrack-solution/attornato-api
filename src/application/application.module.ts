@@ -8,6 +8,8 @@ import { ResponsibleModule } from './services/responsible/responsible.module'
 import { PhaseModule } from './services/phase/phase.module'
 import { CountyModule } from './services/county/county.module'
 import { LocatorModule } from './services/locator/locator.module'
+import { PracticeAreaModule } from '@/application/services/practice-area/practice-area.module'
+import { ActionObjectModule } from '@/application/services/action-object/action-object.module'
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -20,7 +22,9 @@ import { LocatorModule } from './services/locator/locator.module'
     ResponsibleModule,
     CountyModule,
     PhaseModule,
-    LocatorModule
+    LocatorModule,
+    PracticeAreaModule,
+    ActionObjectModule
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],
