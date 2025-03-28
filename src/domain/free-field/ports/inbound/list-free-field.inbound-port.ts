@@ -1,0 +1,7 @@
+import { IServiceWithCriteriaInboundPort } from '@/core/domain/ports/inbound/service.inbound-port'
+import { Criteria } from '@/core/domain/types/criteria.type'
+import { FreeFieldType } from '@/domain/free-field/types/free-field.type'
+
+export const ListFreeFieldInboundPortToken = Symbol.for('ListFreeFieldInboundPortToken')
+
+export interface ListFreeFieldInboundPort extends IServiceWithCriteriaInboundPort<Criteria.Paginated, FreeFieldType.OutputPaginated> {}

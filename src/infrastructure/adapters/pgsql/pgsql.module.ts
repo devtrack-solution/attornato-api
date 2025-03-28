@@ -31,6 +31,20 @@ import {
 import { SubjectRepositoryOutboundPortSymbol } from '@/domain/subject/ports/outbound/subject-repository.outbound-port'
 import { SubjectRepository } from '@/infrastructure/adapters/pgsql/repositories/subject.repository'
 import { ProceduralStatusRepository } from '@/infrastructure/adapters/pgsql/repositories/procedural-status.repository'
+import { DetailsRepositoryOutboundPortSymbol } from '@/domain/details/ports/outbound/details-repository.outbound-port'
+import { DetailsRepository } from '@/infrastructure/adapters/pgsql/repositories/details.repository'
+import { FreeFieldRepository } from '@/infrastructure/adapters/pgsql/repositories/free-field.repository'
+import {
+  FreeFieldRepositoryOutboundPortSymbol
+} from '@/domain/free-field/ports/outbound/free-field-repository.outbound-port'
+import { OriginRepositoryOutboundPortSymbol } from '@/domain/origin/ports/outbound/origin-repository.outbound-port'
+import { OriginRepository } from '@/infrastructure/adapters/pgsql/repositories/origin.repository'
+import {
+  LocalProcedureNameRepositoryOutboundPortSymbol
+} from '@/domain/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+import {
+  LocalProcedureNameRepository
+} from '@/infrastructure/adapters/pgsql/repositories/local-procedure-name.repository'
 
 @Module({
   imports: [
@@ -83,6 +97,22 @@ import { ProceduralStatusRepository } from '@/infrastructure/adapters/pgsql/repo
     {
       provide: ProceduralStatusRepositoryOutboundPortSymbol,
       useClass: ProceduralStatusRepository,
+    },
+    {
+      provide: DetailsRepositoryOutboundPortSymbol,
+      useClass: DetailsRepository,
+    },
+    {
+      provide: FreeFieldRepositoryOutboundPortSymbol,
+      useClass: FreeFieldRepository,
+    },
+    {
+      provide: OriginRepositoryOutboundPortSymbol,
+      useClass: OriginRepository,
+    },
+    {
+      provide: LocalProcedureNameRepositoryOutboundPortSymbol,
+      useClass: LocalProcedureNameRepository,
     }
   ],
   exports: [
@@ -129,6 +159,22 @@ import { ProceduralStatusRepository } from '@/infrastructure/adapters/pgsql/repo
     {
       provide: ProceduralStatusRepositoryOutboundPortSymbol,
       useClass: ProceduralStatusRepository,
+    },
+    {
+      provide: DetailsRepositoryOutboundPortSymbol,
+      useClass: DetailsRepository,
+    },
+    {
+      provide: FreeFieldRepositoryOutboundPortSymbol,
+      useClass: FreeFieldRepository,
+    },
+    {
+      provide: OriginRepositoryOutboundPortSymbol,
+      useClass: OriginRepository,
+    },
+    {
+      provide: LocalProcedureNameRepositoryOutboundPortSymbol,
+      useClass: LocalProcedureNameRepository,
     }
   ],
 })

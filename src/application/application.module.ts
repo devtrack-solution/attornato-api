@@ -12,6 +12,10 @@ import { PracticeAreaModule } from '@/application/services/practice-area/practic
 import { ActionObjectModule } from '@/application/services/action-object/action-object.module'
 import { SubjectModule } from '@/application/services/subject/subject.module'
 import { ProceduralStatusModule } from '@/application/services/procedural-status/procedural-status.module'
+import { FreeFieldModule } from '@/application/services/free-field/free-field.module'
+import { DetailsModule } from '@/application/services/details/details.module'
+import { OriginModule } from '@/application/services/origin/origin.module'
+import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -28,7 +32,11 @@ import { ProceduralStatusModule } from '@/application/services/procedural-status
     PracticeAreaModule,
     ActionObjectModule,
     SubjectModule,
-    ProceduralStatusModule
+    ProceduralStatusModule,
+    FreeFieldModule,
+    DetailsModule,
+    OriginModule,
+    LocalProcedureNameModule
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],

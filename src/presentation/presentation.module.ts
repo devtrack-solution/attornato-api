@@ -9,7 +9,6 @@ import { GroupProcessHttpControllerModule } from '@/presentation/controllers/htt
 import { ResponsibleHttpControllerModule } from './controllers/http/responsible/responsible-http-controller.module'
 import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-controller.module'
 import { LocatorHttpControllerModule } from './controllers/http/locator/locator-http-controller.module'
-import { CountyHttpControllerModule } from './controllers/http/county/county-http-controller.module'
 import {
   PracticeAreaHttpControllerModule
 } from '@/presentation/controllers/http/practice-area/practice-area-http-controller.module'
@@ -20,6 +19,11 @@ import { SubjectHttpControllerModule } from '@/presentation/controllers/http/sub
 import {
   ProceduralStatusHttpControllerModule
 } from '@/presentation/controllers/http/procedural-status/procedural-status-http-controller.module'
+import { OriginHttpControllerModule } from '@/presentation/controllers/http/origin/origin-http-controller.module'
+import {
+  LocalProcedureNameHttpControllerModule
+} from '@/presentation/controllers/http/local-procedure-name/local-procedure-name-http-controller.module'
+import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
 
 @Module({
   imports: [
@@ -35,11 +39,13 @@ import {
     ResponsibleHttpControllerModule,
     PhaseHttpControllerModule,
     LocatorHttpControllerModule,
-    CountyHttpControllerModule,
+    DetailsHttpControllerModule,
     PracticeAreaHttpControllerModule,
     ActionObjectHttpControllerModule,
     SubjectHttpControllerModule,
-    ProceduralStatusHttpControllerModule
+    ProceduralStatusHttpControllerModule,
+    OriginHttpControllerModule,
+    LocalProcedureNameHttpControllerModule
   ],
   providers: [
     {
