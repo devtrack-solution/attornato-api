@@ -47,8 +47,10 @@ import {
 } from '@/infrastructure/adapters/pgsql/repositories/local-procedure-name.repository'
 import {
   GroupCustomerRepositoryOutboundPortSymbol
-} from "@/domain/todo/ports/outbound/group-customer-repository.outbound-port";
+} from "@/domain/group-customer/ports/outbound/group-customer-repository.outbound-port";
 import {GroupCustomerRepository} from "@/infrastructure/adapters/pgsql/repositories/group-customer.repository";
+import {ProfileRepositoryOutboundPortSymbol} from "@/domain/profile/ports/outbound/profile-repository.outbound-port";
+import {ProfileRepository} from "@/infrastructure/adapters/pgsql/repositories/profile.repository";
 
 @Module({
   imports: [
@@ -121,6 +123,10 @@ import {GroupCustomerRepository} from "@/infrastructure/adapters/pgsql/repositor
     {
       provide: LocalProcedureNameRepositoryOutboundPortSymbol,
       useClass: LocalProcedureNameRepository,
+    },
+    {
+      provide: ProfileRepositoryOutboundPortSymbol,
+      useClass: ProfileRepository,
     }
   ],
   exports: [
@@ -187,6 +193,10 @@ import {GroupCustomerRepository} from "@/infrastructure/adapters/pgsql/repositor
     {
       provide: LocalProcedureNameRepositoryOutboundPortSymbol,
       useClass: LocalProcedureNameRepository,
+    },
+    {
+      provide: ProfileRepositoryOutboundPortSymbol,
+      useClass: ProfileRepository,
     }
   ],
 })

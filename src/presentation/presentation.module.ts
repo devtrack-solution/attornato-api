@@ -9,24 +9,15 @@ import { GroupProcessHttpControllerModule } from '@/presentation/controllers/htt
 import { ResponsibleHttpControllerModule } from './controllers/http/responsible/responsible-http-controller.module'
 import { PhaseHttpControllerModule } from './controllers/http/phase/phase-http-controller.module'
 import { LocatorHttpControllerModule } from './controllers/http/locator/locator-http-controller.module'
-import {
-  PracticeAreaHttpControllerModule
-} from '@/presentation/controllers/http/practice-area/practice-area-http-controller.module'
-import {
-  ActionObjectHttpControllerModule
-} from '@/presentation/controllers/http/action-object/action-object-http-controller.module'
+import { PracticeAreaHttpControllerModule } from '@/presentation/controllers/http/practice-area/practice-area-http-controller.module'
+import { ActionObjectHttpControllerModule } from '@/presentation/controllers/http/action-object/action-object-http-controller.module'
 import { SubjectHttpControllerModule } from '@/presentation/controllers/http/subject/subject-http-controller.module'
-import {
-  ProceduralStatusHttpControllerModule
-} from '@/presentation/controllers/http/procedural-status/procedural-status-http-controller.module'
+import { ProceduralStatusHttpControllerModule } from '@/presentation/controllers/http/procedural-status/procedural-status-http-controller.module'
 import { OriginHttpControllerModule } from '@/presentation/controllers/http/origin/origin-http-controller.module'
-import {
-  LocalProcedureNameHttpControllerModule
-} from '@/presentation/controllers/http/local-procedure-name/local-procedure-name-http-controller.module'
+import { LocalProcedureNameHttpControllerModule } from '@/presentation/controllers/http/local-procedure-name/local-procedure-name-http-controller.module'
 import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
-import {
-  GroupCustomerHttpControllerModule
-} from "@/presentation/controllers/http/group-customer/group-customer-http-controller.module";
+import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/http/group-customer/group-customer-http-controller.module'
+import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
 
 @Module({
   imports: [
@@ -37,19 +28,20 @@ import {
       },
     ]),
     ApplicationModule,
+    ActionObjectHttpControllerModule,
+    DetailsHttpControllerModule,
     PermissionHttpControllerModule,
     GroupProcessHttpControllerModule,
     GroupCustomerHttpControllerModule,
     ResponsibleHttpControllerModule,
     PhaseHttpControllerModule,
     LocatorHttpControllerModule,
-    DetailsHttpControllerModule,
     PracticeAreaHttpControllerModule,
-    ActionObjectHttpControllerModule,
     SubjectHttpControllerModule,
     ProceduralStatusHttpControllerModule,
     OriginHttpControllerModule,
-    LocalProcedureNameHttpControllerModule
+    ProfileHttpControllerModule,
+    LocalProcedureNameHttpControllerModule,
   ],
   providers: [
     {
