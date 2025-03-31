@@ -24,6 +24,9 @@ import {
   LocalProcedureNameHttpControllerModule
 } from '@/presentation/controllers/http/local-procedure-name/local-procedure-name-http-controller.module'
 import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
+import {
+  GroupCustomerHttpControllerModule
+} from "@/presentation/controllers/http/group-customer/group-customer-http-controller.module";
 
 @Module({
   imports: [
@@ -36,6 +39,7 @@ import { DetailsHttpControllerModule } from '@/presentation/controllers/http/det
     ApplicationModule,
     PermissionHttpControllerModule,
     GroupProcessHttpControllerModule,
+    GroupCustomerHttpControllerModule,
     ResponsibleHttpControllerModule,
     PhaseHttpControllerModule,
     LocatorHttpControllerModule,

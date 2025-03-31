@@ -3,7 +3,7 @@ import { TodoModule } from '@/application/services/todo/todo.module'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { PermissionModule } from '@/application/services/permission/permission.module'
-import {GroupProcessModule} from "@/application/services/group-process/group-process.module";
+import { GroupProcessModule } from '@/application/services/group-process/group-process.module'
 import { ResponsibleModule } from './services/responsible/responsible.module'
 import { PhaseModule } from './services/phase/phase.module'
 import { CountyModule } from './services/county/county.module'
@@ -16,6 +16,8 @@ import { FreeFieldModule } from '@/application/services/free-field/free-field.mo
 import { DetailsModule } from '@/application/services/details/details.module'
 import { OriginModule } from '@/application/services/origin/origin.module'
 import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
+import { GroupCustomerModule } from '@/application/services/group-customer/group-customer.module'
+
 @Module({
   imports: [
     EventEmitterModule.forRoot({
@@ -25,6 +27,7 @@ import { LocalProcedureNameModule } from '@/application/services/local-procedure
     TodoModule,
     PermissionModule,
     GroupProcessModule,
+    GroupCustomerModule,
     ResponsibleModule,
     CountyModule,
     PhaseModule,
@@ -36,7 +39,7 @@ import { LocalProcedureNameModule } from '@/application/services/local-procedure
     FreeFieldModule,
     DetailsModule,
     OriginModule,
-    LocalProcedureNameModule
+    LocalProcedureNameModule,
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],
