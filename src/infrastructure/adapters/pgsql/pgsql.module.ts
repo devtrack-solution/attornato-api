@@ -51,6 +51,10 @@ import {
 import {GroupCustomerRepository} from "@/infrastructure/adapters/pgsql/repositories/group-customer.repository";
 import {ProfileRepositoryOutboundPortSymbol} from "@/domain/profile/ports/outbound/profile-repository.outbound-port";
 import {ProfileRepository} from "@/infrastructure/adapters/pgsql/repositories/profile.repository";
+import {
+  ContactTypeRepositoryOutboundPortSymbol
+} from "@/domain/contact-type/ports/outbound/contact-type-repository.outbound-port";
+import {ContactTypeRepository} from "@/infrastructure/adapters/pgsql/repositories/contact-type.repository";
 
 @Module({
   imports: [
@@ -127,6 +131,10 @@ import {ProfileRepository} from "@/infrastructure/adapters/pgsql/repositories/pr
     {
       provide: ProfileRepositoryOutboundPortSymbol,
       useClass: ProfileRepository,
+    },
+    {
+      provide: ContactTypeRepositoryOutboundPortSymbol,
+      useClass: ContactTypeRepository,
     }
   ],
   exports: [
@@ -197,6 +205,10 @@ import {ProfileRepository} from "@/infrastructure/adapters/pgsql/repositories/pr
     {
       provide: ProfileRepositoryOutboundPortSymbol,
       useClass: ProfileRepository,
+    },
+    {
+      provide: ContactTypeRepositoryOutboundPortSymbol,
+      useClass: ContactTypeRepository,
     }
   ],
 })

@@ -17,6 +17,7 @@ import { DetailsModule } from '@/application/services/details/details.module'
 import { OriginModule } from '@/application/services/origin/origin.module'
 import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
 import { GroupCustomerModule } from '@/application/services/group-customer/group-customer.module'
+import { ContactTypeModule } from '@/application/services/contact-type/contact-type.module'
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { GroupCustomerModule } from '@/application/services/group-customer/group
       maxListeners: 20,
     }),
     TodoModule,
+    ContactTypeModule,
     PermissionModule,
     GroupProcessModule,
     GroupCustomerModule,

@@ -18,6 +18,7 @@ import { LocalProcedureNameHttpControllerModule } from '@/presentation/controlle
 import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
 import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/http/group-customer/group-customer-http-controller.module'
 import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
+import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http/contact-type/contact-type-http-controller.module'
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProfileHttpControllerModule } from '@/presentation/controllers/http/pro
     ]),
     ApplicationModule,
     ActionObjectHttpControllerModule,
+    ContactTypeHttpControllerModule,
     DetailsHttpControllerModule,
     PermissionHttpControllerModule,
     GroupProcessHttpControllerModule,
