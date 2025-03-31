@@ -1,4 +1,4 @@
-import { Responsible } from '@/domain/responsible/busness-objects/responsible.bo'
+import { Responsible } from '@/domain/responsible/business-objects/responsible.bo'
 import { CreateResponsibleInboundPort } from '@/domain/responsible/ports/inbound/create-responsible.inbound-port'
 import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
 import { ResponsibleType } from '@/domain/responsible/types/responsible.type'

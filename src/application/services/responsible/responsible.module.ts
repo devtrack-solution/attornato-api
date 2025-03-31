@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { CoreModule } from '@/core/core.module'
 import { CreateResponsibleInboundPortToken } from '@/domain/responsible/ports/inbound/create-responsible.inbound-port'
-import { CreateResponsibleService } from './crete-responsible.service'
+import { CreateResponsibleService } from './create-responsible.service'
 import { DeleteResponsibleInboundPortToken } from '@/domain/responsible/ports/inbound/delete-responsible.inbound-port'
 import { ListResponsibleInboundPortToken } from '@/domain/responsible/ports/inbound/list-responsible.inbound-port'
 import { ListToSelectResponsibleInboundPortToken } from '@/domain/responsible/ports/inbound/list-to-select-responsible.inbound-port'

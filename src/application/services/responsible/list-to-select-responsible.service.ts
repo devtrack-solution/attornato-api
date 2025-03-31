@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Responsible } from '@/domain/responsible/busness-objects/responsible.bo'
+import { Responsible } from '@/domain/responsible/business-objects/responsible.bo'
 import { ListToSelectResponsibleInboundPort } from '@/domain/responsible/ports/inbound/list-to-select-responsible.inbound-port'
 import { ResponsibleRepositoryOutboundPortSymbol, ResponsibleRepositoryOutboundPort } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
 import { ResponsibleType } from '@/domain/responsible/types/responsible.type'
