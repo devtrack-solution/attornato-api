@@ -6,7 +6,7 @@ import {
   DetailsRepositoryOutboundPortSymbol,
 } from '@/domain/details/ports/outbound/details-repository.outbound-port'
 import { DetailsType } from '@/domain/details/types/details.type'
-import { Details } from '@/domain/details/busness-objects/details.bo'
+import { Details } from '@/domain/details/business-objects/details.bo'
 
 @Injectable()
 export class ListToSelectDetailsService implements ListToSelectDetailsInboundPort {

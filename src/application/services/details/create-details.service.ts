@@ -5,7 +5,7 @@ import {
   DetailsRepositoryOutboundPort,
   DetailsRepositoryOutboundPortSymbol,
 } from '@/domain/details/ports/outbound/details-repository.outbound-port'
-import { Details } from '@/domain/details/busness-objects/details.bo'
+import { Details } from '@/domain/details/business-objects/details.bo'
 
 @Injectable()
 export class CreateDetailsService implements CreateDetailsInboundPort {
