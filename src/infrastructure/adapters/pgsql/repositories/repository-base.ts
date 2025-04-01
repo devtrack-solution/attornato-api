@@ -1,175 +1,269 @@
-import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial } from 'typeorm'
-import { EntityTarget } from 'typeorm/common/EntityTarget'
-import { EntityManager } from 'typeorm/entity-manager/EntityManager'
-import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
-import { Logger } from '@nestjs/common'
-import { Criteria } from '@/core/domain/types/criteria.type'
+import {
+    FindManyOptions,
+    FindOptionsWhere,
+    ILike,
+    ObjectLiteral,
+    Repository,
+    DeepPartial,
+    QueryFailedError
+} from 'typeorm'
+import {EntityTarget} from 'typeorm/common/EntityTarget'
+import {EntityManager} from 'typeorm/entity-manager/EntityManager'
+import {QueryRunner} from 'typeorm/query-runner/QueryRunner'
+import {ConflictException, Logger} from '@nestjs/common'
+import {Criteria} from '@/core/domain/types/criteria.type'
 
 function getSearches(searchFields: string[], props: Criteria.FindBy) {
-  return searchFields
-    ? searchFields.reduce(
-        (acc, field) => {
-          const formattedField = field?.includes('.') ? `"${field}"` : field
-          acc[formattedField] = props?.search ? ILike(`%${props.search}%`) : undefined
-          return acc
-        },
-        {} as Record<string, any>,
-      )
-    : undefined
+    return searchFields
+        ? searchFields.reduce(
+            (acc, field) => {
+                const formattedField = field?.includes('.') ? `"${field}"` : field
+                acc[formattedField] = props?.search ? ILike(`%${props.search}%`) : undefined
+                return acc
+            },
+            {} as Record<string, any>,
+        )
+        : undefined
 }
 
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
-  protected readonly logger: Logger
+    protected readonly logger: Logger
 
-  protected constructor(target: EntityTarget<T>, manager: EntityManager, queryRunner?: QueryRunner) {
-    super(target, manager, queryRunner)
-    this.logger = new Logger(this.constructor.name)
-  }
-
-  async saveObject(input: DeepPartial<T>): Promise<void> {
-    try {
-      await this.manager.getRepository(this.target).save(input)
-    } catch (e) {
-      this.logger.error(`Error: ${e}`)
-      throw e
+    protected constructor(target: EntityTarget<T>, manager: EntityManager, queryRunner?: QueryRunner) {
+        super(target, manager, queryRunner)
+        this.logger = new Logger(this.constructor.name)
     }
-  }
 
-  async findOneByCriteria(props: Criteria.ById, relations?: string[]): Promise<Partial<T> | null> {
-    try {
-      const filters: FindOptionsWhere<T | any> = {
-        where: {
-          id: props?.id,
-          // name: undefined,
-          // description: props?.search ? ILike(`%${props.search}%`) : undefined,
-          enable: true,
-        },
-        relations,
-        order: { description: 'ASC' },
-        withDeleted: false,
-      }
-      return await this.findOne(filters)
-    } catch (e) {
-      this.logger.error(`Error: ${e}`)
-      throw e
+    async saveObject(input: DeepPartial<T>): Promise<void> {
+        try {
+            await this.manager.getRepository(this.target).save(input)
+        } catch (e) {
+            const entityName = (this.target as any)?.name || 'UnknownEntity'
+
+            if (
+                e instanceof QueryFailedError &&
+                e.message.includes('duplicate key value violates unique constraint')
+            ) {
+
+                const constraintMatch = e.message.match(/unique constraint "([^"]+)"/)
+                const constraintName = constraintMatch?.[1] || 'unknown_constraint'
+
+                let propertyNames = 'unknown_property'
+                const metadata = this.manager.connection.getMetadata(this.target)
+
+                const matchedConstraint = metadata.uniques.find(
+                    (uc) => uc.name === constraintName
+                )
+
+                if (matchedConstraint) {
+                    propertyNames = matchedConstraint.columns
+                        .map((col) => col.propertyName)
+                        .join(', ')
+                }
+
+                throw new ConflictException(
+                    `Duplicate value detected in entity ${entityName} for propert${propertyNames.includes(',') ? 'ies' : 'y'}: ${propertyNames}.`
+                )
+            }
+
+
+            this.logger.error(`Failed to save entity ${entityName}: ${e}`)
+            throw e
+        }
     }
-  }
 
-  async findAllByCriteria(
-    props: Criteria.Paginated,
-    order: Record<string, string> = { createdAt: 'ASC' },
-    select: string[] = [],
-    searchFields: string[] = [],
-    relations: string[] = [],
-  ): Promise<{
-    count: number
-    limit: number
-    offset: number
-    data: Partial<T>[]
-  }> {
-    try {
-      const searches = getSearches(searchFields, props)
 
-      const filters: FindManyOptions<T | any> = {
-        select,
-        where: searches?.length > 0 ? {
-          ...searches,
-        } : {},
-        relations,
-        order,
-        withDeleted: props.isActive != undefined ? !props.isActive : undefined,
-        take: props.limit,
-        skip: props.offset,
-      }
-
-      const [data, count] = await this.manager.getRepository(this.target).findAndCount(filters)
-
-      return {
-        count,
-        limit: props.limit,
-        offset: props.offset,
-        data,
-      }
-    } catch (e) {
-      this.logger.error(`Error: ${e}`)
-      throw e
+    async findOneByCriteria(props: Criteria.ById, relations?: string[]): Promise<Partial<T> | null> {
+        try {
+            const filters: FindOptionsWhere<T | any> = {
+                where: {
+                    id: props?.id,
+                    // name: undefined,
+                    // description: props?.search ? ILike(`%${props.search}%`) : undefined,
+                    enable: true,
+                },
+                relations,
+                order: {description: 'ASC'},
+                withDeleted: false,
+            }
+            return await this.findOne(filters)
+        } catch (e) {
+            this.logger.error(`Error: ${e}`)
+            throw e
+        }
     }
-  }
 
-  async findForSelectByCriteria(props: Criteria.FindBy, order: Record<string, string> = { createdAt: 'ASC' }, select: string[] = [], searchFields: string[] = []): Promise<T[]> {
-    try {
-      const searches = getSearches(searchFields, props)
-      const filters: FindManyOptions<T | any> = {
-        select,
-        where: {
-          ...searches,
-          // enable: true,
-        },
-        order,
-        withDeleted: props.isActive != undefined ? !props.isActive : undefined,
-      }
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      return await repository.find(filters)
-    } catch (e) {
-      this.logger.debug(`[listToSelectByCriteria] Error: ${e}`)
-      throw e
+    async findAllByCriteria(
+        props: Criteria.Paginated,
+        order: Record<string, string> = {createdAt: 'ASC'},
+        select: string[] = [],
+        searchFields: string[] = [],
+        relations: string[] = [],
+    ): Promise<{
+        count: number
+        limit: number
+        offset: number
+        data: Partial<T>[]
+    }> {
+        try {
+            const searches = getSearches(searchFields, props)
+
+            const filters: FindManyOptions<T | any> = {
+                select,
+                where: searches?.length > 0 ? {
+                    ...searches,
+                } : {},
+                relations,
+                order,
+                withDeleted: props.isActive != undefined ? !props.isActive : undefined,
+                take: props.limit,
+                skip: props.offset,
+            }
+
+            const [data, count] = await this.manager.getRepository(this.target).findAndCount(filters)
+
+            return {
+                count,
+                limit: props.limit,
+                offset: props.offset,
+                data,
+            }
+        } catch (e) {
+            this.logger.error(`Error: ${e}`)
+            throw e
+        }
     }
-  }
 
-  async updateObject(input: Partial<T>, props: Criteria.ById, relations?: string[]): Promise<void> {
-    try {
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      const loadInput = await repository.findOne({
-        where: { id: input.id },
-        relations,
-      })
-      if (!loadInput) {
-        throw new Error('Dados não encontrado')
-      }
-      Object.assign(loadInput, input)
-      await repository.save(loadInput)
-    } catch (e) {
-      this.logger.error(`Error updating object: ${e}`)
-      throw e
+    async findForSelectByCriteria(props: Criteria.FindBy, order: Record<string, string> = {createdAt: 'ASC'}, select: string[] = [], searchFields: string[] = []): Promise<T[]> {
+        try {
+            const searches = getSearches(searchFields, props)
+            const filters: FindManyOptions<T | any> = {
+                select,
+                where: {
+                    ...searches,
+                    // enable: true,
+                },
+                order,
+                withDeleted: props.isActive != undefined ? !props.isActive : undefined,
+            }
+            const repository: Repository<T> = this.manager.getRepository(this.target)
+            return await repository.find(filters)
+        } catch (e) {
+            this.logger.debug(`[listToSelectByCriteria] Error: ${e}`)
+            throw e
+        }
     }
-  }
 
-  async patchObject(input: Partial<T>, props: Criteria.ById, EntityClass: new (...args: any[]) => T, relations?: string[]): Promise<void> {
-    try {
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      const where: FindOptionsWhere<T | any> = { id: props.id, enable: true }
+    async updateObject(input: Partial<T>, props: Criteria.ById, relations?: string[]): Promise<void> {
+        try {
+            const repository: Repository<T> = this.manager.getRepository(this.target)
+            const loadInput = await repository.findOne({
+                where: {id: input.id},
+                relations,
+            })
+            if (!loadInput) {
+                throw new Error('Dados não encontrado')
+            }
+            Object.assign(loadInput, input)
+            await repository.save(loadInput)
+        } catch (e) {
+            const entityName = (this.target as any)?.name || 'UnknownEntity'
 
-      const loadInput = await repository.findOne({
-        where,
-        relations,
-      })
+            if (
+                e instanceof QueryFailedError &&
+                e.message.includes('duplicate key value violates unique constraint')
+            ) {
+                const constraintMatch = e.message.match(/unique constraint "([^"]+)"/)
+                const constraintName = constraintMatch?.[1] || 'unknown_constraint'
 
-      if (!loadInput) {
-        throw new Error('Dados não encontrado')
-      }
-      Object.assign(loadInput, input)
-      if (!EntityClass) {
-        throw new Error('EntityClass is required to instantiate the object');
-      }
-      const newObject = new EntityClass(loadInput);
-      await repository.save(newObject.toPersistence())
-    } catch (e) {
-      this.logger.error(`[pathObject] Error: ${e}`)
-      throw e
+                let propertyNames = 'unknown_property'
+                const metadata = this.manager.connection.getMetadata(this.target)
+
+                const matchedConstraint = metadata.uniques.find(
+                    (uc) => uc.name === constraintName
+                )
+
+                if (matchedConstraint) {
+                    propertyNames = matchedConstraint.columns
+                        .map((col) => col.propertyName)
+                        .join(', ')
+                }
+
+                throw new ConflictException(
+                    `Duplicate value detected in entity ${entityName} for propert${propertyNames.includes(',') ? 'ies' : 'y'}: ${propertyNames}.`
+                )
+            }
+
+
+            this.logger.error(`Error updating object ${entityName}: ${e}`)
+            throw e
+        }
     }
-  }
 
-  async deleteObject(id: string): Promise<void> {
-    try {
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      const filters: FindManyOptions<T> = { id, enable: true } as FindManyOptions<T>
+    async patchObject(input: Partial<T>, props: Criteria.ById, EntityClass: new (...args: any[]) => T, relations?: string[]): Promise<void> {
+        try {
+            const repository: Repository<T> = this.manager.getRepository(this.target)
+            const where: FindOptionsWhere<T | any> = {id: props.id, enable: true}
 
-      if (await repository.exists(filters)) {
-        await repository.softDelete(id)
-      }
-    } catch (e) {
-      this.logger.error(`[deleteObject] Error: ${e}`)
-      throw e
+            const loadInput = await repository.findOne({
+                where,
+                relations,
+            })
+
+            if (!loadInput) {
+                throw new Error('Dados não encontrado')
+            }
+            Object.assign(loadInput, input)
+            if (!EntityClass) {
+                throw new Error('EntityClass is required to instantiate the object');
+            }
+            const newObject = new EntityClass(loadInput);
+            await repository.save(newObject.toPersistence())
+        } catch (e) {
+            const entityName = (this.target as any)?.name || 'UnknownEntity'
+
+            if (
+                e instanceof QueryFailedError &&
+                e.message.includes('duplicate key value violates unique constraint')
+            ) {
+                const constraintMatch = e.message.match(/unique constraint "([^"]+)"/)
+                const constraintName = constraintMatch?.[1] || 'unknown_constraint'
+
+                let propertyNames = 'unknown_property'
+                const metadata = this.manager.connection.getMetadata(this.target)
+
+                const matchedConstraint = metadata.uniques.find(
+                    (uc) => uc.name === constraintName
+                )
+
+                if (matchedConstraint) {
+                    propertyNames = matchedConstraint.columns
+                        .map((col) => col.propertyName)
+                        .join(', ')
+                }
+
+                throw new ConflictException(
+                    `Duplicate value detected in entity ${entityName} for propert${propertyNames.includes(',') ? 'ies' : 'y'}: ${propertyNames}.`
+                )
+            }
+
+
+            this.logger.error(`[pathObject] Error: ${entityName}: ${e}`)
+            throw e
+        }
     }
-  }
+
+    async deleteObject(id: string): Promise<void> {
+        try {
+            const repository: Repository<T> = this.manager.getRepository(this.target)
+            const filters: FindManyOptions<T> = {id, enable: true} as FindManyOptions<T>
+
+            if (await repository.exists(filters)) {
+                await repository.softDelete(id)
+            }
+        } catch (e) {
+            this.logger.error(`[deleteObject] Error: ${e}`)
+            throw e
+        }
+    }
 }
