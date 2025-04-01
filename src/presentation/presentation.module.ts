@@ -19,6 +19,7 @@ import { DetailsHttpControllerModule } from '@/presentation/controllers/http/det
 import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/http/group-customer/group-customer-http-controller.module'
 import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
 import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http/contact-type/contact-type-http-controller.module'
+import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/prognosis/prognosis-http-controller.module'
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http
     ContactTypeHttpControllerModule,
     DetailsHttpControllerModule,
     PermissionHttpControllerModule,
+    PrognosisHttpControllerModule,
     GroupProcessHttpControllerModule,
     GroupCustomerHttpControllerModule,
     ResponsibleHttpControllerModule,

@@ -18,6 +18,7 @@ import { OriginModule } from '@/application/services/origin/origin.module'
 import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
 import { GroupCustomerModule } from '@/application/services/group-customer/group-customer.module'
 import { ContactTypeModule } from '@/application/services/contact-type/contact-type.module'
+import {PrognosisModule} from "@/application/services/prognosis/prognosis.module";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ContactTypeModule } from '@/application/services/contact-type/contact-t
     ResponsibleModule,
     CountyModule,
     PhaseModule,
+    PrognosisModule,
     LocatorModule,
     PracticeAreaModule,
     ActionObjectModule,
