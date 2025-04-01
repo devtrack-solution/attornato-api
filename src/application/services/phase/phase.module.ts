@@ -5,7 +5,7 @@ import { DeletePhaseInboundPortToken } from '@/domain/phase/ports/inbound/delete
 import { ListPhaseInboundPortToken } from '@/domain/phase/ports/inbound/list-phase.inbound-port'
 import { ListToSelectPhaseInboundPortToken } from '@/domain/phase/ports/inbound/list-to-select-phase.inbound-port'
 import { PatchPhaseInboundPortToken } from '@/domain/phase/ports/inbound/patch-phase.inbound-port'
-import { CreatePhaseService } from './crete-phase.service'
+import { CreatePhaseService } from './create-phase.service'
 import { DeletePhaseService } from './delete-phase.service'
 import { ListPhaseService } from './list-phase.service'
 import { ListToSelectPhaseService } from './list-to-select-phase.service'

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Phase } from '@/domain/phase/busness-objects/phase.bo'
+import { Phase } from '@/domain/phase/business-objects/phase.bo'
 import { ListToSelectPhaseInboundPort } from '@/domain/phase/ports/inbound/list-to-select-phase.inbound-port'
 import { PhaseRepositoryOutboundPortSymbol, PhaseRepositoryOutboundPort } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
 import { PhaseType } from '@/domain/phase/types/phase.type'

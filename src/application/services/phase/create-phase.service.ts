@@ -1,4 +1,4 @@
-import { Phase } from '@/domain/phase/busness-objects/phase.bo'
+import { Phase } from '@/domain/phase/business-objects/phase.bo'
 import { CreatePhaseInboundPort } from '@/domain/phase/ports/inbound/create-phase-responsible.inbound-port'
 import { PhaseRepositoryOutboundPortSymbol, PhaseRepositoryOutboundPort } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
 import { PhaseType } from '@/domain/phase/types/phase.type'
