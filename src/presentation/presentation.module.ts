@@ -22,6 +22,7 @@ import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http
 import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/prognosis/prognosis-http-controller.module'
 import { CountyHttpControllerModule } from '@/presentation/controllers/http/county/county-http-controller.module'
 import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/free-field/group-process-http-controller.module'
+import { PartnerHttpControllerModule } from '@/presentation/controllers/http/partner/partner-http-controller.module'
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/f
     LocalProcedureNameHttpControllerModule,
     LocatorHttpControllerModule,
     OriginHttpControllerModule,
+    PartnerHttpControllerModule,
     PermissionHttpControllerModule,
     PhaseHttpControllerModule,
     PracticeAreaHttpControllerModule,
@@ -50,7 +52,6 @@ import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/f
     PrognosisHttpControllerModule,
     ResponsibleHttpControllerModule,
     SubjectHttpControllerModule,
-
   ],
   providers: [
     {
