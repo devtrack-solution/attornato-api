@@ -18,7 +18,9 @@ import { OriginModule } from '@/application/services/origin/origin.module'
 import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
 import { GroupCustomerModule } from '@/application/services/group-customer/group-customer.module'
 import { ContactTypeModule } from '@/application/services/contact-type/contact-type.module'
-import {PrognosisModule} from "@/application/services/prognosis/prognosis.module";
+import { PrognosisModule } from '@/application/services/prognosis/prognosis.module'
+import { PartnerModule } from '@/application/services/partner/partner.module'
+import { ProfileModule } from '@/application/services/profile/profile.module'
 
 @Module({
   imports: [
@@ -26,24 +28,26 @@ import {PrognosisModule} from "@/application/services/prognosis/prognosis.module
       wildcard: true,
       maxListeners: 20,
     }),
-    TodoModule,
-    ContactTypeModule,
-    PermissionModule,
-    GroupProcessModule,
-    GroupCustomerModule,
-    ResponsibleModule,
-    CountyModule,
-    PhaseModule,
-    PrognosisModule,
-    LocatorModule,
-    PracticeAreaModule,
     ActionObjectModule,
-    SubjectModule,
-    ProceduralStatusModule,
-    FreeFieldModule,
+    ContactTypeModule,
+    CountyModule,
     DetailsModule,
-    OriginModule,
+    FreeFieldModule,
+    GroupCustomerModule,
+    GroupProcessModule,
     LocalProcedureNameModule,
+    LocatorModule,
+    OriginModule,
+    PartnerModule,
+    PermissionModule,
+    PhaseModule,
+    PracticeAreaModule,
+    ProceduralStatusModule,
+    ProfileModule,
+    PrognosisModule,
+    ResponsibleModule,
+    SubjectModule,
+    TodoModule,
   ],
   providers: [IdempotencyService],
   exports: [IdempotencyService],

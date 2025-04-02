@@ -20,6 +20,8 @@ import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/ht
 import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
 import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http/contact-type/contact-type-http-controller.module'
 import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/prognosis/prognosis-http-controller.module'
+import { CountyHttpControllerModule } from '@/presentation/controllers/http/county/county-http-controller.module'
+import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/free-field/group-process-http-controller.module'
 
 @Module({
   imports: [
@@ -32,20 +34,23 @@ import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/p
     ApplicationModule,
     ActionObjectHttpControllerModule,
     ContactTypeHttpControllerModule,
+    CountyHttpControllerModule,
     DetailsHttpControllerModule,
-    PermissionHttpControllerModule,
-    PrognosisHttpControllerModule,
-    GroupProcessHttpControllerModule,
+    FreeFieldHttpControllerModule,
     GroupCustomerHttpControllerModule,
-    ResponsibleHttpControllerModule,
-    PhaseHttpControllerModule,
-    LocatorHttpControllerModule,
-    PracticeAreaHttpControllerModule,
-    SubjectHttpControllerModule,
-    ProceduralStatusHttpControllerModule,
-    OriginHttpControllerModule,
-    ProfileHttpControllerModule,
+    GroupProcessHttpControllerModule,
     LocalProcedureNameHttpControllerModule,
+    LocatorHttpControllerModule,
+    OriginHttpControllerModule,
+    PermissionHttpControllerModule,
+    PhaseHttpControllerModule,
+    PracticeAreaHttpControllerModule,
+    ProceduralStatusHttpControllerModule,
+    ProfileHttpControllerModule,
+    PrognosisHttpControllerModule,
+    ResponsibleHttpControllerModule,
+    SubjectHttpControllerModule,
+
   ],
   providers: [
     {
