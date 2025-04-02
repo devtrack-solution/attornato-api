@@ -27,35 +27,35 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Customer' })
+  @ApiOperation({ summary: 'Create a new Prognosis' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePrognosisDto) {
     return this.createPrognosisService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Customer List' })
+  @ApiOperation({ summary: 'Find a Prognosis List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPrognosisDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listPrognosisService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Customer' })
+  @ApiOperation({ summary: 'Patch a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPrognosisDto) {
     return this.patchPrognosisService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Customer' })
+  @ApiOperation({ summary: 'Delete a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deletePrognosisService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Customer List to select' })
+  @ApiOperation({ summary: 'List Prognosis List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPrognosisDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectPrognosisService.execute(query)

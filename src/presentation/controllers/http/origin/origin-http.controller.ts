@@ -42,35 +42,35 @@ export class OriginHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Process' })
+  @ApiOperation({ summary: 'Create a new Origin' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateOriginDto) {
     return this.createOriginService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Process List' })
+  @ApiOperation({ summary: 'Find a Origin List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListOriginDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listOriginService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Process' })
+  @ApiOperation({ summary: 'Patch a Origin' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchOriginDto) {
     return this.patchOriginService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Process' })
+  @ApiOperation({ summary: 'Delete a Origin' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deleteOriginService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Process List to select' })
+  @ApiOperation({ summary: 'List Origin List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectOriginDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectOriginService.execute(query)

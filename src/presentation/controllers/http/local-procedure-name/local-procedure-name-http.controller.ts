@@ -42,35 +42,35 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Process' })
+  @ApiOperation({ summary: 'Create a new Local-Procedure-Name' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateLocalProcedureNameDto) {
     return this.createLocalProcedureNameService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Process List' })
+  @ApiOperation({ summary: 'Find a Local-Procedure-Name List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListLocalProcedureNameDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listLocalProcedureNameService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Process' })
+  @ApiOperation({ summary: 'Patch a Local-Procedure-Name' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchLocalProcedureNameDto) {
     return this.patchLocalProcedureNameService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Process' })
+  @ApiOperation({ summary: 'Delete a Local-Procedure-Name' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deleteLocalProcedureNameService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Process List to select' })
+  @ApiOperation({ summary: 'List Local-Procedure-Name List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectLocalProcedureNameDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectLocalProcedureNameService.execute(query)

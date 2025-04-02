@@ -42,35 +42,35 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Process' })
+  @ApiOperation({ summary: 'Create a new Free-Field' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateFreeFieldDto) {
     return this.createFreeFieldService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Process List' })
+  @ApiOperation({ summary: 'Find a Free-Field List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListFreeFieldDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listFreeFieldService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Process' })
+  @ApiOperation({ summary: 'Patch a Free-Field' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchFreeFieldDto) {
     return this.patchFreeFieldService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Process' })
+  @ApiOperation({ summary: 'Delete a Free-Field' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deleteFreeFieldService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Process List to select' })
+  @ApiOperation({ summary: 'List Free-Field List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectFreeFieldDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectFreeFieldService.execute(query)

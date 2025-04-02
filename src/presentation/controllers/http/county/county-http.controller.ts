@@ -27,35 +27,35 @@ export class CountyHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Process' })
+  @ApiOperation({ summary: 'Create a new County' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateCountyDto) {
     return this.createCountyService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Process List' })
+  @ApiOperation({ summary: 'Find a County List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListCountyDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listCountyService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Process' })
+  @ApiOperation({ summary: 'Patch a County' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchCountyDto) {
     return this.patchCountyService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Process' })
+  @ApiOperation({ summary: 'Delete a County' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deleteCountyService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Process List to select' })
+  @ApiOperation({ summary: 'List County List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectCountyDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectCountyService.execute(query)

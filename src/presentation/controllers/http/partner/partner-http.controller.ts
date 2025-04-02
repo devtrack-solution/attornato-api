@@ -27,35 +27,35 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Customer' })
+  @ApiOperation({ summary: 'Create a new Partner' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePartnerDto) {
     return this.createPartnerService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Customer List' })
+  @ApiOperation({ summary: 'Find a Partner List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPartnerDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listPartnerService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Customer' })
+  @ApiOperation({ summary: 'Patch a Partner' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPartnerDto) {
     return this.patchPartnerService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Customer' })
+  @ApiOperation({ summary: 'Delete a Partner' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deletePartnerService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Customer List to select' })
+  @ApiOperation({ summary: 'List Partner List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPartnerDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectPartnerService.execute(query)

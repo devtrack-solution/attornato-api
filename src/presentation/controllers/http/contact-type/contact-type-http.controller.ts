@@ -27,35 +27,35 @@ export class ContactTypeHttpController extends BaseHttpController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new Group-Customer' })
+  @ApiOperation({ summary: 'Create a new Contact-Type' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateContactTypeDto) {
     return this.createContactTypeService.execute(body)
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find a Group-Customer List' })
+  @ApiOperation({ summary: 'Find a Contact-Type List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListContactTypeDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listContactTypeService.execute(query)
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Patch a Group-Customer' })
+  @ApiOperation({ summary: 'Patch a Contact-Type' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchContactTypeDto) {
     return this.patchContactTypeService.execute(body, { id })
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a Group-Customer' })
+  @ApiOperation({ summary: 'Delete a Contact-Type' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
     return this.deleteContactTypeService.execute({ id })
   }
 
   @Get('to/selects')
-  @ApiOperation({ summary: 'List Group-Customer List to select' })
+  @ApiOperation({ summary: 'List Contact-Type List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectContactTypeDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
     return this.listToSelectContactTypeService.execute(query)
