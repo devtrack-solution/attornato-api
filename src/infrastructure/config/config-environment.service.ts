@@ -1,4 +1,4 @@
-import { Injectable, LogLevel } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { AppConfig } from '@/domain/app-config.interface'
 import process from 'node:process'
 
@@ -41,9 +41,19 @@ export class ConfigEnvironmentService implements AppConfig {
       sync: process.env.DB_SYNC === 'true',
       format: process.env.DB_LOG_FORMAT,
       timezone: process.env.DB_TIMEZONE,
-      ssl: process.env.DB_SSL === 'true'
+      ssl: process.env.DB_SSL === 'true',
     }
   }
+
+  get password(): AppConfig['password'] {
+    return {
+      minLength: Number(process.env.PASSWORD_MIN_LENGTH) || 8,
+      maxLength: Number(process.env.PASSWORD_MAX_LENGTH) || 32,
+      regex: new RegExp(process.env.PASSWORD_REGEX || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/),
+      saltRounds: Number(process.env.PASSWORD_SALT_ROUNDS) || 10,
+    }
+  }
+
   get redis(): AppConfig['redis'] {
     return {
       host: process.env.REDIS_HOST,

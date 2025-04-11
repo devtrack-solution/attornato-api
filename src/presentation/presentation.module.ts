@@ -18,23 +18,19 @@ import { LocalProcedureNameHttpControllerModule } from '@/presentation/controlle
 import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
 import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/http/group-customer/group-customer-http-controller.module'
 import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
-import { ContactTypeHttpControllerModule } from '@/presentation/controllers/http/contact-type/contact-type-http-controller.module'
 import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/prognosis/prognosis-http-controller.module'
 import { CountyHttpControllerModule } from '@/presentation/controllers/http/county/county-http-controller.module'
 import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/free-field/group-process-http-controller.module'
 import { PartnerHttpControllerModule } from '@/presentation/controllers/http/partner/partner-http-controller.module'
+import { CommunicationChannelHttpControllerModule } from '@/presentation/controllers/http/communication-channel/communication-channel-http-controller.module'
+import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000,
-        limit: 10,
-      },
-    ]),
+    ThrottlerModule.forRoot(),
     ApplicationModule,
     ActionObjectHttpControllerModule,
-    ContactTypeHttpControllerModule,
+    CommunicationChannelHttpControllerModule,
     CountyHttpControllerModule,
     DetailsHttpControllerModule,
     FreeFieldHttpControllerModule,
@@ -52,6 +48,7 @@ import { PartnerHttpControllerModule } from '@/presentation/controllers/http/par
     PrognosisHttpControllerModule,
     ResponsibleHttpControllerModule,
     SubjectHttpControllerModule,
+    AuthModule,
   ],
   providers: [
     {
@@ -63,8 +60,8 @@ import { PartnerHttpControllerModule } from '@/presentation/controllers/http/par
       useClass: IdempotencySaveInterceptor,
     },
   ],
-  controllers: [],
-  exports: [],
+  controllers: [], // Liste os controladores necessários
+  exports: [ApplicationModule], // Apenas exporte o que outra parte da aplicação realmente precisa
 })
 export class PresentationModule {
   configure(consumer: MiddlewareConsumer) {

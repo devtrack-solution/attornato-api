@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { DistributedCachePortSymbol } from '@/application/ports/distributed-cache.port'
 import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
 
@@ -9,10 +9,13 @@ import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempoten
 import { ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule } from '@/infrastructure/config/config.module'
 import { PGSQLModule } from '@/infrastructure/adapters/pgsql/pgsql.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Module({
   imports: [ConfigModule, PGSQLModule],
   providers: [
+    IdempotencyService,
+    IdempotencyMiddleware,
     {
       provide: DistributedCachePortSymbol,
       useClass: RedisCacheAdapter,
@@ -25,9 +28,16 @@ import { PGSQLModule } from '@/infrastructure/adapters/pgsql/pgsql.module'
       provide: APP_INTERCEPTOR,
       useClass: IdempotencySaveInterceptor,
     },
+  ],
+  exports: [
+    ConfigModule,
+    PGSQLModule,
     IdempotencyService,
     IdempotencyMiddleware,
+    {
+      provide: DistributedCachePortSymbol,
+      useClass: RedisCacheAdapter,
+    },
   ],
-  exports: [DistributedCachePortSymbol, IdempotencyService, IdempotencyMiddleware],
 })
 export class AdapterModule {}

@@ -2,6 +2,7 @@ import { EntityInvalidFormatException } from '@/core/domain/exceptions/entity-in
 import { ValidationErrorDetail } from '@/core/domain/validators/validation-error-detail'
 import { IValidationError } from '@/core/domain/validators/interfaces/validation-error.interface'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
+import { z } from 'zod'
 
 export class ValidationBuilder {
   private validations: ValidationErrorDetail[] = []
@@ -30,18 +31,77 @@ export class ValidationBuilder {
   }
 
   required(): this {
-    if (this.currentField && (this.currentField.value === null || this.currentField.value === undefined || this.currentField.value === '')) {
+    let result = { success: false }
+
+    if (typeof this.currentField?.value == 'string') {
+      result = z.string().min(1, { message: 'Name is required' }).safeParse(this.currentField?.value)
+    }
+
+    if (typeof this.currentField?.value == 'number') {
+      result = z
+        .number({ required_error: 'Value is required' })
+        .refine((val) => !isNaN(val), { message: 'Value must be a valid number' })
+        .safeParse(this.currentField?.value)
+    }
+
+    if (!result.success) {
       this.addError('Field is required')
     }
     return this
   }
 
-  dateFormat(validators: { regex: RegExp; description: string }[]): this {
-    if (this.currentField) {
-      const isValid = validators.some(({ regex }) => regex.test(this.currentField!.value))
-      if (!isValid) {
-        this.addError(`Invalid date format. Expected: ${validators.map((v) => v.description).join(', ')}`)
-      }
+  hasNoWhiteSpace(): this {
+    if (this.currentField && typeof this.currentField.value === 'string' && /\s/.test(this.currentField.value)) {
+      this.addError('Field contain whitespace')
+    }
+    return this
+  }
+
+  max(value: number): this {
+    let result = { success: false }
+
+    if (typeof this.currentField?.value == 'string') {
+      result = z.string().max(value).safeParse(this.currentField?.value)
+    }
+
+    if (typeof this.currentField?.value == 'number') {
+      result = z.number().max(value).safeParse(this.currentField?.value)
+    }
+
+    if (!result.success) {
+      this.addError('Field exceeds maximum length')
+    }
+    return this
+  }
+
+  min(value: any): this {
+    let result = { success: false }
+
+    if (typeof this.currentField?.value == 'string') {
+      result = z.string().min(value).safeParse(this.currentField?.value)
+    }
+
+    if (typeof this.currentField?.value == 'number') {
+      result = z.number().min(value).safeParse(this.currentField?.value)
+    }
+
+    if (!result.success) {
+      this.addError('Field is below minimum length')
+    }
+    return this
+  }
+
+  dateFormat(regex: RegExp): this {
+    const isValid = regex.test(this.currentField?.value)
+    if (!isValid) {
+      this.addError(`Invalid date format.`)
+    }
+    return this
+  }
+
+  regex(customRegex: RegExp): this {
+    if (!customRegex.test(this.currentField?.value)) {
+      this.addError('Field does not match the required condition')
     }
     return this
   }
@@ -84,5 +144,27 @@ export class ValidationBuilder {
     if (this.validations.length > 0) {
       throw new EntityInvalidFormatException(new ValidationErrorResponse(failMessage || 'Validation failed', this.validations))
     }
+  }
+
+  isDate(): this {
+    const result = z
+      .string()
+      .refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date string' })
+      .safeParse(this.currentField?.value)
+    if (!result.success) {
+      this.addError('Invalid date format')
+    }
+    return this
+  }
+
+  isDateOrNull(): this {
+    const schema = z.date().nullable() // Permite Date ou null
+    const result = schema.safeParse(this.currentField?.value)
+
+    if (!result.success) {
+      this.addError('Invalid date format or not null')
+    }
+
+    return this
   }
 }

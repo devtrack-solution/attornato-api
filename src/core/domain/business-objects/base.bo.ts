@@ -1,8 +1,6 @@
 import { IdentityVo } from '@/core/domain/value-objects/identity.vo'
 import { IMapper } from '@/domain/mappers/mapper'
 import { BaseType } from '@/core/domain/types/base.type'
-import { PermissionType } from '@/domain/todo/types/permission.type'
-import { TodoType } from '@/domain/todo/types/todo.type'
 
 /**
  * Interface representing a generic entity with methods for equality check,
@@ -73,7 +71,11 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
    *
    * @returns The entity in persistence format.
    */
-  protected abstract toPersistenceObject(): Y
+  abstract toPersistenceObject(): T | any
+
+  get id(): string {
+    return this._id.toString()
+  }
 
   /**
    * Converts the entity to a persistence format.

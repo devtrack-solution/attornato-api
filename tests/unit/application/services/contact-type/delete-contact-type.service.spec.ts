@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteContactTypeService } from '@/application/services/contact-type/delete-contact-type.service'
+import { DeleteContactTypeService } from '@/application/services/communication-channel/delete-contact-type.service'
 import { ContactTypeRepositoryOutboundPort, ContactTypeRepositoryOutboundPortSymbol } from '@/domain/contact-type/ports/outbound/contact-type-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 

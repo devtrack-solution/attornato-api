@@ -10,4 +10,8 @@ export namespace Criteria {
   export type ById = {
     id: string
   }
+  export type ByChildren = {
+    parentId: string
+    childrenId: string
+  }
 }

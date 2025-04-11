@@ -1,4 +1,4 @@
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class UpdatePermissionDto implements Partial<PermissionType.Input> {

@@ -6,6 +6,12 @@ export interface AppConfig {
   apiHost: string
   apiPort: string | number
   apiKey: string | undefined
+  password: {
+    minLength: number
+    maxLength: number
+    regex: RegExp
+    saltRounds: number
+  }
   database: {
     type: string
     host: string | undefined

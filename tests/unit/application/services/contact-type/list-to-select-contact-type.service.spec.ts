@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectContactTypeService } from '@/application/services/contact-type/list-to-select-contact-type.service'
+import { ListToSelectContactTypeService } from '@/application/services/communication-channel/list-to-select-contact-type.service'
 import { ContactTypeRepositoryOutboundPort, ContactTypeRepositoryOutboundPortSymbol } from '@/domain/contact-type/ports/outbound/contact-type-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ContactTypeTestBuilder } from '@tests/unit/application/services/contact-type/contact-type-test.builder'

@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common'
-import { TodoModule } from '@/application/services/todo/todo.module'
-import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { PermissionModule } from '@/application/services/permission/permission.module'
 import { GroupProcessModule } from '@/application/services/group-process/group-process.module'
@@ -17,10 +15,10 @@ import { DetailsModule } from '@/application/services/details/details.module'
 import { OriginModule } from '@/application/services/origin/origin.module'
 import { LocalProcedureNameModule } from '@/application/services/local-procedure-name/local-procedure-name.module'
 import { GroupCustomerModule } from '@/application/services/group-customer/group-customer.module'
-import { ContactTypeModule } from '@/application/services/contact-type/contact-type.module'
 import { PrognosisModule } from '@/application/services/prognosis/prognosis.module'
 import { PartnerModule } from '@/application/services/partner/partner.module'
 import { ProfileModule } from '@/application/services/profile/profile.module'
+import { CommunicationChannelModule } from '@/application/services/communication-channel/communication-channel.module'
 
 @Module({
   imports: [
@@ -29,7 +27,7 @@ import { ProfileModule } from '@/application/services/profile/profile.module'
       maxListeners: 20,
     }),
     ActionObjectModule,
-    ContactTypeModule,
+    CommunicationChannelModule,
     CountyModule,
     DetailsModule,
     FreeFieldModule,
@@ -47,9 +45,8 @@ import { ProfileModule } from '@/application/services/profile/profile.module'
     PrognosisModule,
     ResponsibleModule,
     SubjectModule,
-    TodoModule,
   ],
-  providers: [IdempotencyService],
-  exports: [IdempotencyService],
+  providers: [],
+  exports: [],
 })
 export class ApplicationModule {}

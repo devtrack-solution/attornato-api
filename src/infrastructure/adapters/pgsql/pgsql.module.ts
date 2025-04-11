@@ -1,5 +1,3 @@
-import { TodoRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/todo-repository.outbound-port'
-import { TodoRepository } from '@/infrastructure/adapters/pgsql/repositories/todo.repository'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { typeOrmConfig } from '@/infrastructure/config/typeorm.config'
@@ -35,8 +33,11 @@ import { GroupCustomerRepositoryOutboundPortSymbol } from '@/domain/group-custom
 import { GroupCustomerRepository } from '@/infrastructure/adapters/pgsql/repositories/group-customer.repository'
 import { ProfileRepositoryOutboundPortSymbol } from '@/domain/profile/ports/outbound/profile-repository.outbound-port'
 import { ProfileRepository } from '@/infrastructure/adapters/pgsql/repositories/profile.repository'
-import { ContactTypeRepositoryOutboundPortSymbol } from '@/domain/contact-type/ports/outbound/contact-type-repository.outbound-port'
-import { ContactTypeRepository } from '@/infrastructure/adapters/pgsql/repositories/contact-type.repository'
+import { CommunicationChannelRepository } from '@/infrastructure/adapters/pgsql/repositories/communication-channel.repository'
+import {
+  CommunicationChannelRepositoryOutboundPortSymbol
+} from "@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port";
+import { DataSource, DataSourceOptions } from 'typeorm'
 
 @Module({
   imports: [
@@ -47,8 +48,11 @@ import { ContactTypeRepository } from '@/infrastructure/adapters/pgsql/repositor
   ],
   providers: [
     {
-      provide: TodoRepositoryOutboundPortSymbol,
-      useClass: TodoRepository,
+      provide: DataSource,
+      useFactory: async () => {
+        const dataSource = new DataSource(<DataSourceOptions>typeOrmConfig)
+        return dataSource.initialize()
+      },
     },
     {
       provide: PermissionRepositoryOutboundPortSymbol,
@@ -115,15 +119,13 @@ import { ContactTypeRepository } from '@/infrastructure/adapters/pgsql/repositor
       useClass: ProfileRepository,
     },
     {
-      provide: ContactTypeRepositoryOutboundPortSymbol,
-      useClass: ContactTypeRepository,
+      provide: CommunicationChannelRepositoryOutboundPortSymbol,
+      useClass: CommunicationChannelRepository,
     },
   ],
   exports: [
-    {
-      provide: TodoRepositoryOutboundPortSymbol,
-      useClass: TodoRepository,
-    },
+    DataSource,
+    TypeOrmModule,
     {
       provide: PermissionRepositoryOutboundPortSymbol,
       useClass: PermissionRepository,
@@ -189,8 +191,8 @@ import { ContactTypeRepository } from '@/infrastructure/adapters/pgsql/repositor
       useClass: ProfileRepository,
     },
     {
-      provide: ContactTypeRepositoryOutboundPortSymbol,
-      useClass: ContactTypeRepository,
+      provide: CommunicationChannelRepositoryOutboundPortSymbol,
+      useClass: CommunicationChannelRepository,
     },
   ],
 })

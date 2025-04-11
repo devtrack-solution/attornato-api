@@ -1,4 +1,4 @@
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 import { IRelationalDatabaseOutboundPort } from '@/core/domain/ports/outbound/relational-database.outbound-port'
 import { Criteria } from '@/core/domain/types/criteria.type'
 

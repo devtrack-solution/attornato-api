@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, ManyToMany } from 'typeorm'
 
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 
 @Entity('permissions')
 export class PermissionEntity extends EntityBase implements PermissionType.Repository {

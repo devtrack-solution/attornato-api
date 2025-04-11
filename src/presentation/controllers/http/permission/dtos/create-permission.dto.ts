@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 
 export class CreatePermissionDto implements PermissionType.Input {
   @ApiProperty({ description: 'The name of the permission', example: 'VIEW_DASHBOARD', required: true })

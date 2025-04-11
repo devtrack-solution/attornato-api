@@ -45,3 +45,15 @@ export interface IServiceWithCriteriaInboundPort<X, T> {
    */
   execute(criteria: X): Promise<T>
 }
+
+export interface IServiceWithChildArrayInboundPort<T, P> {
+  /**
+   * Executes the service with the provided parent and child array data.
+   *
+   * Executes the creation of an array object in an origin Entity.
+   * @param data - The array data to create new associated items to origin Entity.
+   * @param parentId - The ID from origin Entity association.
+   * @returns A promise that resolves to the output data.
+   */
+  execute(data: T, parentId: P): Promise<T>
+}

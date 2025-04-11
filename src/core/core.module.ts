@@ -1,10 +1,11 @@
 import { forwardRef, Module } from '@nestjs/common'
-import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
-import { EventBase } from '@/core/event/event-base.emitter'
+import { CoreInfrastructureModule } from '@/core/infrastructure/core-infrastructure.module'
+import { CorePresentationModule } from '@/core/presentation/core-presentation.module'
+import { SecurityModule } from '@/application/services/securities/security.module'
 
 @Module({
-  imports: [forwardRef(() => InfrastructureModule.forRoot())],
-  providers: [EventBase],
-  exports: [EventBase],
+  imports: [forwardRef(() => SecurityModule), CoreInfrastructureModule, CorePresentationModule],
+  providers: [],
+  exports: [CoreInfrastructureModule, CorePresentationModule],
 })
 export class CoreModule {}

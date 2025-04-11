@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { CreatePermissionInboundPort } from '@/domain/todo/ports/inbound/permission/create-permission.inbound-port'
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 import { PermissionRepositoryOutboundPort, PermissionRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/permission-repository.outbound-port'
-import { Permission } from '@/domain/todo/business-objects/permission.bo'
+import { Permission } from '@/domain/securities/business-objects/permission.bo'
 
 @Injectable()
 export class CreatePermissionService implements CreatePermissionInboundPort {

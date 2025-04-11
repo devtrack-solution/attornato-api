@@ -1,8 +1,9 @@
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { DeepPartial } from 'typeorm'
+import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 
 /**
- * Interface representing a relational database outbound port with methods for saving, finding, updating, and deleting objects.
+ * Interface representing a relational database delete-department.inbound-port.ts port with methods for saving, finding, updating, and deleting objects.
  * @template X - The type of the criteria to find the object.
  * @template Y - The type of the input data.
  * @template T - The type of the output data.
@@ -15,6 +16,14 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @returns A promise that resolves when the object is saved.
    */
   saveObject(todo: DeepPartial<Y>): Promise<void>
+
+  /**
+   * Saves an object to the database with relations.
+   *
+   * @param input - The object to be saved.
+   * @returns A promise that resolves when the object is saved.
+   */
+  saveObjectWithRelations(input: DeepPartial<T>): Promise<void>
 
   /**
    * Finds an object by criteria.
@@ -33,6 +42,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param select - Define the properties of root object to return.
    * @param searchFields - Define fields to search text.
    * @param relations - Objects relative to return.
+   * @param filters - List of elements with parameter and value to be checked
    * @returns A promise that resolves to an array of found objects.
    */
   findAllByCriteria(
@@ -41,6 +51,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
     select?: string[],
     searchFields?: string[],
     relations?: string[],
+    filters?: Record<string, any>,
   ): Promise<{
     count: number
     limit: number
@@ -87,4 +98,14 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @returns A promise that resolves when the object is deleted.
    */
   deleteObject(id: string): Promise<void>
+
+  /**
+   * Executes a transactional operation and handles commit/rollback automatically.
+   *
+   * @param operation - A function that contains all database operations to be performed.
+   * The `EntityManager` will be passed as an argument for managing transactional operations.
+   *
+   * @returns A Promise resolving to the result of the transactional operation.
+   */
+  transaction<T>(operation: (manager: EntityManager) => Promise<T>): Promise<T>
 }

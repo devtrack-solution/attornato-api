@@ -1,7 +1,9 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { DataSource, DataSourceOptions } from 'typeorm'
 
 const config = new ConfigEnvironmentService()
+
 if (!['postgres', 'mysql', 'mariadb'].includes(config.database.type)) {
   throw new Error(`Unsupported DB_TYPE: ${config.database.type}`)
 }
@@ -18,24 +20,25 @@ function parseLogLevels(levels: string | string[] | undefined): LogLevel[] | boo
 
   return parsedLevels.length > 0 ? parsedLevels : false
 }
+const sslTemplateConfig = config.environment === 'TEST' || config.environment === 'DEVELOPMENT'
+const isTest = config.environment === 'TEST'
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: config.database.type as 'postgres' | 'mysql' | 'mariadb',
   host: config.database.host,
-  port: config.database.port as number,
+  port: +config.database.port,
   username: config.database.user,
   password: config.database.password,
   database: config.database.name,
   entities: [__dirname + '/../adapters/pgsql/entities/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../adapters/pgsql/migrations/*{.ts,.js}'],
   synchronize: config.database.sync,
-  dropSchema: false,
+  dropSchema: isTest,
   logging: parseLogLevels(config.database.logLevel),
   logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
   timezone: config.database.timezone,
   debug: config.database.debug,
-  ssl:
-    process.env. NODE_ENV !== 'DEVELOPMENT'
-      ? { rejectUnauthorized: config.database.ssl }
-      : config.database.ssl,
+  ssl: !sslTemplateConfig ? { rejectUnauthorized: config.database.ssl } : config.database.ssl,
 }
+
+export const AppDataSource = new DataSource(<DataSourceOptions>typeOrmConfig)
