@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { CriteriaPaginatedResponseDto } from '../../dtos/criteria-paginated.dto';
 import { LocalProcedureNameDto } from './local-procedure-name.dto';
+import { CriteriaPaginatedResponseDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 
 export class ListLocalProcedureNameDto extends CriteriaPaginatedResponseDto<LocalProcedureNameDto> {
   @ApiProperty({ type: LocalProcedureNameDto, isArray: true })

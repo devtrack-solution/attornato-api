@@ -19,6 +19,7 @@ import { PrognosisModule } from '@/application/services/prognosis/prognosis.modu
 import { PartnerModule } from '@/application/services/partner/partner.module'
 import { ProfileModule } from '@/application/services/profile/profile.module'
 import { CommunicationChannelModule } from '@/application/services/communication-channel/communication-channel.module'
+import { LegalModule } from '@/application/services/legal/legal.module'
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CommunicationChannelModule } from '@/application/services/communication
     FreeFieldModule,
     GroupCustomerModule,
     GroupProcessModule,
+    LegalModule,
     LocalProcedureNameModule,
     LocatorModule,
     OriginModule,

@@ -1,7 +1,7 @@
 import { BaseType } from '@/core/domain/types/base.type'
 import { FreeFieldType } from '@/domain/free-field/types/free-field.type'
 
-export namespace ContactPersonType {
+export namespace ContactPersonLegalType {
   export type Input = {
     freeFieldOne: string
     note: string

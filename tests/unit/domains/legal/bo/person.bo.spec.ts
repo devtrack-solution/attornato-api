@@ -1,8 +1,8 @@
 import { Person } from '@/domain/legal/business-objects/person.bo'
 import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
-import { ContactPerson } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
 import { EntityBadDataLoadException, EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
+import { ContactPersonLegal } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
 
 describe('Person BO', () => {
   const validAddress = new CommunicationAddress({
@@ -24,7 +24,7 @@ describe('Person BO', () => {
     ],
   })
 
-  const validContactPerson = new ContactPerson({
+  const validContactPersonLegal = new ContactPersonLegal({
     id: uuidv4(),
     note: 'Responsável jurídico',
     freeFieldOne: 'Extra',
@@ -35,7 +35,7 @@ describe('Person BO', () => {
     id: uuidv4(),
     clientId: 'client-abc',
     communicationAddress: validAddress,
-    contactPerson: validContactPerson,
+    contactPersonLegal: validContactPersonLegal,
   }
 
   it('should create a valid Person instance', () => {
@@ -43,7 +43,7 @@ describe('Person BO', () => {
     expect(person).toBeInstanceOf(Person)
     expect(person.clientId).toBe(validInput.clientId)
     expect(person.communicationAddress).toBeInstanceOf(CommunicationAddress)
-    expect(person.contactPerson).toBeInstanceOf(ContactPerson)
+    expect(person.contactPerson).toBeInstanceOf(ContactPersonLegal)
   })
 
   it('should serialize to persistence object', () => {
@@ -71,13 +71,13 @@ describe('Person BO', () => {
           },
         ],
       },
-      contactPerson: {
-        id: validInput.contactPerson.id.toString(),
-        note: validInput.contactPerson.note,
-        freeFieldOne: validInput.contactPerson.freeFieldOne,
+      contactPersonLegal: {
+        id: validInput.contactPersonLegal.id.toString(),
+        note: validInput.contactPersonLegal.note,
+        freeFieldOne: validInput.contactPersonLegal.freeFieldOne,
         freeField: {
-          id: validInput.contactPerson.freeField.id.toString(),
-          name: validInput.contactPerson.freeField.name,
+          id: validInput.contactPersonLegal.freeField.id.toString(),
+          name: validInput.contactPersonLegal.freeField.name,
         },
       },
     })
@@ -93,8 +93,8 @@ describe('Person BO', () => {
     expect(() => new Person(invalidInput as any)).toThrow(EntityBadDataLoadException)
   })
 
-  it('should throw error if contactPerson is missing', () => {
-    const invalidInput = { ...validInput, contactPerson: null }
+  it('should throw error if contactPersonLegal is missing', () => {
+    const invalidInput = { ...validInput, contactPersonLegal: null }
     expect(() => new Person(invalidInput as any)).toThrow(EntityBadDataLoadException)
   })
 })

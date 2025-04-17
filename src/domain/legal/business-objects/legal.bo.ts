@@ -9,13 +9,13 @@ import { Profile } from '@/domain/profile/business-objects/profile.bo'
 import { PersonType } from '@/domain/legal/types/person.type'
 import { GroupCustomerType } from '@/domain/group-customer/types/group-customer.type'
 import { ProfileType } from '@/domain/profile/types/profile.type'
-import {undefined} from "zod";
 
 export interface ILegal extends IBusinessObject<LegalType.Input, LegalType.Output> {}
 
 export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Output> implements ILegal, IValidator {
   private _groupCustomer!: GroupCustomer
   private _profile!: Profile
+  private _person!: Person
   private _responsible!: string
   private _companyName!: string
   private _tradeName!: string
@@ -23,12 +23,12 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
   private _cnpj!: string
   private _stateRegistration!: string
   private _municipalRegistration!: string
-  private _person!: Person
 
   private loadData(data: LegalType.Input): LegalType.Output {
     try {
       this._groupCustomer = new GroupCustomer(data.groupCustomer)
       this._profile = new Profile(data.profile)
+      this._person = new Person(data.person)
       this._responsible = data.responsible
       this._companyName = data.companyName
       this._tradeName = data.tradeName
@@ -36,7 +36,6 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
       this._cnpj = data.cnpj
       this._stateRegistration = data.stateRegistration
       this._municipalRegistration = data.municipalRegistration
-      this._person = new Person(data.person)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Legal entity`))
     }

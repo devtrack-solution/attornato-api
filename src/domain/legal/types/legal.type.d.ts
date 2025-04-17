@@ -1,11 +1,13 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import {PersonType} from "@/domain/legal/types/person.type";
+import { PersonType } from '@/domain/legal/types/person.type'
+import { GroupCustomerType } from '@/domain/group-customer/types/group-customer.type'
+import { ProfileType } from '@/domain/profile/types/profile.type'
 
 export namespace LegalType {
   export type Input = {
     person: PersonType.Input
-    groupCustomer: GroupCustomer
-    profile: Profile
+    groupCustomer: GroupCustomerType.Input
+    profile: ProfileType.Input
     responsible: string
     companyName: string
     tradeName: string

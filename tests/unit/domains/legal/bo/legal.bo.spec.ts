@@ -3,30 +3,38 @@ import { Person } from '@/domain/legal/business-objects/person.bo'
 import { GroupCustomer } from '@/domain/group-customer/business-objects/group-customer.bo'
 import { Profile } from '@/domain/profile/business-objects/profile.bo'
 import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
-import { ContactPerson } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
 import { FreeField } from '@/domain/free-field/business-objects/free-field.bo'
+import { v4 as uuidv4 } from 'uuid'
+import { ContactPersonLegal } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
 
 describe('Legal Business Object - CRUD', () => {
   const baseInput = {
-    id: '15189531-e57b-4008-ae60-edb2da503e62',
+    id: uuidv4(),
     clientId: 'PF123456',
     communicationAddress: new CommunicationAddress({
-      id: '15189531-e57b-4008-ae60-edb2da503e44',
+      id: uuidv4(),
       zipCode: '12345678',
       street: 'Main Street',
       neighborhood: 'Centro',
       city: 'Highland',
       state: 'SP',
-      contacts: [],
+      contacts: [{
+        id: uuidv4(),
+        value: '(63) 99200-1122',
+        communicationChannel: {
+          id: uuidv4(),
+          name: 'Telefone',
+        },
+      }],
     }),
-    contactPerson: new ContactPerson({
-      id: '15189531-e57b-4008-ae60-edb2da503e43',
+    contactPersonLegal: new ContactPersonLegal({
+      id: uuidv4(),
       freeFieldOne: 'Test',
       note: 'Some note',
-      freeField: new FreeField({ name: 'Field' }),
+      freeField: new FreeField({ id: uuidv4(), name: 'Field' }),
     }),
-    groupCustomer: new GroupCustomer({ id: '15189531-e57b-4008-ae60-edb2da313e62', name: 'Grupo Teste' }),
-    profile: new Profile({ id: '15189531-e57b-4008-ae60-edb2da553e62', name: 'Admin' }),
+    groupCustomer: new GroupCustomer({ id: uuidv4(), name: 'Grupo Teste' }),
+    profile: new Profile({ id: uuidv4(), name: 'Admin' }),
     responsible: 'Carlos',
     companyName: 'Empresa XYZ',
     tradeName: 'XYZ LTDA',

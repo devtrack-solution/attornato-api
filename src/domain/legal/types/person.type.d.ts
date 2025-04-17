@@ -1,12 +1,12 @@
 import { BaseType } from '@/core/domain/types/base.type'
 import { CommunicationAddressType } from '@/domain/communication-address/types/communication-address.type'
-import { ContactPersonType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
+import { ContactPersonLegalType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
 
 export namespace PersonType {
   export type Input = {
     clientId: string
     communicationAddress: CommunicationAddressType.Input
-    contactPerson: ContactPersonType.Input
+    contactPersonLegal: ContactPersonLegalType.Input
   } & BaseType.Input
 
   export type Output = Input

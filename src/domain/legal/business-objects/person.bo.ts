@@ -3,7 +3,7 @@ import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-obje
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
-import { ContactPerson } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
+import { ContactPersonLegal } from '@/domain/legal/contact-person-legal/business-objects/contact-person-legal.bo'
 import { PersonType } from '@/domain/legal/types/person.type'
 
 export interface ILegal extends IBusinessObject<PersonType.Input, PersonType.Output> {}
@@ -11,13 +11,13 @@ export interface ILegal extends IBusinessObject<PersonType.Input, PersonType.Out
 export class Person extends BaseBusinessObject<PersonType.Repository, PersonType.Output> implements ILegal, IValidator {
   private _clientId!: string
   private _communicationAddress!: CommunicationAddress
-  private _contactPerson!: ContactPerson
+  private _contactPersonLegal!: ContactPersonLegal
 
   private loadData(data: PersonType.Input): PersonType.Output {
     try {
       this._clientId = data.clientId
       this._communicationAddress = new CommunicationAddress(data.communicationAddress)
-      this._contactPerson = new ContactPerson(data.contactPerson)
+      this._contactPersonLegal = new ContactPersonLegal(data.contactPersonLegal)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Legal entity`))
     }
@@ -32,8 +32,8 @@ export class Person extends BaseBusinessObject<PersonType.Repository, PersonType
     return this._communicationAddress
   }
 
-  get contactPerson(): ContactPerson {
-    return this._contactPerson
+  get contactPersonLegal(): ContactPersonLegal {
+    return this._contactPersonLegal
   }
 
   constructor(props: PersonType.Input) {
@@ -53,8 +53,8 @@ export class Person extends BaseBusinessObject<PersonType.Repository, PersonType
         fieldName: 'communicationAddress',
       })
       .of({
-        value: this._contactPerson,
-        fieldName: 'contactPerson',
+        value: this._contactPersonLegal,
+        fieldName: 'contactPersonLegal',
       })
       .build('Failed to validate Legal rules')
   }
@@ -64,7 +64,7 @@ export class Person extends BaseBusinessObject<PersonType.Repository, PersonType
       id: this._id.toString(),
       clientId: this._clientId,
       communicationAddress: this._communicationAddress.toPersistenceObject(),
-      contactPerson: this._contactPerson.toPersistenceObject(),
+      contactPersonLegal: this._contactPersonLegal.toPersistenceObject(),
     }
   }
 }

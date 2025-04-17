@@ -1,7 +1,7 @@
 import { IServiceInboundPort } from '@/core/domain/ports/inbound/service.inbound-port'
-import { ContactPersonType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
+import { ContactPersonLegalType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
 import { Criteria } from '@/core/domain/types/criteria.type'
 
-export const PatchContactPersonInboundPortToken = Symbol.for('PatchContactPersonInboundPortToken')
+export const PatchContactPersonLegalInboundPortToken = Symbol.for('PatchContactPersonLegalInboundPortToken')
 
-export interface PatchContactPersonInboundPort extends IServiceInboundPort<Partial<ContactPersonType.Input>, Criteria.ById, void> {}
+export interface PatchContactPersonLegalInboundPort extends IServiceInboundPort<Partial<ContactPersonLegalType.Input>, Criteria.ById, void> {}

@@ -1,6 +1,6 @@
 import { IServiceWithDataInboundPort } from '@/core/domain/ports/inbound/service.inbound-port'
-import { ContactPersonType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
+import { ContactPersonLegalType } from '@/domain/legal/contact-person-legal/types/contact-person-legal.type'
 
-export const CreateContactPersonInboundPortToken = Symbol.for('CreateContactPersonInboundPortToken')
+export const CreateContactPersonLegalInboundPortToken = Symbol.for('CreateContactPersonLegalInboundPortToken')
 
-export interface CreateContactPersonInboundPort extends IServiceWithDataInboundPort<ContactPersonType.Input, undefined, ContactPersonType.Output> {}
+export interface CreateContactPersonLegalInboundPort extends IServiceWithDataInboundPort<ContactPersonLegalType.Input, undefined, ContactPersonLegalType.Output> {}
