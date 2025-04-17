@@ -36,6 +36,7 @@ export class ActionObject extends BaseBusinessObject<ActionObjectType.Repository
 
   toPersistenceObject(): ActionObjectType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

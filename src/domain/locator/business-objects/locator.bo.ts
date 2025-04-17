@@ -36,6 +36,7 @@ export class Locator extends BaseBusinessObject<LocatorType.Repository, LocatorT
 
   toPersistenceObject(): LocatorType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

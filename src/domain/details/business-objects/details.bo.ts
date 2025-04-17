@@ -36,6 +36,7 @@ export class Details extends BaseBusinessObject<DetailsType.Repository, DetailsT
 
   toPersistenceObject(): DetailsType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

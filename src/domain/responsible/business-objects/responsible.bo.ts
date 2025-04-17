@@ -36,6 +36,7 @@ export class Responsible extends BaseBusinessObject<ResponsibleType.Repository, 
 
   toPersistenceObject(): ResponsibleType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

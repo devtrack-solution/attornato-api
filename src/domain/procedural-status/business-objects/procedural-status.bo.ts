@@ -36,6 +36,7 @@ export class ProceduralStatus extends BaseBusinessObject<ProceduralStatusType.Re
 
   toPersistenceObject(): ProceduralStatusType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

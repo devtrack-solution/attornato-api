@@ -2,6 +2,7 @@ import { BaseType } from '@/core/domain/types/base.type'
 
 export namespace CommunicationChannelType {
   export type Input = {
+    id?: string
     name: string
   } & BaseType.Input
 

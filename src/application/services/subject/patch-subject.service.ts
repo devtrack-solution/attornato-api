@@ -7,7 +7,7 @@ import {
   SubjectRepositoryOutboundPortSymbol,
 } from '@/domain/subject/ports/outbound/subject-repository.outbound-port'
 import { SubjectType } from '@/domain/subject/types/subject.type'
-import { Subject } from '@/domain/subject/busness-objects/subject.bo'
+import { Subject } from '@/domain/subject/business-objects/subject.bo'
 
 @Injectable()
 export class PatchSubjectService implements PatchSubjectInboundPort {

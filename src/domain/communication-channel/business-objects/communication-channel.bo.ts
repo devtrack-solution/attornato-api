@@ -29,13 +29,17 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
+    ValidationBuilder.of({
+      value: this._name,
+      fieldName: 'name',
+    })
       .required()
       .build('Failed to validate CommunicationChannel rules')
   }
 
   toPersistenceObject(): CommunicationChannelType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

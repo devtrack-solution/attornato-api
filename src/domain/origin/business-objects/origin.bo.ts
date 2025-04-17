@@ -36,6 +36,7 @@ export class Origin extends BaseBusinessObject<OriginType.Repository, OriginType
 
   toPersistenceObject(): OriginType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

@@ -1,5 +1,5 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import { ContactType } from '@/domain/contact/types/contact.type'
+import { ContactType } from '@/domain/communication-address/contact/types/contact.type'
 
 export namespace CommunicationAddressType {
   export type Input = {

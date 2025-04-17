@@ -36,6 +36,7 @@ export class FreeField extends BaseBusinessObject<FreeFieldType.Repository, Free
 
   toPersistenceObject(): FreeFieldType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

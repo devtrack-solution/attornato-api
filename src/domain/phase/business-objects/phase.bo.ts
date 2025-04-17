@@ -36,6 +36,7 @@ export class Phase extends BaseBusinessObject<PhaseType.Repository, PhaseType.Ou
 
   toPersistenceObject(): PhaseType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

@@ -1,9 +1,9 @@
-import {DataSource, DeepPartial} from 'typeorm'
+import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
-import { ContactRepositoryOutboundPort, ContactRepositoryOutboundPortSymbol } from '@/domain/contact/ports/outbound/contact-repository.outbound-port'
+import { ContactRepositoryOutboundPort, ContactRepositoryOutboundPortSymbol } from '@/domain/communication-address/contact/ports/outbound/contact-repository.outbound-port'
 
 
 @BindProvider(ContactRepositoryOutboundPortSymbol)

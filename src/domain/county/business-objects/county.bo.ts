@@ -36,6 +36,7 @@ export class County extends BaseBusinessObject<CountyType.Repository, CountyType
 
   toPersistenceObject(): CountyType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

@@ -36,6 +36,7 @@ export class Partner extends BaseBusinessObject<PartnerType.Repository, PartnerT
 
   toPersistenceObject(): PartnerType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

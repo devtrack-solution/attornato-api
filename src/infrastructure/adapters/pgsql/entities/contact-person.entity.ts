@@ -1,9 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn, OneToOne } from 'typeorm'
+import {Entity, Column, ManyToOne, JoinColumn, OneToOne, TableInheritance} from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { FreeFieldEntity } from '@/infrastructure/adapters/pgsql/entities/free-field.entity'
-import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
 
 @Entity('contact_person')
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class ContactPersonEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 255 })
   freeFieldOne!: string
@@ -14,7 +14,4 @@ export class ContactPersonEntity extends EntityBase {
   @ManyToOne(() => FreeFieldEntity, (freeField) => freeField.contactPerson)
   @JoinColumn({ name: 'freeFieldId', referencedColumnName: 'id' })
   freeField!: FreeFieldEntity
-
-  @OneToOne(() => LegalEntity, (legal) => legal.communicationAddress)
-  legal!: LegalEntity
 }

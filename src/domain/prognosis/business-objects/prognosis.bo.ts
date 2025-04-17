@@ -36,6 +36,7 @@ export class Prognosis extends BaseBusinessObject<PrognosisType.Repository, Prog
 
   toPersistenceObject(): PrognosisType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

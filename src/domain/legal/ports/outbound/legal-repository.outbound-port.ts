@@ -4,4 +4,4 @@ import { Criteria } from '@/core/domain/types/criteria.type'
 
 export const LegalRepositoryOutboundPortSymbol = Symbol('LegalRepositoryOutboundPortSymbol')
 
-export interface LegalRepositoryOutboundPort extends IRelationalDatabaseOutboundPort<Criteria.ById, LegalType.Input, LegalType.Output> {}
+export interface LegalRepositoryOutboundPort extends IRelationalDatabaseOutboundPort<Criteria.ById, Partial<LegalType.Input>, LegalType.Output> {}

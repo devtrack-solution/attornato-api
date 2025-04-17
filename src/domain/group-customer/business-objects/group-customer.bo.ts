@@ -36,6 +36,7 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
 
   toPersistenceObject(): GroupCustomerType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

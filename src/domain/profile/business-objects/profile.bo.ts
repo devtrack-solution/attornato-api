@@ -36,6 +36,7 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
 
   toPersistenceObject(): ProfileType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

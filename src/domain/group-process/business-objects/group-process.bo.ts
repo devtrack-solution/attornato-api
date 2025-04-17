@@ -36,6 +36,7 @@ export class GroupProcess extends BaseBusinessObject<GroupProcessType.Repository
 
   toPersistenceObject(): GroupProcessType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

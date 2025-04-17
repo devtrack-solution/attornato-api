@@ -36,6 +36,7 @@ export class PracticeArea extends BaseBusinessObject<PracticeAreaType.Repository
 
   toPersistenceObject(): PracticeAreaType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

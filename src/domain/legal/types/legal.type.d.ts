@@ -1,11 +1,18 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import { CommunicationAddress } from '@/domain/legal/communication-address/business-objects/communication-address.bo'
+import {PersonType} from "@/domain/legal/types/person.type";
 
 export namespace LegalType {
   export type Input = {
-    legalData: LegalData
-    communicationAddress: CommunicationAddress
-    contactPerson: ContactPerson
+    person: PersonType.Input
+    groupCustomer: GroupCustomer
+    profile: Profile
+    responsible: string
+    companyName: string
+    tradeName: string
+    businessArea: string
+    cnpj: string
+    stateRegistration: string
+    municipalRegistration: string
   } & BaseType.Input
 
   export type Output = Input

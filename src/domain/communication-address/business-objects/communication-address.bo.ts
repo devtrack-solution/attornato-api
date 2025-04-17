@@ -3,7 +3,7 @@ import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-obje
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { CommunicationAddressType } from '@/domain/communication-address/types/communication-address.type'
-import { Contact } from '@/domain/contact/business-objects/contact.bo'
+import { Contact } from '@/domain/communication-address/contact/business-objects/contact.bo'
 
 export interface ICommunicationAddress extends IBusinessObject<CommunicationAddressType.Input, CommunicationAddressType.Output> {}
 
@@ -49,6 +49,10 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
     return this._state
   }
 
+  get contacts(): Contact[] {
+    return this._contacts
+  }
+
   constructor(props: CommunicationAddressType.Input) {
     super(props)
     this.loadData(props)
@@ -85,18 +89,22 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
         value: this._state,
         fieldName: 'state',
       })
-      .required()
+      .required().of({
+        value: this._contacts,
+        fieldName: 'contacts',
+      })
       .build('Failed to validate CommunicationAddress rules')
   }
 
   toPersistenceObject(): CommunicationAddressType.Output {
     return {
+      id: this._id.toString(),
       zipCode: this._zipCode,
       street: this._street,
       neighborhood: this._neighborhood,
       city: this._city,
       state: this._state,
-      contacts: this._contacts.map((contact) => contact.toPersistence()),
+      contacts: this._contacts.map((contact) => contact.toPersistenceObject()),
     }
   }
 }

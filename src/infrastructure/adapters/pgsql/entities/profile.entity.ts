@@ -1,12 +1,12 @@
 import { Entity, Column, OneToMany } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
-import { LegalDataEntity } from '@/infrastructure/adapters/pgsql/entities/legal-data.entity'
+import { LegalEntity } from "@/infrastructure/adapters/pgsql/entities/legal.entity";
 
 @Entity('profile')
 export class ProfileEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 255 })
   name!: string
 
-  @OneToMany(() => LegalDataEntity, (legalData) => legalData.profile)
-  legalData!: LegalDataEntity[]
+  @OneToMany(() => LegalEntity, (legal) => legal.profile)
+  legal!: LegalEntity[]
 }

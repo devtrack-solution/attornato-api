@@ -36,6 +36,7 @@ export class LocalProcedureName extends BaseBusinessObject<LocalProcedureNameTyp
 
   toPersistenceObject(): LocalProcedureNameType.Output {
     return {
+      id: this._id.toString(),
       name: this._name,
     }
   }

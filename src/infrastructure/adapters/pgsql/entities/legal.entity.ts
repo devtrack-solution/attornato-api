@@ -1,20 +1,36 @@
-import { Entity, JoinColumn, OneToOne } from 'typeorm'
-import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
-import { LegalDataEntity } from '@/infrastructure/adapters/pgsql/entities/legal-data.entity'
-import { CommunicationAddressEntity } from '@/infrastructure/adapters/pgsql/entities/communication-address.entity'
-import {ContactPersonEntity} from "@/infrastructure/adapters/pgsql/entities/contact-person.entity";
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/group-customer.entity'
+import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'
+import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
 
 @Entity('legal')
-export class LegalEntity extends EntityBase {
-  @OneToOne(() => LegalDataEntity, (legalData) => legalData.legal, { nullable: true, eager: false, cascade: true })
-  @JoinColumn({ name: 'legalDataId', referencedColumnName: 'id' })
-  legalData!: LegalDataEntity
+export class LegalEntity extends PersonEntity {
+  @ManyToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.legal)
+  @JoinColumn({ name: 'groupCustomerId', referencedColumnName: 'id' })
+  groupCustomer!: GroupCustomerEntity
 
-  @OneToOne(() => CommunicationAddressEntity, (communicationAddress) => communicationAddress.legal, { nullable: true, eager: false, cascade: true })
-  @JoinColumn({ name: 'communicationAddressId', referencedColumnName: 'id' })
-  communicationAddress!: CommunicationAddressEntity
+  @ManyToOne(() => ProfileEntity, (profile) => profile.legal)
+  @JoinColumn({ name: 'profileId', referencedColumnName: 'id' })
+  profile!: ProfileEntity
 
-  @OneToOne(() => ContactPersonEntity, (contactPerson) => contactPerson.legal, { nullable: true, eager: false, cascade: true })
-  @JoinColumn({ name: 'contactPersonId', referencedColumnName: 'id' })
-  contactPerson!: ContactPersonEntity
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  responsable!: string
+
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  companyName!: string
+
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  tradeName!: string
+
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  businessArea!: string
+
+  @Column({ type: 'varchar', unique: true, length: 17 })
+  cnpj!: string
+
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  stateRegistration!: string
+
+  @Column({ type: 'varchar', unique: true, length: 255 })
+  municipalRegistration!: string
 }

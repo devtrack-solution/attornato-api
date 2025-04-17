@@ -1,7 +1,6 @@
-import {Entity, Column, OneToOne, ManyToOne, JoinColumn} from 'typeorm'
+import {Entity, Column, ManyToOne, JoinColumn} from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
-import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
 
 @Entity('communication_address')
 export class CommunicationAddressEntity extends EntityBase {
@@ -27,7 +26,4 @@ export class CommunicationAddressEntity extends EntityBase {
   })
   @JoinColumn({ name: 'contactId', referencedColumnName: 'id' })
   contacts!: ContactEntity[]
-
-  @OneToOne(() => LegalEntity, (legal) => legal.communicationAddress)
-  legal!: LegalEntity
 }
