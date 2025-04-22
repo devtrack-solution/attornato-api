@@ -4,7 +4,7 @@ import { PermissionRepositoryOutboundPort, PermissionRepositoryOutboundPortSymbo
 import { mock } from 'jest-mock-extended'
 import { PermissionTestBuilder } from '@tests/unit/application/services/permission/permission-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Permission } from '@/domain/todo/business-objects/permission.bo'
+import { Permission } from '@/domain/securities/business-objects/permission.bo'
 
 describe('[APPLICATION] - PatchPermissionService', () => {
   let service: PatchPermissionService

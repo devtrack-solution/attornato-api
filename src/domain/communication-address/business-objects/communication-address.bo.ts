@@ -4,6 +4,7 @@ import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { CommunicationAddressType } from '@/domain/communication-address/types/communication-address.type'
 import { Contact } from '@/domain/communication-address/contact/business-objects/contact.bo'
+import { ContactType } from '@/domain/communication-address/contact/types/contact.type'
 
 export interface ICommunicationAddress extends IBusinessObject<CommunicationAddressType.Input, CommunicationAddressType.Output> {}
 
@@ -49,7 +50,7 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
     return this._state
   }
 
-  get contacts(): Contact[] {
+  get contacts(): ContactType.Output[] {
     return this._contacts
   }
 

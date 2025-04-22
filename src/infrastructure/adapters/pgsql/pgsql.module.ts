@@ -34,9 +34,7 @@ import { GroupCustomerRepository } from '@/infrastructure/adapters/pgsql/reposit
 import { ProfileRepositoryOutboundPortSymbol } from '@/domain/profile/ports/outbound/profile-repository.outbound-port'
 import { ProfileRepository } from '@/infrastructure/adapters/pgsql/repositories/profile.repository'
 import { CommunicationChannelRepository } from '@/infrastructure/adapters/pgsql/repositories/communication-channel.repository'
-import {
-  CommunicationChannelRepositoryOutboundPortSymbol
-} from "@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port";
+import { CommunicationChannelRepositoryOutboundPortSymbol } from "@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port";
 import { DataSource, DataSourceOptions } from 'typeorm'
 
 @Module({

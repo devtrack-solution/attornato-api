@@ -13,7 +13,7 @@ import { ListCommunicationChannelInboundPort, ListCommunicationChannelInboundPor
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
 
-@ApiTags('Contact-Type')
+@ApiTags('Communication-Channel')
 @Controller('communication-channel')
 export class CommunicationChannelHttpController extends BaseHttpController {
   constructor(

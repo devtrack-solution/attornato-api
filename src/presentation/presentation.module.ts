@@ -24,8 +24,8 @@ import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/f
 import { PartnerHttpControllerModule } from '@/presentation/controllers/http/partner/partner-http-controller.module'
 import { CommunicationChannelHttpControllerModule } from '@/presentation/controllers/http/communication-channel/communication-channel-http-controller.module'
 import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
-import { LegalModule } from '@/application/services/legal/legal.module'
-import { LegalHttpControllerModule } from '@/presentation/controllers/http/legal/legal-http-controller.module'
+import { LegalModule } from '@/application/services/client/legal/legal.module'
+import { LegalHttpControllerModule } from '@/presentation/controllers/http/client/legal/legal-http-controller.module'
 
 @Module({
   imports: [

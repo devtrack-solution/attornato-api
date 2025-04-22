@@ -2,9 +2,10 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/group-customer.entity'
 import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'
 import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
+import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 
 @Entity('legal')
-export class LegalEntity extends PersonEntity {
+export class LegalEntity extends EntityBase {
   @ManyToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.legal)
   @JoinColumn({ name: 'groupCustomerId', referencedColumnName: 'id' })
   groupCustomer!: GroupCustomerEntity
@@ -13,8 +14,12 @@ export class LegalEntity extends PersonEntity {
   @JoinColumn({ name: 'profileId', referencedColumnName: 'id' })
   profile!: ProfileEntity
 
+  @ManyToOne(() => PersonEntity, (person) => person.legal, { cascade: true, eager: true })
+  @JoinColumn({ name: 'personId', referencedColumnName: 'id' })
+  person!: PersonEntity
+
   @Column({ type: 'varchar', unique: true, length: 255 })
-  responsable!: string
+  responsible!: string
 
   @Column({ type: 'varchar', unique: true, length: 255 })
   companyName!: string
@@ -25,7 +30,7 @@ export class LegalEntity extends PersonEntity {
   @Column({ type: 'varchar', unique: true, length: 255 })
   businessArea!: string
 
-  @Column({ type: 'varchar', unique: true, length: 17 })
+  @Column({ type: 'varchar', unique: true, length: 20 })
   cnpj!: string
 
   @Column({ type: 'varchar', unique: true, length: 255 })

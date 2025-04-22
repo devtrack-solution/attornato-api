@@ -11,7 +11,7 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
 
   private loadData(data: CommunicationChannelType.Input): CommunicationChannelType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading CommunicationChannel entity`))
     }
@@ -35,6 +35,13 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
     })
       .required()
       .build('Failed to validate CommunicationChannel rules')
+  }
+
+  static fromReference(data: { id: string; name?: string }): CommunicationChannel {
+    const instance = Object.create(CommunicationChannel.prototype)
+    instance._id = data.id
+    instance._name = data.name ?? ''
+    return instance as CommunicationChannel
   }
 
   toPersistenceObject(): CommunicationChannelType.Output {

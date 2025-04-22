@@ -1,4 +1,4 @@
-import {Entity, Column, ManyToOne, JoinColumn} from 'typeorm'
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
 
@@ -19,11 +19,10 @@ export class CommunicationAddressEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 255 })
   state!: string
 
-  @ManyToOne(() => ContactEntity, (contact) => contact.communicationAddress, {
+  @OneToMany(() => ContactEntity, (contact) => contact.communicationAddress, {
     cascade: true,
     eager: true,
     orphanedRowAction: 'delete',
   })
-  @JoinColumn({ name: 'contactId', referencedColumnName: 'id' })
   contacts!: ContactEntity[]
 }

@@ -12,9 +12,7 @@ export class ContactEntity extends EntityBase {
   @JoinColumn({ name: 'communicationChannelId', referencedColumnName: 'id' })
   communicationChannel!: CommunicationChannelEntity
 
-  @OneToMany(() => CommunicationAddressEntity, (communicationAddress) => communicationAddress.contacts, {
-    onDelete: 'CASCADE',
-    orphanedRowAction: 'delete',
-  })
+  @ManyToOne(() => CommunicationAddressEntity, address => address.contacts)
+  @JoinColumn({ name: 'communicationAddressId' })
   communicationAddress!: CommunicationAddressEntity
 }
