@@ -50,7 +50,7 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
     return this._state
   }
 
-  get contacts(): ContactType.Output[] {
+  get contacts(): ContactType.Input[] {
     return this._contacts
   }
 

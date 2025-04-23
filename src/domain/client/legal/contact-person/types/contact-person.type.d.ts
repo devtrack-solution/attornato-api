@@ -1,11 +1,16 @@
 import { BaseType } from '@/core/domain/types/base.type'
 import { FreeFieldType } from '@/domain/free-field/types/free-field.type'
+import { Column } from 'typeorm'
 
-export namespace ContactPersonLegalType {
+export namespace ContactPersonType {
   export type Input = {
     freeFieldOne: string
     note: string
     freeField: FreeFieldType.Input
+    mobilePhone?: string
+    phoneNumber?: string
+    fatherName?: string
+    motherName?: string
   } & BaseType.Input
 
   export type Output = Input

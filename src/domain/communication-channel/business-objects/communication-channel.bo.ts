@@ -33,11 +33,10 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
       value: this._name,
       fieldName: 'name',
     })
-      .required()
       .build('Failed to validate CommunicationChannel rules')
   }
 
-  static fromReference(data: { id: string; name?: string }): CommunicationChannel {
+  static fromReference(data: { id?: string; name?: string }): CommunicationChannel {
     const instance = Object.create(CommunicationChannel.prototype)
     instance._id = data.id
     instance._name = data.name ?? ''

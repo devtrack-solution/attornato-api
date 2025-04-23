@@ -5,79 +5,132 @@ import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/gr
 import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'
 import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
 import { CommunicationAddressEntity } from '@/infrastructure/adapters/pgsql/entities/communication-address.entity'
-import { ContactPersonBaseEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person-base.entity'
+import { ContactPersonEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person.entity'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
 import { CommunicationChannelEntity } from '@/infrastructure/adapters/pgsql/entities/communication-channel.entity'
 import { FreeFieldEntity } from '@/infrastructure/adapters/pgsql/entities/free-field.entity'
-import { LegalTestBuilder } from '@tests/unit/application/services/client/legal/legal-test.builder'
-import * as dotenv from 'dotenv'
 import { v4 as uuidv4 } from 'uuid'
+import * as dotenv from 'dotenv'
+import { LegalTestBuilder } from '@tests/unit/application/services/client/legal/legal-test.builder'
+import { LegalRepository } from '@/infrastructure/adapters/pgsql/repositories/legal.repository'
+import { ContactRepository } from '@/infrastructure/adapters/pgsql/repositories/contact.repository'
+import { GroupCustomerRepository } from '@/infrastructure/adapters/pgsql/repositories/group-customer.repository'
+import { ProfileRepository } from '@/infrastructure/adapters/pgsql/repositories/profile.repository'
+import { FreeFieldRepository } from '@/infrastructure/adapters/pgsql/repositories/free-field.repository'
+import { CommunicationChannelRepository } from '@/infrastructure/adapters/pgsql/repositories/communication-channel.repository'
+import { PersonRepository } from '@/infrastructure/adapters/pgsql/repositories/person.repository'
+import { CommunicationAddressRepository } from '@/infrastructure/adapters/pgsql/repositories/communication-address.repository'
+import { ContactPersonRepository } from '@/infrastructure/adapters/pgsql/repositories/contact-person-repository'
+
 dotenv.config()
 
 describe('LegalEntity Integration Test', () => {
   let dataSource: DataSource
-  let legalId: string
+  let legalId: string | undefined
+  let personId: string | undefined
+  let contactPersonId: string | undefined
+  let addressId: string | undefined
+  let contactIds: string[] = []
+  let createdIds: string[] = []
 
   beforeAll(async () => {
     dataSource = new DataSource({
       type: 'postgres',
-      host: process.env.DB_HOST,
+      host: 'localhost',
       port: parseInt(process.env.DB_PORT || '5432', 10),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: process.env.DB_SYNC === 'true',
-      entities: [
-        ContactPersonBaseEntity,
-        PersonEntity,
-        LegalEntity,
-        GroupCustomerEntity,
-        ProfileEntity,
-        CommunicationAddressEntity,
-        ContactEntity,
-        CommunicationChannelEntity,
-        FreeFieldEntity,
-      ],
+      synchronize: true,
+      entities: [ContactPersonEntity, PersonEntity, LegalEntity, GroupCustomerEntity, ProfileEntity, CommunicationAddressEntity, ContactEntity, CommunicationChannelEntity, FreeFieldEntity],
     })
 
     await dataSource.initialize()
-
-    const COMMUNICATION_CHANNEL_ID = '4000e510-c8b6-47c9-814e-f5aa1b7035bc'
-
-    await dataSource.getRepository(CommunicationChannelEntity).save({
-      id: COMMUNICATION_CHANNEL_ID,
-      name: 'Telefone',
-    })
   })
 
   afterAll(async () => {
-    // Clean up only the LegalEntity created
-    if (legalId) {
-      await dataSource.getRepository(LegalEntity).delete(legalId)
+    const repos = {
+      legal: new LegalRepository(dataSource),
+      person: new PersonRepository(dataSource),
+      contactPersonLegal: new ContactPersonRepository(dataSource),
+      address: new CommunicationAddressRepository(dataSource),
+      contact: new ContactRepository(dataSource),
+      groupCustomer: new GroupCustomerRepository(dataSource),
+      profile: new ProfileRepository(dataSource),
+      communicationChannel: new CommunicationChannelRepository(dataSource),
+      freeField: new FreeFieldRepository(dataSource),
     }
-    await dataSource.destroy()
+
+    try {
+      // Deleta entidade composta Legal (tem FK para person, profile, groupCustomer etc.)
+      if (legalId) await repos.legal.delete(legalId)
+
+      // Deleta contatos individualmente
+      for (const contactId of contactIds) {
+        await repos.contact.delete(contactId)
+      }
+
+      // Deleta entidade de endereço da pessoa
+      if (addressId) await repos.address.delete(addressId)
+
+      // Deleta pessoa e informações de contato
+      if (contactPersonId) await repos.contactPersonLegal.delete(contactPersonId)
+      if (personId) await repos.person.delete(personId)
+
+      // Deleta entidades compartilhadas criadas neste teste
+      for (const id of createdIds) {
+        await Promise.allSettled([repos.groupCustomer.delete(id), repos.profile.delete(id), repos.communicationChannel.delete(id), repos.freeField.delete(id)])
+      }
+    } catch (error) {
+      console.error('Erro ao limpar dados após o teste:', error)
+    } finally {
+      await dataSource.destroy()
+    }
   })
 
   it('should persist Legal and related entities in the database', async () => {
-    const input = LegalTestBuilder.getSuccess('4000e510-c8b6-47c9-814e-f5aa1b7035bc')
+    const groupCustomerRepo = dataSource.getRepository(GroupCustomerEntity)
+    const profileRepo = dataSource.getRepository(ProfileEntity)
+    const communicationChannelRepo = dataSource.getRepository(CommunicationChannelEntity)
+    const freeFieldRepo = dataSource.getRepository(FreeFieldEntity)
+    const legalRepo = dataSource.getRepository(LegalEntity)
+
+    const groupCustomer = await groupCustomerRepo.save({ id: uuidv4(), name: 'Grupo Teste' })
+    const profile = await profileRepo.save({ id: uuidv4(), name: 'Admin Teste' })
+    const communicationChannel = await communicationChannelRepo.save({ id: uuidv4(), name: 'Telefone Teste' })
+    const freeField = await freeFieldRepo.save({ id: uuidv4(), name: 'Campo Extra' })
+
+    createdIds.push(groupCustomer.id, profile.id, communicationChannel.id, freeField.id)
+
+    const [foundGroupCustomer, foundProfile, foundCommunicationChannel, foundFreeField] = await Promise.all([
+      groupCustomerRepo.findOneBy({ id: groupCustomer.id }),
+      profileRepo.findOneBy({ id: profile.id }),
+      communicationChannelRepo.findOneBy({ id: communicationChannel.id }),
+      freeFieldRepo.findOneBy({ id: freeField.id }),
+    ])
+
+    expect(foundGroupCustomer).toBeDefined()
+    expect(foundProfile).toBeDefined()
+    expect(foundCommunicationChannel).toBeDefined()
+    expect(foundFreeField).toBeDefined()
+
+    const input = LegalTestBuilder.getSuccess(communicationChannel.id, groupCustomer.id, profile.id, freeField.id)
+
     const legal = new Legal(input)
+    const entity = legalRepo.create(legal.toPersistenceObject())
 
-    const repo = dataSource.getRepository(LegalEntity)
+    await legalRepo.save(entity)
+    legalId = entity.id
 
-    const entity = repo.create(legal.toPersistenceObject())
-    await repo.save(entity)
-
-    legalId = entity.id // Store ID for cleanup
-
-    const saved = await repo.findOne({
-      where: { cnpj: input.cnpj },
+    const saved = await legalRepo.findOne({
+      where: { id: legalId },
       relations: ['groupCustomer', 'profile', 'person'],
     })
 
     expect(saved).toBeDefined()
     expect(saved?.companyName).toBe(input.companyName)
     expect(saved?.cnpj).toBe(input.cnpj)
-    expect(saved?.profile.name).toBe(input.profile.name)
-    expect(saved?.groupCustomer.name).toBe(input.groupCustomer.name)
+    expect(saved?.profile.id).toBe(profile.id)
+    expect(saved?.groupCustomer.id).toBe(groupCustomer.id)
   })
 })

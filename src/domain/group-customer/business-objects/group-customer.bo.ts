@@ -11,7 +11,7 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
 
   private loadData(data: GroupCustomerType.Input): GroupCustomerType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading GroupCustomer entity`))
     }
@@ -30,8 +30,14 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
 
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
       .build('Failed to validate GroupCustomer rules')
+  }
+
+  static fromReference(data: { id?: string; name?: string }): GroupCustomer {
+    const instance = Object.create(GroupCustomer.prototype)
+    instance._id = data.id
+    instance._name = data.name ?? ''
+    return instance as GroupCustomer
   }
 
   toPersistenceObject(): GroupCustomerType.Output {

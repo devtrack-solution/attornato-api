@@ -15,10 +15,7 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
   private loadData(data: ContactType.Input): ContactType.Output {
     try {
       this._value = data.value || ''
-      this._communicationChannel = this._communicationChannel = CommunicationChannel.fromReference({
-        id: data.communicationChannel.id?.toString() ?? '',
-        name: data.communicationChannel.name,
-      })
+      this._communicationChannel = CommunicationChannel.fromReference(data.communicationChannel)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse('Error loading Contact entity'))
     }

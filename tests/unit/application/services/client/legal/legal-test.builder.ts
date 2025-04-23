@@ -28,7 +28,7 @@ export class LegalTestBuilder {
             },
           ],
         },
-        contactPersonLegal: {
+        contactPerson: {
           id: uuidv4(),
           freeFieldOne: 'Test',
           note: 'Some note',
@@ -60,17 +60,21 @@ export class LegalTestBuilder {
     return new LegalTestBuilder()
   }
 
+  static getSuccess(communicationChannelId: string, groupCustomerId: string, profileId: string, freeFieldId: string): LegalType.Input {
+    const builder = new LegalTestBuilder()
+
+    builder.legal.person.communicationAddress.contacts[0].communicationChannel = { id: communicationChannelId }
+    builder.legal.groupCustomer = { id: groupCustomerId }
+    builder.legal.profile = { id: profileId }
+    builder.legal.person.contactPerson.freeField = { id: freeFieldId }
+
+    return builder.build()
+  }
+
   withCnpj(cnpj: string): this {
     this.legal.cnpj = cnpj
     return this
   }
-
-  static getSuccess(communicationChannelId = uuidv4()): LegalType.Input {
-    const builder = new LegalTestBuilder()
-    builder.legal.person.communicationAddress.contacts[0].communicationChannel.id = communicationChannelId
-    return builder.build()
-  }
-
 
   build(): LegalType.Input {
     return this.legal

@@ -26,8 +26,9 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
 
   private loadData(data: LegalType.Input): LegalType.Output {
     try {
-      this._groupCustomer = new GroupCustomer(data.groupCustomer)
-      this._profile = new Profile(data.profile)
+      console.error(JSON.stringify(data, null, 2))
+      this._groupCustomer = GroupCustomer.fromReference(data.groupCustomer)
+      this._profile = Profile.fromReference(data.profile)
       this._person = new Person(data.person)
       this._responsible = data.responsible
       this._companyName = data.companyName
@@ -36,6 +37,7 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
       this._cnpj = data.cnpj
       this._stateRegistration = data.stateRegistration
       this._municipalRegistration = data.municipalRegistration
+
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Legal entity`))
     }
@@ -142,8 +144,8 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
   toPersistenceObject(): LegalType.Output {
     return {
       id: this._id.toString(),
-      groupCustomer: this._groupCustomer.toPersistenceObject(),
-      profile: this._profile.toPersistenceObject(),
+      groupCustomer: { id: this._groupCustomer.id },
+      profile: { id: this._profile.id },
       person: this._person.toPersistenceObject(),
       responsible: this._responsible,
       companyName: this._companyName,

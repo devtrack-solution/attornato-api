@@ -1,8 +1,8 @@
-import { ContactPersonLegal } from '@/domain/client/legal/contact-person-legal/business-objects/contact-person-legal.bo'
+import { ContactPerson } from '@/domain/client/legal/contact-person/business-objects/contact-person.bo'
 import { FreeField } from '@/domain/free-field/business-objects/free-field.bo'
 import { v4 as uuidv4 } from 'uuid'
 
-describe('ContactPersonLegal BO', () => {
+describe('ContactPerson BO', () => {
   const mockFreeField = new FreeField({
     id: uuidv4(),
     name: 'Telefone comercial',
@@ -15,17 +15,17 @@ describe('ContactPersonLegal BO', () => {
     freeField: mockFreeField,
   }
 
-  it('should instantiate ContactPersonLegal with valid data', () => {
-    const person = new ContactPersonLegal(mockInput)
+  it('should instantiate ContactPerson with valid data', () => {
+    const person = new ContactPerson(mockInput)
 
-    expect(person).toBeInstanceOf(ContactPersonLegal)
+    expect(person).toBeInstanceOf(ContactPerson)
     expect(person.freeFieldOne).toBe(mockInput.freeFieldOne)
     expect(person.note).toBe(mockInput.note)
     expect(person.freeField.name).toBe(mockFreeField.name)
   })
 
   it('should serialize to persistence object', () => {
-    const person = new ContactPersonLegal(mockInput)
+    const person = new ContactPerson(mockInput)
     const output = person.toPersistenceObject()
 
     expect(output).toEqual({
@@ -45,7 +45,7 @@ describe('ContactPersonLegal BO', () => {
       freeField: null,
     }
 
-    expect(() => new ContactPersonLegal(invalidInput as any)).toThrowError('Error loading ContactPersonLegal entity')
+    expect(() => new ContactPerson(invalidInput as any)).toThrowError('Error loading ContactPerson entity')
   })
 
   it('should throw validation error when freeFieldOne is empty', () => {
@@ -54,7 +54,7 @@ describe('ContactPersonLegal BO', () => {
       freeFieldOne: '',
     }
 
-    expect(() => new ContactPersonLegal(invalidInput)).toThrowError('Failed to validate ContactPersonLegal rules')
+    expect(() => new ContactPerson(invalidInput)).toThrowError('Failed to validate ContactPerson rules')
   })
 
   it('should throw validation error when note is empty', () => {
@@ -63,6 +63,6 @@ describe('ContactPersonLegal BO', () => {
       note: '',
     }
 
-    expect(() => new ContactPersonLegal(invalidInput)).toThrowError('Failed to validate ContactPersonLegal rules')
+    expect(() => new ContactPerson(invalidInput)).toThrowError('Failed to validate ContactPerson rules')
   })
 })

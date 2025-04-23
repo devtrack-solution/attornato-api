@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, TableInheritance } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { CommunicationAddressEntity } from '@/infrastructure/adapters/pgsql/entities/communication-address.entity'
-import { ContactPersonBaseEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person-base.entity'
 import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
+import { ContactPersonEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person.entity'
 
 @Entity('persons')
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
@@ -11,12 +11,12 @@ export class PersonEntity extends EntityBase {
   clientId!: string
 
   @OneToOne(() => CommunicationAddressEntity, { cascade: true, eager: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'communicationAddressId', referencedColumnName: 'id' })
   communicationAddress!: CommunicationAddressEntity
 
-  @OneToOne(() => ContactPersonBaseEntity, { cascade: true, eager: true })
-  @JoinColumn()
-  contactPerson!: ContactPersonBaseEntity
+  @OneToOne(() => ContactPersonEntity, { cascade: true, eager: true })
+  @JoinColumn({ name: 'contactPersonId', referencedColumnName: 'id' })
+  contactPerson!: ContactPersonEntity
 
   @OneToMany(() => LegalEntity, (legal) => legal.person)
   legal!: LegalEntity[]

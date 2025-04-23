@@ -7,7 +7,6 @@ const config: Config = {
   transform: {
     '^.+\\.(t|j)s$': ['ts-jest', {
       tsconfig: './tsconfig.json',
-      isolatedModules: true,
     }],
   },
   testRegex: '.*\\.spec\\.ts$',

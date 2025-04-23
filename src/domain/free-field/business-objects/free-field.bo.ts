@@ -11,7 +11,7 @@ export class FreeField extends BaseBusinessObject<FreeFieldType.Repository, Free
 
   private loadData(data: FreeFieldType.Input): FreeFieldType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading FreeField entity`))
     }
@@ -30,8 +30,14 @@ export class FreeField extends BaseBusinessObject<FreeFieldType.Repository, Free
 
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
       .build('Failed to validate FreeField rules')
+  }
+
+  static fromReference(data: { id?: string; name?: string }): FreeField {
+    const instance = Object.create(FreeField.prototype)
+    instance._id = data.id
+    instance._name = data.name ?? ''
+    return instance as FreeField
   }
 
   toPersistenceObject(): FreeFieldType.Output {

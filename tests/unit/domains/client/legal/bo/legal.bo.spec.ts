@@ -5,7 +5,7 @@ import { Profile } from '@/domain/profile/business-objects/profile.bo'
 import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
 import { FreeField } from '@/domain/free-field/business-objects/free-field.bo'
 import { v4 as uuidv4 } from 'uuid'
-import { ContactPersonLegal } from '@/domain/client/legal/contact-person-legal/business-objects/contact-person-legal.bo'
+import { ContactPerson } from '@/domain/client/legal/contact-person/business-objects/contact-person.bo'
 
 describe('Legal Business Object - CRUD', () => {
   const baseInput = {
@@ -27,7 +27,7 @@ describe('Legal Business Object - CRUD', () => {
         },
       }],
     }),
-    contactPersonLegal: new ContactPersonLegal({
+    contactPersonLegal: new ContactPerson({
       id: uuidv4(),
       freeFieldOne: 'Test',
       note: 'Some note',

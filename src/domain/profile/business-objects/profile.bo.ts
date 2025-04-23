@@ -11,7 +11,7 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
 
   private loadData(data: ProfileType.Input): ProfileType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Profile entity`))
     }
@@ -30,8 +30,14 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
 
   validate(): void {
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
       .build('Failed to validate Profile rules')
+  }
+
+  static fromReference(data: { id?: string; name?: string }): Profile {
+    const instance = Object.create(Profile.prototype)
+    instance._id = data.id
+    instance._name = data.name ?? ''
+    return instance as Profile
   }
 
   toPersistenceObject(): ProfileType.Output {

@@ -2,7 +2,7 @@ import { BaseType } from '@/core/domain/types/base.type'
 
 export namespace ProfileType {
   export type Input = {
-    name: string
+    name?: string
   } & BaseType.Input
 
   export type Output = Input

@@ -2,7 +2,7 @@ import { Person } from '@/domain/client/legal/person/business-objects/person.bo'
 import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
 import { EntityBadDataLoadException, EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
-import { ContactPersonLegal } from '@/domain/client/legal/contact-person-legal/business-objects/contact-person-legal.bo'
+import { ContactPerson } from '@/domain/client/legal/contact-person/business-objects/contact-person.bo'
 
 describe('Person BO', () => {
   const validAddress = new CommunicationAddress({
@@ -24,7 +24,7 @@ describe('Person BO', () => {
     ],
   })
 
-  const validContactPersonLegal = new ContactPersonLegal({
+  const validContactPerson = new ContactPerson({
     id: uuidv4(),
     note: 'Responsável jurídico',
     freeFieldOne: 'Extra',
@@ -35,7 +35,7 @@ describe('Person BO', () => {
     id: uuidv4(),
     clientId: 'client-abc',
     communicationAddress: validAddress,
-    contactPersonLegal: validContactPersonLegal,
+    contactPerson: validContactPerson,
   }
 
   it('should create a valid Person instance', () => {
@@ -43,7 +43,7 @@ describe('Person BO', () => {
     expect(person).toBeInstanceOf(Person)
     expect(person.clientId).toBe(validInput.clientId)
     expect(person.communicationAddress).toBeInstanceOf(CommunicationAddress)
-    expect(person.contactPersonLegal).toBeInstanceOf(ContactPersonLegal)
+    expect(person.contactPerson).toBeInstanceOf(ContactPerson)
   })
 
   it('should serialize to persistence object', () => {
@@ -62,7 +62,7 @@ describe('Person BO', () => {
         state: validInput.communicationAddress.state,
         contacts: [
           {
-            id: validInput.communicationAddress.contacts[0].id.toString(),
+            id: validInput.communicationAddress.contacts[0]?.id?.toString(),
             value: validInput.communicationAddress.contacts[0].value,
             communicationChannel: {
               id: validInput.communicationAddress.contacts[0].communicationChannel.id?.toString(),
@@ -71,13 +71,13 @@ describe('Person BO', () => {
           },
         ],
       },
-      contactPersonLegal: {
-        id: validInput.contactPersonLegal.id.toString(),
-        note: validInput.contactPersonLegal.note,
-        freeFieldOne: validInput.contactPersonLegal.freeFieldOne,
+      contactPerson: {
+        id: validInput.contactPerson.id.toString(),
+        note: validInput.contactPerson.note,
+        freeFieldOne: validInput.contactPerson.freeFieldOne,
         freeField: {
-          id: validInput.contactPersonLegal.freeField.id.toString(),
-          name: validInput.contactPersonLegal.freeField.name,
+          id: validInput.contactPerson.freeField.id.toString(),
+          name: validInput.contactPerson.freeField.name,
         },
       },
     })
@@ -93,8 +93,8 @@ describe('Person BO', () => {
     expect(() => new Person(invalidInput as any)).toThrow(EntityBadDataLoadException)
   })
 
-  it('should throw error if contactPersonLegal is missing', () => {
-    const invalidInput = { ...validInput, contactPersonLegal: null }
+  it('should throw error if contactPerson is missing', () => {
+    const invalidInput = { ...validInput, contactPerson: null }
     expect(() => new Person(invalidInput as any)).toThrow(EntityBadDataLoadException)
   })
 })
