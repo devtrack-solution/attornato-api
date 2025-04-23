@@ -14,9 +14,15 @@ export class PersonEntity extends EntityBase {
   @JoinColumn({ name: 'communicationAddressId', referencedColumnName: 'id' })
   communicationAddress!: CommunicationAddressEntity
 
+  @Column({ type: 'uuid', nullable: true })
+  communicationAddressId?: string
+
   @OneToOne(() => ContactPersonEntity, { cascade: true, eager: true })
   @JoinColumn({ name: 'contactPersonId', referencedColumnName: 'id' })
   contactPerson!: ContactPersonEntity
+
+  @Column({ type: 'uuid', nullable: true })
+  contactPersonId?: string
 
   @OneToMany(() => LegalEntity, (legal) => legal.person)
   legal!: LegalEntity[]

@@ -10,13 +10,22 @@ export class LegalEntity extends EntityBase {
   @JoinColumn({ name: 'groupCustomerId', referencedColumnName: 'id' })
   groupCustomer!: GroupCustomerEntity
 
+  @Column({ type: 'uuid', nullable: true })
+  groupCustomerId?: string
+
   @ManyToOne(() => ProfileEntity, (profile) => profile.legal)
   @JoinColumn({ name: 'profileId', referencedColumnName: 'id' })
   profile!: ProfileEntity
 
+  @Column({ type: 'uuid', nullable: true })
+  profileId?: string
+
   @ManyToOne(() => PersonEntity, (person) => person.legal, { cascade: true, eager: true })
   @JoinColumn({ name: 'personId', referencedColumnName: 'id' })
   person!: PersonEntity
+
+  @Column({ type: 'uuid', nullable: true })
+  personId?: string
 
   @Column({ type: 'varchar', unique: true, length: 255 })
   responsible!: string

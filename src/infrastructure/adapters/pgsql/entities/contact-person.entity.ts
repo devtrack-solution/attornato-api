@@ -10,19 +10,22 @@ export class ContactPersonEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 255 })
   note!: string
 
-  @Column({ type: 'varchar',  length: 20 })
-  mobilePhone!: string
+  @Column({ type: 'varchar', nullable: true, length: 20 })
+  mobilePhone?: string
 
-  @Column({ type: 'varchar', length: 20 })
-  phoneNumber!: string
+  @Column({ type: 'varchar', nullable: true, length: 20 })
+  phoneNumber?: string
 
-  @Column({ type: 'varchar', length: 255 })
-  fatherName!: string
+  @Column({ type: 'varchar', nullable: true, length: 255 })
+  fatherName?: string
 
-  @Column({ type: 'varchar', length: 255 })
-  motherName!: string
+  @Column({ type: 'varchar', nullable: true, length: 255 })
+  motherName?: string
 
   @ManyToOne(() => FreeFieldEntity, (freeField) => freeField.contactPerson)
   @JoinColumn({ name: 'freeFieldId', referencedColumnName: 'id' })
   freeField!: FreeFieldEntity
+
+  @Column({ type: 'uuid', nullable: true })
+  freeFieldId?: string
 }

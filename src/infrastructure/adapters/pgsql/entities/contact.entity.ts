@@ -12,7 +12,13 @@ export class ContactEntity extends EntityBase {
   @JoinColumn({ name: 'communicationChannelId', referencedColumnName: 'id' })
   communicationChannel!: CommunicationChannelEntity
 
+  @Column({ type: 'uuid', nullable: true })
+  communicationChannelId?: string
+
   @ManyToOne(() => CommunicationAddressEntity, address => address.contacts)
   @JoinColumn({ name: 'communicationAddressId' })
   communicationAddress!: CommunicationAddressEntity
+
+  @Column({ type: 'uuid', nullable: true })
+  communicationAddressId?: string
 }
