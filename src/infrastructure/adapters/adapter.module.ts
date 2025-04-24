@@ -1,7 +1,6 @@
-import { forwardRef, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { DistributedCachePortSymbol } from '@/application/ports/distributed-cache.port'
 import { RedisCacheAdapter } from '@/infrastructure/adapters/redis/redis-cache.adapter'
-
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
@@ -9,7 +8,6 @@ import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempoten
 import { ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule } from '@/infrastructure/config/config.module'
 import { PGSQLModule } from '@/infrastructure/adapters/pgsql/pgsql.module'
-import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 
 @Module({
   imports: [ConfigModule, PGSQLModule],

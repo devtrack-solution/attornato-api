@@ -25,7 +25,7 @@ describe('[APPLICATION] - CreateGroupCustomerService', () => {
     const result = await service.execute(inputData)
 
     expect(groupCustomerRepository.saveObject).toHaveBeenCalledWith(expect.any(Object))
-    expect(result.name).toEqual(expect.stringContaining(inputData.name))
+    expect(result.name).toEqual(expect.stringContaining(inputData.name ?? ''))
     expect(result).toEqual(expect.objectContaining(inputData))
   })
 

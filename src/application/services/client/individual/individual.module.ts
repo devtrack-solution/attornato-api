@@ -1,0 +1,62 @@
+import { Module } from '@nestjs/common'
+import { CoreModule } from '@/core/core.module'
+import { CreateIndividualInboundPortToken } from '@/domain/client/individual/ports/inbound/create-individual.inbound-port'
+import { DeleteIndividualInboundPortToken } from '@/domain/client/individual/ports/inbound/delete-individual.inbound-port'
+import { ListIndividualInboundPortToken } from '@/domain/client/individual/ports/inbound/list-individual.inbound-port'
+import { ListToSelectIndividualInboundPortToken } from '@/domain/client/individual/ports/inbound/list-to-select-individual.inbound-port'
+import { PatchIndividualInboundPortToken } from '@/domain/client/individual/ports/inbound/patch-individual.inbound-port'
+import { CreateIndividualService } from './create-individual.service'
+import { DeleteIndividualService } from './delete-individual.service'
+import { ListIndividualService } from './list-individual.service'
+import { ListToSelectIndividualService } from './list-to-select-individual.service'
+import { PatchIndividualService } from './patch-individual.service'
+
+@Module({
+  imports: [CoreModule],
+  controllers: [],
+  providers: [
+    {
+      provide: CreateIndividualInboundPortToken,
+      useClass: CreateIndividualService,
+    },
+    {
+      provide: DeleteIndividualInboundPortToken,
+      useClass: DeleteIndividualService,
+    },
+    {
+      provide: ListIndividualInboundPortToken,
+      useClass: ListIndividualService,
+    },
+    {
+      provide: ListToSelectIndividualInboundPortToken,
+      useClass: ListToSelectIndividualService,
+    },
+    {
+      provide: PatchIndividualInboundPortToken,
+      useClass: PatchIndividualService,
+    },
+  ],
+  exports: [
+    {
+      provide: CreateIndividualInboundPortToken,
+      useClass: CreateIndividualService,
+    },
+    {
+      provide: DeleteIndividualInboundPortToken,
+      useClass: DeleteIndividualService,
+    },
+    {
+      provide: ListIndividualInboundPortToken,
+      useClass: ListIndividualService,
+    },
+    {
+      provide: ListToSelectIndividualInboundPortToken,
+      useClass: ListToSelectIndividualService,
+    },
+    {
+      provide: PatchIndividualInboundPortToken,
+      useClass: PatchIndividualService,
+    },
+  ],
+})
+export class IndividualModule {}

@@ -24,8 +24,9 @@ import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/f
 import { PartnerHttpControllerModule } from '@/presentation/controllers/http/partner/partner-http-controller.module'
 import { CommunicationChannelHttpControllerModule } from '@/presentation/controllers/http/communication-channel/communication-channel-http-controller.module'
 import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
-import { LegalModule } from '@/application/services/client/legal/legal.module'
 import { LegalHttpControllerModule } from '@/presentation/controllers/http/client/legal/legal-http-controller.module'
+import { IndividualHttpControllerModule } from '@/presentation/controllers/http/client/individual/individual-http-controller.module'
+import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/identifier/identifier-http-controller.module'
 
 @Module({
   imports: [
@@ -38,6 +39,8 @@ import { LegalHttpControllerModule } from '@/presentation/controllers/http/clien
     FreeFieldHttpControllerModule,
     GroupCustomerHttpControllerModule,
     GroupProcessHttpControllerModule,
+    IdentifierHttpControllerModule,
+    IndividualHttpControllerModule,
     LegalHttpControllerModule,
     LocalProcedureNameHttpControllerModule,
     LocatorHttpControllerModule,

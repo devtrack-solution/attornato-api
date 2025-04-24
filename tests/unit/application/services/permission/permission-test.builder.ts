@@ -1,4 +1,4 @@
-import { PermissionType } from '@/domain/todo/types/permission.type'
+import { PermissionType } from '@/domain/securities/types/permission.type'
 
 export class PermissionTestBuilder {
   private name: string = 'READ_PERMISSION'

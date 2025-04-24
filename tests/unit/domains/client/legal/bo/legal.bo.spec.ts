@@ -18,14 +18,16 @@ describe('Legal Business Object - CRUD', () => {
       neighborhood: 'Centro',
       city: 'Highland',
       state: 'SP',
-      contacts: [{
-        id: uuidv4(),
-        value: '(63) 99200-1122',
-        communicationChannel: {
+      contacts: [
+        {
           id: uuidv4(),
-          name: 'Telefone',
+          value: '(63) 99200-1122',
+          communicationChannel: {
+            id: uuidv4(),
+            name: 'Telefone',
+          },
         },
-      }],
+      ],
     }),
     contactPersonLegal: new ContactPerson({
       id: uuidv4(),
@@ -45,13 +47,27 @@ describe('Legal Business Object - CRUD', () => {
   }
 
   it('Create - should instantiate Legal BO successfully', () => {
-    const legal = new Legal({ ...baseInput, person: new Person(baseInput) })
+    const legal = new Legal({
+      ...baseInput,
+      person: new Person({
+        clientId: baseInput.clientId,
+        contactPerson: baseInput.contactPersonLegal,
+        communicationAddress: baseInput.communicationAddress,
+      }),
+    })
     expect(legal).toBeInstanceOf(Legal)
     expect(legal.companyName).toBe('Empresa XYZ')
   })
 
   it('Read - should serialize to persistence object correctly', () => {
-    const legal = new Legal({ ...baseInput, person: new Person(baseInput) })
+    const legal = new Legal({
+      ...baseInput,
+      person: new Person({
+        clientId: baseInput.clientId,
+        contactPerson: baseInput.contactPersonLegal,
+        communicationAddress: baseInput.communicationAddress,
+      }),
+    })
     const output = legal.toPersistenceObject()
 
     expect(output).toMatchObject({
@@ -65,7 +81,14 @@ describe('Legal Business Object - CRUD', () => {
   })
 
   it('Update - should allow updating company name and re-validating', () => {
-    const legal = new Legal({ ...baseInput, person: new Person(baseInput) })
+    const legal = new Legal({
+      ...baseInput,
+      person: new Person({
+        clientId: baseInput.clientId,
+        contactPerson: baseInput.contactPersonLegal,
+        communicationAddress: baseInput.communicationAddress,
+      }),
+    })
     const updatedName = 'Empresa Atualizada'
     ;(legal as any)._companyName = updatedName
 
@@ -75,13 +98,30 @@ describe('Legal Business Object - CRUD', () => {
   })
 
   it('Delete - should simulate deletion by nullifying fields', () => {
-    const legal = new Legal({ ...baseInput, person: new Person(baseInput) })
+    const legal = new Legal({
+      ...baseInput,
+      person: new Person({
+        clientId: baseInput.clientId,
+        contactPerson: baseInput.contactPersonLegal,
+        communicationAddress: baseInput.communicationAddress,
+      }),
+    })
     ;(legal as any)._companyName = ''
     expect(() => legal.validate()).toThrow()
   })
 
   it('should throw error when required fields are missing', () => {
     const invalidInput = { ...baseInput, companyName: '' }
-    expect(() => new Legal({ ...invalidInput, person: new Person(baseInput) })).toThrow()
+    expect(
+      () =>
+        new Legal({
+          ...invalidInput,
+          person: new Person({
+            clientId: baseInput.clientId,
+            contactPerson: baseInput.contactPersonLegal,
+            communicationAddress: baseInput.communicationAddress,
+          }),
+        }),
+    ).toThrow()
   })
 })

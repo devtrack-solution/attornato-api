@@ -1,6 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
+import { IndividualEntity } from '@/infrastructure/adapters/pgsql/entities/individual.entity'
 
 @Entity('group_customer')
 export class GroupCustomerEntity extends EntityBase {
@@ -8,5 +9,8 @@ export class GroupCustomerEntity extends EntityBase {
   name!: string
 
   @OneToMany(() => LegalEntity, (legal) => legal.groupCustomer)
-  legal!: LegalEntity[]
+  legal?: LegalEntity[]
+
+  @OneToMany(() => IndividualEntity, (individual) => individual.groupCustomer)
+  individual?: IndividualEntity[]
 }

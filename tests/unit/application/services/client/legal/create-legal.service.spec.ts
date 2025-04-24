@@ -46,7 +46,7 @@ describe('[APPLICATION] - CreateLegalService', () => {
     // Validando estruturas internas
     expect(savedLegal.person.clientId).toBe(input.person.clientId)
     expect(savedLegal.person.communicationAddress.city).toBe(input.person.communicationAddress.city)
-    expect(savedLegal.person.contactPersonLegal.note).toBe(input.person.contactPersonLegal.note)
+    expect(savedLegal.person.contactPerson.note).toBe(input.person.contactPerson.note)
 
     expect(savedLegal.profile.name).toBe(input.profile.name)
     expect(savedLegal.groupCustomer.name).toBe(input.groupCustomer.name)

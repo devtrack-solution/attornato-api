@@ -34,8 +34,14 @@ import { GroupCustomerRepository } from '@/infrastructure/adapters/pgsql/reposit
 import { ProfileRepositoryOutboundPortSymbol } from '@/domain/profile/ports/outbound/profile-repository.outbound-port'
 import { ProfileRepository } from '@/infrastructure/adapters/pgsql/repositories/profile.repository'
 import { CommunicationChannelRepository } from '@/infrastructure/adapters/pgsql/repositories/communication-channel.repository'
-import { CommunicationChannelRepositoryOutboundPortSymbol } from "@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port";
+import { CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { DataSource, DataSourceOptions } from 'typeorm'
+import { LegalRepositoryOutboundPortSymbol } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
+import { LegalRepository } from '@/infrastructure/adapters/pgsql/repositories/legal.repository'
+import { IndividualRepositoryOutboundPortSymbol } from '@/domain/client/individual/ports/outbound/individual-repository.outbound-port'
+import { IndividualRepository } from '@/infrastructure/adapters/pgsql/repositories/individual.repository'
+import { IdentifierRepositoryOutboundPortSymbol } from '@/domain/client/identifier/ports/outbound/identifier-repository.outbound-port'
+import { IdentifierRepository } from '@/infrastructure/adapters/pgsql/repositories/identifier.repository'
 
 @Module({
   imports: [
@@ -120,6 +126,14 @@ import { DataSource, DataSourceOptions } from 'typeorm'
       provide: CommunicationChannelRepositoryOutboundPortSymbol,
       useClass: CommunicationChannelRepository,
     },
+    {
+      provide: LegalRepositoryOutboundPortSymbol,
+      useClass: LegalRepository,
+    },
+    {
+      provide: IndividualRepositoryOutboundPortSymbol,
+      useClass: IndividualRepository,
+    },
   ],
   exports: [
     DataSource,
@@ -191,6 +205,14 @@ import { DataSource, DataSourceOptions } from 'typeorm'
     {
       provide: CommunicationChannelRepositoryOutboundPortSymbol,
       useClass: CommunicationChannelRepository,
+    },
+    {
+      provide: LegalRepositoryOutboundPortSymbol,
+      useClass: LegalRepository,
+    },
+    {
+      provide: IndividualRepositoryOutboundPortSymbol,
+      useClass: IndividualRepository,
     },
   ],
 })

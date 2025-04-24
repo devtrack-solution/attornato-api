@@ -20,6 +20,8 @@ import { PartnerModule } from '@/application/services/partner/partner.module'
 import { ProfileModule } from '@/application/services/profile/profile.module'
 import { CommunicationChannelModule } from '@/application/services/communication-channel/communication-channel.module'
 import { LegalModule } from '@/application/services/client/legal/legal.module'
+import { IndividualModule } from '@/application/services/client/individual/individual.module'
+import { IdentifierModule } from '@/application/services/client/identifier/identifier.module'
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { LegalModule } from '@/application/services/client/legal/legal.module'
     FreeFieldModule,
     GroupCustomerModule,
     GroupProcessModule,
+    IdentifierModule,
+    IndividualModule,
     LegalModule,
     LocalProcedureNameModule,
     LocatorModule,

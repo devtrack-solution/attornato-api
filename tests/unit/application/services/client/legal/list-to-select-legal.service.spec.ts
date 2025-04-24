@@ -5,6 +5,7 @@ import { mock } from 'jest-mock-extended'
 import { LegalTestBuilder } from '@tests/unit/application/services/client/legal/legal-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
+import { v4 as uuidv4 } from 'uuid'
 
 describe('[APPLICATION] - ListToSelectLegalService', () => {
   let service: ListToSelectLegalService
@@ -21,8 +22,11 @@ describe('[APPLICATION] - ListToSelectLegalService', () => {
 
   it('should list legals successfully', async () => {
     const criteria: Criteria.FindBy = { search: 'user_management' }
-
-    const legal = LegalTestBuilder.getSuccess()
+    const communicationChannelId = uuidv4()
+    const groupCustomerId = uuidv4()
+    const profileId = uuidv4()
+    const freeFieldId = uuidv4()
+    const legal = LegalTestBuilder.getSuccess(communicationChannelId, groupCustomerId, profileId, freeFieldId)
     const legalSerialized = new Legal(legal).toPersistenceObject()
 
     legalRepository.findForSelectByCriteria.mockResolvedValue([legalSerialized])
