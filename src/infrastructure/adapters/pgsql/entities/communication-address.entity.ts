@@ -4,19 +4,19 @@ import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.
 
 @Entity('communication_address')
 export class CommunicationAddressEntity extends EntityBase {
-  @Column({ type: 'varchar', unique: true, length: 9 })
+  @Column({ type: 'varchar', length: 9 })
   zipCode!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   street!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   neighborhood!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   city!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   state!: string
 
   @OneToMany(() => ContactEntity, (contact) => contact.communicationAddress, {
