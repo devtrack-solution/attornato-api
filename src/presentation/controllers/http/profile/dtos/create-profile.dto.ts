@@ -3,5 +3,5 @@ import { OmitType } from '@nestjs/swagger';
 import { ProfileDto } from '@/presentation/controllers/http/profile/dtos/profile.dto'
 
 export class CreateProfileDto
-  extends OmitType(ProfileDto, ['id', 'userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable'])
+  extends OmitType(ProfileDto, ['userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable'])
   implements ProfileType.Input {}

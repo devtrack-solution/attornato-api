@@ -7,8 +7,9 @@ import { GroupCustomer } from '@/domain/group-customer/business-objects/group-cu
 import { Profile } from '@/domain/profile/business-objects/profile.bo'
 import { GroupCustomerType } from '@/domain/group-customer/types/group-customer.type'
 import { ProfileType } from '@/domain/profile/types/profile.type'
-import { Person } from '@/domain/client/individual/person/business-objects/person.bo'
-import { PersonType } from '@/domain/client/individual/person/types/person.type'
+import { Person } from '@/domain/client/person/business-objects/person.bo'
+import { PersonType } from '@/domain/client/person/types/person.type'
+
 export interface IIndividual extends IBusinessObject<IndividualType.Input, IndividualType.Output> {}
 
 export class Individual extends BaseBusinessObject<IndividualType.Repository, IndividualType.Output> implements IIndividual, IValidator {
