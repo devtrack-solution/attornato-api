@@ -4,10 +4,10 @@ import { FreeFieldEntity } from '@/infrastructure/adapters/pgsql/entities/free-f
 
 @Entity('contact_person')
 export class ContactPersonEntity extends EntityBase {
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   freeFieldOne!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   note!: string
 
   @Column({ type: 'varchar', nullable: true, length: 20 })

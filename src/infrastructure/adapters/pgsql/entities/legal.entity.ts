@@ -27,16 +27,16 @@ export class LegalEntity extends EntityBase {
   @Column({ type: 'uuid', nullable: true })
   personId?: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   responsible!: string
 
   @Column({ type: 'varchar', unique: true, length: 255 })
   companyName!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   tradeName!: string
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   businessArea!: string
 
   @Column({ type: 'varchar', unique: true, length: 20 })
