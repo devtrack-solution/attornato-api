@@ -3,24 +3,24 @@ import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 import {CreateFreeFieldDto} from "@/presentation/controllers/http/free-field/dtos/create-free-field.dto";
 
 export class ContactPersonDto extends BasicDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'Teste' })
   freeFieldOne!: string
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Observado que' })
   note!: string
 
   @ApiProperty({ type: CreateFreeFieldDto })
   freeField!: CreateFreeFieldDto
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: '(61) 9 8887-7766' })
   mobilePhone?: string
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: '(61) 8887-7766' })
   phoneNumber?: string
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: 'Jorge Silva' })
   fatherName?: string
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: 'Maria Silva' })
   motherName?: string
 }

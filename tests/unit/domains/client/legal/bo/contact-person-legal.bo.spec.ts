@@ -1,17 +1,20 @@
-import { ContactPerson } from '@/domain/client/legal/contact-person/business-objects/contact-person.bo'
 import { FreeField } from '@/domain/free-field/business-objects/free-field.bo'
 import { v4 as uuidv4 } from 'uuid'
+import { ContactPerson } from '@/domain/client/person/contact-person/business-objects/contact-person.bo'
 
 describe('ContactPerson BO', () => {
   const mockFreeField = new FreeField({
     id: uuidv4(),
-    name: 'Telefone comercial',
   })
 
   const mockInput = {
     id: uuidv4(),
     freeFieldOne: 'Contato preferencial',
     note: 'Cliente prefere ligação entre 13h e 17h',
+    mobilePhone: undefined,
+    phoneNumber: undefined,
+    fatherName: undefined,
+    motherName: undefined,
     freeField: mockFreeField,
   }
 
