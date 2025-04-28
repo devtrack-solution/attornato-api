@@ -1,6 +1,6 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import { GroupCustomerType } from '@/domain/group-customer/types/group-customer.type'
-import { ProfileType } from '@/domain/profile/types/profile.type'
+import { GroupCustomerType } from '@/domain/client/group-customer/types/group-customer.type'
+import { ProfileType } from '@/domain/client/profile/types/profile.type'
 import { PersonType } from '@/domain/client/person/types/person.type'
 
 export namespace IndividualType {

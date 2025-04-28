@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
-import { CreateGroupCustomerDto } from '@/presentation/controllers/http/group-customer/dtos/create-group-customer.dto'
-import { CreateProfileDto } from '@/presentation/controllers/http/profile/dtos/create-profile.dto'
+import { CreateGroupCustomerDto } from '@/presentation/controllers/http/client/group-customer/dtos/create-group-customer.dto'
+import { CreateProfileDto } from '@/presentation/controllers/http/client/profile/dtos/create-profile.dto'
 import { CreatePersonDto } from '@/presentation/controllers/http/client/person/dtos/create-person.dto'
 
 export class IndividualDto extends BasicDto {

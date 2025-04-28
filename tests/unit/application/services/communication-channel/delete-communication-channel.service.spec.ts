@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteCommunicationChannelService } from '@/application/services/communication-channel/delete-communication-channel.service'
-import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import { DeleteCommunicationChannelService } from '@/application/services/client/person/communication-address/contact/communication-channel/delete-communication-channel.service'
+import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteCommunicationChannelService', () => {

@@ -1,4 +1,4 @@
-import { ProfileType } from '@/domain/profile/types/profile.type'
+import { ProfileType } from '@/domain/client/profile/types/profile.type'
 
 export class ProfileTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

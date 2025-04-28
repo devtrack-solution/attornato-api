@@ -1,6 +1,6 @@
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
 import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
-import {CreateFreeFieldDto} from "@/presentation/controllers/http/free-field/dtos/create-free-field.dto";
+import {CreateFreeFieldDto} from "@/presentation/controllers/http/client/person/contact-person/free-field/dtos/create-free-field.dto";
 
 export class ContactPersonDto extends BasicDto {
   @ApiProperty({ example: 'Teste' })

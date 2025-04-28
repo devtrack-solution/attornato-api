@@ -2,7 +2,7 @@ import { ValidationBuilder, IValidator } from '@/core/domain/validators'
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
-import { FreeField } from '@/domain/free-field/business-objects/free-field.bo'
+import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
 import { ContactPersonType } from '@/domain/client/person/contact-person/types/contact-person.type'
 
 export interface IContactPerson extends IBusinessObject<ContactPersonType.Input, ContactPersonType.Output> {}

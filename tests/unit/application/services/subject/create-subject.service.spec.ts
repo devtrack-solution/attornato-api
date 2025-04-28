@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/free-field/ports/outbound/free-field-repository.outbound-port'
+import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/client/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateFreeFieldService } from '@/application/services/free-field/create-free-field.service'
+import { CreateFreeFieldService } from '@/application/services/client/person/contact-person/free-field/create-free-field.service'
 import { FreeFieldTestBuilder } from '@tests/unit/application/services/free-field/free-field-test.builder'
 
 describe('[APPLICATION] - CreateFreeFieldService', () => {

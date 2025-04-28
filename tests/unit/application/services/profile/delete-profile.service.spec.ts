@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteProfileService } from '@/application/services/profile/delete-profile.service'
-import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/profile/ports/outbound/profile-repository.outbound-port'
+import { DeleteProfileService } from '@/application/services/client/profile/delete-profile.service'
+import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/profile/ports/outbound/profile-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteProfileService', () => {

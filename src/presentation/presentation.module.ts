@@ -16,32 +16,23 @@ import { ProceduralStatusHttpControllerModule } from '@/presentation/controllers
 import { OriginHttpControllerModule } from '@/presentation/controllers/http/origin/origin-http-controller.module'
 import { LocalProcedureNameHttpControllerModule } from '@/presentation/controllers/http/local-procedure-name/local-procedure-name-http-controller.module'
 import { DetailsHttpControllerModule } from '@/presentation/controllers/http/details/details-http-controller.module'
-import { GroupCustomerHttpControllerModule } from '@/presentation/controllers/http/group-customer/group-customer-http-controller.module'
-import { ProfileHttpControllerModule } from '@/presentation/controllers/http/profile/profile-http-controller.module'
 import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/prognosis/prognosis-http-controller.module'
 import { CountyHttpControllerModule } from '@/presentation/controllers/http/county/county-http-controller.module'
-import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/free-field/group-process-http-controller.module'
 import { PartnerHttpControllerModule } from '@/presentation/controllers/http/partner/partner-http-controller.module'
-import { CommunicationChannelHttpControllerModule } from '@/presentation/controllers/http/communication-channel/communication-channel-http-controller.module'
 import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
-import { LegalHttpControllerModule } from '@/presentation/controllers/http/client/legal/legal-http-controller.module'
-import { IndividualHttpControllerModule } from '@/presentation/controllers/http/client/individual/individual-http-controller.module'
 import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/identifier/identifier-http-controller.module'
+import { ClientHttpControllerModule } from '@/presentation/controllers/http/client/client-http-controller.module'
 
 @Module({
   imports: [
     ThrottlerModule.forRoot(),
     ApplicationModule,
     ActionObjectHttpControllerModule,
-    CommunicationChannelHttpControllerModule,
+    ClientHttpControllerModule,
     CountyHttpControllerModule,
     DetailsHttpControllerModule,
-    FreeFieldHttpControllerModule,
-    GroupCustomerHttpControllerModule,
     GroupProcessHttpControllerModule,
     IdentifierHttpControllerModule,
-    IndividualHttpControllerModule,
-    LegalHttpControllerModule,
     LocalProcedureNameHttpControllerModule,
     LocatorHttpControllerModule,
     OriginHttpControllerModule,
@@ -50,7 +41,6 @@ import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/
     PhaseHttpControllerModule,
     PracticeAreaHttpControllerModule,
     ProceduralStatusHttpControllerModule,
-    ProfileHttpControllerModule,
     PrognosisHttpControllerModule,
     ResponsibleHttpControllerModule,
     SubjectHttpControllerModule,

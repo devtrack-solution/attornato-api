@@ -1,5 +1,5 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import { CommunicationAddressType } from '@/domain/communication-address/types/communication-address.type'
+import { CommunicationAddressType } from '@/domain/client/person/communication-address/types/communication-address.type'
 import { ContactPersonType } from '@/domain/client/person/contact-person/types/contact-person.type'
 
 export namespace PersonType {

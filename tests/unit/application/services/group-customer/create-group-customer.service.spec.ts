@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { GroupCustomerRepositoryOutboundPort, GroupCustomerRepositoryOutboundPortSymbol } from '@/domain/group-customer/ports/outbound/group-customer-repository.outbound-port'
+import { GroupCustomerRepositoryOutboundPort, GroupCustomerRepositoryOutboundPortSymbol } from '@/domain/client/group-customer/ports/outbound/group-customer-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateGroupCustomerService } from '@/application/services/group-customer/create-group-customer.service'
+import { CreateGroupCustomerService } from '@/application/services/client/group-customer/create-group-customer.service'
 import { GroupCustomerTestBuilder } from '@tests/unit/application/services/group-customer/group-customer-test.builder'
 
 describe('[APPLICATION] - CreateGroupCustomerService', () => {

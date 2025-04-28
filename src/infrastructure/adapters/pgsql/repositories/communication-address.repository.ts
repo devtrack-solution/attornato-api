@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import { CommunicationAddressRepositoryOutboundPort, CommunicationAddressRepositoryOutboundPortSymbol } from '@/domain/communication-address/ports/outbound/communication-address-repository.outbound-port'
+import { CommunicationAddressRepositoryOutboundPort, CommunicationAddressRepositoryOutboundPortSymbol } from '@/domain/client/person/communication-address/ports/outbound/communication-address-repository.outbound-port'
 import { CommunicationAddressEntity } from '@/infrastructure/adapters/pgsql/entities/communication-address.entity'
 
 @BindProvider(CommunicationAddressRepositoryOutboundPortSymbol)

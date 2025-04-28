@@ -1,4 +1,4 @@
-import { CommunicationAddress } from '@/domain/communication-address/business-objects/communication-address.bo'
+import { CommunicationAddress } from '@/domain/client/person/communication-address/business-objects/communication-address.bo'
 import { EntityBadDataLoadException, EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 import { ContactPerson } from '@/domain/client/person/contact-person/business-objects/contact-person.bo'

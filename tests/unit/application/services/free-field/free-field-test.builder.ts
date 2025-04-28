@@ -1,4 +1,4 @@
-import { FreeFieldType } from '@/domain/free-field/types/free-field.type'
+import { FreeFieldType } from '@/domain/client/person/contact-person/free-field/types/free-field.type'
 
 export class FreeFieldTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

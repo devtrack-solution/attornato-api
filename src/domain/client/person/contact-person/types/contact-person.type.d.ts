@@ -1,5 +1,5 @@
 import { BaseType } from '@/core/domain/types/base.type'
-import { FreeFieldType } from '@/domain/free-field/types/free-field.type'
+import { FreeFieldType } from '@/domain/client/person/contact-person/free-field/types/free-field.type'
 import { Column } from 'typeorm'
 
 export namespace ContactPersonType {

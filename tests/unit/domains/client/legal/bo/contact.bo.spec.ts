@@ -1,5 +1,5 @@
-import { Contact } from '@/domain/communication-address/contact/business-objects/contact.bo'
-import { CommunicationChannel } from '@/domain/communication-channel/business-objects/communication-channel.bo'
+import { Contact } from '@/domain/client/person/communication-address/contact/business-objects/contact.bo'
+import { CommunicationChannel } from '@/domain/client/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
 import { EntityBadDataLoadException, EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 
