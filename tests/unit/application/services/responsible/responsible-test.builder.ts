@@ -1,4 +1,4 @@
-import { ResponsibleType } from '@/domain/responsible/types/responsible.type'
+import { ResponsibleType } from '@/domain/process/responsible/types/responsible.type'
 
 export class ResponsibleTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

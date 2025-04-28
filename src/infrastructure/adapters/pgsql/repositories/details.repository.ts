@@ -6,7 +6,7 @@ import { DetailsEntity } from '@/infrastructure/adapters/pgsql/entities/details.
 import {
   DetailsRepositoryOutboundPort,
   DetailsRepositoryOutboundPortSymbol,
-} from '@/domain/details/ports/outbound/details-repository.outbound-port'
+} from '@/domain/process/details/ports/outbound/details-repository.outbound-port'
 
 @BindProvider(DetailsRepositoryOutboundPortSymbol)
 export class DetailsRepository extends RepositoryBase<DetailsEntity> implements DetailsRepositoryOutboundPort {

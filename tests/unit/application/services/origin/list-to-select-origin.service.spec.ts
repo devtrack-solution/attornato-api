@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectOriginService } from '@/application/services/origin/list-to-select-origin.service'
-import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/origin/ports/outbound/origin-repository.outbound-port'
+import { ListToSelectOriginService } from '@/application/services/process/origin/list-to-select-origin.service'
+import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/origin/ports/outbound/origin-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { OriginTestBuilder } from '@tests/unit/application/services/origin/origin-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

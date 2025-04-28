@@ -1,4 +1,4 @@
-import { ActionObjectType } from '@/domain/action-object/types/action-object.type'
+import { ActionObjectType } from '@/domain/process/action-object/types/action-object.type'
 
 export class ActionObjectTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

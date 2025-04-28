@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
-import { PhaseRepositoryOutboundPortSymbol, PhaseRepositoryOutboundPort } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
+import { PhaseRepositoryOutboundPortSymbol, PhaseRepositoryOutboundPort } from '@/domain/process/phase/ports/outbound/phase-repository.outbound-port'
 import { PhaseEntity } from '../entities/phase.entity'
 import { RepositoryBase } from './repository-base'
 

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/partner/ports/outbound/partner-repository.outbound-port'
+import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/process/partner/ports/outbound/partner-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreatePartnerService } from '@/application/services/partner/create-partner.service'
+import { CreatePartnerService } from '@/application/services/process/partner/create-partner.service'
 import { PartnerTestBuilder } from '@tests/unit/application/services/partner/partner-test.builder'
 
 describe('[APPLICATION] - CreatePartnerService', () => {

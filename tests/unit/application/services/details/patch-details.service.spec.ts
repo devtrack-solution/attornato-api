@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchDetailsService } from '@/application/services/details/patch-details.service'
-import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/details/ports/outbound/details-repository.outbound-port'
+import { PatchDetailsService } from '@/application/services/process/details/patch-details.service'
+import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/process/details/ports/outbound/details-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { DetailsTestBuilder } from '@tests/unit/application/services/details/details-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Details } from '@/domain/details/business-objects/details.bo'
+import { Details } from '@/domain/process/details/business-objects/details.bo'
 
 describe('[APPLICATION] - PatchDetailsService', () => {
   let service: PatchDetailsService

@@ -1,4 +1,4 @@
-import { ActionObject } from '@/domain/action-object/business-objects/action-object.bo'
+import { ActionObject } from '@/domain/process/action-object/business-objects/action-object.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

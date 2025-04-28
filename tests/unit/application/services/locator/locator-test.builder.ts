@@ -1,4 +1,4 @@
-import { LocatorType } from '@/domain/locator/types/locator.type'
+import { LocatorType } from '@/domain/process/locator/types/locator.type'
 
 export class LocatorTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

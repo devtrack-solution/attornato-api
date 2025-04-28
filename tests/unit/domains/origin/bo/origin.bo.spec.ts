@@ -1,4 +1,4 @@
-import { Origin } from '@/domain/origin/business-objects/origin.bo'
+import { Origin } from '@/domain/process/origin/business-objects/origin.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectResponsibleService } from '@/application/services/responsible/list-to-select-responsible.service'
-import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
+import { ListToSelectResponsibleService } from '@/application/services/process/responsible/list-to-select-responsible.service'
+import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/process/responsible/ports/outbound/responsible-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ResponsibleTestBuilder } from '@tests/unit/application/services/responsible/responsible-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

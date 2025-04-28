@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchLocalProcedureNameService } from '@/application/services/local-procedure-name/patch-local-procedure-name.service'
-import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+import { PatchLocalProcedureNameService } from '@/application/services/process/local-procedure-name/patch-local-procedure-name.service'
+import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/process/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { LocalProcedureNameTestBuilder } from '@tests/unit/application/services/local-procedure-name/local-procedure-name-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { LocalProcedureName } from '@/domain/local-procedure-name/business-objects/local-procedure-name.bo'
+import { LocalProcedureName } from '@/domain/process/local-procedure-name/business-objects/local-procedure-name.bo'
 
 describe('[APPLICATION] - PatchLocalProcedureNameService', () => {
   let service: PatchLocalProcedureNameService

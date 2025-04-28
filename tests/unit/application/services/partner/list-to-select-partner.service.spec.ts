@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectPartnerService } from '@/application/services/partner/list-to-select-partner.service'
-import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/partner/ports/outbound/partner-repository.outbound-port'
+import { ListToSelectPartnerService } from '@/application/services/process/partner/list-to-select-partner.service'
+import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/process/partner/ports/outbound/partner-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PartnerTestBuilder } from '@tests/unit/application/services/partner/partner-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

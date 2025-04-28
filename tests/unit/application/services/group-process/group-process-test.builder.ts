@@ -1,4 +1,4 @@
-import { GroupProcessType } from '@/domain/group-process/types/group-process.type'
+import { GroupProcessType } from '@/domain/process/group-process/types/group-process.type'
 
 export class GroupProcessTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

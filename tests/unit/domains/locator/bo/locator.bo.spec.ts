@@ -1,4 +1,4 @@
-import { Locator } from '@/domain/locator/business-objects/locator.bo'
+import { Locator } from '@/domain/process/locator/business-objects/locator.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

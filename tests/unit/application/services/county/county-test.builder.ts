@@ -1,4 +1,4 @@
-import { CountyType } from '@/domain/county/types/county.type'
+import { CountyType } from '@/domain/process/county/types/county.type'
 
 export class CountyTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

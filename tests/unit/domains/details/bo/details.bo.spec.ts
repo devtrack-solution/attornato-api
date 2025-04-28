@@ -1,4 +1,4 @@
-import { Details } from '@/domain/details/business-objects/details.bo'
+import { Details } from '@/domain/process/details/business-objects/details.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

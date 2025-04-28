@@ -5,7 +5,7 @@ import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/rep
 import {
   LocalProcedureNameRepositoryOutboundPort,
   LocalProcedureNameRepositoryOutboundPortSymbol,
-} from '@/domain/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+} from '@/domain/process/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { LocalProcedureNameEntity } from '@/infrastructure/adapters/pgsql/entities/local-procedure-name.entity'
 
 @BindProvider(LocalProcedureNameRepositoryOutboundPortSymbol)

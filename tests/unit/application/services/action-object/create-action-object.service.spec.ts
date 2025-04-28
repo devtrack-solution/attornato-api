@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/action-object/ports/outbound/action-object-repository.outbound-port'
+import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/action-object/ports/outbound/action-object-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateActionObjectService } from '@/application/services/action-object/create-action-object.service'
+import { CreateActionObjectService } from '@/application/services/process/action-object/create-action-object.service'
 import { ActionObjectTestBuilder } from '@tests/unit/application/services/action-object/action-object-test.builder'
 
 describe('[APPLICATION] - CreateActionObjectService', () => {

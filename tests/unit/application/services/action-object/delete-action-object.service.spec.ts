@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteActionObjectService } from '@/application/services/action-object/delete-action-object.service'
-import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/action-object/ports/outbound/action-object-repository.outbound-port'
+import { DeleteActionObjectService } from '@/application/services/process/action-object/delete-action-object.service'
+import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/action-object/ports/outbound/action-object-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteActionObjectService', () => {

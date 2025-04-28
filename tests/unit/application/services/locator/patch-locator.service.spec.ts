@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchLocatorService } from '@/application/services/locator/patch-locator.service'
-import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/locator/ports/outbound/locator-repository.outbound-port'
+import { PatchLocatorService } from '@/application/services/process/locator/patch-locator.service'
+import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/process/locator/ports/outbound/locator-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { LocatorTestBuilder } from '@tests/unit/application/services/locator/locator-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Locator } from '@/domain/locator/business-objects/locator.bo'
+import { Locator } from '@/domain/process/locator/business-objects/locator.bo'
 
 describe('[APPLICATION] - PatchLocatorService', () => {
   let service: PatchLocatorService

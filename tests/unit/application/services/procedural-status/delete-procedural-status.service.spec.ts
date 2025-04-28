@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteProceduralStatusService } from '@/application/services/procedural-status/delete-procedural-status.service'
-import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
+import { DeleteProceduralStatusService } from '@/application/services/process/procedural-status/delete-procedural-status.service'
+import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/process/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteProceduralStatusService', () => {

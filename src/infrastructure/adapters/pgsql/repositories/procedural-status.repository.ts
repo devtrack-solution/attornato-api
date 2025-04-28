@@ -5,7 +5,7 @@ import { RepositoryBase } from './repository-base'
 import {
   ProceduralStatusRepositoryOutboundPort,
   ProceduralStatusRepositoryOutboundPortSymbol,
-} from '@/domain/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
+} from '@/domain/process/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
 import { ProceduralStatusEntity } from '@/infrastructure/adapters/pgsql/entities/procedural-status.entity'
 
 @BindProvider(ProceduralStatusRepositoryOutboundPortSymbol)

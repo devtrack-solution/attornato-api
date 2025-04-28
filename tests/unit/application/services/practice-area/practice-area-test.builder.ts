@@ -1,4 +1,4 @@
-import { PracticeAreaType } from '@/domain/practice-area/types/practice-area.type'
+import { PracticeAreaType } from '@/domain/process/practice-area/types/practice-area.type'
 
 export class PracticeAreaTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

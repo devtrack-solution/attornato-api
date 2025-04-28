@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteLocalProcedureNameService } from '@/application/services/local-procedure-name/delete-local-procedure-name.service'
-import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+import { DeleteLocalProcedureNameService } from '@/application/services/process/local-procedure-name/delete-local-procedure-name.service'
+import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/process/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteLocalProcedureNameService', () => {

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchPhaseService } from '@/application/services/phase/patch-phase.service'
-import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/phase/ports/outbound/phase-repository.outbound-port'
+import { PatchPhaseService } from '@/application/services/process/phase/patch-phase.service'
+import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/phase/ports/outbound/phase-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PhaseTestBuilder } from '@tests/unit/application/services/phase/phase-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Phase } from '@/domain/phase/business-objects/phase.bo'
+import { Phase } from '@/domain/process/phase/business-objects/phase.bo'
 
 describe('[APPLICATION] - PatchPhaseService', () => {
   let service: PatchPhaseService

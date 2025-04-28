@@ -1,4 +1,4 @@
-import { ProceduralStatusType } from '@/domain/procedural-status/types/procedural-status.type'
+import { ProceduralStatusType } from '@/domain/process/procedural-status/types/procedural-status.type'
 
 export class ProceduralStatusTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

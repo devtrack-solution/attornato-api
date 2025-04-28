@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectDetailsService } from '@/application/services/details/list-to-select-details.service'
-import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/details/ports/outbound/details-repository.outbound-port'
+import { ListToSelectDetailsService } from '@/application/services/process/details/list-to-select-details.service'
+import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/process/details/ports/outbound/details-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { DetailsTestBuilder } from '@tests/unit/application/services/details/details-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

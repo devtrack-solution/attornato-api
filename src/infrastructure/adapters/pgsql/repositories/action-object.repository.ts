@@ -5,7 +5,7 @@ import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/rep
 import {
   ActionObjectRepositoryOutboundPort,
   ActionObjectRepositoryOutboundPortSymbol,
-} from '@/domain/action-object/ports/outbound/action-object-repository.outbound-port'
+} from '@/domain/process/action-object/ports/outbound/action-object-repository.outbound-port'
 import { ActionObjectEntity } from '@/infrastructure/adapters/pgsql/entities/action-object.entity'
 
 @BindProvider(ActionObjectRepositoryOutboundPortSymbol)

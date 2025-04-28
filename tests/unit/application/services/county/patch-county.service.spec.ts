@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchCountyService } from '@/application/services/county/patch-county.service'
-import { CountyRepositoryOutboundPort, CountyRepositoryOutboundPortSymbol } from '@/domain/county/ports/outbound/county-repository.outbound-port'
+import { PatchCountyService } from '@/application/services/process/county/patch-county.service'
+import { CountyRepositoryOutboundPort, CountyRepositoryOutboundPortSymbol } from '@/domain/process/county/ports/outbound/county-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CountyTestBuilder } from '@tests/unit/application/services/county/county-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { County } from '@/domain/county/business-objects/county.bo'
+import { County } from '@/domain/process/county/business-objects/county.bo'
 
 describe('[APPLICATION] - PatchCountyService', () => {
   let service: PatchCountyService

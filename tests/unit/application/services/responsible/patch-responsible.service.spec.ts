@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchResponsibleService } from '@/application/services/responsible/patch-responsible.service'
-import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
+import { PatchResponsibleService } from '@/application/services/process/responsible/patch-responsible.service'
+import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/process/responsible/ports/outbound/responsible-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ResponsibleTestBuilder } from '@tests/unit/application/services/responsible/responsible-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Responsible } from '@/domain/responsible/business-objects/responsible.bo'
+import { Responsible } from '@/domain/process/responsible/business-objects/responsible.bo'
 
 describe('[APPLICATION] - PatchResponsibleService', () => {
   let service: PatchResponsibleService

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectCountyService } from '@/application/services/county/list-to-select-county.service'
-import { CountyRepositoryOutboundPort, CountyRepositoryOutboundPortSymbol } from '@/domain/county/ports/outbound/county-repository.outbound-port'
+import { ListToSelectCountyService } from '@/application/services/process/county/list-to-select-county.service'
+import { CountyRepositoryOutboundPort, CountyRepositoryOutboundPortSymbol } from '@/domain/process/county/ports/outbound/county-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CountyTestBuilder } from '@tests/unit/application/services/county/county-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

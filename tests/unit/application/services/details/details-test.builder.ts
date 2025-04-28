@@ -1,4 +1,4 @@
-import { DetailsType } from '@/domain/details/types/details.type'
+import { DetailsType } from '@/domain/process/details/types/details.type'
 
 export class DetailsTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

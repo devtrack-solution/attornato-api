@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectLocatorService } from '@/application/services/locator/list-to-select-locator.service'
-import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/locator/ports/outbound/locator-repository.outbound-port'
+import { ListToSelectLocatorService } from '@/application/services/process/locator/list-to-select-locator.service'
+import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/process/locator/ports/outbound/locator-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { LocatorTestBuilder } from '@tests/unit/application/services/locator/locator-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/details/ports/outbound/details-repository.outbound-port'
+import { DetailsRepositoryOutboundPort, DetailsRepositoryOutboundPortSymbol } from '@/domain/process/details/ports/outbound/details-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateDetailsService } from '@/application/services/details/create-details.service'
+import { CreateDetailsService } from '@/application/services/process/details/create-details.service'
 import { DetailsTestBuilder } from '@tests/unit/application/services/details/details-test.builder'
 
 describe('[APPLICATION] - CreateDetailsService', () => {

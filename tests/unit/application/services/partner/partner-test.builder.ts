@@ -1,4 +1,4 @@
-import { PartnerType } from '@/domain/partner/types/partner.type'
+import { PartnerType } from '@/domain/process/partner/types/partner.type'
 
 export class PartnerTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

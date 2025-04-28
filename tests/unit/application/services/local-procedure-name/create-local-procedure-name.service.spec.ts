@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/process/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateLocalProcedureNameService } from '@/application/services/local-procedure-name/create-local-procedure-name.service'
+import { CreateLocalProcedureNameService } from '@/application/services/process/local-procedure-name/create-local-procedure-name.service'
 import { LocalProcedureNameTestBuilder } from '@tests/unit/application/services/local-procedure-name/local-procedure-name-test.builder'
 
 describe('[APPLICATION] - CreateLocalProcedureNameService', () => {

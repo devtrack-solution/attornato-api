@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchProceduralStatusService } from '@/application/services/procedural-status/patch-procedural-status.service'
-import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
+import { PatchProceduralStatusService } from '@/application/services/process/procedural-status/patch-procedural-status.service'
+import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/process/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ProceduralStatusTestBuilder } from '@tests/unit/application/services/procedural-status/procedural-status-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { ProceduralStatus } from '@/domain/procedural-status/business-objects/procedural-status.bo'
+import { ProceduralStatus } from '@/domain/process/procedural-status/business-objects/procedural-status.bo'
 
 describe('[APPLICATION] - PatchProceduralStatusService', () => {
   let service: PatchProceduralStatusService

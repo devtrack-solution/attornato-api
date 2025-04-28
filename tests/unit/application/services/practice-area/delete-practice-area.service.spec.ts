@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeletePracticeAreaService } from '@/application/services/practice-area/delete-practice-area.service'
-import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import { DeletePracticeAreaService } from '@/application/services/process/practice-area/delete-practice-area.service'
+import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeletePracticeAreaService', () => {

@@ -1,4 +1,4 @@
-import { PrognosisType } from '@/domain/prognosis/types/prognosis.type'
+import { PrognosisType } from '@/domain/process/prognosis/types/prognosis.type'
 
 export class PrognosisTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

@@ -1,4 +1,4 @@
-import { ProceduralStatus } from '@/domain/procedural-status/business-objects/procedural-status.bo'
+import { ProceduralStatus } from '@/domain/process/procedural-status/business-objects/procedural-status.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

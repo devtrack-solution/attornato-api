@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/responsible/ports/outbound/responsible-repository.outbound-port'
+import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/process/responsible/ports/outbound/responsible-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateResponsibleService } from '@/application/services/responsible/create-responsible.service'
+import { CreateResponsibleService } from '@/application/services/process/responsible/create-responsible.service'
 import { ResponsibleTestBuilder } from '@tests/unit/application/services/responsible/responsible-test.builder'
 
 describe('[APPLICATION] - CreateResponsibleService', () => {

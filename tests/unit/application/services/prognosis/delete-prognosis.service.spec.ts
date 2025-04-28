@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeletePrognosisService } from '@/application/services/prognosis/delete-prognosis.service'
-import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/prognosis/ports/outbound/prognosis-repository.outbound-port'
+import { DeletePrognosisService } from '@/application/services/process/prognosis/delete-prognosis.service'
+import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/prognosis/ports/outbound/prognosis-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeletePrognosisService', () => {
