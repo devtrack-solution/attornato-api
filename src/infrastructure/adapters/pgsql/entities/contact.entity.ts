@@ -8,7 +8,7 @@ export class ContactEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 17 })
   value!: string
 
-  @ManyToOne(() => CommunicationChannelEntity, (communicationChannel) => communicationChannel.contacts)
+  @ManyToOne(() => CommunicationChannelEntity, (communicationChannel) => communicationChannel.contacts, { eager: true })
   @JoinColumn({ name: 'communicationChannelId', referencedColumnName: 'id' })
   communicationChannel!: CommunicationChannelEntity
 

@@ -22,7 +22,6 @@ import { CommunicationChannelModule } from '@/application/services/communication
 import { LegalModule } from '@/application/services/client/legal/legal.module'
 import { IndividualModule } from '@/application/services/client/individual/individual.module'
 import { IdentifierModule } from '@/application/services/client/identifier/identifier.module'
-import { ClientModule } from '@/application/services/client/client.module'
 
 @Module({
   imports: [
@@ -32,7 +31,6 @@ import { ClientModule } from '@/application/services/client/client.module'
     }),
     ActionObjectModule,
     CommunicationChannelModule,
-    ClientModule,
     CountyModule,
     DetailsModule,
     FreeFieldModule,

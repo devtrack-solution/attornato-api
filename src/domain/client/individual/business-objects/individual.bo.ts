@@ -27,8 +27,6 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
   private _pis!: string
 
   private loadData(data: IndividualType.Input): IndividualType.Output {
-    console.log(JSON.stringify(data, null, 2))
-    console.log(data.birthDate)
     try {
       this._groupCustomer = GroupCustomer.fromReference(data.groupCustomer)
       this._profile = Profile.fromReference(data.profile)

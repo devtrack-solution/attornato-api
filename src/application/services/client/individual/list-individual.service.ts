@@ -12,10 +12,14 @@ export class ListIndividualService implements ListIndividualInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<IndividualType.OutputPaginated> {
-    // const select: string[] = ['id', 'name', 'status', 'createdAt']
     const select: string[] = []
-    const relations: string[] = []
-    const searchFields: string[] = ['name']
+    const relations: string[] = [
+      'groupCustomer',
+      'profile',
+      'person.communicationAddress.contacts.communicationChannel',
+      'person.contactPerson.freeField',
+    ]
+    const searchFields: string[] = ['name', 'person.clientId']
     const order = { createdAt: 'ASC' }
     let result = await this.individualRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let  individual  = result.data.map(( individual ) =>  individual  as IndividualType.Output)

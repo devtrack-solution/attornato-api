@@ -22,7 +22,7 @@ export class ContactPersonEntity extends EntityBase {
   @Column({ type: 'varchar', nullable: true, length: 255 })
   motherName?: string
 
-  @ManyToOne(() => FreeFieldEntity, (freeField) => freeField.contactPerson)
+  @ManyToOne(() => FreeFieldEntity, (freeField) => freeField.contactPerson, { eager: true })
   @JoinColumn({ name: 'freeFieldId', referencedColumnName: 'id' })
   freeField!: FreeFieldEntity
 
