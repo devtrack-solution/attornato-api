@@ -27,12 +27,14 @@ import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
 import { LegalHttpControllerModule } from '@/presentation/controllers/http/client/legal/legal-http-controller.module'
 import { IndividualHttpControllerModule } from '@/presentation/controllers/http/client/individual/individual-http-controller.module'
 import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/identifier/identifier-http-controller.module'
+import { ClientHttpControllerModule } from '@/presentation/controllers/http/client/client-http-controller.module'
 
 @Module({
   imports: [
     ThrottlerModule.forRoot(),
     ApplicationModule,
     ActionObjectHttpControllerModule,
+    ClientHttpControllerModule,
     CommunicationChannelHttpControllerModule,
     CountyHttpControllerModule,
     DetailsHttpControllerModule,
