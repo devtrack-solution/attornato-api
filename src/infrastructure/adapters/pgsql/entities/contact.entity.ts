@@ -5,7 +5,7 @@ import {CommunicationAddressEntity} from "@/infrastructure/adapters/pgsql/entiti
 
 @Entity('contact')
 export class ContactEntity extends EntityBase {
-  @Column({ type: 'varchar', unique: true, length: 17 })
+  @Column({ type: 'varchar', length: 17 })
   value!: string
 
   @ManyToOne(() => CommunicationChannelEntity, (communicationChannel) => communicationChannel.contacts, { eager: true })
