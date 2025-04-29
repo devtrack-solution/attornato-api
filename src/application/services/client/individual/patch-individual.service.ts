@@ -5,6 +5,7 @@ import { Individual } from '@/domain/client/individual/business-objects/individu
 import { PatchIndividualInboundPort } from '@/domain/client/individual/ports/inbound/patch-individual.inbound-port'
 import { IndividualRepositoryOutboundPortSymbol, IndividualRepositoryOutboundPort } from '@/domain/client/individual/ports/outbound/individual-repository.outbound-port'
 import { IndividualType } from '@/domain/client/individual/types/individual.type'
+import { v4 as uuidv4 } from 'uuid'
 
 @Injectable()
 export class PatchIndividualService implements PatchIndividualInboundPort {
@@ -14,7 +15,14 @@ export class PatchIndividualService implements PatchIndividualInboundPort {
   ) {}
 
   async execute(data: Partial<IndividualType.Input>, criteria: Criteria.ById): Promise<void> {
-    const relations: string[] = []
+    const relations: string[] = ['groupCustomer', 'profile', 'person.communicationAddress.contacts', 'person.contactPerson.freeField']
+    const communication = data.person?.communicationAddress
+    if (Array.isArray(communication?.contacts)) {
+      communication.contacts = communication.contacts.map((contact) => ({
+        id: contact.id ?? uuidv4(),
+        ...contact,
+      }))
+    }
     await this.individualRepository.patchObject(data, criteria, Individual, relations)
   }
 }

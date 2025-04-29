@@ -5,6 +5,7 @@ import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
 import { PatchLegalInboundPort } from '@/domain/client/legal/ports/inbound/patch-legal.inbound-port'
 import { LegalRepositoryOutboundPortSymbol, LegalRepositoryOutboundPort } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
 import { LegalType } from '@/domain/client/legal/types/legal.type'
+import { v4 as uuidv4 } from 'uuid'
 
 @Injectable()
 export class PatchLegalService implements PatchLegalInboundPort {
@@ -14,7 +15,14 @@ export class PatchLegalService implements PatchLegalInboundPort {
   ) {}
 
   async execute(data: Partial<LegalType.Input>, criteria: Criteria.ById): Promise<void> {
-    const relations: string[] = []
+    const relations: string[] = ['groupCustomer', 'profile', 'person.communicationAddress.contacts', 'person.contactPerson.freeField']
+    const communication = data.person?.communicationAddress
+    if (Array.isArray(communication?.contacts)) {
+      communication.contacts = communication.contacts.map((contact) => ({
+        id: contact.id ?? uuidv4(),
+        ...contact,
+      }))
+    }
     await this.legalRepository.patchObject(data, criteria, Legal, relations)
   }
 }
