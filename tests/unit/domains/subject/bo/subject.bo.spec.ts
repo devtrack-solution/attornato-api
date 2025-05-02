@@ -1,4 +1,4 @@
-import { Responsible } from '@/domain/process/responsible/business-objects/responsible.bo'
+import { Responsible } from '@/domain/process/component/responsible/business-objects/responsible.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

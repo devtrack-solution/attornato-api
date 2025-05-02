@@ -13,7 +13,7 @@ export class Permission extends BaseBusinessObject<PermissionType.Repository, Pe
 
   private loadData(data: PermissionType.Input): PermissionType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
       this._description = data.description
       this._resource = data.resource
     } catch (e) {

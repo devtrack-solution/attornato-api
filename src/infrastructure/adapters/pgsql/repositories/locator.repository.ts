@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import { LocatorRepositoryOutboundPortSymbol, LocatorRepositoryOutboundPort } from '@/domain/process/locator/ports/outbound/locator-repository.outbound-port'
+import { LocatorRepositoryOutboundPortSymbol, LocatorRepositoryOutboundPort } from '@/domain/process/component/locator/ports/outbound/locator-repository.outbound-port'
 import { LocatorEntity } from '../entities/locator.entity'
 
 @BindProvider(LocatorRepositoryOutboundPortSymbol)

@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { FreeFieldType } from '@/domain/client/person/contact-person/free-field/types/free-field.type'
+import { FreeFieldType } from '@/domain/client/component/person/contact-person/free-field/types/free-field.type'
 import {
   ListToSelectFreeFieldInboundPort
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/list-to-select-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/list-to-select-free-field.inbound-port'
 import {
   FreeFieldRepositoryOutboundPort,
   FreeFieldRepositoryOutboundPortSymbol,
-} from '@/domain/client/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
+} from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 
 @Injectable()
 export class ListToSelectFreeFieldService implements ListToSelectFreeFieldInboundPort {

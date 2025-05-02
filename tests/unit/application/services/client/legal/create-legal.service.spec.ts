@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { CreateLegalService } from '@/application/services/client/legal/create-legal.service'
-import { LegalRepositoryOutboundPort, LegalRepositoryOutboundPortSymbol } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
+import { LegalRepositoryOutboundPort, LegalRepositoryOutboundPortSymbol } from '@/domain/client/component/legal/ports/outbound/legal-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { LegalTestBuilder } from './legal-test.builder'
-import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
+import { Legal } from '@/domain/client/component/legal/business-objects/legal.bo'
 
 describe('[APPLICATION] - CreateLegalService', () => {
   let service: CreateLegalService

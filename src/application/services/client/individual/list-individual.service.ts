@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { ListIndividualInboundPort } from '@/domain/client/individual/ports/inbound/list-individual.inbound-port'
-import { IndividualRepositoryOutboundPortSymbol, IndividualRepositoryOutboundPort } from '@/domain/client/individual/ports/outbound/individual-repository.outbound-port'
-import { IndividualType } from '@/domain/client/individual/types/individual.type'
+import { ListIndividualInboundPort } from '@/domain/client/component/individual/ports/inbound/list-individual.inbound-port'
+import { IndividualRepositoryOutboundPortSymbol, IndividualRepositoryOutboundPort } from '@/domain/client/component/individual/ports/outbound/individual-repository.outbound-port'
+import { IndividualType } from '@/domain/client/component/individual/types/individual.type'
 
 @Injectable()
 export class ListIndividualService implements ListIndividualInboundPort {

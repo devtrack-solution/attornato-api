@@ -15,7 +15,7 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
 
   private loadData(data: RoleType.Input): RoleType.Output {
     try {
-      this._name = data.name
+      this._name = data.name ?? ''
       this._description = data.description
       this._level = data.level
       this._permissions = data?.permissions?.length > 0 ? data.permissions.map((p) => new Permission(p)) : []

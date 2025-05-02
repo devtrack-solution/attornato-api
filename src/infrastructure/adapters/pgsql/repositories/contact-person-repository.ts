@@ -3,7 +3,7 @@ import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
 import { ContactPersonEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person.entity'
-import { ContactPersonRepositoryOutboundPort, ContactPersonRepositoryOutboundPortSymbol } from '@/domain/client/person/contact-person/ports/outbound/contact-person-repository.outbound-port'
+import { ContactPersonRepositoryOutboundPort, ContactPersonRepositoryOutboundPortSymbol } from '@/domain/client/component/person/contact-person/ports/outbound/contact-person-repository.outbound-port'
 
 @BindProvider(ContactPersonRepositoryOutboundPortSymbol)
 export class ContactPersonRepository extends RepositoryBase<ContactPersonEntity> implements ContactPersonRepositoryOutboundPort {

@@ -5,7 +5,7 @@ import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/rep
 import {
   FreeFieldRepositoryOutboundPort,
   FreeFieldRepositoryOutboundPortSymbol,
-} from '@/domain/client/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
 import { FreeFieldEntity } from '@/infrastructure/adapters/pgsql/entities/free-field.entity'
 
 @BindProvider(FreeFieldRepositoryOutboundPortSymbol)

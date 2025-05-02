@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchOriginService } from '@/application/services/process/origin/patch-origin.service'
-import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/origin/ports/outbound/origin-repository.outbound-port'
+import { PatchOriginService } from '@/application/services/process/component/origin/patch-origin.service'
+import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/component/origin/ports/outbound/origin-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { OriginTestBuilder } from '@tests/unit/application/services/origin/origin-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Origin } from '@/domain/process/origin/business-objects/origin.bo'
+import { Origin } from '@/domain/process/component/origin/business-objects/origin.bo'
 
 describe('[APPLICATION] - PatchOriginService', () => {
   let service: PatchOriginService

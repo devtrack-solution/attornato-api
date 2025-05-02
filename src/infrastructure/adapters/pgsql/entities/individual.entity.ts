@@ -1,32 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
-import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/group-customer.entity'
-import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'
-import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
-import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
+import { ChildEntity, Column } from 'typeorm'
+import { ClientBaseEntity } from '@/infrastructure/adapters/pgsql/entities/client-base.entity'
 
-@Entity('individual')
-export class IndividualEntity extends EntityBase {
-  @ManyToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.individual)
-  @JoinColumn({ name: 'groupCustomerId', referencedColumnName: 'id' })
-  groupCustomer!: GroupCustomerEntity
-
-  @Column({ type: 'uuid', nullable: true })
-  groupCustomerId?: string
-
-  @ManyToOne(() => ProfileEntity, (profile) => profile.individual)
-  @JoinColumn({ name: 'profileId', referencedColumnName: 'id' })
-  profile!: ProfileEntity
-
-  @Column({ type: 'uuid', nullable: true })
-  profileId?: string
-
-  @ManyToOne(() => PersonEntity, (person) => person.individual, { cascade: true, eager: true })
-  @JoinColumn({ name: 'personId', referencedColumnName: 'id' })
-  person!: PersonEntity
-
-  @Column({ type: 'uuid', nullable: true })
-  personId?: string
-
+@ChildEntity('client-individual')
+export class IndividualEntity extends ClientBaseEntity {
   @Column({ type: 'varchar', length: 255 })
   name!: string
 

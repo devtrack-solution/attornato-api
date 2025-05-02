@@ -1,4 +1,4 @@
-import { GroupCustomerType } from '@/domain/client/group-customer/types/group-customer.type'
+import { GroupCustomerType } from '@/domain/client/component/group-customer/types/group-customer.type'
 
 export class GroupCustomerTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

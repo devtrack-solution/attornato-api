@@ -1,4 +1,4 @@
-import { PracticeArea } from '@/domain/process/practice-area/business-objects/practice-area.bo'
+import { PracticeArea } from '@/domain/process/component/practice-area/business-objects/practice-area.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

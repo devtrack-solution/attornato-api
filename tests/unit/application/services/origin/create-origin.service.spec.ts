@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/origin/ports/outbound/origin-repository.outbound-port'
+import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/component/origin/ports/outbound/origin-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateOriginService } from '@/application/services/process/origin/create-origin.service'
+import { CreateOriginService } from '@/application/services/process/component/origin/create-origin.service'
 import { OriginTestBuilder } from '@tests/unit/application/services/origin/origin-test.builder'
 
 describe('[APPLICATION] - CreateOriginService', () => {

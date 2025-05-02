@@ -3,7 +3,7 @@ import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
 import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
-import { LegalRepositoryOutboundPort, LegalRepositoryOutboundPortSymbol } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
+import { LegalRepositoryOutboundPort, LegalRepositoryOutboundPortSymbol } from '@/domain/client/component/legal/ports/outbound/legal-repository.outbound-port'
 
 @BindProvider(LegalRepositoryOutboundPortSymbol)
 export class LegalRepository extends RepositoryBase<LegalEntity> implements LegalRepositoryOutboundPort {

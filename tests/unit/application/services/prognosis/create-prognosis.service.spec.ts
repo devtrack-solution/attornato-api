@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/prognosis/ports/outbound/prognosis-repository.outbound-port'
+import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/component/prognosis/ports/outbound/prognosis-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreatePrognosisService } from '@/application/services/process/prognosis/create-prognosis.service'
+import { CreatePrognosisService } from '@/application/services/process/component/prognosis/create-prognosis.service'
 import { PrognosisTestBuilder } from '@tests/unit/application/services/prognosis/prognosis-test.builder'
 
 describe('[APPLICATION] - CreatePrognosisService', () => {

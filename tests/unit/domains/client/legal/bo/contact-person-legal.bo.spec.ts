@@ -1,6 +1,6 @@
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 import { v4 as uuidv4 } from 'uuid'
-import { ContactPerson } from '@/domain/client/person/contact-person/business-objects/contact-person.bo'
+import { ContactPerson } from '@/domain/client/component/person/contact-person/business-objects/contact-person.bo'
 
 describe('ContactPerson BO', () => {
   const mockFreeField = new FreeField({

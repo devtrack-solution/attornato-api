@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectPracticeAreaService } from '@/application/services/process/practice-area/list-to-select-practice-area.service'
-import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import { ListToSelectPracticeAreaService } from '@/application/services/process/component/practice-area/list-to-select-practice-area.service'
+import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PracticeAreaTestBuilder } from '@tests/unit/application/services/practice-area/practice-area-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

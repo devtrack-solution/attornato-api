@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { CreateCommunicationChannelInboundPort } from '@/domain/client/person/communication-address/contact/communication-channel/ports/inbound/create-communication-channel.inbound-port'
-import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
-import { CommunicationChannelType } from '@/domain/client/person/communication-address/contact/communication-channel/types/communication-channel.type'
-import { CommunicationChannel } from '@/domain/client/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
+import { CreateCommunicationChannelInboundPort } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/inbound/create-communication-channel.inbound-port'
+import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import { CommunicationChannelType } from '@/domain/client/component/person/communication-address/contact/communication-channel/types/communication-channel.type'
+import { CommunicationChannel } from '@/domain/client/component/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
 
 @Injectable()
 export class CreateCommunicationChannelService implements CreateCommunicationChannelInboundPort {

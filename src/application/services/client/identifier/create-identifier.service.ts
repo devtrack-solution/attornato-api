@@ -1,7 +1,7 @@
-import { Identifier } from '@/domain/client/identifier/business-objects/identifier.bo'
-import { CreateIdentifierInboundPort } from '@/domain/client/identifier/ports/inbound/create-identifier-responsible.inbound-port'
-import { IdentifierRepositoryOutboundPortSymbol, IdentifierRepositoryOutboundPort } from '@/domain/client/identifier/ports/outbound/identifier-repository.outbound-port'
-import { IdentifierType } from '@/domain/client/identifier/types/identifier.type'
+import { Identifier } from '@/domain/client/component/identifier/business-objects/identifier.bo'
+import { CreateIdentifierInboundPort } from '@/domain/client/component/identifier/ports/inbound/create-identifier-responsible.inbound-port'
+import { IdentifierRepositoryOutboundPortSymbol, IdentifierRepositoryOutboundPort } from '@/domain/client/component/identifier/ports/outbound/identifier-repository.outbound-port'
+import { IdentifierType } from '@/domain/client/component/identifier/types/identifier.type'
 import { Inject, Injectable } from '@nestjs/common'
 
 @Injectable()

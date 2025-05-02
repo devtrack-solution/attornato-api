@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteResponsibleService } from '@/application/services/process/responsible/delete-responsible.service'
-import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/process/responsible/ports/outbound/responsible-repository.outbound-port'
+import { DeleteResponsibleService } from '@/application/services/process/component/responsible/delete-responsible.service'
+import { ResponsibleRepositoryOutboundPort, ResponsibleRepositoryOutboundPortSymbol } from '@/domain/process/component/responsible/ports/outbound/responsible-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteResponsibleService', () => {

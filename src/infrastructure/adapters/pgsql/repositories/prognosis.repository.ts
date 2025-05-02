@@ -3,7 +3,7 @@ import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
 import { PrognosisEntity } from '@/infrastructure/adapters/pgsql/entities/prognosis.entity'
-import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/prognosis/ports/outbound/prognosis-repository.outbound-port'
+import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/component/prognosis/ports/outbound/prognosis-repository.outbound-port'
 
 @BindProvider(PrognosisRepositoryOutboundPortSymbol)
 export class PrognosisRepository extends RepositoryBase<PrognosisEntity> implements PrognosisRepositoryOutboundPort {

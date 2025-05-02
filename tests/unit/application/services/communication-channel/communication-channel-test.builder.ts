@@ -1,4 +1,4 @@
-import { CommunicationChannelType } from '@/domain/client/person/communication-address/contact/communication-channel/types/communication-channel.type'
+import { CommunicationChannelType } from '@/domain/client/component/person/communication-address/contact/communication-channel/types/communication-channel.type'
 
 export class CommunicationChannelTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

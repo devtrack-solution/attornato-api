@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm'
-import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
+import { Legal } from '@/domain/client/component/legal/business-objects/legal.bo'
 import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
 import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/group-customer.entity'
 import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'

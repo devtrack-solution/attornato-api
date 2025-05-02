@@ -1,11 +1,11 @@
-import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
-import { GroupCustomer } from '@/domain/client/group-customer/business-objects/group-customer.bo'
-import { Profile } from '@/domain/client/profile/business-objects/profile.bo'
-import { CommunicationAddress } from '@/domain/client/person/communication-address/business-objects/communication-address.bo'
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
+import { Legal } from '@/domain/client/component/legal/business-objects/legal.bo'
+import { GroupCustomer } from '@/domain/client/component/group-customer/business-objects/group-customer.bo'
+import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
+import { CommunicationAddress } from '@/domain/client/component/person/communication-address/business-objects/communication-address.bo'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 import { v4 as uuidv4 } from 'uuid'
-import { ContactPerson } from '@/domain/client/person/contact-person/business-objects/contact-person.bo'
-import { Person } from '@/domain/client/person/business-objects/person.bo'
+import { ContactPerson } from '@/domain/client/component/person/contact-person/business-objects/contact-person.bo'
+import { Person } from '@/domain/client/component/person/business-objects/person.bo'
 
 describe('Legal Business Object - CRUD', () => {
   const baseInput = {

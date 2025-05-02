@@ -1,4 +1,4 @@
-import { OriginType } from '@/domain/process/origin/types/origin.type'
+import { OriginType } from '@/domain/process/component/origin/types/origin.type'
 
 export class OriginTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

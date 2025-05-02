@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import { ResponsibleRepositoryOutboundPortSymbol, ResponsibleRepositoryOutboundPort } from '@/domain/process/responsible/ports/outbound/responsible-repository.outbound-port'
+import { ResponsibleRepositoryOutboundPortSymbol, ResponsibleRepositoryOutboundPort } from '@/domain/process/component/responsible/ports/outbound/responsible-repository.outbound-port'
 import { ResponsibleEntity } from '../entities/responsible.entity'
 
 @BindProvider(ResponsibleRepositoryOutboundPortSymbol)

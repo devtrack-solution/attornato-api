@@ -1,9 +1,8 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, TableInheritance } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { CommunicationAddressEntity } from '@/infrastructure/adapters/pgsql/entities/communication-address.entity'
-import { LegalEntity } from '@/infrastructure/adapters/pgsql/entities/legal.entity'
 import { ContactPersonEntity } from '@/infrastructure/adapters/pgsql/entities/contact-person.entity'
-import { IndividualEntity } from '@/infrastructure/adapters/pgsql/entities/individual.entity'
+import { ClientBaseEntity } from '@/infrastructure/adapters/pgsql/entities/client-base.entity'
 
 @Entity('persons')
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
@@ -25,9 +24,6 @@ export class PersonEntity extends EntityBase {
   @Column({ type: 'uuid', nullable: true })
   contactPersonId?: string
 
-  @OneToMany(() => LegalEntity, (legal) => legal.person)
-  legal?: LegalEntity[]
-
-  @OneToMany(() => IndividualEntity, (individual) => individual.person)
-  individual?: IndividualEntity[]
+  @OneToMany(() => ClientBaseEntity, (client) => client.person)
+  client?: ClientBaseEntity[]
 }

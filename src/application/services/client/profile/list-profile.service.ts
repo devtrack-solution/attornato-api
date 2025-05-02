@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { ListProfileInboundPort } from '@/domain/client/profile/ports/inbound/list-profile.inbound-port'
-import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/profile/ports/outbound/profile-repository.outbound-port'
-import { Profile } from '@/domain/client/profile/business-objects/profile.bo'
-import { ProfileType } from '@/domain/client/profile/types/profile.type'
+import { ListProfileInboundPort } from '@/domain/client/component/profile/ports/inbound/list-profile.inbound-port'
+import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/component/profile/ports/outbound/profile-repository.outbound-port'
+import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
+import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
 import { Criteria } from '@/core/domain/types/criteria.type'
 
 @Injectable()

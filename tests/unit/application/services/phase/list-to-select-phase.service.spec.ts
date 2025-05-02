@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectPhaseService } from '@/application/services/process/phase/list-to-select-phase.service'
-import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/phase/ports/outbound/phase-repository.outbound-port'
+import { ListToSelectPhaseService } from '@/application/services/process/component/phase/list-to-select-phase.service'
+import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/component/phase/ports/outbound/phase-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PhaseTestBuilder } from '@tests/unit/application/services/phase/phase-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

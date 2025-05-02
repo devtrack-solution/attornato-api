@@ -1,8 +1,8 @@
-import { CommunicationAddress } from '@/domain/client/person/communication-address/business-objects/communication-address.bo'
+import { CommunicationAddress } from '@/domain/client/component/person/communication-address/business-objects/communication-address.bo'
 import { EntityBadDataLoadException, EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
-import { ContactPerson } from '@/domain/client/person/contact-person/business-objects/contact-person.bo'
-import { Person } from '@/domain/client/person/business-objects/person.bo'
+import { ContactPerson } from '@/domain/client/component/person/contact-person/business-objects/contact-person.bo'
+import { Person } from '@/domain/client/component/person/business-objects/person.bo'
 
 describe('Person BO', () => {
   const validAddress = new CommunicationAddress({

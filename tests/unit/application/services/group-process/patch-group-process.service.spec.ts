@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchGroupProcessService } from '@/application/services/process/group-process/patch-group-process.service'
-import { GroupProcessRepositoryOutboundPort, GroupProcessRepositoryOutboundPortSymbol } from '@/domain/process/group-process/ports/outbound/group-process-repository.outbound-port'
+import { PatchGroupProcessService } from '@/application/services/process/component/group-process/patch-group-process.service'
+import { GroupProcessRepositoryOutboundPort, GroupProcessRepositoryOutboundPortSymbol } from '@/domain/process/component/group-process/ports/outbound/group-process-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { GroupProcessTestBuilder } from '@tests/unit/application/services/group-process/group-process-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { GroupProcess } from '@/domain/process/group-process/business-objects/group-process.bo'
+import { GroupProcess } from '@/domain/process/component/group-process/business-objects/group-process.bo'
 
 describe('[APPLICATION] - PatchGroupProcessService', () => {
   let service: PatchGroupProcessService

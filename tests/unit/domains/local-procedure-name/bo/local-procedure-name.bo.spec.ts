@@ -1,4 +1,4 @@
-import { LocalProcedureName } from '@/domain/process/local-procedure-name/business-objects/local-procedure-name.bo'
+import { LocalProcedureName } from '@/domain/process/component/local-procedure-name/business-objects/local-procedure-name.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

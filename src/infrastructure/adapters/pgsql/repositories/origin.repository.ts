@@ -6,7 +6,7 @@ import { OriginEntity } from '@/infrastructure/adapters/pgsql/entities/origin.en
 import {
   OriginRepositoryOutboundPort,
   OriginRepositoryOutboundPortSymbol,
-} from '@/domain/process/origin/ports/outbound/origin-repository.outbound-port'
+} from '@/domain/process/component/origin/ports/outbound/origin-repository.outbound-port'
 
 @BindProvider(OriginRepositoryOutboundPortSymbol)
 export class OriginRepository extends RepositoryBase<OriginEntity> implements OriginRepositoryOutboundPort {

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchPrognosisService } from '@/application/services/process/prognosis/patch-prognosis.service'
-import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/prognosis/ports/outbound/prognosis-repository.outbound-port'
+import { PatchPrognosisService } from '@/application/services/process/component/prognosis/patch-prognosis.service'
+import { PrognosisRepositoryOutboundPort, PrognosisRepositoryOutboundPortSymbol } from '@/domain/process/component/prognosis/ports/outbound/prognosis-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PrognosisTestBuilder } from '@tests/unit/application/services/prognosis/prognosis-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Prognosis } from '@/domain/process/prognosis/business-objects/prognosis.bo'
+import { Prognosis } from '@/domain/process/component/prognosis/business-objects/prognosis.bo'
 
 describe('[APPLICATION] - PatchPrognosisService', () => {
   let service: PatchPrognosisService

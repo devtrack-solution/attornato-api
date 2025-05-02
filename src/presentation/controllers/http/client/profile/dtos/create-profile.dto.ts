@@ -1,4 +1,4 @@
-import { ProfileType } from '@/domain/client/profile/types/profile.type'
+import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
 import { OmitType } from '@nestjs/swagger';
 import { ProfileDto } from '@/presentation/controllers/http/client/profile/dtos/profile.dto'
 

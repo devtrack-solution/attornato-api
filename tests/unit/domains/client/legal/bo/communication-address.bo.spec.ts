@@ -1,5 +1,5 @@
-import { CommunicationAddress } from '@/domain/client/person/communication-address/business-objects/communication-address.bo'
-import { Contact } from '@/domain/client/person/communication-address/contact/business-objects/contact.bo'
+import { CommunicationAddress } from '@/domain/client/component/person/communication-address/business-objects/communication-address.bo'
+import { Contact } from '@/domain/client/component/person/communication-address/contact/business-objects/contact.bo'
 import { v4 as uuidv4 } from 'uuid'
 
 describe('CommunicationAddress BO', () => {

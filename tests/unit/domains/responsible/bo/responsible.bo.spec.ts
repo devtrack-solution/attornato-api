@@ -1,4 +1,4 @@
-import { Subject } from '@/domain/process/subject/business-objects/subject.bo'
+import { Subject } from '@/domain/process/component/subject/business-objects/subject.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

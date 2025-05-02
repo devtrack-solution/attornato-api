@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common'
 
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Individual } from '@/domain/client/individual/business-objects/individual.bo'
-import { PatchIndividualInboundPort } from '@/domain/client/individual/ports/inbound/patch-individual.inbound-port'
-import { IndividualRepositoryOutboundPortSymbol, IndividualRepositoryOutboundPort } from '@/domain/client/individual/ports/outbound/individual-repository.outbound-port'
-import { IndividualType } from '@/domain/client/individual/types/individual.type'
+import { Individual } from '@/domain/client/component/individual/business-objects/individual.bo'
+import { PatchIndividualInboundPort } from '@/domain/client/component/individual/ports/inbound/patch-individual.inbound-port'
+import { IndividualRepositoryOutboundPortSymbol, IndividualRepositoryOutboundPort } from '@/domain/client/component/individual/ports/outbound/individual-repository.outbound-port'
+import { IndividualType } from '@/domain/client/component/individual/types/individual.type'
 import { v4 as uuidv4 } from 'uuid'
 
 @Injectable()

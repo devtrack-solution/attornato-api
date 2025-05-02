@@ -1,4 +1,4 @@
-import { Profile } from '@/domain/client/profile/business-objects/profile.bo'
+import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

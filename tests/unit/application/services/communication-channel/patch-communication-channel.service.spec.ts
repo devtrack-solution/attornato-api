@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { PatchCommunicationChannelService } from '@/application/services/client/person/communication-address/contact/communication-channel/patch-communication-channel.service'
-import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CommunicationChannelTestBuilder } from '@tests/unit/application/services/communication-channel/communication-channel-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { CommunicationChannel } from '@/domain/client/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
+import { CommunicationChannel } from '@/domain/client/component/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
 
 describe('[APPLICATION] - PatchCommunicationChannelService', () => {
   let service: PatchCommunicationChannelService

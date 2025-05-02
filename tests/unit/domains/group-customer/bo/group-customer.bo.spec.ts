@@ -1,4 +1,4 @@
-import { GroupCustomer } from '@/domain/client/group-customer/business-objects/group-customer.bo'
+import { GroupCustomer } from '@/domain/client/component/group-customer/business-objects/group-customer.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

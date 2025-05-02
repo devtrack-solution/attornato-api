@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeletePhaseService } from '@/application/services/process/phase/delete-phase.service'
-import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/phase/ports/outbound/phase-repository.outbound-port'
+import { DeletePhaseService } from '@/application/services/process/component/phase/delete-phase.service'
+import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/component/phase/ports/outbound/phase-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeletePhaseService', () => {

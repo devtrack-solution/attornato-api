@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { DeleteCommunicationChannelInboundPort } from '@/domain/client/person/communication-address/contact/communication-channel/ports/inbound/delete-communication-channel.inbound-port'
-import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import { DeleteCommunicationChannelInboundPort } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/inbound/delete-communication-channel.inbound-port'
+import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 
 @Injectable()
 export class DeleteCommunicationChannelService implements DeleteCommunicationChannelInboundPort {

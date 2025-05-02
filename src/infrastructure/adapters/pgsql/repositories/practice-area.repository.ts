@@ -5,7 +5,7 @@ import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/rep
 import {
   PracticeAreaRepositoryOutboundPort,
   PracticeAreaRepositoryOutboundPortSymbol,
-} from '@/domain/process/practice-area/ports/outbound/practice-area-repository.outbound-port'
+} from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { PracticeAreaEntity } from '@/infrastructure/adapters/pgsql/entities/practice-area.entity'
 
 @BindProvider(PracticeAreaRepositoryOutboundPortSymbol)

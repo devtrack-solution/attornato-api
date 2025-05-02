@@ -1,4 +1,4 @@
-import { LocalProcedureNameType } from '@/domain/process/local-procedure-name/types/local-procedure-name.type'
+import { LocalProcedureNameType } from '@/domain/process/component/local-procedure-name/types/local-procedure-name.type'
 
 export class LocalProcedureNameTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

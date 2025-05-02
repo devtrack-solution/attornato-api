@@ -1,4 +1,4 @@
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

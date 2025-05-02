@@ -5,7 +5,7 @@ import { RepositoryBase } from './repository-base'
 import {
   SubjectRepositoryOutboundPort,
   SubjectRepositoryOutboundPortSymbol,
-} from '@/domain/process/subject/ports/outbound/subject-repository.outbound-port'
+} from '@/domain/process/component/subject/ports/outbound/subject-repository.outbound-port'
 import { SubjectEntity } from '@/infrastructure/adapters/pgsql/entities/subject.entity'
 
 @BindProvider(SubjectRepositoryOutboundPortSymbol)

@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
-import { CreateFreeFieldInboundPort } from '@/domain/client/person/contact-person/free-field/ports/inbound/create-free-field.inbound-port'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
+import { CreateFreeFieldInboundPort } from '@/domain/client/component/person/contact-person/free-field/ports/inbound/create-free-field.inbound-port'
 import {
   FreeFieldRepositoryOutboundPort,
   FreeFieldRepositoryOutboundPortSymbol,
-} from '@/domain/client/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
-import { FreeFieldType } from '@/domain/client/person/contact-person/free-field/types/free-field.type'
+} from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
+import { FreeFieldType } from '@/domain/client/component/person/contact-person/free-field/types/free-field.type'
 
 @Injectable()
 export class CreateFreeFieldService implements CreateFreeFieldInboundPort {

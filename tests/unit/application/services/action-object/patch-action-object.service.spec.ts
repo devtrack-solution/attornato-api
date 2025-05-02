@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchActionObjectService } from '@/application/services/process/action-object/patch-action-object.service'
-import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/action-object/ports/outbound/action-object-repository.outbound-port'
+import { PatchActionObjectService } from '@/application/services/process/component/action-object/patch-action-object.service'
+import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/component/action-object/ports/outbound/action-object-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ActionObjectTestBuilder } from '@tests/unit/application/services/action-object/action-object-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { ActionObject } from '@/domain/process/action-object/business-objects/action-object.bo'
+import { ActionObject } from '@/domain/process/component/action-object/business-objects/action-object.bo'
 
 describe('[APPLICATION] - PatchActionObjectService', () => {
   let service: PatchActionObjectService

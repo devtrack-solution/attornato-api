@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/phase/ports/outbound/phase-repository.outbound-port'
+import { PhaseRepositoryOutboundPort, PhaseRepositoryOutboundPortSymbol } from '@/domain/process/component/phase/ports/outbound/phase-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreatePhaseService } from '@/application/services/process/phase/create-phase.service'
+import { CreatePhaseService } from '@/application/services/process/component/phase/create-phase.service'
 import { PhaseTestBuilder } from '@tests/unit/application/services/phase/phase-test.builder'
 
 describe('[APPLICATION] - CreatePhaseService', () => {

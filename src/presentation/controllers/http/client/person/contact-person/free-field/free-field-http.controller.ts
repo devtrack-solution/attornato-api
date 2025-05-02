@@ -7,23 +7,23 @@ import { ListToSelectFreeFieldDto } from '@/presentation/controllers/http/client
 import {
   CreateFreeFieldInboundPort,
   CreateFreeFieldInboundPortToken,
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/create-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/create-free-field.inbound-port'
 import {
   ListFreeFieldInboundPort,
   ListFreeFieldInboundPortToken,
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/list-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/list-free-field.inbound-port'
 import {
   PatchFreeFieldInboundPort,
   PatchFreeFieldInboundPortToken,
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/patch-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/patch-free-field.inbound-port'
 import {
   DeleteFreeFieldInboundPort,
   DeleteFreeFieldInboundPortToken,
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/delete-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/delete-free-field.inbound-port'
 import {
   ListToSelectFreeFieldInboundPort,
   ListToSelectFreeFieldInboundPortToken,
-} from '@/domain/client/person/contact-person/free-field/ports/inbound/list-to-select-free-field.inbound-port'
+} from '@/domain/client/component/person/contact-person/free-field/ports/inbound/list-to-select-free-field.inbound-port'
 import { CreateFreeFieldDto } from '@/presentation/controllers/http/client/person/contact-person/free-field/dtos/create-free-field.dto'
 import { ListFreeFieldDto } from '@/presentation/controllers/http/client/person/contact-person/free-field/dtos/list-free-field.dto'
 import { PatchFreeFieldDto } from '@/presentation/controllers/http/client/person/contact-person/free-field/dtos/patch-free-field.dto'

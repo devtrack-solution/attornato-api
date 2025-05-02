@@ -1,4 +1,4 @@
-import { Prognosis } from '@/domain/process/prognosis/business-objects/prognosis.bo'
+import { Prognosis } from '@/domain/process/component/prognosis/business-objects/prognosis.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

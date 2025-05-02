@@ -1,4 +1,4 @@
-import { LegalType } from '@/domain/client/legal/types/legal.type';
+import { LegalType } from '@/domain/client/component/legal/types/legal.type';
 import { OmitType } from '@nestjs/swagger';
 import { CreateLegalDto } from './create-legal.dto';
 

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchPartnerService } from '@/application/services/process/partner/patch-partner.service'
-import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/process/partner/ports/outbound/partner-repository.outbound-port'
+import { PatchPartnerService } from '@/application/services/process/component/partner/patch-partner.service'
+import { PartnerRepositoryOutboundPort, PartnerRepositoryOutboundPortSymbol } from '@/domain/process/component/partner/ports/outbound/partner-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { PartnerTestBuilder } from '@tests/unit/application/services/partner/partner-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { Partner } from '@/domain/process/partner/business-objects/partner.bo'
+import { Partner } from '@/domain/process/component/partner/business-objects/partner.bo'
 
 describe('[APPLICATION] - PatchPartnerService', () => {
   let service: PatchPartnerService

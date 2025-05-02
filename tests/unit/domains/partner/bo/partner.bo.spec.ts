@@ -1,4 +1,4 @@
-import { Partner } from '@/domain/process/partner/business-objects/partner.bo'
+import { Partner } from '@/domain/process/component/partner/business-objects/partner.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,29 +1,33 @@
 import { Module } from '@nestjs/common'
-import { ActionObjectModule } from '@/application/services/process/action-object/action-object.module'
-import { CountyModule } from '@/application/services/process/county/county.module'
-import { ClientModule } from '@/application/services/client/client.module'
-import { DetailsModule } from '@/application/services/process/details/details.module'
-import { GroupProcessModule } from '@/application/services/process/group-process/group-process.module'
-import {
-  LocalProcedureNameModule
-} from '@/application/services/process/local-procedure-name/local-procedure-name.module'
-import { LocatorModule } from '@/application/services/process/locator/locator.module'
-import { OriginModule } from '@/application/services/process/origin/origin.module'
-import { PartnerModule } from '@/application/services/process/partner/partner.module'
-import { PermissionModule } from '@/application/services/permission/permission.module'
-import { PhaseModule } from '@/application/services/process/phase/phase.module'
-import { PracticeAreaModule } from '@/application/services/process/practice-area/practice-area.module'
-import { ProceduralStatusModule } from '@/application/services/process/procedural-status/procedural-status.module'
-import { PrognosisModule } from '@/application/services/process/prognosis/prognosis.module'
-import { ResponsibleModule } from '@/application/services/process/responsible/responsible.module'
-import { SubjectModule } from '@/application/services/process/subject/subject.module'
+import { ActionObjectModule } from '@/application/services/process/component/action-object/action-object.module'
+import { CountyModule } from '@/application/services/process/component/county/county.module'
+import { DetailModule } from '@/application/services/process/component/detail/detail.module'
+import { GroupProcessModule } from '@/application/services/process/component/group-process/group-process.module'
+import { LocalProcedureNameModule } from '@/application/services/process/component/local-procedure-name/local-procedure-name.module'
+import { LocatorModule } from '@/application/services/process/component/locator/locator.module'
+import { OriginModule } from '@/application/services/process/component/origin/origin.module'
+import { PartnerModule } from '@/application/services/process/component/partner/partner.module'
+import { PhaseModule } from '@/application/services/process/component/phase/phase.module'
+import { PracticeAreaModule } from '@/application/services/process/component/practice-area/practice-area.module'
+import { ProceduralStatusModule } from '@/application/services/process/component/procedural-status/procedural-status.module'
+import { PrognosisModule } from '@/application/services/process/component/prognosis/prognosis.module'
+import { ResponsibleModule } from '@/application/services/process/component/responsible/responsible.module'
+import { SubjectModule } from '@/application/services/process/component/subject/subject.module'
+import { JudicialModule } from '@/application/services/process/component/judicial/judicial.module'
+import { CoreModule } from '@/core/core.module'
+import { ListToSelectProcessInboundPortToken } from '@/domain/process/ports/inbound/list-to-select-process.inbound-port'
+import { ListProcessInboundPortToken } from '@/domain/process/ports/inbound/list-process.inbound-port'
+import { ListProcessService } from '@/application/services/process/list-process.service'
+import { ListToSelectProcessService } from '@/application/services/process/list-to-select-process.service'
 
 @Module({
   imports: [
+    CoreModule,
     ActionObjectModule,
     CountyModule,
-    DetailsModule,
+    DetailModule,
     GroupProcessModule,
+    JudicialModule,
     LocalProcedureNameModule,
     LocatorModule,
     OriginModule,
@@ -36,7 +40,26 @@ import { SubjectModule } from '@/application/services/process/subject/subject.mo
     SubjectModule,
   ],
   controllers: [],
-  providers: [],
-  exports: [],
+  providers: [
+    {
+      provide: ListProcessInboundPortToken,
+      useClass: ListProcessService,
+    },
+    {
+      provide: ListToSelectProcessInboundPortToken,
+      useClass: ListToSelectProcessService,
+    },
+  ],
+  exports: [
+
+    {
+      provide: ListProcessInboundPortToken,
+      useClass: ListProcessService,
+    },
+    {
+      provide: ListToSelectProcessInboundPortToken,
+      useClass: ListToSelectProcessService,
+    },
+  ],
 })
 export class ProcessModule {}

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { PatchFreeFieldService } from '@/application/services/client/person/contact-person/free-field/patch-free-field.service'
-import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/client/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
+import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { FreeFieldTestBuilder } from '@tests/unit/application/services/free-field/free-field-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { FreeField } from '@/domain/client/person/contact-person/free-field/business-objects/free-field.bo'
+import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 
 describe('[APPLICATION] - PatchFreeFieldService', () => {
   let service: PatchFreeFieldService

@@ -1,22 +1,22 @@
-import { Details } from '@/domain/process/details/business-objects/details.bo'
+import { Detail } from '@/domain/process/component/detail/business-objects/detail.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 
-describe('Details BO', () => {
+describe('Detail BO', () => {
   const validObject = {
     id: uuidv4(),
     name: 'Informações adicionais',
   }
 
-  it('should create a valid Details without id', () => {
-    const details = new Details(validObject)
-    expect(details).toBeInstanceOf(Details)
-    expect(details.name).toBe('Informações adicionais')
+  it('should create a valid Detail without id', () => {
+    const detail = new Detail(validObject)
+    expect(detail).toBeInstanceOf(Detail)
+    expect(detail.name).toBe('Informações adicionais')
   })
 
   it('should serialize to persistence object', () => {
-    const details = new Details(validObject)
-    const output = details.toPersistenceObject()
+    const detail = new Detail(validObject)
+    const output = detail.toPersistenceObject()
 
     expect(output).toEqual({
       id: validObject.id.toString(),
@@ -29,6 +29,6 @@ describe('Details BO', () => {
       name: '',
     }
 
-    expect(() => new Details(invalidInput as any)).toThrow(EntityInvalidFormatException)
+    expect(() => new Detail(invalidInput as any)).toThrow(EntityInvalidFormatException)
   })
 })

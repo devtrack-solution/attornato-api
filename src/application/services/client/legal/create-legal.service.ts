@@ -1,7 +1,7 @@
-import { Legal } from '@/domain/client/legal/business-objects/legal.bo'
-import { CreateLegalInboundPort } from '@/domain/client/legal/ports/inbound/create-legal.inbound-port'
-import { LegalRepositoryOutboundPortSymbol, LegalRepositoryOutboundPort } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
-import { LegalType } from '@/domain/client/legal/types/legal.type'
+import { Legal } from '@/domain/client/component/legal/business-objects/legal.bo'
+import { CreateLegalInboundPort } from '@/domain/client/component/legal/ports/inbound/create-legal.inbound-port'
+import { LegalRepositoryOutboundPortSymbol, LegalRepositoryOutboundPort } from '@/domain/client/component/legal/ports/outbound/legal-repository.outbound-port'
+import { LegalType } from '@/domain/client/component/legal/types/legal.type'
 import { Inject, Injectable } from '@nestjs/common'
 
 @Injectable()

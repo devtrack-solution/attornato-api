@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectProceduralStatusService } from '@/application/services/process/procedural-status/list-to-select-procedural-status.service'
-import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/process/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
+import { ListToSelectProceduralStatusService } from '@/application/services/process/component/procedural-status/list-to-select-procedural-status.service'
+import { ProceduralStatusRepositoryOutboundPort, ProceduralStatusRepositoryOutboundPortSymbol } from '@/domain/process/component/procedural-status/ports/outbound/procedural-status-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ProceduralStatusTestBuilder } from '@tests/unit/application/services/procedural-status/procedural-status-test.builder'
 import { Criteria } from '@/core/domain/types/criteria.type'

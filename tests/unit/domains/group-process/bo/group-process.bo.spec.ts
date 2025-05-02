@@ -1,4 +1,4 @@
-import { GroupProcess } from '@/domain/process/group-process/business-objects/group-process.bo'
+import { GroupProcess } from '@/domain/process/component/group-process/business-objects/group-process.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,4 +1,4 @@
-import { GroupCustomerType } from '@/domain/client/group-customer/types/group-customer.type'
+import { GroupCustomerType } from '@/domain/client/component/group-customer/types/group-customer.type'
 import { OmitType } from '@nestjs/swagger';
 import { GroupCustomerDto } from '@/presentation/controllers/http/client/group-customer/dtos/group-customer.dto'
 

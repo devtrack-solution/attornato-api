@@ -1,4 +1,4 @@
-import { County } from '@/domain/process/county/business-objects/county.bo'
+import { County } from '@/domain/process/component/county/business-objects/county.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

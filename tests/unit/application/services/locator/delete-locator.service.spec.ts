@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteLocatorService } from '@/application/services/process/locator/delete-locator.service'
-import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/process/locator/ports/outbound/locator-repository.outbound-port'
+import { DeleteLocatorService } from '@/application/services/process/component/locator/delete-locator.service'
+import { LocatorRepositoryOutboundPort, LocatorRepositoryOutboundPortSymbol } from '@/domain/process/component/locator/ports/outbound/locator-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 
 describe('[APPLICATION] - DeleteLocatorService', () => {

@@ -1,4 +1,4 @@
-import { IndividualType } from '@/domain/client/individual/types/individual.type';
+import { IndividualType } from '@/domain/client/component/individual/types/individual.type';
 import { OmitType } from '@nestjs/swagger';
 import { IndividualDto } from './individual.dto';
 

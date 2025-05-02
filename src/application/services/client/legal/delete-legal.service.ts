@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { DeleteLegalInboundPort } from '@/domain/client/legal/ports/inbound/delete-legal.inbound-port'
-import { LegalRepositoryOutboundPortSymbol, LegalRepositoryOutboundPort } from '@/domain/client/legal/ports/outbound/legal-repository.outbound-port'
+import { DeleteLegalInboundPort } from '@/domain/client/component/legal/ports/inbound/delete-legal.inbound-port'
+import { LegalRepositoryOutboundPortSymbol, LegalRepositoryOutboundPort } from '@/domain/client/component/legal/ports/outbound/legal-repository.outbound-port'
 
 @Injectable()
 export class DeleteLegalService implements DeleteLegalInboundPort {

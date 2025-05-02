@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/swagger';
-import { IdentifierType } from '@/domain/client/identifier/types/identifier.type';
+import { IdentifierType } from '@/domain/client/component/identifier/types/identifier.type';
 import { IdentifierDto } from './identifier.dto';
 
 export class CreateIdentifierDto

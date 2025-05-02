@@ -1,4 +1,4 @@
-import { LegalType } from '@/domain/client/legal/types/legal.type'
+import { LegalType } from '@/domain/client/component/legal/types/legal.type'
 import { v4 as uuidv4 } from 'uuid'
 
 export class LegalTestBuilder {

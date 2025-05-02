@@ -1,4 +1,4 @@
-import { PhaseType } from '@/domain/process/phase/types/phase.type'
+import { PhaseType } from '@/domain/process/component/phase/types/phase.type'
 
 export class PhaseTestBuilder {
   private name: string = 'READ_GROUP-CUSTOMER'

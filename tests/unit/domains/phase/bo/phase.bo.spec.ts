@@ -1,4 +1,4 @@
-import { Phase } from '@/domain/process/phase/business-objects/phase.bo'
+import { Phase } from '@/domain/process/component/phase/business-objects/phase.bo'
 import { EntityInvalidFormatException } from '@/core/domain/exceptions'
 import { v4 as uuidv4 } from 'uuid'
 

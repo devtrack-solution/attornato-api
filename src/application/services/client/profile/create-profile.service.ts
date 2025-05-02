@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { CreateProfileInboundPort } from '@/domain/client/profile/ports/inbound/create-profile.inbound-port'
-import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/profile/ports/outbound/profile-repository.outbound-port'
-import { ProfileType } from '@/domain/client/profile/types/profile.type'
-import { Profile } from '@/domain/client/profile/business-objects/profile.bo'
+import { CreateProfileInboundPort } from '@/domain/client/component/profile/ports/inbound/create-profile.inbound-port'
+import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/component/profile/ports/outbound/profile-repository.outbound-port'
+import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
+import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
 
 @Injectable()
 export class CreateProfileService implements CreateProfileInboundPort {

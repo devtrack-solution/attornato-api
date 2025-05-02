@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreatePracticeAreaService } from '@/application/services/process/practice-area/create-practice-area.service'
+import { CreatePracticeAreaService } from '@/application/services/process/component/practice-area/create-practice-area.service'
 import { PracticeAreaTestBuilder } from '@tests/unit/application/services/practice-area/practice-area-test.builder'
 
 describe('[APPLICATION] - CreatePracticeAreaService', () => {
