@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 import { CreateDetailDto } from '@/presentation/controllers/http/process/component/detail/dtos/create-detail.dto'
 import { CreateOriginDto } from '@/presentation/controllers/http/process/component/origin/dtos/create-origin.dto'
@@ -9,14 +9,23 @@ import { CreateFreeField2Dto } from '@/presentation/controllers/http/process/com
 import { CreateFreeField6Dto } from '@/presentation/controllers/http/process/component/process-detail/component/free-field-6/dtos/create-free-field-6.dto'
 
 export class ProcessDetailDto extends BasicDto {
-  @ApiProperty({ type: CreateDetailDto })
-  detail!: CreateDetailDto
+  @ApiPropertyOptional({ type: CreateDetailDto })
+  detail?: CreateDetailDto
+
+  @ApiProperty()
+  detailId!: string
 
   @ApiProperty({ type: CreateFreeField1Dto })
-  freeField1!: CreateFreeField1Dto
+  freeField1?: CreateFreeField1Dto
+
+  @ApiProperty()
+  freeField1Id!: string
 
   @ApiProperty({ type: CreateFreeField2Dto })
-  freeField2!: CreateFreeField2Dto
+  freeField2?: CreateFreeField2Dto
+
+  @ApiProperty()
+  freeField2Id!: string
 
   @ApiProperty()
   freeField3!: string
@@ -27,15 +36,27 @@ export class ProcessDetailDto extends BasicDto {
   @ApiProperty()
   freeField5!: string
 
-  @ApiProperty({ type: CreateFreeField6Dto })
-  freeField6!: CreateFreeField6Dto
+  @ApiPropertyOptional({ type: CreateFreeField6Dto })
+  freeField6?: CreateFreeField6Dto
 
-  @ApiProperty({ type: CreateOriginDto })
-  origin!: CreateOriginDto
+  @ApiProperty()
+  freeField6Id!: string
 
-  @ApiProperty({ type: CreatePartnerDto })
-  partner!: CreatePartnerDto
+  @ApiPropertyOptional({ type: CreateOriginDto })
+  origin?: CreateOriginDto
 
-  @ApiProperty({ type: CreatePrognosisDto })
-  prognosis!: CreatePrognosisDto
+  @ApiProperty()
+  originId!: string
+
+  @ApiPropertyOptional({ type: CreatePartnerDto })
+  partner?: CreatePartnerDto
+
+  @ApiProperty()
+  partnerId!: string
+
+  @ApiPropertyOptional({ type: CreatePrognosisDto })
+  prognosis?: CreatePrognosisDto
+
+  @ApiProperty()
+  prognosisId!: string
 }

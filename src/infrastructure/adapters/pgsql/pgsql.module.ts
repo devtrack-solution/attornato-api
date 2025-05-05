@@ -43,20 +43,17 @@ import { IndividualRepository } from '@/infrastructure/adapters/pgsql/repositori
 import { ClientRepository } from '@/infrastructure/adapters/pgsql/repositories/client.repository'
 import { ProcessRepositoryOutboundPortSymbol } from '@/domain/process/ports/outbound/process-repository.outbound-port'
 import { ProcessRepository } from '@/infrastructure/adapters/pgsql/repositories/process.repository'
-import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbound/client-repository.outbound-port'
-import { FreeField1 } from '@/domain/process/component/process-detail/component/free-field-1/business-objects/free-field-1.bo'
 import { FreeField6Repository } from '@/infrastructure/adapters/pgsql/repositories/free-field-6.repository'
-import {
-  FreeField1RepositoryOutboundPortSymbol
-} from '@/domain/process/component/process-detail/component/free-field-1/ports/outbound/free-field-1-repository.outbound-port'
+import { FreeField1RepositoryOutboundPortSymbol } from '@/domain/process/component/process-detail/component/free-field-1/ports/outbound/free-field-1-repository.outbound-port'
 import { FreeField1Repository } from '@/infrastructure/adapters/pgsql/repositories/free-field-1.repository'
-import {
-  FreeField2RepositoryOutboundPortSymbol
-} from '@/domain/process/component/process-detail/component/free-field-2/ports/outbound/free-field-2-repository.outbound-port'
+import { FreeField2RepositoryOutboundPortSymbol } from '@/domain/process/component/process-detail/component/free-field-2/ports/outbound/free-field-2-repository.outbound-port'
 import { FreeField2Repository } from '@/infrastructure/adapters/pgsql/repositories/free-field-2.repository'
-import {
-  FreeField6RepositoryOutboundPortSymbol
-} from '@/domain/process/component/process-detail/component/free-field-6/ports/outbound/free-field-6-repository.outbound-port'
+import { FreeField6RepositoryOutboundPortSymbol } from '@/domain/process/component/process-detail/component/free-field-6/ports/outbound/free-field-6-repository.outbound-port'
+import { JudicialRepositoryOutboundPortSymbol } from '@/domain/process/component/judicial/ports/outbound/judicial-repository.outbound-port'
+import { JudicialRepository } from '@/infrastructure/adapters/pgsql/repositories/process-judicial.repository'
+import { AdministrativeRepository } from '@/infrastructure/adapters/pgsql/repositories/process-administrative.repository'
+import { AdministrativeRepositoryOutboundPortSymbol } from '@/domain/process/component/administrative/ports/outbound/administrative-repository.outbound-port'
+import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbound/client-repository.outbound-port'
 
 @Module({
   imports: [
@@ -169,6 +166,14 @@ import {
       provide: ProcessRepositoryOutboundPortSymbol,
       useClass: ProcessRepository,
     },
+    {
+      provide: JudicialRepositoryOutboundPortSymbol,
+      useClass: JudicialRepository,
+    },
+    {
+      provide: AdministrativeRepositoryOutboundPortSymbol,
+      useClass: AdministrativeRepository,
+    },
   ],
   exports: [
     DataSource,
@@ -268,6 +273,14 @@ import {
     {
       provide: ProcessRepositoryOutboundPortSymbol,
       useClass: ProcessRepository,
+    },
+    {
+      provide: JudicialRepositoryOutboundPortSymbol,
+      useClass: JudicialRepository,
+    },
+    {
+      provide: AdministrativeRepositoryOutboundPortSymbol,
+      useClass: AdministrativeRepository,
     },
   ],
 })

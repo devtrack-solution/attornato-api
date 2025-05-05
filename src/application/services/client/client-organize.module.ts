@@ -10,6 +10,7 @@ import { ClientModule } from '@/application/services/client/client.module'
 
 @Module({
   imports: [
+    ClientModule,
     CommunicationChannelModule,
     FreeFieldModule,
     GroupCustomerModule,
@@ -17,7 +18,6 @@ import { ClientModule } from '@/application/services/client/client.module'
     IdentifierModule,
     LegalModule,
     ProfileModule,
-    ClientModule,
   ],
   controllers: [],
   providers: [],

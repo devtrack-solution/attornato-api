@@ -12,10 +12,30 @@ export class ListJudicialService implements ListJudicialInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<JudicialType.OutputPaginated> {
-    // const select: string[] = ['id', 'name', 'status', 'createdAt']
     const select: string[] = []
-    const relations: string[] = []
-    const searchFields: string[] = ['name']
+    const relations: string[] = [
+      'client',
+      'cnjNumber',
+      'localProcedureName',
+      'proceduralStatus',
+      'county',
+      'phase',
+      'practiceArea',
+      'responsible',
+      'actionObject',
+      'locator',
+      'subject',
+      'processFinancial.detail',
+      'processFinancial.freeField1',
+      'processFinancial.freeField2',
+      'processFinancial.freeField6',
+      'processFinancial.origin',
+      'processFinancial.partner',
+      'processFinancial.prognosis',
+    ]
+    const searchFields: string[] = [
+
+    ]
     const order = { createdAt: 'ASC' }
     let result = await this.judicialRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let  judicial  = result.data.map(( judicial ) =>  judicial  as JudicialType.Output)

@@ -1,9 +1,9 @@
 import { OmitType } from '@nestjs/swagger'
-import { JudicialType } from '@/domain/process/component/judicial/types/judicial.type'
-import { JudicialDto } from './judicial.dto'
+import { AdministrativeType } from '@/domain/process/component/administrative/types/administrative.type'
+import { AdministrativeDto } from './administrative.dto'
 
-export class CreateJudicialDto
-  extends OmitType(JudicialDto, [
+export class CreateAdministrativeDto
+  extends OmitType(AdministrativeDto, [
     'id',
     'client',
     'groupProcess',
@@ -24,4 +24,4 @@ export class CreateJudicialDto
     'deletedAt',
     'enable',
   ])
-  implements JudicialType.Input {}
+  implements AdministrativeType.Input {}
