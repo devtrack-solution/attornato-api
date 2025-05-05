@@ -3,6 +3,7 @@ import { PersonType } from '@/domain/client/component/person/types/person.type'
 
 export namespace ClientType {
   export type Input = {
+    personId?: string
     person: PersonType.Input
     groupCustomerId: string
     profileId: string

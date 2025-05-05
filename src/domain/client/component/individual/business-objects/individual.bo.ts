@@ -4,6 +4,7 @@ import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { IndividualType } from '@/domain/client/component/individual/types/individual.type'
 import { Client } from '@/domain/client/business-objects/client.bo'
+import { Person } from '@/domain/client/component/person/business-objects/person.bo'
 
 export interface IIndividual extends IBusinessObject<IndividualType.Input, IndividualType.Output> {}
 
@@ -19,8 +20,9 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
   private _pis!: string
 
   protected override loadData(data: IndividualType.Input): IndividualType.Output {
-    console.error(JSON.stringify(data, null, 2))
     try {
+      this._groupCustomerId = data.groupCustomerId
+      this._profileId = data.profileId
       this._name = data.name
       this._nationality = data.nationality
       this._occupation = data.occupation
@@ -30,6 +32,7 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
       this._cpf = data.cpf
       this._rg = data.rg
       this._pis = data.pis
+      this._person = new Person(data.person)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Individual entity`))
     }
@@ -80,7 +83,6 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
 
   override validate(): void {
     ValidationBuilder
-      .of({ value: this._person, fieldName: 'person' })
       .of({ value: this._name, fieldName: 'name' })
       .required()
       .of({ value: this._nationality, fieldName: 'nationality' })
@@ -114,7 +116,10 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
       cpf: this._cpf,
       rg: this._rg,
       pis: this._pis,
-      ...super.toPersistenceObject(),
+      personId: this._person.id,
+      person: this._person.toPersistenceObject(),
+      groupCustomerId: this._groupCustomerId,
+      profileId: this._profileId,
     }
   }
 }

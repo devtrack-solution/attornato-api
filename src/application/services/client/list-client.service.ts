@@ -14,11 +14,17 @@ export class ListClientService implements ListClientInboundPort {
   async execute(criteria: Criteria.Paginated): Promise<ClientType.OutputPaginated> {
     // const select: string[] = ['id', 'name', 'status', 'createdAt']
     const select: string[] = []
-    const relations: string[] = []
+    const relations: string[] = [
+      'groupCustomer',
+      'profile',
+      'person.communicationAddress.contacts.communicationChannel',
+      'person.contactPerson.freeField',
+    ]
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.clientRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let client = result.data.map((client) => client as ClientType.Output)
+    console.log(JSON.stringify(client, null, 2))
     return {
       count: result.count,
       limit: result.limit,

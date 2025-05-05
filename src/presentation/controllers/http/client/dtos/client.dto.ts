@@ -19,4 +19,7 @@ export class ClientDto extends BasicDto {
 
   @ApiProperty({ type: CreatePersonDto })
   person!: CreatePersonDto
+
+  @ApiPropertyOptional()
+  personId?: string
 }

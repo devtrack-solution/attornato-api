@@ -6,21 +6,9 @@ import { ListClientInboundPortToken } from '@/domain/client/ports/inbound/list-c
 import { ListClientService } from '@/application/services/client/list-client.service'
 import { ListToSelectClientInboundPortToken } from '@/domain/client/ports/inbound/list-to-select-client.inbound-port'
 import { ListToSelectClientService } from '@/application/services/client/list-to-select-client.service'
-import { GroupCustomerModule } from '@/application/services/client/component/group-customer/group-customer.module'
-import { IndividualModule } from '@/application/services/client/component/individual/individual.module'
-import { IdentifierModule } from '@/application/services/client/component/identifier/identifier.module'
-import { LegalModule } from '@/application/services/client/component/legal/legal.module'
 
 @Module({
-  imports: [
-    CommunicationChannelModule,
-    FreeFieldModule,
-    GroupCustomerModule,
-    IndividualModule,
-    IdentifierModule,
-    LegalModule,
-    ProfileModule
-  ],
+  imports: [],
   controllers: [],
   providers: [
     {

@@ -25,6 +25,6 @@ export abstract class ClientBaseEntity extends EntityBase {
   @JoinColumn({ name: 'personId', referencedColumnName: 'id' })
   person!: PersonEntity
 
-  @Column({ type: 'uuid', nullable: true })
-  personId?: string
+  @Column({ type: 'uuid', nullable: false })
+  personId!: string
 }

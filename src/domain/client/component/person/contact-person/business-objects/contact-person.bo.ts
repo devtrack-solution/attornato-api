@@ -19,8 +19,7 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
     try {
       this._freeFieldOne = data.freeFieldOne
       this._note = data.note
-      if (this._freeFieldId)
-        this._freeFieldId = data.freeFieldId
+      this._freeFieldId = data.freeFieldId
       this._mobilePhone = data.mobilePhone
       this._phoneNumber = data.phoneNumber
       this._fatherName = data.fatherName

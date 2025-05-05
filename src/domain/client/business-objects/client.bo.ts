@@ -39,6 +39,7 @@ export class Client<TRepository extends ClientType.Input = ClientType.Repository
       .of({ value: this._groupCustomerId, fieldName: 'groupCustomerId' })
       .of({ value: this._profileId, fieldName: 'profileId' })
       .of({ value: this._person, fieldName: 'person' })
+      .required()
       .build('Failed to validate Client rules')
   }
 
@@ -47,6 +48,7 @@ export class Client<TRepository extends ClientType.Input = ClientType.Repository
       id: this._id.toString(),
       groupCustomerId: this._groupCustomerId,
       profileId: this._profileId,
+      personId: this._person.id,
       person: this._person.toPersistenceObject(),
     }
   }

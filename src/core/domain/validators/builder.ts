@@ -33,22 +33,29 @@ export class ValidationBuilder {
   required(): this {
     let result = { success: false }
 
-    if (typeof this.currentField?.value == 'string') {
-      result = z.string().min(1, { message: 'Name is required' }).safeParse(this.currentField?.value)
-    }
-
-    if (typeof this.currentField?.value == 'number') {
+    if (typeof this.currentField?.value === 'string') {
+      result = z.string().min(1, { message: 'Field is required' }).safeParse(this.currentField?.value)
+    } else if (typeof this.currentField?.value === 'number') {
       result = z
-        .number({ required_error: 'Value is required' })
+        .number({ required_error: 'Field is required' })
         .refine((val) => !isNaN(val), { message: 'Value must be a valid number' })
         .safeParse(this.currentField?.value)
+    } else if (typeof this.currentField?.value === 'object') {
+      result = z
+        .object({})
+        .refine((obj) => obj !== null && Object.keys(obj).length > 0, { message: 'Object is required and cannot be empty' })
+        .safeParse(this.currentField?.value)
+    } else {
+      result = { success: false }
     }
 
     if (!result.success) {
       this.addError('Field is required')
     }
+
     return this
   }
+
 
   hasNoWhiteSpace(): this {
     if (this.currentField && typeof this.currentField.value === 'string' && /\s/.test(this.currentField.value)) {
