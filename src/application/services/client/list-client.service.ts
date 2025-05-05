@@ -24,7 +24,6 @@ export class ListClientService implements ListClientInboundPort {
     const order = { createdAt: 'ASC' }
     let result = await this.clientRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let client = result.data.map((client) => client as ClientType.Output)
-    console.log(JSON.stringify(client, null, 2))
     return {
       count: result.count,
       limit: result.limit,

@@ -4,6 +4,7 @@ import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { LegalType } from '@/domain/client/component/legal/types/legal.type'
 import { Client } from '@/domain/client/business-objects/client.bo'
+import { Person } from '@/domain/client/component/person/business-objects/person.bo'
 
 export interface ILegal extends IBusinessObject<LegalType.Input, LegalType.Output> {}
 
@@ -25,7 +26,9 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
       this._cnpj = data.cnpj
       this._stateRegistration = data.stateRegistration
       this._municipalRegistration = data.municipalRegistration
-
+      this._groupCustomerId = data.groupCustomerId
+      this._profileId = data.profileId
+      this._person = new Person(data.person)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Legal entity`))
     }
@@ -107,6 +110,7 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
         value: this._person,
         fieldName: 'person',
       })
+      .required()
       .build('Failed to validate Legal rules')
   }
 
@@ -120,7 +124,10 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
       cnpj: this._cnpj,
       stateRegistration: this._stateRegistration,
       municipalRegistration: this._municipalRegistration,
-      ...super.toPersistenceObject()
+      personId: this._person.id,
+      person: this._person.toPersistenceObject(),
+      groupCustomerId: this._groupCustomerId,
+      profileId: this._profileId,
     }
   }
 }

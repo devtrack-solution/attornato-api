@@ -8,7 +8,7 @@ import { ListToSelectClientInboundPort, ListToSelectClientInboundPortToken } fro
 import { ListClientDto } from '@/presentation/controllers/http/client/dtos/list-client.dto'
 import { ListToSelectClientDto } from '@/presentation/controllers/http/client/dtos/list-to-select-client.dto'
 
-@ApiTags('Client')
+@ApiTags('Clients')
 @Controller('clients')
 export class ClientHttpController extends BaseHttpController {
   constructor(

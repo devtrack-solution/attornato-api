@@ -21,8 +21,6 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
 
   protected override loadData(data: IndividualType.Input): IndividualType.Output {
     try {
-      this._groupCustomerId = data.groupCustomerId
-      this._profileId = data.profileId
       this._name = data.name
       this._nationality = data.nationality
       this._occupation = data.occupation
@@ -32,6 +30,8 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
       this._cpf = data.cpf
       this._rg = data.rg
       this._pis = data.pis
+      this._groupCustomerId = data.groupCustomerId
+      this._profileId = data.profileId
       this._person = new Person(data.person)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Individual entity`))

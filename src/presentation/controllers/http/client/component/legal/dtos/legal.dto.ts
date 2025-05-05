@@ -1,19 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
-import { CreateGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/create-group-customer.dto'
-import { CreateProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/create-profile.dto'
-import { CreatePersonDto } from '@/presentation/controllers/http/client/component/person/dtos/create-person.dto'
+import { ClientDto } from '@/presentation/controllers/http/client/dtos/client.dto'
 
-export class LegalDto extends BasicDto {
-  @ApiProperty({ type: CreateGroupCustomerDto })
-  groupCustomer!: CreateGroupCustomerDto
-
-  @ApiProperty({ type: CreateProfileDto })
-  profile!: CreateProfileDto
-
-  @ApiProperty({ type: CreatePersonDto })
-  person!: CreatePersonDto
-
+export class LegalDto extends ClientDto {
   @ApiProperty({ example: 'Carlos' })
   responsible!: string
 

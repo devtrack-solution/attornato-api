@@ -1,4 +1,3 @@
-import { BaseType } from '@/core/domain/types/base.type'
 import { ClientType } from '@/domain/client/types/client.type'
 
 export namespace LegalType {
