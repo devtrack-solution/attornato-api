@@ -19,7 +19,7 @@ import {
 } from '@/domain/process/component/process-detail/component/free-field-6/ports/inbound/create-free-field-6.inbound-port'
 
 @ApiTags('Process')
-@Controller('process/free-field-6s')
+@Controller('process/precess-detail/free-field-6s')
 export class FreeField6HttpController extends BaseHttpController {
   constructor(
     @Inject(CreateFreeField6InboundPortToken) private readonly createFreeField6Service: CreateFreeField6InboundPort,

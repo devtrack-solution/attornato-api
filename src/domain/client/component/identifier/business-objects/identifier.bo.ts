@@ -3,7 +3,7 @@ import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-obje
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { IdentifierType } from '@/domain/client/component/identifier/types/identifier.type'
-import { ClientCategoryEnum } from '@/presentation/controllers/http/client/identifier/dtos/identifier.dto'
+import { ClientCategoryEnum } from '@/presentation/controllers/http/client/component/identifier/dtos/identifier.dto'
 
 export interface IIdentifier extends IBusinessObject<IdentifierType.Input, IdentifierType.Output> {}
 

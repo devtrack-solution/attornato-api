@@ -83,17 +83,27 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
    * @returns The entity in persistence format.
    */
   public toPersistence(): BaseType.Input & Y {
-    return {
-      id: this._id.toString(),
-      lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
-      createdUserId: this._createdUserId?.toString(),
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      deletedAt: this._deletedAt,
-      enable: this._enable,
-      ...this.toPersistenceObject(),
+    try {
+      const result = this.toPersistenceObject()
+      if (typeof result !== 'object') {
+        throw new Error('toPersistenceObject() must return an object')
+      }
+      return {
+        id: this._id.toString(),
+        lastUpdatedUserId: this._lastUpdatedUserId?.toString(),
+        createdUserId: this._createdUserId?.toString(),
+        createdAt: this._createdAt,
+        updatedAt: this._updatedAt,
+        deletedAt: this._deletedAt,
+        enable: this._enable,
+        ...result,
+      }
+    } catch (err) {
+      console.error(`Error in ${this.constructor.name}.toPersistenceObject()`, err)
+      throw err
     }
   }
+
 
   /**
    * Converts the entity to a JSON format.

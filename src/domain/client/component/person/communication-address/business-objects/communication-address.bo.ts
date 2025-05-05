@@ -23,7 +23,7 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
       this._neighborhood = data.neighborhood
       this._city = data.city
       this._state = data.state
-      this._contacts = data.contacts ? data.contacts.map((contact) => new Contact(contact)) : []
+      this._contacts = (data.contacts ?? []).filter((c) => c !== undefined && c !== null).map((c) => new Contact(c))
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading CommunicationAddress entity`))
     }
@@ -51,7 +51,10 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
   }
 
   get contacts(): ContactType.Input[] {
-    return this._contacts
+    return (this._contacts ?? []).map((contact) => ({
+      value: contact.value,
+      communicationChannelId: contact.communicationChannelId,
+    }))
   }
 
   constructor(props: CommunicationAddressType.Input) {
@@ -90,7 +93,8 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
         value: this._state,
         fieldName: 'state',
       })
-      .required().of({
+      .required()
+      .of({
         value: this._contacts,
         fieldName: 'contacts',
       })
@@ -105,7 +109,7 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
       neighborhood: this._neighborhood,
       city: this._city,
       state: this._state,
-      contacts: this._contacts.map((contact) => contact.toPersistenceObject()),
+      contacts: (this._contacts ?? []).filter((c) => c && typeof c.toPersistenceObject === 'function').map((contact) => contact.toPersistenceObject()),
     }
   }
 }

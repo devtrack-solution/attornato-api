@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchCommunicationChannelService } from '@/application/services/client/person/communication-address/contact/communication-channel/patch-communication-channel.service'
+import { PatchCommunicationChannelService } from '@/application/services/client/component/person/communication-address/contact/communication-channel/patch-communication-channel.service'
 import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CommunicationChannelTestBuilder } from '@tests/unit/application/services/communication-channel/communication-channel-test.builder'

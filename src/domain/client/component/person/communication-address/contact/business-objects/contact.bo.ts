@@ -2,20 +2,18 @@ import { ValidationBuilder, IValidator } from '@/core/domain/validators'
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
-import { CommunicationChannel } from '@/domain/client/component/person/communication-address/contact/communication-channel/business-objects/communication-channel.bo'
-import { CommunicationChannelType } from '@/domain/client/component/person/communication-address/contact/communication-channel/types/communication-channel.type'
 import { ContactType } from '@/domain/client/component/person/communication-address/contact/types/contact.type'
 
 export interface IContact extends IBusinessObject<ContactType.Input, ContactType.Output> {}
 
 export class Contact extends BaseBusinessObject<ContactType.Repository, ContactType.Output> implements IContact, IValidator {
   private _value!: string
-  private _communicationChannel!: CommunicationChannel
+  private _communicationChannelId!: string
 
   private loadData(data: ContactType.Input): ContactType.Output {
     try {
       this._value = data.value || ''
-      this._communicationChannel = CommunicationChannel.fromReference(data.communicationChannel)
+      this._communicationChannelId = data.communicationChannelId
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse('Error loading Contact entity'))
     }
@@ -26,8 +24,8 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
     return this._value
   }
 
-  get communicationChannel(): CommunicationChannelType.Output {
-    return this._communicationChannel.toJson()
+  get communicationChannelId(): string {
+    return this._communicationChannelId
   }
 
   constructor(props: ContactType.Input) {
@@ -40,8 +38,8 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
     ValidationBuilder.of({ value: this._value, fieldName: 'value' })
       .required()
       .of({
-        value: this._communicationChannel?.id,
-        fieldName: 'communicationChannel.id',
+        value: this._communicationChannelId,
+        fieldName: 'communicationChannelId',
       })
       .build('Failed to validate Contact rules')
   }
@@ -50,7 +48,7 @@ export class Contact extends BaseBusinessObject<ContactType.Repository, ContactT
     return {
       id: this._id.toString(),
       value: this._value,
-      communicationChannel: { id: this._communicationChannel.id },
+      communicationChannelId: this._communicationChannelId,
     }
   }
 }

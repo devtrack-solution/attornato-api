@@ -17,21 +17,21 @@ export class ProcessDetailEntity extends EntityBase {
   detail!: DetailEntity
 
   @Column({ type: 'uuid', nullable: false })
-  detailId!: number
+  detailId!: string
 
   @ManyToOne(() => FreeField1Entity)
   @JoinColumn({ name: 'freeField1Id' })
-  freeField1!: FreeField1Entity
+  freeField1?: FreeField1Entity
 
   @Column({ type: 'uuid', nullable: false })
-  freeField1Id!: number
+  freeField1Id?: string
 
   @ManyToOne(() => FreeField2Entity)
   @JoinColumn({ name: 'freeField2Id' })
-  freeField2!: FreeField2Entity
+  freeField2?: FreeField2Entity
 
   @Column({ type: 'uuid', nullable: false })
-  freeField2Id!: number
+  freeField2Id?: string
 
   @Column({ type: 'varchar', length: 255 })
   freeField3!: string
@@ -44,29 +44,29 @@ export class ProcessDetailEntity extends EntityBase {
 
   @ManyToOne(() => GroupProcessEntity)
   @JoinColumn({ name: 'freeField6Id' })
-  freeField6!: GroupProcessEntity
+  freeField6?: GroupProcessEntity
 
   @Column({ type: 'uuid', nullable: false })
-  freeField6Id!: number
+  freeField6Id?: string
 
   @ManyToOne(() => GroupProcessEntity)
   @JoinColumn({ name: 'originId' })
   origin!: GroupProcessEntity
 
   @Column({ type: 'uuid', nullable: false })
-  originId!: number
+  originId!: string
 
   @ManyToOne(() => GroupProcessEntity)
   @JoinColumn({ name: 'partnerId' })
   partner!: GroupProcessEntity
 
   @Column({ type: 'uuid', nullable: false })
-  partnerId!: number
+  partnerId!: string
 
   @ManyToOne(() => PrognosisEntity)
   @JoinColumn({ name: 'prognosisId' })
   prognosis!: PrognosisEntity
 
   @Column({ type: 'uuid', nullable: false })
-  prognosisId!: number
+  prognosisId!: string
 }

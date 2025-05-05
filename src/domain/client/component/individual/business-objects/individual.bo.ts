@@ -1,21 +1,13 @@
-import { ValidationBuilder, IValidator } from '@/core/domain/validators'
-import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
+import { IValidator, ValidationBuilder } from '@/core/domain/validators'
+import { IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { IndividualType } from '@/domain/client/component/individual/types/individual.type'
-import { GroupCustomer } from '@/domain/client/component/group-customer/business-objects/group-customer.bo'
-import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
-import { GroupCustomerType } from '@/domain/client/component/group-customer/types/group-customer.type'
-import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
-import { Person } from '@/domain/client/component/person/business-objects/person.bo'
-import { PersonType } from '@/domain/client/component/person/types/person.type'
+import { Client } from '@/domain/client/business-objects/client.bo'
 
 export interface IIndividual extends IBusinessObject<IndividualType.Input, IndividualType.Output> {}
 
-export class Individual extends BaseBusinessObject<IndividualType.Repository, IndividualType.Output> implements IIndividual, IValidator {
-  private _groupCustomer!: GroupCustomer
-  private _profile!: Profile
-  private _person!: Person
+export class Individual extends Client <IndividualType.Repository, IndividualType.Output> implements IIndividual, IValidator  {
   private _name!: string
   private _nationality!: string
   private _occupation!: string
@@ -26,12 +18,10 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
   private _rg!: string
   private _pis!: string
 
-  private loadData(data: IndividualType.Input): IndividualType.Output {
+  protected override loadData(data: IndividualType.Input): IndividualType.Output {
+    console.error(JSON.stringify(data, null, 2))
     try {
-      this._groupCustomer = GroupCustomer.fromReference(data.groupCustomer)
-      this._profile = Profile.fromReference(data.profile)
-      this._person = new Person(data.person)
-      this._name = data.name ?? ''
+      this._name = data.name
       this._nationality = data.nationality
       this._occupation = data.occupation
       this._educationLevel = data.educationLevel
@@ -41,7 +31,6 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
       this._rg = data.rg
       this._pis = data.pis
     } catch (e) {
-      console.error('Erro no loadData Individual:', e)
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Individual entity`))
     }
     return this.toJson()
@@ -51,18 +40,6 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
     super(props)
     this.loadData(props)
     this.validate()
-  }
-
-  get person(): PersonType.Input {
-    return this._person
-  }
-
-  get groupCustomer(): GroupCustomerType.Input {
-    return this._groupCustomer
-  }
-
-  get profile(): ProfileType.Input {
-    return this._profile
   }
 
   get name(): string {
@@ -101,28 +78,33 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
     return this._pis
   }
 
-  validate(): void {
-    ValidationBuilder.of({ value: this._groupCustomer, fieldName: 'groupCustomer' })
-      .of({ value: this._profile, fieldName: 'profile' })
+  override validate(): void {
+    ValidationBuilder
       .of({ value: this._person, fieldName: 'person' })
-      .of({ value: this._name, fieldName: 'name' }).required()
-      .of({ value: this._nationality, fieldName: 'nationality' }).required()
-      .of({ value: this._occupation, fieldName: 'occupation' }).required()
-      .of({ value: this._educationLevel, fieldName: 'educationLevel' }).required()
-      .of({ value: this._maritalStatus, fieldName: 'maritalStatus' }).required()
-      .of({ value: this._birthDate, fieldName: 'birthDate' }).required()
-      .of({ value: this._cpf, fieldName: 'cpf' }).required()
-      .of({ value: this._rg, fieldName: 'rg' }).required()
-      .of({ value: this._pis, fieldName: 'pis' }).required()
+      .of({ value: this._name, fieldName: 'name' })
+      .required()
+      .of({ value: this._nationality, fieldName: 'nationality' })
+      .required()
+      .of({ value: this._occupation, fieldName: 'occupation' })
+      .required()
+      .of({ value: this._educationLevel, fieldName: 'educationLevel' })
+      .required()
+      .of({ value: this._maritalStatus, fieldName: 'maritalStatus' })
+      .required()
+      .of({ value: this._birthDate, fieldName: 'birthDate' })
+      .required()
+      .of({ value: this._cpf, fieldName: 'cpf' })
+      .required()
+      .of({ value: this._rg, fieldName: 'rg' })
+      .required()
+      .of({ value: this._pis, fieldName: 'pis' })
+      .required()
       .build('Failed to validate Individual rules')
   }
 
-  toPersistenceObject(): IndividualType.Output {
+  override toPersistenceObject(): IndividualType.Output {
     return {
       id: this._id.toString(),
-      groupCustomer: { id: this._groupCustomer.id },
-      profile: { id: this._profile.id },
-      person: this._person.toPersistenceObject(),
       name: this._name,
       nationality: this._nationality,
       occupation: this._occupation,
@@ -132,6 +114,7 @@ export class Individual extends BaseBusinessObject<IndividualType.Repository, In
       cpf: this._cpf,
       rg: this._rg,
       pis: this._pis,
+      ...super.toPersistenceObject(),
     }
   }
 }

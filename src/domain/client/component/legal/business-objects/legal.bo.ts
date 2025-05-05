@@ -1,35 +1,23 @@
 import { ValidationBuilder, IValidator } from '@/core/domain/validators'
-import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
+import { IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { LegalType } from '@/domain/client/component/legal/types/legal.type'
-import { GroupCustomer } from '@/domain/client/component/group-customer/business-objects/group-customer.bo'
-import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
-import { GroupCustomerType } from '@/domain/client/component/group-customer/types/group-customer.type'
-import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
-import { Person } from '@/domain/client/component/person/business-objects/person.bo'
-import { PersonType } from '@/domain/client/component/person/types/person.type'
+import { Client } from '@/domain/client/business-objects/client.bo'
 
 export interface ILegal extends IBusinessObject<LegalType.Input, LegalType.Output> {}
 
-export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Output> implements ILegal, IValidator {
-  private _groupCustomer!: GroupCustomer
-  private _profile!: Profile
-  private _person!: Person
-  private _responsible!: string
-  private _companyName!: string
-  private _tradeName!: string
-  private _businessArea!: string
-  private _cnpj!: string
-  private _stateRegistration!: string
-  private _municipalRegistration!: string
+export class Legal extends Client<LegalType.Repository, LegalType.Output> implements ILegal, IValidator {
+  protected _responsible!: string
+  protected _companyName!: string
+  protected _tradeName!: string
+  protected _businessArea!: string
+  protected _cnpj!: string
+  protected _stateRegistration!: string
+  protected _municipalRegistration!: string
 
-  private loadData(data: LegalType.Input): LegalType.Output {
+  protected override loadData(data: LegalType.Input): LegalType.Output {
     try {
-      console.error(JSON.stringify(data, null, 2))
-      this._groupCustomer = GroupCustomer.fromReference(data.groupCustomer)
-      this._profile = Profile.fromReference(data.profile)
-      this._person = new Person(data.person)
       this._responsible = data.responsible
       this._companyName = data.companyName
       this._tradeName = data.tradeName
@@ -48,18 +36,6 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
     super(props)
     this.loadData(props)
     this.validate()
-  }
-
-  get person(): PersonType.Input {
-    return this._person
-  }
-
-  get groupCustomer(): GroupCustomerType.Input {
-    return this._groupCustomer
-  }
-
-  get profile(): ProfileType.Input {
-    return this._profile
   }
 
   get responsible(): string {
@@ -90,15 +66,8 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
     return this._municipalRegistration
   }
 
-  validate(): void {
-    ValidationBuilder.of({
-      value: this._groupCustomer,
-      fieldName: 'groupCustomer',
-    })
-      .of({
-        value: this._profile,
-        fieldName: 'profile',
-      })
+  override validate(): void {
+    ValidationBuilder
       .of({
         value: this._responsible,
         fieldName: 'responsible',
@@ -141,12 +110,9 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
       .build('Failed to validate Legal rules')
   }
 
-  toPersistenceObject(): LegalType.Output {
+  override toPersistenceObject(): LegalType.Output {
     return {
       id: this._id.toString(),
-      groupCustomer: { id: this._groupCustomer.id },
-      profile: { id: this._profile.id },
-      person: this._person.toPersistenceObject(),
       responsible: this._responsible,
       companyName: this._companyName,
       tradeName: this._tradeName,
@@ -154,6 +120,7 @@ export class Legal extends BaseBusinessObject<LegalType.Repository, LegalType.Ou
       cnpj: this._cnpj,
       stateRegistration: this._stateRegistration,
       municipalRegistration: this._municipalRegistration,
+      ...super.toPersistenceObject()
     }
   }
 }

@@ -33,13 +33,6 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
       .build('Failed to validate GroupCustomer rules')
   }
 
-  static fromReference(data: { id?: string; name?: string }): GroupCustomer {
-    const instance = Object.create(GroupCustomer.prototype)
-    instance._id = data.id
-    instance._name = data.name ?? ''
-    return instance as GroupCustomer
-  }
-
   toPersistenceObject(): GroupCustomerType.Output {
     return {
       id: this._id.toString(),

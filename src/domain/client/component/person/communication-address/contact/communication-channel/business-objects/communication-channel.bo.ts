@@ -36,13 +36,6 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
       .build('Failed to validate CommunicationChannel rules')
   }
 
-  static fromReference(data: { id?: string; name?: string }): CommunicationChannel {
-    const instance = Object.create(CommunicationChannel.prototype)
-    instance._id = data.id
-    instance._name = data.name ?? ''
-    return instance as CommunicationChannel
-  }
-
   toPersistenceObject(): CommunicationChannelType.Output {
     return {
       id: this._id.toString(),

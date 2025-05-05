@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteGroupCustomerService } from '@/application/services/client/group-customer/delete-group-customer.service'
+import { DeleteGroupCustomerService } from '@/application/services/client/component/group-customer/delete-group-customer.service'
 import { GroupCustomerRepositoryOutboundPort, GroupCustomerRepositoryOutboundPortSymbol } from '@/domain/client/component/group-customer/ports/outbound/group-customer-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 

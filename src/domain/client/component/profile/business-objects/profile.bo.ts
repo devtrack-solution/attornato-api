@@ -33,13 +33,6 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
       .build('Failed to validate Profile rules')
   }
 
-  static fromReference(data: { id?: string; name?: string }): Profile {
-    const instance = Object.create(Profile.prototype)
-    instance._id = data.id
-    instance._name = data.name ?? ''
-    return instance as Profile
-  }
-
   toPersistenceObject(): ProfileType.Output {
     return {
       id: this._id.toString(),

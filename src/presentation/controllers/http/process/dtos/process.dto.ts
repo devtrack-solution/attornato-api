@@ -16,13 +16,19 @@ import { CreateClientDto } from '@/presentation/controllers/http/client/dtos/cre
 
 export class ProcessDto extends BasicDto {
   @ApiPropertyOptional({ type: CreateClientDto })
-  client!: CreateClientDto
+  client?: CreateClientDto
+
+  @ApiProperty()
+  clientId!: string
 
   @ApiProperty()
   processId!: string
 
-  @ApiProperty({ type: CreateGroupProcessDto })
-  groupProcess!: CreateGroupProcessDto
+  @ApiPropertyOptional({ type: CreateGroupProcessDto })
+  groupProcess?: CreateGroupProcessDto
+
+  @ApiProperty()
+  groupProcessId!: string
 
   @ApiProperty()
   folder!: number
@@ -39,14 +45,23 @@ export class ProcessDto extends BasicDto {
   @ApiProperty()
   localProcedureNumber!: number
 
-  @ApiProperty({ type: CreateLocalProcedureNameDto })
-  localProcedureName!: CreateLocalProcedureNameDto
+  @ApiPropertyOptional({ type: CreateLocalProcedureNameDto })
+  localProcedureName?: CreateLocalProcedureNameDto
 
-  @ApiProperty({ type: CreateProceduralStatusDto })
-  proceduralStatus!: CreateProceduralStatusDto
+  @ApiProperty()
+  localProcedureNameId!: string
 
-  @ApiProperty({ type: CreateCountyDto })
-  county!: CreateCountyDto
+  @ApiPropertyOptional({ type: CreateProceduralStatusDto })
+  proceduralStatus?: CreateProceduralStatusDto
+
+  @ApiProperty()
+  proceduralStatusId!: string
+
+  @ApiPropertyOptional({ type: CreateCountyDto })
+  county?: CreateCountyDto
+
+  @ApiProperty()
+  countyId!: string
 
   @ApiProperty()
   countyUf!: string
@@ -63,23 +78,41 @@ export class ProcessDto extends BasicDto {
   @ApiProperty()
   captureProcedures!: boolean
 
-  @ApiProperty({ type: CreatePhaseDto })
-  phase!: CreatePhaseDto
+  @ApiPropertyOptional({ type: CreatePhaseDto })
+  phase?: CreatePhaseDto
 
-  @ApiProperty({ type: CreatePracticeAreaDto })
-  practiceArea!: CreatePracticeAreaDto
+  @ApiProperty()
+  phaseId!: string
 
-  @ApiProperty({ type: CreateResponsibleDto })
-  responsible!: CreateResponsibleDto
+  @ApiPropertyOptional({ type: CreatePracticeAreaDto })
+  practiceArea?: CreatePracticeAreaDto
 
-  @ApiProperty({ type: CreateActionObjectDto })
-  actionObject!: CreateActionObjectDto
+  @ApiProperty()
+  practiceAreaId!: string
 
-  @ApiProperty({ type: CreateLocatorDto })
-  locator!: CreateLocatorDto
+  @ApiPropertyOptional({ type: CreateResponsibleDto })
+  responsible?: CreateResponsibleDto
 
-  @ApiProperty({ type: CreateSubjectDto })
-  subject!: CreateSubjectDto
+  @ApiProperty()
+  responsibleId!: string
+
+  @ApiPropertyOptional({ type: CreateActionObjectDto })
+  actionObject?: CreateActionObjectDto
+
+  @ApiProperty()
+  actionObjectId!: string
+
+  @ApiPropertyOptional({ type: CreateLocatorDto })
+  locator?: CreateLocatorDto
+
+  @ApiProperty()
+  locatorId!: string
+
+  @ApiPropertyOptional({ type: CreateSubjectDto })
+  subject?: CreateSubjectDto
+
+  @ApiProperty()
+  subjectId!: string
 
   @ApiProperty({ type: CreateProcessFinancialDto })
   processFinancial!: CreateProcessFinancialDto

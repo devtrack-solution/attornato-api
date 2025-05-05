@@ -33,13 +33,6 @@ export class FreeField2 extends BaseBusinessObject<FreeField2Type.Repository, Fr
       .build('Failed to validate FreeField2 rules')
   }
 
-  static fromReference(data: { id?: string; name?: string }): FreeField2 {
-    const instance = Object.create(FreeField2.prototype)
-    instance._id = data.id
-    instance._name = data.name ?? ''
-    return instance as FreeField2
-  }
-
   toPersistenceObject(): FreeField2Type.Output {
     return {
       id: this._id.toString(),

@@ -2,7 +2,6 @@ import { ValidationBuilder, IValidator } from '@/core/domain/validators'
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
-import { FreeField } from '@/domain/client/component/person/contact-person/free-field/business-objects/free-field.bo'
 import { ContactPersonType } from '@/domain/client/component/person/contact-person/types/contact-person.type'
 
 export interface IContactPerson extends IBusinessObject<ContactPersonType.Input, ContactPersonType.Output> {}
@@ -10,7 +9,7 @@ export interface IContactPerson extends IBusinessObject<ContactPersonType.Input,
 export class ContactPerson extends BaseBusinessObject<ContactPersonType.Repository, ContactPersonType.Output> implements IContactPerson, IValidator {
   private _freeFieldOne!: string
   private _note!: string
-  private _freeField!: FreeField
+  private _freeFieldId?: string
   private _mobilePhone?: string
   private _phoneNumber?: string
   private _fatherName?: string
@@ -20,7 +19,8 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
     try {
       this._freeFieldOne = data.freeFieldOne
       this._note = data.note
-      this._freeField = FreeField.fromReference(data.freeField)
+      if (this._freeFieldId)
+        this._freeFieldId = data.freeFieldId
       this._mobilePhone = data.mobilePhone
       this._phoneNumber = data.phoneNumber
       this._fatherName = data.fatherName
@@ -45,10 +45,6 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
     return this._note
   }
 
-  get freeField(): FreeField {
-    return this._freeField
-  }
-
   get mobilePhone(): string | undefined {
     return this._mobilePhone
   }
@@ -68,7 +64,7 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
   validate(): void {
     ValidationBuilder.of({ value: this._freeFieldOne, fieldName: 'freeFieldOne' })
       .of({ value: this._note, fieldName: 'note' })
-      .of({ value: this._freeField, fieldName: 'freeField' })
+      .of({ value: this._freeFieldId, fieldName: 'freeFieldId' })
       .of({ value: this._mobilePhone, fieldName: 'mobilePhone' })
       .of({ value: this._phoneNumber, fieldName: 'phoneNumber' })
       .of({ value: this._fatherName, fieldName: 'fatherName' })
@@ -82,7 +78,7 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
       id: this._id.toString(),
       freeFieldOne: this._freeFieldOne,
       note: this._note,
-      freeField: { id: this._freeField.id },
+      freeFieldId: this._freeFieldId,
       mobilePhone: this._mobilePhone,
       phoneNumber: this._phoneNumber,
       fatherName: this._fatherName,

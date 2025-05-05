@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { PatchProfileService } from '@/application/services/client/profile/patch-profile.service'
+import { PatchProfileService } from '@/application/services/client/component/profile/patch-profile.service'
 import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/component/profile/ports/outbound/profile-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { ProfileTestBuilder } from '@tests/unit/application/services/profile/profile-test.builder'

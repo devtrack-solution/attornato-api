@@ -4,7 +4,7 @@ import { CommunicationChannelType } from '@/domain/client/component/person/commu
 export namespace ContactType {
   export type Input = {
     value: string
-    communicationChannel: CommunicationChannelType.Input
+    communicationChannelId: string
   } & BaseType.Input
 
   export type Output = Input

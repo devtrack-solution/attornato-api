@@ -22,8 +22,8 @@ export abstract class ProcessBaseEntity extends EntityBase {
   @JoinColumn({ name: 'clientId', referencedColumnName: 'id' })
   client!: ClientBaseEntity
 
-  @Column({ type: 'uuid', nullable: true })
-  clientId?: string
+  @Column({ type: 'uuid', nullable: false })
+  clientId!: string
 
   @Column()
   processId!: string
@@ -33,7 +33,7 @@ export abstract class ProcessBaseEntity extends EntityBase {
   groupProcess!: GroupProcessEntity
 
   @Column({ type: 'uuid', nullable: false })
-  groupProcessId!: number
+  groupProcessId!: string
 
   @Column({ type: 'integer', nullable: false })
   folder!: number
@@ -137,7 +137,7 @@ export abstract class ProcessBaseEntity extends EntityBase {
 
   @OneToOne(() => ProcessDetailEntity, (processDetail) => processDetail.processBase, { eager: true })
   @JoinColumn({ name: 'processDetailId', referencedColumnName: 'id' })
-  processDetail!: ProcessDetailEntity
+  processDetail?: ProcessDetailEntity
 
   @Column({ type: 'uuid', nullable: true })
   processDetailId?: string

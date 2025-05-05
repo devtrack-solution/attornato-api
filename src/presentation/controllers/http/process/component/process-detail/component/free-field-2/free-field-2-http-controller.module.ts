@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { FreeField2HttpController } from './free-field-2-http.controller'
-import { FreeField2Module } from '@/application/services/process/component/judicial/component/free-field-2/free-field-2.module'
+import { FreeField2Module } from '@/application/services/process/component/free-field-2/free-field-2.module'
 
 @Module({
   imports: [FreeField2Module],

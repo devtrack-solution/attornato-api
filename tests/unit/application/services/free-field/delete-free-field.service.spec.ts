@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DeleteFreeFieldService } from '@/application/services/client/person/contact-person/free-field/delete-free-field.service'
+import { DeleteFreeFieldService } from '@/application/services/client/component/person/contact-person/free-field/delete-free-field.service'
 import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 

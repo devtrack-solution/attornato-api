@@ -1,13 +1,7 @@
-import { BaseType } from '@/core/domain/types/base.type'
-import { GroupCustomerType } from '@/domain/client/component/group-customer/types/group-customer.type'
-import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
-import { PersonType } from '@/domain/client/component/person/types/person.type'
+import { ClientType } from '@/domain/client/types/client.type'
 
 export namespace IndividualType {
   export type Input = {
-    person: PersonType.Input
-    groupCustomer: GroupCustomerType.Input
-    profile: ProfileType.Input
     name: string
     nationality: string
     occupation: string
@@ -17,7 +11,7 @@ export namespace IndividualType {
     cpf: string
     rg: string
     pis: string
-  } & BaseType.Input
+  } & ClientType.Input
 
   export type Output = Input
 

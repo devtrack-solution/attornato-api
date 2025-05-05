@@ -32,14 +32,6 @@ export class FreeField6 extends BaseBusinessObject<FreeField6Type.Repository, Fr
     ValidationBuilder.of({ value: this._name, fieldName: 'name' })
       .build('Failed to validate FreeField6 rules')
   }
-
-  static fromReference(data: { id?: string; name?: string }): FreeField6 {
-    const instance = Object.create(FreeField6.prototype)
-    instance._id = data.id
-    instance._name = data.name ?? ''
-    return instance as FreeField6
-  }
-
   toPersistenceObject(): FreeField6Type.Output {
     return {
       id: this._id.toString(),

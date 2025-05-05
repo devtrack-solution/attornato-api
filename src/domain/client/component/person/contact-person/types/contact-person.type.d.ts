@@ -6,7 +6,7 @@ export namespace ContactPersonType {
   export type Input = {
     freeFieldOne: string
     note: string
-    freeField: FreeFieldType.Input
+    freeFieldId?: string
     mobilePhone?: string
     phoneNumber?: string
     fatherName?: string

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/component/profile/ports/outbound/profile-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
-import { CreateProfileService } from '@/application/services/client/profile/create-profile.service'
+import { CreateProfileService } from '@/application/services/client/component/profile/create-profile.service'
 import { ProfileTestBuilder } from '@tests/unit/application/services/profile/profile-test.builder'
 
 describe('[APPLICATION] - CreateProfileService', () => {

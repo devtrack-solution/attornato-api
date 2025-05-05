@@ -20,7 +20,7 @@ import { PrognosisHttpControllerModule } from '@/presentation/controllers/http/p
 import { CountyHttpControllerModule } from '@/presentation/controllers/http/process/component/county/county-http-controller.module'
 import { PartnerHttpControllerModule } from '@/presentation/controllers/http/process/component/partner/partner-http-controller.module'
 import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
-import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/identifier/identifier-http-controller.module'
+import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/component/identifier/identifier-http-controller.module'
 import { ClientHttpControllerModule } from '@/presentation/controllers/http/client/client-http-controller.module'
 import { ProcessHttpControllerModule } from '@/presentation/controllers/http/process/process-http-controller.module'
 

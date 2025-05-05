@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ListToSelectCommunicationChannelService } from '@/application/services/client/person/communication-address/contact/communication-channel/list-to-select-communication-channel.service'
+import { ListToSelectCommunicationChannelService } from '@/application/services/client/component/person/communication-address/contact/communication-channel/list-to-select-communication-channel.service'
 import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CommunicationChannelTestBuilder } from '@tests/unit/application/services/communication-channel/communication-channel-test.builder'
