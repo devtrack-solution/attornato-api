@@ -19,7 +19,7 @@ export class ListClientService implements ListClientInboundPort {
       'person.communicationAddress.contacts.communicationChannel',
       'person.contactPerson.freeField',
     ]
-    const searchFields: string[] = ['companyName', 'name', 'person.clientId']
+    const searchFields: string[] = ['companyName', 'name']
     const order = { createdAt: 'ASC' }
     let result = await this.clientRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let client = result.data.map((client) => client as ClientType.Output)

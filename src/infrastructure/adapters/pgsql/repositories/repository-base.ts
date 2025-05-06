@@ -1,10 +1,17 @@
-import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial } from 'typeorm'
+import {
+  FindManyOptions,
+  FindOptionsWhere,
+  ILike,
+  ObjectLiteral,
+  Repository,
+  DeepPartial,
+  FindOptionsOrder,
+} from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
 import { Logger } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-
 /**
  * Utility function to compute search criteria for use in queries.
  */
@@ -240,7 +247,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
    */
   async findAllByCriteria(
     props: Record<string, any>,
-    order: Record<string, string> = { createdAt: 'ASC' },
+    order: FindOptionsOrder<T> = { createdAt: 'ASC' as any },
     select: string[] = [],
     searchFields: string[] = [],
     relations: string[] = [],
@@ -252,16 +259,16 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     data: Partial<T>[]
   }> {
     try {
-      const searches = getSearches(searchFields, props)
-      const filterConditions = getWhereByValue(whereByValue)
-      const combinedWhere = {
-        ...(searches || {}), // AND or OR-driven `searchFields`
-        ...(filterConditions || {}), // AND-driven filter conditions
-      }
+      const searches = this.getSearchesWithILike(searchFields, props.search)
+      const filterConditions = this.getWhereByValue(whereByValue)
 
-      const filters: FindManyOptions<T | any> = {
+      const combinedWhere = []
+      if (searches.length > 0) combinedWhere.push(...searches)
+      if (filterConditions) combinedWhere.push(filterConditions)
+
+      const filters: FindManyOptions<T> = {
         select,
-        where: Object.keys(combinedWhere).length > 0 ? combinedWhere : {},
+        where: combinedWhere.length > 0 ? combinedWhere : {},
         relations,
         order,
         withDeleted: props.isActive !== undefined ? !props.isActive : undefined,
@@ -282,6 +289,27 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
       throw e
     }
   }
+
+  private getSearchesWithILike(searchFields: string[], searchValue: string): Record<string, any>[] {
+    if (!searchFields || !searchValue) return []
+
+    return searchFields.map(field => ({
+      [field]: ILike(`%${searchValue}%`)
+    }))
+  }
+
+  private getWhereByValue(whereByValue: Record<string, any>): Record<string, any> | undefined {
+    if (!whereByValue) return undefined
+
+    const conditions: any = {}
+    for (const key in whereByValue) {
+      if (Object.hasOwnProperty.call(whereByValue, key)) {
+        conditions[key] = whereByValue[key]
+      }
+    }
+    return conditions
+  }
+
 
   /**
    * Find entities to populate a dropdown or select box.
