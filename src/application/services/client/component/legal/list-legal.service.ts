@@ -12,7 +12,6 @@ export class ListLegalService implements ListLegalInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<LegalType.OutputPaginated> {
-    // const select: string[] = ['id', 'name', 'status', 'createdAt']
     const select: string[] = []
     const relations: string[] = [
       'groupCustomer',

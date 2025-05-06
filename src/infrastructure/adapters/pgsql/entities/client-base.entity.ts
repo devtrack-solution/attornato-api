@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, TableInheritance } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, TableInheritance } from 'typeorm'
 import { GroupCustomerEntity } from '@/infrastructure/adapters/pgsql/entities/group-customer.entity'
 import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.entity'
 import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
@@ -7,14 +7,14 @@ import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base
 @Entity({ name: 'clients'})
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export abstract class ClientBaseEntity extends EntityBase {
-  @OneToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.client)
+  @ManyToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.client)
   @JoinColumn({ name: 'groupCustomerId', referencedColumnName: 'id' })
   groupCustomer!: GroupCustomerEntity
 
   @Column({ type: 'uuid', nullable: true })
   groupCustomerId?: string
 
-  @OneToOne(() => ProfileEntity, (profile) => profile.client)
+  @ManyToOne(() => ProfileEntity, (profile) => profile.client)
   @JoinColumn({ name: 'profileId', referencedColumnName: 'id' })
   profile!: ProfileEntity
 

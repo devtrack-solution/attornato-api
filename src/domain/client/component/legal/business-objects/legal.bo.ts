@@ -110,7 +110,6 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
         value: this._person,
         fieldName: 'person',
       })
-      .required()
       .build('Failed to validate Legal rules')
   }
 
