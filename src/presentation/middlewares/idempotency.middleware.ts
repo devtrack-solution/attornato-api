@@ -3,6 +3,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
+import { stringify } from 'flatted'
 
 @Injectable()
 export class IdempotencyMiddleware implements NestMiddleware {
@@ -14,7 +15,7 @@ export class IdempotencyMiddleware implements NestMiddleware {
 
   async use(@Req() req: FastifyRequest, res: FastifyReply, next: () => void) {
     const httpAdapter = this.adapterHost.httpAdapter
-    this.logger.log(`HTTP Request: ${req}`)
+    this.logger.log(`HTTP Request IP: ${req.ip}, Method: ${req.method}, URL: ${req.originalUrl}`)
     const idempotencyKey = req.headers['x-idempotency-key'] as string
     this.logger.log(`Idempotency key: ${idempotencyKey}`)
     const user = (req.headers['username'] as string) || 'unknown'

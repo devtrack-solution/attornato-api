@@ -67,6 +67,7 @@
     "axios": "^1.7.9",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
+    "flatted": "^3.3.3",
     "luxon": "^3.6.1",
     "nestjs-custom-injector": "^2.2.3",
     "openai": "^4.96.0",
