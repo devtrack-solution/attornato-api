@@ -3,7 +3,6 @@ import { PresentationModule } from '@/presentation/presentation.module'
 import { ApplicationModule } from '@/application/application.module'
 import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { ConfigModule } from '@nestjs/config'
-import { OpenAiModule } from '@/openai/openai.module'
 
 @Global()
 @Module({
@@ -14,7 +13,6 @@ import { OpenAiModule } from '@/openai/openai.module'
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    OpenAiModule,
   ],
   controllers: [],
   providers: [],

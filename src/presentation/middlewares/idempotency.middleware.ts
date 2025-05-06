@@ -3,7 +3,6 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
-import { stringify } from 'flatted'
 
 @Injectable()
 export class IdempotencyMiddleware implements NestMiddleware {
