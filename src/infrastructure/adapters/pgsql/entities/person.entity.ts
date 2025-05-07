@@ -24,6 +24,6 @@ export class PersonEntity extends EntityBase {
   @Column({ type: 'uuid', nullable: true })
   contactPersonId?: string
 
-  @OneToMany(() => ClientBaseEntity, (client) => client.person)
-  client?: ClientBaseEntity[]
+  @OneToOne(() => ClientBaseEntity, (client) => client.person)
+  client?: ClientBaseEntity
 }

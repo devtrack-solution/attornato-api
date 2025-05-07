@@ -8,9 +8,18 @@ import { PermissionHttpControllerModule } from '@/presentation/controllers/http/
 import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
 import { ClientOrganizeControllerModule } from '@/presentation/controllers/http/client/client-organize-controller.module'
 import { ProcessOrganizeControllerModule } from '@/presentation/controllers/http/process/process-organize-controller.module'
+import { AccountOrganizeControllerModule } from '@/presentation/controllers/http/account/account-organize-controller.module'
 
 @Module({
-  imports: [ThrottlerModule.forRoot(), ApplicationModule, ClientOrganizeControllerModule, ProcessOrganizeControllerModule, PermissionHttpControllerModule, AuthModule],
+  imports: [
+    ThrottlerModule.forRoot(),
+    ApplicationModule,
+    AccountOrganizeControllerModule,
+    ClientOrganizeControllerModule,
+    ProcessOrganizeControllerModule,
+    PermissionHttpControllerModule,
+    AuthModule
+  ],
   providers: [
     {
       provide: APP_GUARD,

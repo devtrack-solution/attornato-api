@@ -1,6 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { RoleEntity } from '@/infrastructure/adapters/pgsql/entities/role.entity'
+import { AccountEntity } from '@/infrastructure/adapters/pgsql/entities/account.entity'
 
 @Entity('credentials')
 export class CredentialEntity extends EntityBase {
@@ -37,4 +38,7 @@ export class CredentialEntity extends EntityBase {
     },
   })
   roles!: RoleEntity[]
+
+  @OneToOne(() => AccountEntity, (account) => account.credential)
+  account?: AccountEntity
 }

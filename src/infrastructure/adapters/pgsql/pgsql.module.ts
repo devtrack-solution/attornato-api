@@ -54,6 +54,8 @@ import { JudicialRepository } from '@/infrastructure/adapters/pgsql/repositories
 import { AdministrativeRepository } from '@/infrastructure/adapters/pgsql/repositories/process-administrative.repository'
 import { AdministrativeRepositoryOutboundPortSymbol } from '@/domain/process/component/administrative/ports/outbound/administrative-repository.outbound-port'
 import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbound/client-repository.outbound-port'
+import { PreferenceRepositoryOutboundPortSymbol } from '@/domain/account/component/preference/ports/outbound/preference-repository.outbound-port'
+import { PreferenceRepository } from '@/infrastructure/adapters/pgsql/repositories/preference.repository'
 
 @Module({
   imports: [
@@ -174,6 +176,10 @@ import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbou
       provide: AdministrativeRepositoryOutboundPortSymbol,
       useClass: AdministrativeRepository,
     },
+    {
+      provide: PreferenceRepositoryOutboundPortSymbol,
+      useClass: PreferenceRepository,
+    },
   ],
   exports: [
     DataSource,
@@ -281,6 +287,10 @@ import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbou
     {
       provide: AdministrativeRepositoryOutboundPortSymbol,
       useClass: AdministrativeRepository,
+    },
+    {
+      provide: PreferenceRepositoryOutboundPortSymbol,
+      useClass: PreferenceRepository,
     },
   ],
 })
