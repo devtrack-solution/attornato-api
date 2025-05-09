@@ -1,15 +1,18 @@
-import { Controller, Post, Body, Inject } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Req, Get, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { LoginAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/login-auth.dto'
 import { LoginAuthInboundPort, LoginAuthInboundPortToken } from '@/domain/securities/ports/inbound/login-auth.inbound-port'
+import { OnboardingAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/onboarding-auth.dto'
+import { OnboardingAuthInboundPort, OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthHttpController extends BaseHttpController {
   constructor(
     @Inject(LoginAuthInboundPortToken) private readonly createAuthService: LoginAuthInboundPort,
-    // @Inject(ListAuthInboundPortToken) private readonly listAuthService: ListAuthInboundPort,
+    @Inject(OnboardingAuthInboundPortToken) private readonly onboardingService: OnboardingAuthInboundPort,
     // @Inject(PatchAuthInboundPortToken) private readonly patchAuthService: PatchAuthInboundPort,
     // @Inject(DeleteAuthInboundPortToken) private readonly deleteAuthService: DeleteAuthInboundPort,
     // @Inject(ListToSelectAuthInboundPortToken) private readonly listToSelectAuthService: ListToSelectAuthInboundPort,
@@ -24,12 +27,15 @@ export class AuthHttpController extends BaseHttpController {
     return this.createAuthService.execute(body)
   }
 
-  // @Get()
-  // @ApiOperation({ summary: 'Find a Auth List' })
-  // @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListAuthDto })
-  // async find(@Query() query: CriteriaPaginatedRequestDto) {
-  //   return this.listAuthService.execute(query)
-  // }
+  @Post('/onboarding')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Make token for access platform' })
+  @ApiResponse({ status: 200, description: 'The item has been listed.', type: OnboardingAuthDto })
+  async find(@Req() req: any, @Body() body: OnboardingAuthDto) {
+    return this.onboardingService.execute({ accountId: req.headers.profile.accountId, roleId: body.roleId })
+  }
+
   //
   // @Patch(':id')
   // @ApiOperation({ summary: 'Patch a Auth' })

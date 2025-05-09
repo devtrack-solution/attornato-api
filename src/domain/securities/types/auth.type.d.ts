@@ -6,6 +6,11 @@ export namespace AuthType {
     enable?: boolean
   }
 
+  export type Onboarding = {
+    accountId: string
+    roleId: string
+  }
+
   export type LoginInput = {
     username: string
     enable?: boolean

@@ -7,8 +7,8 @@ export class AccountPersonEntity extends EntityBase {
   @Column({ type: 'varchar', nullable: false, length: 255 })
   name!: string
 
-  @Column({ type: 'date', nullable: true })
-  birthday?: Date
+  @Column({ type: 'date', nullable: false })
+  birthday!: Date
 
   @Column({ type: 'varchar', nullable: true, length: 255 })
   nickName?: string

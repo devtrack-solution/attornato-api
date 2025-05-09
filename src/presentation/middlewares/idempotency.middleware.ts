@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware, Logger, Req, RequestMethod, UnauthorizedException } from '@nestjs/common'
+import { Injectable, Logger, NestMiddleware, Req, RequestMethod, UnauthorizedException } from '@nestjs/common'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
@@ -45,30 +45,45 @@ export class IdempotencyMiddleware implements NestMiddleware {
     const url = req.originalUrl
     this.logger.log('URL:', url)
     if (!exceptionsUrl.includes(url)) {
-      try {
-        const token = (req.headers.authorization as string).replace('Bearer ', '')
-        const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
-        const tokenValue = await this.jwtService.verifyAsync(token, {
-          secret: privateKey,
-        })
-
-        ;(req as any).profile = {
-          accountId: tokenValue.profile?.accountId ?? '',
-          name: tokenValue.profile?.name ?? '',
-          email: tokenValue.profile?.email ?? '',
-          avatar: tokenValue.profile?.avatar ?? '',
-          role: {
-            name: tokenValue.profile?.role?.name ?? '',
-            description: tokenValue.profile?.role?.description ?? '',
-            level: tokenValue.profile?.role?.level ?? 0,
-            permissions: tokenValue.profile?.role?.permissions ?? [],
-          },
-          preferences: tokenValue.profile?.preferences ?? [],
+      if (url.includes('/auth/onboarding')) {
+        try {
+          const token = (req.headers.authorization as string).replace('Bearer ', '')
+          const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
+          const tokenValue = await this.jwtService.verifyAsync(token, {
+            secret: privateKey,
+          })
+          ;(req as any).headers.profile = {
+            accountId: tokenValue.profile?.accountId ?? '',
+            roles: tokenValue.profile?.roles ?? [],
+          }
+          req.headers['x-idempotency-key']
+        } catch (e: any) {
+          console.error(e)
+          throw new UnauthorizedException()
         }
-        req.headers['x-idempotency-key']
-      } catch (e: any) {
-        console.error(e)
-        throw new UnauthorizedException()
+      } else {
+        try {
+          const token = (req.headers.authorization as string).replace('Bearer ', '')
+          const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
+          const tokenValue = await this.jwtService.verifyAsync(token, {
+            secret: privateKey,
+          })
+          if (!tokenValue.profile?.name) {
+            throw new UnauthorizedException('Passe pelo /auth/onboarding')
+          }
+          ;(req as any).headers.profile = {
+            accountId: tokenValue.profile?.accountId ?? '',
+            name: tokenValue.profile?.name ?? '',
+            email: tokenValue.profile?.email ?? '',
+            avatar: tokenValue.profile?.avatar ?? '',
+            role: tokenValue.profile?.role ?? {},
+            preferences: tokenValue.profile?.preferences ?? [],
+          }
+          req.headers['x-idempotency-key']
+        } catch (e: any) {
+          console.error(e)
+          throw new UnauthorizedException()
+        }
       }
     }
     next()

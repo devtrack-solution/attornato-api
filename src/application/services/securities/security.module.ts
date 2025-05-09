@@ -5,6 +5,8 @@ import { LoadRolesFromCredentialInboundPortToken } from '@/domain/securities/por
 import { LoginAuthInboundPortToken } from '@/domain/securities/ports/inbound/login-auth.inbound-port'
 import { LoginService } from '@/application/services/securities/login.service'
 import { JwtModule } from '@nestjs/jwt'
+import { OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
+import { OnboardingService } from '@/application/services/securities/onboarding.service'
 
 @Module({
   imports: [forwardRef(() => CoreModule), JwtModule.register({}),],
@@ -18,6 +20,10 @@ import { JwtModule } from '@nestjs/jwt'
       provide: LoginAuthInboundPortToken,
       useClass: LoginService,
     },
+    {
+      provide: OnboardingAuthInboundPortToken,
+      useClass: OnboardingService,
+    },
   ],
   exports: [
     {
@@ -27,6 +33,10 @@ import { JwtModule } from '@nestjs/jwt'
     {
       provide: LoginAuthInboundPortToken,
       useClass: LoginService,
+    },
+    {
+      provide: OnboardingAuthInboundPortToken,
+      useClass: OnboardingService,
     },
     JwtModule
   ],
