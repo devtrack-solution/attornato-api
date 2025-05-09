@@ -5,17 +5,18 @@
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { ConfigService } from '@nestjs/config'
 import { StrategyType } from '@/infrastructure/adapters/http/auth/strategy.type'
+import { AppConfig } from '@/domain/app-config.interface'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, StrategyType.STRATEGY_JWT_AUTH) {
-  constructor(private readonly configService: ConfigService) {
+  constructor(private config: AppConfig = new ConfigEnvironmentService()) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get<string>('jwt.publicKey'),
-      algorithms: ['RS512'],
+      secretOrKey: config.jwt.privateKeyBase64,
+      algorithms: [config.jwt.algorithm],
     })
   }
 

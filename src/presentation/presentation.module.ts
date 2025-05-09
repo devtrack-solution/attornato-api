@@ -9,11 +9,13 @@ import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
 import { ClientOrganizeControllerModule } from '@/presentation/controllers/http/client/client-organize-controller.module'
 import { ProcessOrganizeControllerModule } from '@/presentation/controllers/http/process/process-organize-controller.module'
 import { AccountOrganizeControllerModule } from '@/presentation/controllers/http/account/account-organize-controller.module'
+import { AuthHttpControllerModule } from '@/presentation/controllers/http/securities/auth/auth-http-controller.module'
 
 @Module({
   imports: [
     ThrottlerModule.forRoot(),
     ApplicationModule,
+    AuthHttpControllerModule,
     AccountOrganizeControllerModule,
     ClientOrganizeControllerModule,
     ProcessOrganizeControllerModule,

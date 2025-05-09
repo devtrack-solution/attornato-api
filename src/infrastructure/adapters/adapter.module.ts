@@ -8,9 +8,10 @@ import { IdempotencySaveInterceptor } from '@/presentation/iterceptors/idempoten
 import { ThrottlerGuard } from '@nestjs/throttler'
 import { ConfigModule } from '@/infrastructure/config/config.module'
 import { PGSQLModule } from '@/infrastructure/adapters/pgsql/pgsql.module'
+import { AuthModule } from '@/infrastructure/adapters/http/auth.module'
 
 @Module({
-  imports: [ConfigModule, PGSQLModule],
+  imports: [ConfigModule, PGSQLModule, AuthModule],
   providers: [
     IdempotencyService,
     IdempotencyMiddleware,

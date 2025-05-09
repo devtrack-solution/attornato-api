@@ -5,7 +5,7 @@ export namespace RoleType {
   export type Input = {
     id?: string
     name: string
-    description?: string | any
+    description?: string
     level: number
     permissions: PermissionType.Input[]
   } & BaseType.Input

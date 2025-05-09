@@ -74,6 +74,16 @@ export class ConfigEnvironmentService implements AppConfig {
       limit: process.env.THROTTLER_LIMIT || 10,
     }
   }
+
+  get jwt(): AppConfig['jwt'] {
+    return {
+      accessTokenExpInSec: Number(process.env.JWT_ACCESS_TOKEN_EXP_IN_SEC) || 3600,
+      refreshTokenExpInSec: Number(process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC) || 86400,
+      publicKeyBase64: process.env.JWT_PUBLIC_KEY_BASE64 || '',
+      privateKeyBase64: process.env.JWT_PRIVATE_KEY_BASE64 || '',
+      algorithm: process.env.JWT_ALGORITHM || 'RS512'
+    }
+  }
   /**
    * export type pino. LevelWithSilentOrString = LevelWithSilent | string
    *

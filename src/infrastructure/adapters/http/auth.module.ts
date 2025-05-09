@@ -10,9 +10,9 @@ import { SecurityModule } from '@/application/services/securities/security.modul
   imports: [
     forwardRef(() => ApplicationModule),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_PRIVATE_KEY_BASE64,
       signOptions: {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+        expiresIn: process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC,
       },
     }),
     SecurityModule,
@@ -23,6 +23,6 @@ import { SecurityModule } from '@/application/services/securities/security.modul
       useClass: RBACGuard,
     },
   ],
-  exports: []
+  exports: [JwtModule]
 })
 export class AuthModule {}

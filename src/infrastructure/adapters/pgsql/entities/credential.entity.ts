@@ -30,8 +30,8 @@ export class CredentialEntity extends EntityBase {
     cascade: true,
   })
   @JoinTable({
-    name: 'account_role',
-    joinColumn: { name: 'id_account', referencedColumnName: 'id' },
+    name: 'credential_role',
+    joinColumn: { name: 'id_credential', referencedColumnName: 'id' },
     inverseJoinColumn: {
       name: 'id_role',
       referencedColumnName: 'id',

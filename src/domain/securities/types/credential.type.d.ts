@@ -14,7 +14,6 @@ export namespace CredentialType {
     roles?: RoleType.Input[] | [] | any
   } & BaseType.Input
 
-
   export type Output = Input
 
   export type Repository = Output

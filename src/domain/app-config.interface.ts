@@ -40,6 +40,13 @@ export interface AppConfig {
     methods: string[] | undefined
     allowedHeaders: string[] | undefined
   }
+  jwt: {
+    accessTokenExpInSec: number
+    refreshTokenExpInSec: number
+    publicKeyBase64: string
+    privateKeyBase64: string
+    algorithm: string
+  }
   logLevel: string[]
   fastify: {
     logLevel: string

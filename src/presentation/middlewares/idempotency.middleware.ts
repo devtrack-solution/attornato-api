@@ -1,15 +1,21 @@
-import { Injectable, NestMiddleware, BadRequestException, Logger, Req, RequestMethod } from '@nestjs/common'
+import { Injectable, NestMiddleware, Logger, Req, RequestMethod, UnauthorizedException } from '@nestjs/common'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HttpAdapterHost } from '@nestjs/core'
 import { generateIdempotencyKey } from '@/core/utils/idempotency.util'
 import { IdempotencyService } from '@/infrastructure/adapters/redis/idempotency.service'
+import { JwtService } from '@nestjs/jwt'
+import { AppConfig } from '@/domain/app-config.interface'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 @Injectable()
 export class IdempotencyMiddleware implements NestMiddleware {
   private readonly logger: Logger = new Logger(IdempotencyMiddleware.name)
+  private config: AppConfig = new ConfigEnvironmentService()
+
   constructor(
     private readonly adapterHost: HttpAdapterHost,
     private readonly idempotencyService: IdempotencyService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async use(@Req() req: FastifyRequest, res: FastifyReply, next: () => void) {
@@ -20,7 +26,6 @@ export class IdempotencyMiddleware implements NestMiddleware {
     const user = (req.headers['username'] as string) || 'unknown'
     const path = req.routerPath || '/'
     if (!idempotencyKey && RequestMethod[req.method as keyof typeof RequestMethod] !== RequestMethod.OPTIONS) {
-      // throw new BadRequestException('Idempotency key is missing')
       httpAdapter.reply(res, 'Idempotency key is missing', 400)
     }
 
@@ -34,7 +39,38 @@ export class IdempotencyMiddleware implements NestMiddleware {
       return
     }
 
-    req.headers['x-idempotency-key'] = newIdempotencyKey // Pass key for interceptor
+    req.headers['x-idempotency-key'] = newIdempotencyKey
+
+    const exceptionsUrl = ['/auth/login', '/auth/forgot/password', '/auth/guest/reset-password']
+    const url = req.originalUrl
+    this.logger.log('URL:', url)
+    if (!exceptionsUrl.includes(url)) {
+      try {
+        const token = (req.headers.authorization as string).replace('Bearer ', '')
+        const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
+        const tokenValue = await this.jwtService.verifyAsync(token, {
+          secret: privateKey,
+        })
+
+        ;(req as any).profile = {
+          accountId: tokenValue.profile?.accountId ?? '',
+          name: tokenValue.profile?.name ?? '',
+          email: tokenValue.profile?.email ?? '',
+          avatar: tokenValue.profile?.avatar ?? '',
+          role: {
+            name: tokenValue.profile?.role?.name ?? '',
+            description: tokenValue.profile?.role?.description ?? '',
+            level: tokenValue.profile?.role?.level ?? 0,
+            permissions: tokenValue.profile?.role?.permissions ?? [],
+          },
+          preferences: tokenValue.profile?.preferences ?? [],
+        }
+        req.headers['x-idempotency-key']
+      } catch (e: any) {
+        console.error(e)
+        throw new UnauthorizedException()
+      }
+    }
     next()
   }
 }
