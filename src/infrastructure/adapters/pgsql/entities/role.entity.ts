@@ -20,7 +20,7 @@ export class RoleEntity extends EntityBase {
   @Column({ name: 'level', type: 'integer', nullable: false })
   level!: number
 
-  @ManyToMany(() => PermissionEntity)
+  @ManyToMany(() => PermissionEntity, { eager: true })
   @JoinTable({
     name: 'role_permission',
     joinColumn: { name: 'id_role', referencedColumnName: 'id' },

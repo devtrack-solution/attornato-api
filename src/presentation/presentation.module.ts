@@ -10,6 +10,9 @@ import { ClientOrganizeControllerModule } from '@/presentation/controllers/http/
 import { ProcessOrganizeControllerModule } from '@/presentation/controllers/http/process/process-organize-controller.module'
 import { AccountOrganizeControllerModule } from '@/presentation/controllers/http/account/account-organize-controller.module'
 import { AuthHttpControllerModule } from '@/presentation/controllers/http/securities/auth/auth-http-controller.module'
+import {
+  HttpProxyInterceptorMiddleware
+} from '@/presentation/middlewares/http-proxy-interceptor/http-proxy-interceptor.middleware'
 
 @Module({
   imports: [
@@ -45,6 +48,13 @@ export class PresentationModule {
           path: '*',
           method: RequestMethod.OPTIONS,
         },
+      )
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
+    consumer
+      .apply(HttpProxyInterceptorMiddleware)
+      .exclude(
+        { path: '/docs(.*)', method: RequestMethod.ALL },
+        { path: '*', method: RequestMethod.OPTIONS },
       )
       .forRoutes({ path: '*', method: RequestMethod.ALL })
   }

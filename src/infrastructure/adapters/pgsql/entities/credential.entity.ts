@@ -28,6 +28,7 @@ export class CredentialEntity extends EntityBase {
 
   @ManyToMany(() => RoleEntity, {
     cascade: true,
+    eager: true
   })
   @JoinTable({
     name: 'credential_role',
