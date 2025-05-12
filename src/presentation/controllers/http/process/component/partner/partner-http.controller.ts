@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreatePartnerInboundPort, CreatePartnerInboundPortToken } from '@/domain/process/component/partner/ports/inbound/create-partner.inbound-port'
 import { PatchPartnerInboundPort, PatchPartnerInboundPortToken } from '@/domain/process/component/partner/ports/inbound/patch-partner.inbound-port'
@@ -12,6 +12,7 @@ import { ListPartnerDto } from '@/presentation/controllers/http/process/componen
 import { ListPartnerInboundPort, ListPartnerInboundPortToken } from '@/domain/process/component/partner/ports/inbound/list-partner.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process/partner')
@@ -27,6 +28,8 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Partner' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePartnerDto) {
@@ -34,6 +37,8 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Partner List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPartnerDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Partner' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPartnerDto) {
@@ -48,6 +55,8 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Partner' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class PartnerHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Partner List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPartnerDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

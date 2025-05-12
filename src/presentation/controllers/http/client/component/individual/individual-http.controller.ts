@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -12,6 +12,7 @@ import { CreateIndividualDto } from './dtos/create-individual.dto'
 import { ListIndividualDto } from './dtos/list-individual.dto'
 import { ListToSelectIndividualDto } from './dtos/list-to-select-individual.dto'
 import { PatchIndividualDto } from './dtos/patch-individual.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Clients')
 @Controller('clients/individual')
@@ -27,6 +28,8 @@ export class IndividualHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Individual' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateIndividualDto) {
@@ -34,6 +37,8 @@ export class IndividualHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Individual List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListIndividualDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class IndividualHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Individual' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchIndividualDto) {
@@ -48,6 +55,8 @@ export class IndividualHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Individual' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class IndividualHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Individual List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectIndividualDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

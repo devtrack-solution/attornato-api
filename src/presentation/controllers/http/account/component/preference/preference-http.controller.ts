@@ -26,6 +26,8 @@ export class PreferenceHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Preference' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePreferenceDto, @Req() request: any) {
@@ -39,10 +41,11 @@ export class PreferenceHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Preference List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPreferenceDto })
   async find(@Query() query: CriteriaPaginatedRequestDto, @Req() request: any) {
-    console.log(JSON.stringify(request.headers.profile))
     let newQuery = {
       ...query,
       accountId: request.headers.profile.accountId,

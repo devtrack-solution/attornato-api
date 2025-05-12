@@ -1,5 +1,5 @@
-import { Controller, Inject, Get, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Inject, Get, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -7,6 +7,7 @@ import { ListClientInboundPort, ListClientInboundPortToken } from '@/domain/clie
 import { ListToSelectClientInboundPort, ListToSelectClientInboundPortToken } from '@/domain/client/ports/inbound/list-to-select-client.inbound-port'
 import { ListClientDto } from '@/presentation/controllers/http/client/dtos/list-client.dto'
 import { ListToSelectClientDto } from '@/presentation/controllers/http/client/dtos/list-to-select-client.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Clients')
 @Controller('clients')
@@ -26,6 +27,8 @@ export class ClientHttpController extends BaseHttpController {
   // }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Client List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListClientDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -47,6 +50,8 @@ export class ClientHttpController extends BaseHttpController {
   // }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Client List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectClientDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

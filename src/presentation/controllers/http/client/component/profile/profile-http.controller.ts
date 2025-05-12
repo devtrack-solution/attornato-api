@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreateProfileInboundPort, CreateProfileInboundPortToken } from '@/domain/client/component/profile/ports/inbound/create-profile.inbound-port'
 import { PatchProfileInboundPort, PatchProfileInboundPortToken } from '@/domain/client/component/profile/ports/inbound/patch-profile.inbound-port'
@@ -12,6 +12,7 @@ import { CreateProfileDto } from '@/presentation/controllers/http/client/compone
 import { ListProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-profile.dto'
 import { PatchProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/patch-profile.dto'
 import { ListToSelectProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-to-select-profile.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Clients')
 @Controller('clients/profile')
@@ -27,6 +28,8 @@ export class ProfileHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Profile' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateProfileDto) {
@@ -34,6 +37,8 @@ export class ProfileHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Profile List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListProfileDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class ProfileHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Profile' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchProfileDto) {
@@ -48,6 +55,8 @@ export class ProfileHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Profile' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class ProfileHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Profile List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectProfileDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

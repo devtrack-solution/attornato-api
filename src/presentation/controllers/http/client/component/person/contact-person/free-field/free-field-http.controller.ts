@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -27,6 +27,7 @@ import {
 import { CreateFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/create-free-field.dto'
 import { ListFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/list-free-field.dto'
 import { PatchFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/patch-free-field.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Clients')
 @Controller('clients/person/contact-person/free-fields')
@@ -42,6 +43,8 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Free-Field' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateFreeFieldDto) {
@@ -49,6 +52,8 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Free-Field List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListFreeFieldDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -56,6 +61,8 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Free-Field' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchFreeFieldDto) {
@@ -63,6 +70,8 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Free-Field' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -70,6 +79,8 @@ export class FreeFieldHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Free-Field List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectFreeFieldDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

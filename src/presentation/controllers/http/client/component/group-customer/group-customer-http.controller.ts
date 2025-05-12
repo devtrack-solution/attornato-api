@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreateGroupCustomerInboundPort, CreateGroupCustomerInboundPortToken } from '@/domain/client/component/group-customer/ports/inbound/create-group-customer.inbound-port'
 import { PatchGroupCustomerInboundPort, PatchGroupCustomerInboundPortToken } from '@/domain/client/component/group-customer/ports/inbound/patch-group-customer.inbound-port'
@@ -12,6 +12,7 @@ import { CreateGroupCustomerDto } from '@/presentation/controllers/http/client/c
 import { ListGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/list-group-customer.dto'
 import { PatchGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/patch-group-customer.dto'
 import { ListToSelectGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/list-to-select-group-customer.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Clients')
 @Controller('clients/group-customer')
@@ -27,6 +28,8 @@ export class GroupCustomerHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Group-Customer' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateGroupCustomerDto) {
@@ -34,6 +37,8 @@ export class GroupCustomerHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Group-Customer List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListGroupCustomerDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class GroupCustomerHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Group-Customer' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchGroupCustomerDto) {
@@ -48,6 +55,8 @@ export class GroupCustomerHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Group-Customer' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class GroupCustomerHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Group-Customer List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectGroupCustomerDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

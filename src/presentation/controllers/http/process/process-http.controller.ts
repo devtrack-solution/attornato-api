@@ -1,5 +1,5 @@
-import { Controller, Inject, Get, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Inject, Get, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -7,6 +7,7 @@ import { ListProcessInboundPort, ListProcessInboundPortToken } from '@/domain/pr
 import { ListToSelectProcessInboundPort, ListToSelectProcessInboundPortToken } from '@/domain/process/ports/inbound/list-to-select-process.inbound-port'
 import { ListProcessDto } from '@/presentation/controllers/http/process/dtos/list-process.dto'
 import { ListToSelectProcessDto } from '@/presentation/controllers/http/process/dtos/list-to-select-process.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process')
@@ -29,6 +30,8 @@ export class ProcessHttpController extends BaseHttpController {
   // }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Process List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListProcessDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -50,6 +53,8 @@ export class ProcessHttpController extends BaseHttpController {
   // }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Process List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectProcessDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

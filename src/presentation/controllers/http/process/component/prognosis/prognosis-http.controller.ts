@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreatePrognosisInboundPort, CreatePrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/create-prognosis.inbound-port'
 import { PatchPrognosisInboundPort, PatchPrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/patch-prognosis.inbound-port'
@@ -12,6 +12,7 @@ import { ListPrognosisDto } from '@/presentation/controllers/http/process/compon
 import { ListPrognosisInboundPort, ListPrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/list-prognosis.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process/prognosis')
@@ -27,6 +28,8 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Prognosis' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePrognosisDto) {
@@ -34,6 +37,8 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Prognosis List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPrognosisDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPrognosisDto) {
@@ -48,6 +55,8 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class PrognosisHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Prognosis List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPrognosisDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -12,6 +12,7 @@ import { CreateAdministrativeDto } from './dtos/create-administrative.dto'
 import { ListAdministrativeDto } from './dtos/list-administrative.dto'
 import { ListToSelectAdministrativeDto } from './dtos/list-to-select-administrative.dto'
 import { PatchAdministrativeDto } from '@/presentation/controllers/http/process/component/administrative/dtos/patch-administrative.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process/administrative')
@@ -27,6 +28,8 @@ export class AdministrativeHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Administrative' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateAdministrativeDto) {
@@ -34,6 +37,8 @@ export class AdministrativeHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Administrative List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListAdministrativeDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class AdministrativeHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Administrative' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchAdministrativeDto) {
@@ -48,6 +55,8 @@ export class AdministrativeHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Administrative' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class AdministrativeHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Administrative List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectAdministrativeDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

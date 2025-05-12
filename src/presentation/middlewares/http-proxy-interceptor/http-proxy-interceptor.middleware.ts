@@ -20,6 +20,9 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     if (!exceptionsUrl.includes(url)) {
       if (url.includes('/auth/onboarding')) {
         try {
+          if(!req.headers.authorization) {
+            throw new UnauthorizedException()
+          }
           const token = (req.headers.authorization as string).replace('Bearer ', '')
           const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
           const tokenValue = await this.jwtService.verifyAsync(token, {
@@ -36,6 +39,9 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
         }
       } else {
         try {
+          if(!req.headers.authorization) {
+            throw new UnauthorizedException()
+          }
           const token = (req.headers.authorization as string).replace('Bearer ', '')
           const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
           const tokenValue = await this.jwtService.verifyAsync(token, {

@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Inject } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreateIdentifierDto } from './dtos/create-identifier.dto'
 import { CreateIdentifierInboundPort, CreateIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/create-identifier-responsible.inbound-port'
 import { LastIdentifierInboundPort, LastIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/last-identifier.inbound-port'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Identifier')
 @Controller('identifier')
@@ -16,6 +17,8 @@ export class IdentifierHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Identifier' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateIdentifierDto) {

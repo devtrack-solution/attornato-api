@@ -1,22 +1,21 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
 import { DeleteFreeField1InboundPortToken, DeleteFreeField1InboundPort } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/delete-free-field-1.inbound-port'
 import { ListFreeField1InboundPortToken, ListFreeField1InboundPort } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/list-free-field-1.inbound-port'
-import { ListToSelectFreeField1InboundPortToken, ListToSelectFreeField1InboundPort } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/list-to-select-free-field-1.inbound-port'
+import {
+  ListToSelectFreeField1InboundPortToken,
+  ListToSelectFreeField1InboundPort,
+} from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/list-to-select-free-field-1.inbound-port'
 import { PatchFreeField1InboundPortToken, PatchFreeField1InboundPort } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/patch-free-field-1.inbound-port'
 import { CreateFreeField1Dto } from './dtos/create-free-field-1.dto'
 import { ListFreeField1Dto } from './dtos/list-free-field-1.dto'
 import { ListToSelectFreeField1Dto } from './dtos/list-to-select-free-field-1.dto'
-import {
-  PatchFreeField1Dto
-} from '@/presentation/controllers/http/process/component/process-detail/component/free-field-1/dtos/patch-free-field-1.dto'
-import {
-  CreateFreeField1InboundPort,
-  CreateFreeField1InboundPortToken,
-} from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/create-free-field-1.inbound-port'
+import { PatchFreeField1Dto } from '@/presentation/controllers/http/process/component/process-detail/component/free-field-1/dtos/patch-free-field-1.dto'
+import { CreateFreeField1InboundPort, CreateFreeField1InboundPortToken } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/create-free-field-1.inbound-port'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process/precess-detail/free-field-1')
@@ -32,6 +31,8 @@ export class FreeField1HttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new FreeField1' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateFreeField1Dto) {
@@ -39,6 +40,8 @@ export class FreeField1HttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a FreeField1 List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListFreeField1Dto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -46,6 +49,8 @@ export class FreeField1HttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a FreeField1' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchFreeField1Dto) {
@@ -53,6 +58,8 @@ export class FreeField1HttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a FreeField1' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -60,6 +67,8 @@ export class FreeField1HttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List FreeField1 List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectFreeField1Dto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

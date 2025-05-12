@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Controller, Post, Body, Inject, Get, Put, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
@@ -12,6 +12,7 @@ import { CreateJudicialDto } from './dtos/create-judicial.dto'
 import { ListJudicialDto } from './dtos/list-judicial.dto'
 import { ListToSelectJudicialDto } from './dtos/list-to-select-judicial.dto'
 import { PatchJudicialDto } from '@/presentation/controllers/http/process/component/judicial/dtos/patch-judicial.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
 @Controller('process/judicials')
@@ -27,6 +28,8 @@ export class JudicialHttpController extends BaseHttpController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Judicial' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateJudicialDto) {
@@ -34,6 +37,8 @@ export class JudicialHttpController extends BaseHttpController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Judicial List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListJudicialDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -41,6 +46,8 @@ export class JudicialHttpController extends BaseHttpController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Patch a Judicial' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchJudicialDto) {
@@ -48,6 +55,8 @@ export class JudicialHttpController extends BaseHttpController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete a Judicial' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -55,6 +64,8 @@ export class JudicialHttpController extends BaseHttpController {
   }
 
   @Get('to/selects')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'List Judicial List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectJudicialDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
