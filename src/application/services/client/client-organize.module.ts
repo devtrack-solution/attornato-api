@@ -4,7 +4,7 @@ import { CommunicationChannelModule } from '@/application/services/client/compon
 import { ProfileModule } from '@/application/services/client/component/profile/profile.module'
 import { GroupCustomerModule } from '@/application/services/client/component/group-customer/group-customer.module'
 import { IndividualModule } from '@/application/services/client/component/individual/individual.module'
-import { IdentifierModule } from '@/application/services/client/component/identifier/identifier.module'
+import { IdentifierModule } from '@/application/services/identifier/identifier.module'
 import { LegalModule } from '@/application/services/client/component/legal/legal.module'
 import { ClientModule } from '@/application/services/client/client.module'
 

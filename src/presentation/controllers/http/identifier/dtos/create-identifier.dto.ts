@@ -1,6 +1,6 @@
 import { OmitType } from '@nestjs/swagger';
-import { IdentifierType } from '@/domain/client/component/identifier/types/identifier.type';
 import { IdentifierDto } from './identifier.dto';
+import { IdentifierType } from '@/domain/identifier/types/identifier.type'
 
 export class CreateIdentifierDto
   extends OmitType(IdentifierDto, ['id', 'userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable'])

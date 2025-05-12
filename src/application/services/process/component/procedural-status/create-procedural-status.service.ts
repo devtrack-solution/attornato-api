@@ -18,7 +18,7 @@ export class CreateProceduralStatusService implements CreateProceduralStatusInbo
 
   async execute(data: ProceduralStatusType.Input): Promise<ProceduralStatusType.Output> {
     let  proceduralStatus  = new ProceduralStatus(data)
-    await this.proceduralStatusRepository.saveObject( proceduralStatus .toPersistence())
-    return  proceduralStatus .toJson()
+    await this.proceduralStatusRepository.saveObject( proceduralStatus.toPersistence())
+    return  proceduralStatus.toJson()
   }
 }

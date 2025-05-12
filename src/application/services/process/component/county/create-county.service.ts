@@ -13,7 +13,7 @@ export class CreateCountyService implements CreateCountyInboundPort {
 
   async execute(data: CountyType.Input): Promise<CountyType.Output> {
     let  county  = new County(data)
-    await this.CountyRepository.saveObject( county .toPersistence())
-    return  county .toJson()
+    await this.CountyRepository.saveObject( county.toPersistence())
+    return  county.toJson()
   }
 }

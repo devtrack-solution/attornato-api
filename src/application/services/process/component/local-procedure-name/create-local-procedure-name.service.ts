@@ -17,7 +17,7 @@ export class CreateLocalProcedureNameService implements CreateLocalProcedureName
 
   async execute(data: LocalProcedureNameType.Input): Promise<LocalProcedureNameType.Output> {
     let  localProcedureName  = new LocalProcedureName(data)
-    await this.localProcedureNameRepository.saveObject( localProcedureName .toPersistence())
-    return  localProcedureName .toJson()
+    await this.localProcedureNameRepository.saveObject( localProcedureName.toPersistence())
+    return  localProcedureName.toJson()
   }
 }

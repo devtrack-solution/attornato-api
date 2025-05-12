@@ -2,8 +2,8 @@ import { ValidationBuilder, IValidator } from '@/core/domain/validators'
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
-import { IdentifierType } from '@/domain/client/component/identifier/types/identifier.type'
-import { ClientCategoryEnum } from '@/presentation/controllers/http/client/component/identifier/dtos/identifier.dto'
+import { IdentifierType } from '@/domain/identifier/types/identifier.type'
+import { ClientCategoryEnum } from '@/presentation/controllers/http/identifier/dtos/identifier.dto'
 
 export interface IIdentifier extends IBusinessObject<IdentifierType.Input, IdentifierType.Output> {}
 
@@ -39,6 +39,7 @@ export class Identifier extends BaseBusinessObject<IdentifierType.Repository, Id
       .required()
       .of({ value: this._clientCategory, fieldName: 'clientCategory' })
       .required()
+      .mustBeOneOf(Object.values(ClientCategoryEnum))
       .build('Failed to validate Identifier rules')
   }
 

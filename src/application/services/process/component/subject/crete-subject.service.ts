@@ -16,7 +16,7 @@ export class CreateSubjectService implements CreateSubjectInboundPort {
 
   async execute(data: SubjectType.Input): Promise<SubjectType.Output> {
     let  subject  = new Subject(data)
-    await this.subjectRepository.saveObject( subject .toPersistence())
-    return  subject .toJson()
+    await this.subjectRepository.saveObject( subject.toPersistence())
+    return  subject.toJson()
   }
 }

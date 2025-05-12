@@ -5,7 +5,7 @@ import { IndividualHttpControllerModule } from '@/presentation/controllers/http/
 import { LegalHttpControllerModule } from '@/presentation/controllers/http/client/component/legal/legal-http-controller.module'
 import { FreeFieldHttpControllerModule } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/free-field-http-controller.module'
 import { CommunicationChannelHttpControllerModule } from '@/presentation/controllers/http/client/component/person/communication-address/contact/communication-channel/communication-channel-http-controller.module'
-import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/client/component/identifier/identifier-http-controller.module'
+import { IdentifierHttpControllerModule } from '@/presentation/controllers/http/identifier/identifier-http-controller.module'
 import { ClientHttpController } from '@/presentation/controllers/http/client/client-http.controller'
 import { ClientModule } from '@/application/services/client/client.module'
 import { ClientHttpControllerModule } from '@/presentation/controllers/http/client/client-http-controller.module'

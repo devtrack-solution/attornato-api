@@ -16,7 +16,7 @@ export class CreateDetailService implements CreateDetailInboundPort {
 
   async execute(data: DetailType.Input): Promise<DetailType.Output> {
     let  county  = new Detail(data)
-    await this.detailRepository.saveObject( county .toPersistence())
-    return  county .toJson()
+    await this.detailRepository.saveObject( county.toPersistence())
+    return  county.toJson()
   }
 }

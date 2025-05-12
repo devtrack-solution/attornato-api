@@ -13,7 +13,7 @@ export class CreateCommunicationChannelService implements CreateCommunicationCha
 
   async execute(data: CommunicationChannelType.Input): Promise<CommunicationChannelType.Output> {
     let  communicationChannel  = new CommunicationChannel(data)
-    await this.communicationChannelRepository.saveObject( communicationChannel .toPersistence())
-    return  communicationChannel .toJson()
+    await this.communicationChannelRepository.saveObject( communicationChannel.toPersistence())
+    return  communicationChannel.toJson()
   }
 }

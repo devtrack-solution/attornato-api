@@ -16,7 +16,7 @@ export class CreateFreeFieldService implements CreateFreeFieldInboundPort {
 
   async execute(data: FreeFieldType.Input): Promise<FreeFieldType.Output> {
     let  freeField  = new FreeField(data)
-    await this.freeFieldRepository.saveObject( freeField .toPersistence())
-    return  freeField .toJson()
+    await this.freeFieldRepository.saveObject( freeField.toPersistence())
+    return  freeField.toJson()
   }
 }

@@ -13,7 +13,7 @@ export class CreateGroupCustomerService implements CreateGroupCustomerInboundPor
 
   async execute(data: GroupCustomerType.Input): Promise<GroupCustomerType.Output> {
     let  groupCustomer  = new GroupCustomer(data)
-    await this.groupCustomerRepository.saveObject( groupCustomer .toPersistence())
-    return  groupCustomer .toJson()
+    await this.groupCustomerRepository.saveObject( groupCustomer.toPersistence())
+    return  groupCustomer.toJson()
   }
 }

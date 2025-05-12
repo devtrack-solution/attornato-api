@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Inject, Get, Param, Delete, Patch, Query, UseGuards } from '@nestjs/common'
+import { Controller, Post, Body, Inject, Get, Param, Delete, Patch, Query, UseGuards, Req } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CreatePreferenceInboundPort, CreatePreferenceInboundPortToken } from '@/domain/account/component/preference/ports/inbound/create-preference.inbound-port'
@@ -28,8 +28,12 @@ export class PreferenceHttpController extends BaseHttpController {
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Create a new Preference' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
-  async create(@Body() body: CreatePreferenceDto) {
-    return this.createPreferenceService.execute(body)
+  async create(@Body() body: CreatePreferenceDto, @Req() request: any) {
+    let newBody = {
+      ...body,
+      accountId: request.headers.profile.accountId,
+    }
+    return this.createPreferenceService.execute(newBody)
   }
 
   @Get()
@@ -37,8 +41,13 @@ export class PreferenceHttpController extends BaseHttpController {
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Find a Preference List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPreferenceDto })
-  async find(@Query() query: CriteriaPaginatedRequestDto) {
-    return this.listPreferenceService.execute(query)
+  async find(@Query() query: CriteriaPaginatedRequestDto, @Req() request: any) {
+    console.log(JSON.stringify(request.headers.profile))
+    let newQuery = {
+      ...query,
+      accountId: request.headers.profile.accountId,
+    }
+    return this.listPreferenceService.execute(newQuery)
   }
 
   @Patch(':id')

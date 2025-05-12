@@ -13,7 +13,7 @@ export class CreateJudicialService implements CreateJudicialInboundPort {
 
   async execute(data: JudicialType.Input): Promise<JudicialType.Output> {
     let  judicial  = new Judicial(data)
-    await this.judicialRepository.saveObject( judicial .toPersistence())
-    return  judicial .toJson()
+    await this.judicialRepository.saveObject( judicial.toPersistence())
+    return  judicial.toJson()
   }
 }

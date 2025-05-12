@@ -22,7 +22,7 @@ export class ListIndividualService implements ListIndividualInboundPort {
     const searchFields: string[] = ['name', 'person.clientId']
     const order = { createdAt: 'ASC' }
     let result = await this.individualRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  individual  = result.data.map(( individual ) =>  individual  as IndividualType.Output)
+    let  individual  = result.data.map((individual ) =>  individual  as IndividualType.Output)
     return {
       count: result.count,
       limit: result.limit,

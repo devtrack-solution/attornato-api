@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Inject, Req, Get, Query, UseGuards } from '@nestjs/common'
+import { Controller, Post, Body, Inject, Req, UseGuards } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { LoginAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/login-auth.dto'
@@ -33,6 +33,7 @@ export class AuthHttpController extends BaseHttpController {
   @ApiOperation({ summary: 'Make token for access platform' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: OnboardingAuthDto })
   async find(@Req() req: any, @Body() body: OnboardingAuthDto) {
+    console.log(JSON.stringify(req.headers))
     return this.onboardingService.execute({ accountId: req.headers.profile.accountId, roleId: body.roleId })
   }
 

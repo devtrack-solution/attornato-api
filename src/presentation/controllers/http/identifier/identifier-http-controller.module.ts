@@ -1,4 +1,4 @@
-import { IdentifierModule } from '@/application/services/client/component/identifier/identifier.module';
+import { IdentifierModule } from '@/application/services/identifier/identifier.module';
 import { Module } from '@nestjs/common'
 import { IdentifierHttpController } from './identifier-http.controller';
 

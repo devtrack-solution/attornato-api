@@ -174,4 +174,11 @@ export class ValidationBuilder {
 
     return this
   }
+
+  mustBeOneOf(allowedValues: any[]): this {
+    if (this.currentField && !allowedValues.includes(this.currentField.value)) {
+      this.addError(`Field must be one of: ${allowedValues.join(', ')}`)
+    }
+    return this
+  }
 }

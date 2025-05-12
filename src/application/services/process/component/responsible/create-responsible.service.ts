@@ -13,7 +13,7 @@ export class CreateResponsibleService implements CreateResponsibleInboundPort {
 
   async execute(data: ResponsibleType.Input): Promise<ResponsibleType.Output> {
     let  responsible  = new Responsible(data)
-    await this.responsibleRepository.saveObject( responsible .toPersistence())
-    return  responsible .toJson()
+    await this.responsibleRepository.saveObject( responsible.toPersistence())
+    return  responsible.toJson()
   }
 }

@@ -16,7 +16,7 @@ export class CreateOriginService implements CreateOriginInboundPort {
 
   async execute(data: OriginType.Input): Promise<OriginType.Output> {
     let  locator  = new Origin(data)
-    await this.originRepository.saveObject( locator .toPersistence())
-    return  locator .toJson()
+    await this.originRepository.saveObject( locator.toPersistence())
+    return  locator.toJson()
   }
 }

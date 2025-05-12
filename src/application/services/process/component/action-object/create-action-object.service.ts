@@ -16,7 +16,7 @@ export class CreateActionObjectService implements CreateActionObjectInboundPort 
 
   async execute(data: ActionObjectType.Input): Promise<ActionObjectType.Output> {
     let  actionObject  = new ActionObject(data)
-    await this.actionObjectRepository.saveObject( actionObject .toPersistence())
-    return  actionObject .toJson()
+    await this.actionObjectRepository.saveObject( actionObject.toPersistence())
+    return  actionObject.toJson()
   }
 }

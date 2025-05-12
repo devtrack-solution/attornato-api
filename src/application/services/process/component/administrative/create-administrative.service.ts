@@ -13,7 +13,7 @@ export class CreateAdministrativeService implements CreateAdministrativeInboundP
 
   async execute(data: AdministrativeType.Input): Promise<AdministrativeType.Output> {
     let  administrative  = new Administrative(data)
-    await this.administrativeRepository.saveObject( administrative .toPersistence())
-    return  administrative .toJson()
+    await this.administrativeRepository.saveObject( administrative.toPersistence())
+    return  administrative.toJson()
   }
 }

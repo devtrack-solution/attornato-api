@@ -13,7 +13,7 @@ export class CreateGroupProcessService implements CreateGroupProcessInboundPort 
 
   async execute(data: GroupProcessType.Input): Promise<GroupProcessType.Output> {
     let  groupProcess  = new GroupProcess(data)
-    await this.groupProcessRepository.saveObject( groupProcess .toPersistence())
-    return  groupProcess .toJson()
+    await this.groupProcessRepository.saveObject( groupProcess.toPersistence())
+    return  groupProcess.toJson()
   }
 }

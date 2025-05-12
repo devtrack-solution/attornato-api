@@ -16,7 +16,7 @@ export class CreatePracticeAreaService implements CreatePracticeAreaInboundPort 
 
   async execute(data: PracticeAreaType.Input): Promise<PracticeAreaType.Output> {
     let  practiceArea  = new PracticeArea(data)
-    await this.practiceAreaRepository.saveObject( practiceArea .toPersistence())
-    return  practiceArea .toJson()
+    await this.practiceAreaRepository.saveObject( practiceArea.toPersistence())
+    return  practiceArea.toJson()
   }
 }

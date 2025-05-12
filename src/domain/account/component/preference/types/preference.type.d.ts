@@ -1,4 +1,5 @@
 import { BaseType } from '@/core/domain/types/base.type'
+import { Criteria } from '@/core/domain/types/criteria.type'
 
 export namespace PreferenceType {
   export type Input = {
@@ -14,6 +15,10 @@ export namespace PreferenceType {
     limit: number
     offset: number
     data: Partial<Output[]>
+  }
+
+  export type WithAccountId = Criteria.Paginated & {
+    accountId: string
   }
 
   export type Repository = Output

@@ -13,7 +13,7 @@ export class CreateLocatorService implements CreateLocatorInboundPort {
 
   async execute(data: LocatorType.Input): Promise<LocatorType.Output> {
     let  locator  = new Locator(data)
-    await this.LocatorRepository.saveObject( locator .toPersistence())
-    return  locator .toJson()
+    await this.LocatorRepository.saveObject( locator.toPersistence())
+    return  locator.toJson()
   }
 }

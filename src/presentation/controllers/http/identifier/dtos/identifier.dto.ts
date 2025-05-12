@@ -3,7 +3,9 @@ import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 
 export enum ClientCategoryEnum {
   PERSON = 'PF',
-  COMPANY = 'PJ'
+  COMPANY = 'PJ',
+  ADMINISTRATIVE = 'ADM',
+  JUDICIAL = 'JUD',
 }
 
 export class IdentifierDto extends BasicDto {

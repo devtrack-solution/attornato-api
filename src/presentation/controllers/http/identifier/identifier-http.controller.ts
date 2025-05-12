@@ -1,12 +1,12 @@
 import { Controller, Post, Body, Inject } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
-import { CreateIdentifierInboundPortToken, CreateIdentifierInboundPort } from '@/domain/client/component/identifier/ports/inbound/create-identifier-responsible.inbound-port'
 import { CreateIdentifierDto } from './dtos/create-identifier.dto'
-import { LastIdentifierInboundPort, LastIdentifierInboundPortToken } from '@/domain/client/component/identifier/ports/inbound/last-identifier.inbound-port'
+import { CreateIdentifierInboundPort, CreateIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/create-identifier-responsible.inbound-port'
+import { LastIdentifierInboundPort, LastIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/last-identifier.inbound-port'
 
-@ApiTags('Clients')
-@Controller('clients/identifier')
+@ApiTags('Identifier')
+@Controller('identifier')
 export class IdentifierHttpController extends BaseHttpController {
   constructor(
     @Inject(CreateIdentifierInboundPortToken) private readonly createIdentifierService: CreateIdentifierInboundPort,

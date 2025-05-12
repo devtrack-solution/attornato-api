@@ -17,6 +17,6 @@ export class ListToSelectIndividualService implements ListToSelectIndividualInbo
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
     let  individual  = await this.individualRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  individual.map(( individual ) => new Individual( individual  as IndividualType.Output).toJson())
+    return  individual.map((individual ) => new Individual(individual  as IndividualType.Output).toJson())
   }
 }
