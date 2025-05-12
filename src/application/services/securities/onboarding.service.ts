@@ -3,11 +3,11 @@ import { JwtService } from '@nestjs/jwt'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { AccountRepositoryOutboundPort, AccountRepositoryOutboundPortSymbol } from '@/domain/account/ports/outbound/account-repository.outbound-port'
-import { CreateAccountInboundPort } from '@/domain/account/ports/inbound/create-account.inbound-port'
 import { isUUID } from 'validator'
+import { AuthType } from '@/domain/securities/types/auth.type'
 
 @Injectable()
-export class OnboardingService implements CreateAccountInboundPort {
+export class OnboardingService {
   private config: AppConfig = new ConfigEnvironmentService()
   private readonly logger = new Logger(OnboardingService.name)
 
@@ -17,18 +17,19 @@ export class OnboardingService implements CreateAccountInboundPort {
     readonly jwtService: JwtService,
   ) {}
 
-  async execute(data: any): Promise<any> {
+  async execute(data: AuthType.Onboarding): Promise<AuthType.Token> {
     try {
       if (!isUUID(data.roleId)) {
         throw new UnauthorizedException(`${data.roleId} is not UUID`)
       }
       const account = await this.accountRepository.findOneByCriteria({ id: data.accountId }, ['credential.roles.permissions', 'accountPerson', 'preferences'])
+      if (!account) {
+        throw new UnauthorizedException('no account found')
+      }
       return await this.makeResponseAuth(account, data.roleId)
     } catch (e) {
       this.logger.error(e)
-      if (e instanceof UnauthorizedException) {
-        throw e
-      }
+      throw e
     }
   }
 
@@ -53,7 +54,7 @@ export class OnboardingService implements CreateAccountInboundPort {
           preferences: account?.preferences,
         },
       }
-      if(!payload.profile.role) {
+      if (!payload.profile.role) {
         throw new UnauthorizedException()
       }
       const accessTokenExpiresInSec = this.config.jwt.accessTokenExpInSec

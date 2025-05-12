@@ -11,6 +11,10 @@ export namespace AuthType {
     roleId: string
   }
 
+  export type Token = {
+    token: string
+  }
+
   export type LoginInput = {
     username: string
     enable?: boolean
