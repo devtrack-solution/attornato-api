@@ -15,7 +15,10 @@ import { ListFreeField1Dto } from './dtos/list-free-field-1.dto'
 import { ListToSelectFreeField1Dto } from './dtos/list-to-select-free-field-1.dto'
 import { PatchFreeField1Dto } from '@/presentation/controllers/http/process/component/process-detail/component/free-field-1/dtos/patch-free-field-1.dto'
 import { CreateFreeField1InboundPort, CreateFreeField1InboundPortToken } from '@/domain/process/component/process-detail/component/free-field-1/ports/inbound/create-free-field-1.inbound-port'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/precess-detail/free-field-1')
@@ -33,6 +36,7 @@ export class FreeField1HttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new FreeField1' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateFreeField1Dto) {
@@ -42,6 +46,7 @@ export class FreeField1HttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a FreeField1 List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListFreeField1Dto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -51,6 +56,7 @@ export class FreeField1HttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a FreeField1' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchFreeField1Dto) {
@@ -60,6 +66,7 @@ export class FreeField1HttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a FreeField1' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -69,6 +76,7 @@ export class FreeField1HttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List FreeField1 List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectFreeField1Dto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

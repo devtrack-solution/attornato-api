@@ -12,7 +12,10 @@ import { ListPrognosisDto } from '@/presentation/controllers/http/process/compon
 import { ListPrognosisInboundPort, ListPrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/list-prognosis.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/prognosis')
@@ -30,6 +33,7 @@ export class PrognosisHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Prognosis' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePrognosisDto) {
@@ -39,6 +43,7 @@ export class PrognosisHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Prognosis List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPrognosisDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class PrognosisHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPrognosisDto) {
@@ -57,6 +63,7 @@ export class PrognosisHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Prognosis' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class PrognosisHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Prognosis List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPrognosisDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

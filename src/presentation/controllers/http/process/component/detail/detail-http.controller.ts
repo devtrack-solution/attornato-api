@@ -12,7 +12,10 @@ import { PatchDetailInboundPort, PatchDetailInboundPortToken } from '@/domain/pr
 import { DeleteDetailInboundPort, DeleteDetailInboundPortToken } from '@/domain/process/component/detail/ports/inbound/delete-detail.inbound-port'
 import { ListToSelectDetailInboundPort, ListToSelectDetailInboundPortToken } from '@/domain/process/component/detail/ports/inbound/list-to-select-detail.inbound-port'
 import { PatchDetailDto } from '@/presentation/controllers/http/process/component/detail/dtos/patch-detail.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/details')
@@ -30,6 +33,7 @@ export class DetailHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Detail' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateDetailDto) {
@@ -39,6 +43,7 @@ export class DetailHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Detail List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListDetailDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class DetailHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Detail' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchDetailDto) {
@@ -57,6 +63,7 @@ export class DetailHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Detail' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class DetailHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Detail List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectDetailDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

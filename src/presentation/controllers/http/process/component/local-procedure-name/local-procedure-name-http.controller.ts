@@ -15,7 +15,10 @@ import {
   ListToSelectLocalProcedureNameInboundPort,
   ListToSelectLocalProcedureNameInboundPortToken,
 } from '@/domain/process/component/local-procedure-name/ports/inbound/list-to-select-local-procedure-name.inbound-port'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/local-procedure-names')
@@ -33,6 +36,7 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Local-Procedure-Name' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateLocalProcedureNameDto) {
@@ -42,6 +46,7 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Local-Procedure-Name List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListLocalProcedureNameDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -51,6 +56,7 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Local-Procedure-Name' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchLocalProcedureNameDto) {
@@ -60,6 +66,7 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Local-Procedure-Name' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -69,6 +76,7 @@ export class LocalProcedureNameHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Local-Procedure-Name List to select' })
   @ApiResponse({
     status: 200,

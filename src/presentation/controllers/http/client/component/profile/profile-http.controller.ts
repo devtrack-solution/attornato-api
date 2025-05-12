@@ -12,7 +12,10 @@ import { CreateProfileDto } from '@/presentation/controllers/http/client/compone
 import { ListProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-profile.dto'
 import { PatchProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/patch-profile.dto'
 import { ListToSelectProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-to-select-profile.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/profile')
@@ -30,6 +33,7 @@ export class ProfileHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Profile' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateProfileDto) {
@@ -39,6 +43,7 @@ export class ProfileHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Profile List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListProfileDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class ProfileHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Profile' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchProfileDto) {
@@ -57,6 +63,7 @@ export class ProfileHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Profile' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class ProfileHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Profile List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectProfileDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

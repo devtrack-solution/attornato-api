@@ -7,7 +7,10 @@ import { ListClientInboundPort, ListClientInboundPortToken } from '@/domain/clie
 import { ListToSelectClientInboundPort, ListToSelectClientInboundPortToken } from '@/domain/client/ports/inbound/list-to-select-client.inbound-port'
 import { ListClientDto } from '@/presentation/controllers/http/client/dtos/list-client.dto'
 import { ListToSelectClientDto } from '@/presentation/controllers/http/client/dtos/list-to-select-client.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Clients')
 @Controller('clients')
@@ -29,6 +32,7 @@ export class ClientHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Client List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListClientDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -52,6 +56,7 @@ export class ClientHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Client List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectClientDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

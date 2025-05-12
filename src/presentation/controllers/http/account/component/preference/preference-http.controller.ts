@@ -9,7 +9,10 @@ import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dto
 import { CreatePreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/create-preference.dto'
 import { ListPreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/list-preference.dto'
 import { PatchPreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/patch-preference.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Accounts')
 @Controller('account/preferences')
@@ -26,8 +29,10 @@ export class PreferenceHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Preference' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePreferenceDto, @Req() request: any) {
@@ -41,8 +46,10 @@ export class PreferenceHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Preference List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPreferenceDto })
   async find(@Query() query: CriteriaPaginatedRequestDto, @Req() request: any) {
@@ -56,6 +63,7 @@ export class PreferenceHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Preference' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPreferenceDto) {
@@ -65,6 +73,7 @@ export class PreferenceHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Preference' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {

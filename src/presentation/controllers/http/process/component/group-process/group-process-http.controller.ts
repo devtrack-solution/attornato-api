@@ -12,6 +12,8 @@ import { ListGroupProcessDto } from '@/presentation/controllers/http/process/com
 import { ListGroupProcessInboundPort, ListGroupProcessInboundPortToken } from '@/domain/process/component/group-process/ports/inbound/list-group-process.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')
@@ -30,6 +32,7 @@ export class GroupProcessHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Group-Process' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateGroupProcessDto) {
@@ -39,6 +42,7 @@ export class GroupProcessHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Group-Process List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListGroupProcessDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +52,7 @@ export class GroupProcessHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Group-Process' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchGroupProcessDto) {
@@ -57,6 +62,7 @@ export class GroupProcessHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Group-Process' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +72,7 @@ export class GroupProcessHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Group-Process List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectGroupProcessDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

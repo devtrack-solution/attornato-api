@@ -12,7 +12,10 @@ import { CreateResponsibleDto } from './dtos/create-responsible.dto'
 import { ListResponsibleDto } from './dtos/list-responsible.dto'
 import { ListToSelectResponsibleDto } from './dtos/list-to-select-responsible.dto'
 import { PatchResponsibleDto } from './dtos/patch-responsible.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/responsible')
@@ -30,6 +33,7 @@ export class ResponsibleHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Responsible' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateResponsibleDto) {
@@ -39,6 +43,7 @@ export class ResponsibleHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Responsible List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListResponsibleDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class ResponsibleHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Responsible' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchResponsibleDto) {
@@ -57,6 +63,7 @@ export class ResponsibleHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Responsible' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class ResponsibleHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Responsible List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectResponsibleDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

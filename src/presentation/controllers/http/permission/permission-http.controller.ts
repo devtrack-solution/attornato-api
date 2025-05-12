@@ -8,7 +8,10 @@ import { ListToSelectPermissionInboundPort, ListToSelectPermissionInboundPortTok
 import { ListToSelectPermissionDto } from '@/presentation/controllers/http/permission/dtos/list-to-select-permission.dto'
 import { DeletePermissionInboundPort, DeletePermissionInboundPortToken } from '@/domain/todo/ports/inbound/permission/delete-permission.inbound-port'
 import { PatchPermissionInboundPort, PatchPermissionInboundPortToken } from '@/domain/todo/ports/inbound/permission/patch-permission.inbound-port'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Permissions')
 @Controller('permissions')
@@ -25,6 +28,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Permission' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePermissionDto) {
@@ -34,6 +38,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Permission List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.' })
   async find(@Body() body: any) {
@@ -43,6 +48,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Get(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Permission by Id' })
   @ApiResponse({ status: 200, description: 'The item has been found.' })
   async findById(@Param('id') id: string, @Body() body: any) {
@@ -52,6 +58,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Put(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Update a Permission' })
   @ApiResponse({ status: 200, description: 'The item has been updated.' })
   async update(@Param('id') id: string, @Body() body: UpdatePermissionDto) {
@@ -61,6 +68,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Permission' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: UpdatePermissionDto) {
@@ -70,6 +78,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Permission' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -79,6 +88,7 @@ export class PermissionHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Permission List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.' })
   async findToSelect(@Query() query: ListToSelectPermissionDto) {

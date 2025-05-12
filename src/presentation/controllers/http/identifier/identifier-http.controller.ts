@@ -4,7 +4,10 @@ import { BaseHttpController } from '@/presentation/controllers/http/base-http-co
 import { CreateIdentifierDto } from './dtos/create-identifier.dto'
 import { CreateIdentifierInboundPort, CreateIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/create-identifier-responsible.inbound-port'
 import { LastIdentifierInboundPort, LastIdentifierInboundPortToken } from '@/domain/identifier/ports/inbound/last-identifier.inbound-port'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Identifier')
 @Controller('identifier')
@@ -19,6 +22,7 @@ export class IdentifierHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Identifier' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateIdentifierDto) {

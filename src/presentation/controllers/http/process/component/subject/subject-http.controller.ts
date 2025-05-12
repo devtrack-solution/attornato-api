@@ -12,7 +12,10 @@ import { CreateSubjectDto } from '@/presentation/controllers/http/process/compon
 import { ListSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/list-subject.dto'
 import { PatchSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/patch-subject.dto'
 import { ListToSelectSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/list-to-select-subject.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/subjects')
@@ -30,6 +33,7 @@ export class SubjectHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Subject' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateSubjectDto) {
@@ -39,6 +43,7 @@ export class SubjectHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Subject List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListSubjectDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class SubjectHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Subject' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchSubjectDto) {
@@ -57,6 +63,7 @@ export class SubjectHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Subject' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class SubjectHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Subject List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectSubjectDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

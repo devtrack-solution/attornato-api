@@ -12,7 +12,10 @@ import { CreateProceduralStatusDto } from '@/presentation/controllers/http/proce
 import { ListProceduralStatusDto } from '@/presentation/controllers/http/process/component/procedural-status/dtos/list-procedural-status.dto'
 import { ListToSelectProceduralStatusDto } from '@/presentation/controllers/http/process/component/procedural-status/dtos/list-to-select-practice-area.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/procedural-status')
@@ -30,6 +33,7 @@ export class ProceduralStatusHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Practice-Area' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateProceduralStatusDto) {
@@ -39,6 +43,7 @@ export class ProceduralStatusHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Practice-Area List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListProceduralStatusDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class ProceduralStatusHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Practice-Area' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchProceduralStatusDto) {
@@ -57,6 +63,7 @@ export class ProceduralStatusHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Practice-Area' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class ProceduralStatusHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Practice-Area List to select' })
   @ApiResponse({
     status: 200,

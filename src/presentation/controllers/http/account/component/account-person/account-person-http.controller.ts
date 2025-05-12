@@ -1,7 +1,10 @@
 import { Controller, Body, Inject, Get, Param, Patch, Query, UseGuards, Req } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 import { ListAccountPersonInboundPort, ListAccountPersonInboundPortToken } from '@/domain/account/component/account-person/ports/inbound/list-account-person.inbound-port'
 import { PatchAccountPersonInboundPort, PatchAccountPersonInboundPortToken } from '@/domain/account/component/account-person/ports/inbound/patch-account-person.inbound-port'
 import { ListAccountPersonDto } from '@/presentation/controllers/http/account/component/account-person/dtos/list-account-person.dto'
@@ -32,6 +35,7 @@ export class AccountPersonHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a AccountPerson List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListAccountPersonDto })
   async find(@Query() query: CriteriaPaginatedRequestDto, @Req() req: any) {
@@ -42,6 +46,7 @@ export class AccountPersonHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a AccountPerson' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchAccountPersonDto) {

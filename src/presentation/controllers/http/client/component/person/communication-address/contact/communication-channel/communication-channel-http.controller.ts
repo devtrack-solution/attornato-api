@@ -12,7 +12,10 @@ import { ListCommunicationChannelDto } from '@/presentation/controllers/http/cli
 import { ListCommunicationChannelInboundPort, ListCommunicationChannelInboundPortToken } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/inbound/list-communication-channel.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/person/communication-address/contact/communication-channel')
@@ -30,6 +33,7 @@ export class CommunicationChannelHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Contact-Type' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateCommunicationChannelDto) {
@@ -39,6 +43,7 @@ export class CommunicationChannelHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Contact-Type List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListCommunicationChannelDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class CommunicationChannelHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Contact-Type' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchCommunicationChannelDto) {
@@ -57,6 +63,7 @@ export class CommunicationChannelHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Contact-Type' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class CommunicationChannelHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Contact-Type List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectCommunicationChannelDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

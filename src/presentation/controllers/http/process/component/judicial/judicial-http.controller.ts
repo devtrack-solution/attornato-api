@@ -12,7 +12,10 @@ import { CreateJudicialDto } from './dtos/create-judicial.dto'
 import { ListJudicialDto } from './dtos/list-judicial.dto'
 import { ListToSelectJudicialDto } from './dtos/list-to-select-judicial.dto'
 import { PatchJudicialDto } from '@/presentation/controllers/http/process/component/judicial/dtos/patch-judicial.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/judicials')
@@ -30,6 +33,7 @@ export class JudicialHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Judicial' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateJudicialDto) {
@@ -39,6 +43,7 @@ export class JudicialHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Judicial List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListJudicialDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class JudicialHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Judicial' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchJudicialDto) {
@@ -57,6 +63,7 @@ export class JudicialHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Judicial' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class JudicialHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Judicial List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectJudicialDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

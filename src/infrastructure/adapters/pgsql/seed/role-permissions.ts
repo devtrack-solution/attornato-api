@@ -1,0 +1,37 @@
+export const rolePermissions = {
+  ADMINISTRATOR: [
+    // CLIENT
+    'NEW_CLIENT',
+    'LIST_CLIENT',
+    'REMOVE_CLIENT',
+    'EDIT_CLIENT',
+
+    // PROCESS
+    'NEW_PROCESS',
+    'LIST_PROCESS',
+    'REMOVE_PROCESS',
+    'EDIT_PROCESS',
+
+    // ROLE
+    'NEW_ROLE',
+    'LIST_ROLE',
+    'REMOVE_ROLE',
+    'EDIT_ROLE',
+
+    // PERMISSION
+    'NEW_PERMISSION',
+    'LIST_PERMISSION',
+    'REMOVE_PERMISSION',
+    'EDIT_PERMISSION',
+  ],
+  COLLABORATOR: [
+    'NEW_CLIENT',
+    'LIST_CLIENT',
+    'REMOVE_CLIENT',
+    'EDIT_CLIENT',
+    'NEW_PROCESS',
+    'LIST_PROCESS',
+    'REMOVE_PROCESS',
+    'EDIT_PROCESS',
+  ],
+}

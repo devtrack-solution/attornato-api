@@ -12,7 +12,10 @@ import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dto
 import { PatchActionObjectDto } from '@/presentation/controllers/http/process/component/action-object/dtos/patch-action-object.dto'
 import { ListToSelectActionObjectDto } from '@/presentation/controllers/http/process/component/action-object/dtos/list-to-select-action-object.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/action-objects')
@@ -30,6 +33,7 @@ export class ActionObjectHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Action-Object' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreateActionObjectDto) {
@@ -39,6 +43,7 @@ export class ActionObjectHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Action-Object List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListActionObjectDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class ActionObjectHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Action-Object' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchActionObjectDto) {
@@ -57,6 +63,7 @@ export class ActionObjectHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Action-Object' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class ActionObjectHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Action-Object List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectActionObjectDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {

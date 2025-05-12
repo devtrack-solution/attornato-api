@@ -12,7 +12,10 @@ import { CreatePhaseDto } from './dtos/create-phase.dto'
 import { ListPhaseDto } from './dtos/list-phase.dto'
 import { ListToSelectPhaseDto } from './dtos/list-to-select-phase.dto'
 import { PatchPhaseDto } from '@/presentation/controllers/http/process/component/phase/dtos/patch-phase.dto'
+
 import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Roles } from '@/infrastructure/adapters/http/auth/roles'
+import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Process')
 @Controller('process/phases')
@@ -30,6 +33,7 @@ export class PhaseHttpController extends BaseHttpController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Phase' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePhaseDto) {
@@ -39,6 +43,7 @@ export class PhaseHttpController extends BaseHttpController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Find a Phase List' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListPhaseDto })
   async find(@Query() query: CriteriaPaginatedRequestDto) {
@@ -48,6 +53,7 @@ export class PhaseHttpController extends BaseHttpController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Patch a Phase' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
   async patch(@Param('id') id: string, @Body() body: PatchPhaseDto) {
@@ -57,6 +63,7 @@ export class PhaseHttpController extends BaseHttpController {
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Delete a Phase' })
   @ApiResponse({ status: 200, description: 'The item has been deleted.' })
   async delete(@Param('id') id: string) {
@@ -66,6 +73,7 @@ export class PhaseHttpController extends BaseHttpController {
   @Get('to/selects')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'List Phase List to select' })
   @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectPhaseDto })
   async findToSelect(@Query() query: CriteriaFindByRequestDto) {
