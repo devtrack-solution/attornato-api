@@ -13,7 +13,7 @@ export class Preference extends BaseBusinessObject<PreferenceType.Repository, Pr
 
   private loadData(data: PreferenceType.Input): PreferenceType.Output {
     try {
-      this._accountId = data.value
+      this._accountId = data.accountId
       this._key = data.key
       this._value = data.value
     } catch (e) {
