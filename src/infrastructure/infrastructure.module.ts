@@ -3,9 +3,6 @@ import path from 'path'
 import { getAllFiles, REGISTERED_PROVIDERS } from '@/infrastructure/decorators/bind.decorator'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { AdapterModule } from '@/infrastructure/adapters/adapter.module'
-import { JwtModule, JwtService } from '@nestjs/jwt'
-import { AppConfig } from '@/domain/app-config.interface'
-import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 @Global()
 @Module({})
@@ -13,7 +10,6 @@ export class InfrastructureModule implements NestModule {
   private static readonly logger = new Logger(InfrastructureModule.name)
   private static instance: DynamicModule | null = null
   private static processingPromise: Promise<DynamicModule> | null = null
-  private static config: AppConfig = new ConfigEnvironmentService()
 
   static async forRoot(): Promise<DynamicModule> {
     if (this.instance) {
@@ -63,7 +59,6 @@ export class InfrastructureModule implements NestModule {
         const providers: Provider[] = Array.from(providersMap.entries()).map(([token, target]) => ({
           provide: token,
           useClass: target,
-          JwtService,
         }))
 
         this.logger.log(
@@ -86,15 +81,10 @@ export class InfrastructureModule implements NestModule {
           global: true,
           imports: [
             AdapterModule,
-            JwtModule.register({
-              publicKey: this.config.jwt.publicKeyBase64,
-              privateKey: this.config.jwt.privateKeyBase64,
-              signOptions: { algorithm: 'RS512' },
-            }),
           ],
           module: InfrastructureModule,
           providers,
-          exports: [AdapterModule, JwtModule, ...toExport],
+          exports: [AdapterModule, ...toExport],
         }
 
         this.logger.log('InfrastructureModule initialized successfully.')

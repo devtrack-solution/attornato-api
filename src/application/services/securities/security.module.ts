@@ -7,9 +7,18 @@ import { LoginService } from '@/application/services/securities/login.service'
 import { JwtModule } from '@nestjs/jwt'
 import { OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
 import { OnboardingService } from '@/application/services/securities/onboarding.service'
+import process from 'node:process'
 
 @Module({
-  imports: [forwardRef(() => CoreModule), JwtModule.register({}),],
+  imports: [
+    forwardRef(() => CoreModule),
+    JwtModule.register({
+      signOptions: {
+        algorithm: 'RS512',
+        expiresIn: process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC,
+      },
+    }),
+  ],
   controllers: [],
   providers: [
     {

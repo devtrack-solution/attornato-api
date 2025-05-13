@@ -4,7 +4,8 @@ import process from 'node:process'
 
 @Injectable()
 export class ConfigEnvironmentService implements AppConfig {
-  constructor() {}
+  constructor() {
+  }
 
   get environment(): string | undefined {
     return process.env.ENVIRONMENT || 'DEVELOPMENT'

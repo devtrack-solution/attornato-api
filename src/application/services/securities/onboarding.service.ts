@@ -42,35 +42,29 @@ export class OnboardingService {
       if (!selectedRole) {
         throw new UnauthorizedException('Not found role')
       }
-
-      const subject = { accountId: account?.id }
       const payload = {
         profile: {
           accountId: account?.id,
           name: account?.accountPerson?.name,
           email: account?.credential?.username,
           avatar: account?.credential?.username,
-          role: selectedRole,
+          role: {
+            ...selectedRole,
+            permissions: selectedRole.permissions?.map((p: any) => p.name) ?? [],
+          },
           preferences: account?.preferences,
         },
       }
       if (!payload.profile.role) {
         throw new UnauthorizedException()
       }
-      const accessTokenExpiresInSec = this.config.jwt.accessTokenExpInSec
 
       const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
-
-      return {
-        token: this.jwtService.sign(
-          { ...payload, ...subject },
-          {
-            expiresIn: accessTokenExpiresInSec,
-            secret: privateKey,
-            algorithm: 'RS512',
-          },
-        ),
-      }
+      return this.jwtService.sign(payload, {
+        algorithm: 'RS512',
+        privateKey: privateKey,
+        expiresIn: this.config.jwt.accessTokenExpInSec,
+      })
     } catch (e) {
       this.logger.error('MakeResponseAuth:', e)
       throw e

@@ -1,17 +1,15 @@
 import { Injectable, Logger, type NestMiddleware, UnauthorizedException } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
 import { FastifyRequest as Request, FastifyReply as Response } from 'fastify'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class HttpProxyInterceptorMiddleware implements NestMiddleware {
   private readonly logger: Logger = new Logger(HttpProxyInterceptorMiddleware.name)
   private config: AppConfig = new ConfigEnvironmentService()
 
-  constructor(
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   async use(req: Request, res: Response, next: () => void): Promise<any> {
     const exceptionsUrl = ['/auth/login', '/auth/forgot/password', '/auth/guest/reset-password']
@@ -20,13 +18,16 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     if (!exceptionsUrl.includes(url)) {
       if (url.includes('/auth/onboarding')) {
         try {
-          if(!req.headers.authorization) {
+          if (!req.headers.authorization) {
             throw new UnauthorizedException()
           }
           const token = (req.headers.authorization as string).replace('Bearer ', '')
-          const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
-          const tokenValue = await this.jwtService.verifyAsync(token, {
-            secret: privateKey,
+          const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
+          console.log(token)
+          console.log(key)
+          const tokenValue = await this.jwtService.verifyAsync(token as string, {
+            secret: key,
+            algorithms: ['RS512'],
           })
           ;(req as any).headers.profile = {
             accountId: tokenValue.profile?.accountId ?? '',
@@ -39,13 +40,17 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
         }
       } else {
         try {
-          if(!req.headers.authorization) {
+          if (!req.headers.authorization) {
             throw new UnauthorizedException()
           }
           const token = (req.headers.authorization as string).replace('Bearer ', '')
-          const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
-          const tokenValue = await this.jwtService.verifyAsync(token, {
-            secret: privateKey,
+          const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
+          console.log(token)
+          console.log(key)
+
+          const tokenValue = await this.jwtService.verifyAsync(token as string, {
+            secret: key,
+            algorithms: ['RS512'],
           })
           if (!tokenValue.profile?.name) {
             throw new UnauthorizedException('Passe pelo /auth/onboarding')
