@@ -12,10 +12,9 @@ import { CreateResponsibleDto } from './dtos/create-responsible.dto'
 import { ListResponsibleDto } from './dtos/list-responsible.dto'
 import { ListToSelectResponsibleDto } from './dtos/list-to-select-responsible.dto'
 import { PatchResponsibleDto } from './dtos/patch-responsible.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/responsible')

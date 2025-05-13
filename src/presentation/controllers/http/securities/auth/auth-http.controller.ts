@@ -5,9 +5,6 @@ import { LoginAuthDto } from '@/presentation/controllers/http/securities/auth/dt
 import { LoginAuthInboundPort, LoginAuthInboundPortToken } from '@/domain/securities/ports/inbound/login-auth.inbound-port'
 import { OnboardingAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/onboarding-auth.dto'
 import { OnboardingAuthInboundPort, OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
-import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -31,12 +28,9 @@ export class AuthHttpController extends BaseHttpController {
 
   @Post('/onboarding')
   @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Make token for access platform' })
   @ApiResponse({ status: 200, description: 'The item has been listed.', type: OnboardingAuthDto })
   async find(@Req() req: any, @Body() body: OnboardingAuthDto) {
-    console.log(JSON.stringify(req.headers))
     return this.onboardingService.execute({ accountId: req.headers.profile.accountId, roleId: body.roleId })
   }
 

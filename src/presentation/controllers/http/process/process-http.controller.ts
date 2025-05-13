@@ -7,10 +7,9 @@ import { ListProcessInboundPort, ListProcessInboundPortToken } from '@/domain/pr
 import { ListToSelectProcessInboundPort, ListToSelectProcessInboundPortToken } from '@/domain/process/ports/inbound/list-to-select-process.inbound-port'
 import { ListProcessDto } from '@/presentation/controllers/http/process/dtos/list-process.dto'
 import { ListToSelectProcessDto } from '@/presentation/controllers/http/process/dtos/list-to-select-process.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process')

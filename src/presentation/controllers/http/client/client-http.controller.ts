@@ -7,10 +7,9 @@ import { ListClientInboundPort, ListClientInboundPortToken } from '@/domain/clie
 import { ListToSelectClientInboundPort, ListToSelectClientInboundPortToken } from '@/domain/client/ports/inbound/list-to-select-client.inbound-port'
 import { ListClientDto } from '@/presentation/controllers/http/client/dtos/list-client.dto'
 import { ListToSelectClientDto } from '@/presentation/controllers/http/client/dtos/list-to-select-client.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Clients')
 @Controller('clients')

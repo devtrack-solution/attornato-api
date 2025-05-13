@@ -12,10 +12,9 @@ import { PatchDetailInboundPort, PatchDetailInboundPortToken } from '@/domain/pr
 import { DeleteDetailInboundPort, DeleteDetailInboundPortToken } from '@/domain/process/component/detail/ports/inbound/delete-detail.inbound-port'
 import { ListToSelectDetailInboundPort, ListToSelectDetailInboundPortToken } from '@/domain/process/component/detail/ports/inbound/list-to-select-detail.inbound-port'
 import { PatchDetailDto } from '@/presentation/controllers/http/process/component/detail/dtos/patch-detail.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/details')

@@ -12,10 +12,9 @@ import { ListOriginInboundPort, ListOriginInboundPortToken } from '@/domain/proc
 import { DeleteOriginInboundPort, DeleteOriginInboundPortToken } from '@/domain/process/component/origin/ports/inbound/delete-origin.inbound-port'
 import { ListToSelectOriginInboundPort, ListToSelectOriginInboundPortToken } from '@/domain/process/component/origin/ports/inbound/list-to-select-origin.inbound-port'
 import { PatchOriginDto } from '@/presentation/controllers/http/process/component/origin/dtos/patch-origin.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/origins')

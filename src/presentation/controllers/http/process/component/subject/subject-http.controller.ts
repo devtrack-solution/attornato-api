@@ -12,10 +12,9 @@ import { CreateSubjectDto } from '@/presentation/controllers/http/process/compon
 import { ListSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/list-subject.dto'
 import { PatchSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/patch-subject.dto'
 import { ListToSelectSubjectDto } from '@/presentation/controllers/http/process/component/subject/dtos/list-to-select-subject.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/subjects')

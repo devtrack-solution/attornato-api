@@ -12,8 +12,8 @@ import { ListGroupProcessDto } from '@/presentation/controllers/http/process/com
 import { ListGroupProcessInboundPort, ListGroupProcessInboundPortToken } from '@/domain/process/component/group-process/ports/inbound/list-group-process.inbound-port'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 import { RolesGuard } from '@/commons/guard/roles.guard'
 
 @ApiTags('Process')

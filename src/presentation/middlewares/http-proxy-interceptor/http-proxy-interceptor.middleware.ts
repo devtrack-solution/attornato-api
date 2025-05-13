@@ -16,42 +16,29 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     const url = req.originalUrl
     this.logger.log('URL:', url)
     if (!exceptionsUrl.includes(url)) {
+      if (!req.headers.authorization) {
+        throw new UnauthorizedException()
+      }
+      const token = (req.headers.authorization as string).replace('Bearer ', '')
+      const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
+
+      const tokenValue = await this.jwtService.verify(token as string, {
+        secret: key,
+        algorithms: ['RS512'],
+      })
       if (url.includes('/auth/onboarding')) {
         try {
-          if (!req.headers.authorization) {
-            throw new UnauthorizedException()
-          }
-          const token = (req.headers.authorization as string).replace('Bearer ', '')
-          const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
-          console.log(token)
-          console.log(key)
-          const tokenValue = await this.jwtService.verifyAsync(token as string, {
-            secret: key,
-            algorithms: ['RS512'],
-          })
+
           ;(req as any).headers.profile = {
             accountId: tokenValue.profile?.accountId ?? '',
             roles: tokenValue.profile?.roles ?? [],
           }
-          req.headers['x-idempotency-key']
         } catch (e: any) {
           console.error(e)
           throw new UnauthorizedException()
         }
       } else {
         try {
-          if (!req.headers.authorization) {
-            throw new UnauthorizedException()
-          }
-          const token = (req.headers.authorization as string).replace('Bearer ', '')
-          const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
-          console.log(token)
-          console.log(key)
-
-          const tokenValue = await this.jwtService.verifyAsync(token as string, {
-            secret: key,
-            algorithms: ['RS512'],
-          })
           if (!tokenValue.profile?.name) {
             throw new UnauthorizedException('Passe pelo /auth/onboarding')
           }
@@ -63,7 +50,6 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
             role: tokenValue.profile?.role ?? {},
             preferences: tokenValue.profile?.preferences ?? [],
           }
-          req.headers['x-idempotency-key']
         } catch (e: any) {
           console.error(e)
           throw new UnauthorizedException()

@@ -1,10 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { APP_GUARD } from '@nestjs/core'
-import { RBACGuard } from '@/infrastructure/adapters/http/auth'
 import { ApplicationModule } from '@/application/application.module'
 import { SecurityModule } from '@/application/services/securities/security.module'
 import process from 'node:process'
+import { RolesGuard } from '@/commons/guard/roles.guard'
 
 
 @Module({
@@ -22,7 +22,7 @@ import process from 'node:process'
   providers:[
     {
       provide: APP_GUARD,
-      useClass: RBACGuard,
+      useClass: RolesGuard,
     },
   ],
   exports: [JwtModule]

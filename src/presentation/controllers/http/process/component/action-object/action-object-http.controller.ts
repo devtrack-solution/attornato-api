@@ -12,10 +12,9 @@ import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dto
 import { PatchActionObjectDto } from '@/presentation/controllers/http/process/component/action-object/dtos/patch-action-object.dto'
 import { ListToSelectActionObjectDto } from '@/presentation/controllers/http/process/component/action-object/dtos/list-to-select-action-object.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/action-objects')

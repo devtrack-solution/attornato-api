@@ -8,10 +8,9 @@ import { ListToSelectPermissionInboundPort, ListToSelectPermissionInboundPortTok
 import { ListToSelectPermissionDto } from '@/presentation/controllers/http/permission/dtos/list-to-select-permission.dto'
 import { DeletePermissionInboundPort, DeletePermissionInboundPortToken } from '@/domain/todo/ports/inbound/permission/delete-permission.inbound-port'
 import { PatchPermissionInboundPort, PatchPermissionInboundPortToken } from '@/domain/todo/ports/inbound/permission/patch-permission.inbound-port'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Permissions')
 @Controller('permissions')

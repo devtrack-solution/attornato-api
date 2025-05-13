@@ -12,10 +12,9 @@ import { CreateGroupCustomerDto } from '@/presentation/controllers/http/client/c
 import { ListGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/list-group-customer.dto'
 import { PatchGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/patch-group-customer.dto'
 import { ListToSelectGroupCustomerDto } from '@/presentation/controllers/http/client/component/group-customer/dtos/list-to-select-group-customer.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/group-customer')

@@ -27,10 +27,9 @@ import {
 import { CreateFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/create-free-field.dto'
 import { ListFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/list-free-field.dto'
 import { PatchFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/patch-free-field.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/person/contact-person/free-fields')

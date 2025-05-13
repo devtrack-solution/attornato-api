@@ -12,10 +12,9 @@ import { CreateProfileDto } from '@/presentation/controllers/http/client/compone
 import { ListProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-profile.dto'
 import { PatchProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/patch-profile.dto'
 import { ListToSelectProfileDto } from '@/presentation/controllers/http/client/component/profile/dtos/list-to-select-profile.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/profile')

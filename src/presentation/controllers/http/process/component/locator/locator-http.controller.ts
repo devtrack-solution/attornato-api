@@ -12,10 +12,9 @@ import { CreateLocatorDto } from './dtos/create-locator.dto'
 import { ListLocatorDto } from './dtos/list-locator.dto'
 import { ListToSelectLocatorDto } from './dtos/list-to-select-locator.dto'
 import { PatchLocatorDto } from './dtos/patch-locator.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/locators')

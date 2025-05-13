@@ -9,10 +9,9 @@ import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dto
 import { CreatePreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/create-preference.dto'
 import { ListPreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/list-preference.dto'
 import { PatchPreferenceDto } from '@/presentation/controllers/http/account/component/preference/dtos/patch-preference.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Accounts')
 @Controller('account/preferences')
@@ -30,9 +29,6 @@ export class PreferenceHttpController extends BaseHttpController {
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Permissions(Roles.ADMINISTRATOR)
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
   @ApiOperation({ summary: 'Create a new Preference' })
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePreferenceDto, @Req() request: any) {
@@ -44,9 +40,6 @@ export class PreferenceHttpController extends BaseHttpController {
   }
 
   @Get()
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Permissions(Roles.ADMINISTRATOR)

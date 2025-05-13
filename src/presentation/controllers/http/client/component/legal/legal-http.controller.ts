@@ -12,10 +12,9 @@ import { CreateLegalDto } from './dtos/create-legal.dto'
 import { ListLegalDto } from './dtos/list-legal.dto'
 import { ListToSelectLegalDto } from './dtos/list-to-select-legal.dto'
 import { PatchLegalDto } from './dtos/patch-legal.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Clients')
 @Controller('clients/legal')

@@ -12,10 +12,9 @@ import { CreateProceduralStatusDto } from '@/presentation/controllers/http/proce
 import { ListProceduralStatusDto } from '@/presentation/controllers/http/process/component/procedural-status/dtos/list-procedural-status.dto'
 import { ListToSelectProceduralStatusDto } from '@/presentation/controllers/http/process/component/procedural-status/dtos/list-to-select-practice-area.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/procedural-status')

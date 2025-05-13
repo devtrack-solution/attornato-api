@@ -15,10 +15,9 @@ import { ListFreeField6Dto } from './dtos/list-free-field-6.dto'
 import { ListToSelectFreeField6Dto } from './dtos/list-to-select-free-field-6.dto'
 import { PatchFreeField6Dto } from '@/presentation/controllers/http/process/component/process-detail/component/free-field-6/dtos/patch-free-field-6.dto'
 import { CreateFreeField6InboundPort, CreateFreeField6InboundPortToken } from '@/domain/process/component/process-detail/component/free-field-6/ports/inbound/create-free-field-6.inbound-port'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/precess-detail/free-field-6s')

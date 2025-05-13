@@ -12,10 +12,9 @@ import { CreateJudicialDto } from './dtos/create-judicial.dto'
 import { ListJudicialDto } from './dtos/list-judicial.dto'
 import { ListToSelectJudicialDto } from './dtos/list-to-select-judicial.dto'
 import { PatchJudicialDto } from '@/presentation/controllers/http/process/component/judicial/dtos/patch-judicial.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/judicials')

@@ -12,10 +12,9 @@ import { CreatePhaseDto } from './dtos/create-phase.dto'
 import { ListPhaseDto } from './dtos/list-phase.dto'
 import { ListToSelectPhaseDto } from './dtos/list-to-select-phase.dto'
 import { PatchPhaseDto } from '@/presentation/controllers/http/process/component/phase/dtos/patch-phase.dto'
-
 import { RolesGuard } from '@/commons/guard/roles.guard'
-import { Roles } from '@/infrastructure/adapters/http/auth/roles'
-import { Permissions } from '@/infrastructure/adapters/http/auth/permission.decorator'
+import { Roles } from '@/commons/guard/roles'
+import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
 @Controller('process/phases')
