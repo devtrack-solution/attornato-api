@@ -20,6 +20,9 @@ export class CredentialEntity extends EntityBase {
   @Column({ name: 'expired_at', type: 'timestamp', nullable: true })
   expiredAt!: Date | null;
 
+  @Column({ name: 'expired_code_at', type: 'timestamp', nullable: true })
+  expireCodeAt!: Date | null;
+
   @Column({ name: 'reset_password_token', type: 'varchar', length: 255, nullable: true })
   resetPasswordToken!: string | null;
 

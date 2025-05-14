@@ -8,6 +8,7 @@ export namespace CredentialType {
     passwordHash?: string
     lastLogin?: Date | any
     expiredAt?: Date | any
+    expiredCodeAt?: Date | any
     resetPasswordToken?: string | any
     requestNewPassword?: boolean
     resetPasswordCode?: string | any
@@ -25,6 +26,7 @@ export namespace CredentialType {
     passwordHash: any
     requestNewPassword?: boolean
     expiredAt: Date | null
+    expiredCodeAt: Date | null
     resetPasswordToken: string | any
     resetPasswordCode: string | any
   }

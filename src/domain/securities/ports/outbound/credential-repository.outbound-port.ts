@@ -8,4 +8,5 @@ export const CredentialRepositoryOutboundPortSymbol = Symbol('CredentialReposito
 
 export interface CredentialRepositoryOutboundPort extends IRelationalDatabaseOutboundPort<Criteria.ById, Partial<CredentialType.Input>, CredentialType.Output> {
   login(props: AuthType.LoginOutput, relations?: string[]): Promise<Partial<CredentialEntity> | null>
+  findByUsername(props: {  username: string }, relations?: string[]): Promise<Partial<CredentialEntity> | null>
 }

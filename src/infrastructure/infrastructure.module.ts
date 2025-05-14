@@ -3,6 +3,7 @@ import path from 'path'
 import { getAllFiles, REGISTERED_PROVIDERS } from '@/infrastructure/decorators/bind.decorator'
 import { IdempotencyMiddleware } from '@/presentation/middlewares/idempotency.middleware'
 import { AdapterModule } from '@/infrastructure/adapters/adapter.module'
+import { MailSenderModule } from '@/infrastructure/adapters/aws/mail-sender.module'
 
 @Global()
 @Module({})
@@ -81,10 +82,11 @@ export class InfrastructureModule implements NestModule {
           global: true,
           imports: [
             AdapterModule,
+            MailSenderModule,
           ],
           module: InfrastructureModule,
           providers,
-          exports: [AdapterModule, ...toExport],
+          exports: [AdapterModule, MailSenderModule, ...toExport],
         }
 
         this.logger.log('InfrastructureModule initialized successfully.')

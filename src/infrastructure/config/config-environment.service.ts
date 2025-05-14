@@ -85,6 +85,26 @@ export class ConfigEnvironmentService implements AppConfig {
       algorithm: process.env.JWT_ALGORITHM || 'RS512'
     }
   }
+
+  get aws(): AppConfig['aws'] {
+    return {
+      ses: {
+        host: process.env.AWS_SES_HOST || '',
+        port: parseInt(process.env.AWS_SES_PORT || '465', 10),
+        user: process.env.AWS_SES_USER || '',
+        password: process.env.AWS_SES_PASS || '',
+        region: process.env.AWS_SES_REGION || '',
+        from: process.env.AWS_SES_FROM || '',
+        secure: process.env.AWS_SES_SECURE === 'true'
+      }
+    }
+  }
+  get project(): AppConfig['project'] {
+    return {
+      name: process.env.NAME || 'ATTORNATO',
+      url: process.env.URL || 'http://localhost:4200'
+    }
+  }
   /**
    * export type pino. LevelWithSilentOrString = LevelWithSilent | string
    *

@@ -20,4 +20,17 @@ export namespace AuthType {
     enable?: boolean
   }
 
+
+  export type ForgotPasswordOutput = {
+    username: string
+  }
+
+  export type ResetPasswordInput = {
+    username?: string
+    forgotCode: string
+    password: string
+    passwordConfirm: string
+  }
+
+  export type ResetPasswordOutput = {} & ResetPasswordInput
 }

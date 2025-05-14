@@ -16,6 +16,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
   private _passwordHash?: PasswordVo
   private _lastLogin: Date | any
   private _expiredAt: Date | any
+  private _expiredCodeAt: Date | any
   private _requestNewPassword?: boolean
   private _resetPasswordToken?: string | any
   private _resetPasswordCode?: string | any
@@ -27,6 +28,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       this._passwordHash = new PasswordVo(data.password)
       this._lastLogin = data.lastLogin
       this._expiredAt = data.expiredAt
+      this._expiredCodeAt = data.expiredCodeAt
       this._requestNewPassword = data?.requestNewPassword ?? true
       this._resetPasswordToken = data.resetPasswordToken
       this._resetPasswordCode = data.resetPasswordCode
@@ -63,6 +65,10 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
     return this._expiredAt || null
   }
 
+  get expiredCodeAt(): Date | null {
+    return this._expiredCodeAt || null
+  }
+
   get resetPasswordToken(): string | null {
     return this._resetPasswordToken || null
   }
@@ -82,6 +88,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       lastLogin: this.lastLogin,
       passwordHash: this.passwordHash,
       expiredAt: this.expiredAt,
+      expiredCodeAt: this.expiredCodeAt,
       resetPasswordToken: this.resetPasswordToken,
       resetPasswordCode: this.resetPasswordCode,
     }
@@ -104,6 +111,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       username: this.username,
       lastLogin: this.lastLogin,
       expiredAt: this.expiredAt,
+      expiredCodeAt: this.expiredCodeAt,
       resetPasswordToken: this.resetPasswordToken,
       resetPasswordCode: this.resetPasswordCode,
       roles: this._roles.map((role) => role.toJson()),

@@ -15,7 +15,7 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     const exceptionsUrl = ['/auth/login', '/auth/forgot/password', '/auth/guest/reset-password']
     const url = req.originalUrl
     this.logger.log('URL:', url)
-    if (!exceptionsUrl.includes(url)) {
+    if (!exceptionsUrl.some(path => url.startsWith(path))) {
       if (!req.headers.authorization) {
         throw new UnauthorizedException()
       }
@@ -55,6 +55,8 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
           throw new UnauthorizedException()
         }
       }
+    } else {
+      this.logger.warn('URL excludes:', url)
     }
     next()
   }

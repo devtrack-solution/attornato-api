@@ -47,6 +47,21 @@ export interface AppConfig {
     privateKeyBase64: string
     algorithm: string
   }
+  aws: {
+    ses: {
+      host: string
+      port: number
+      user: string
+      password: string
+      region: string
+      from: string
+      secure: boolean
+    }
+  }
+  project: {
+    name: string
+    url: string
+  }
   logLevel: string[]
   fastify: {
     logLevel: string

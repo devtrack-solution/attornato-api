@@ -33,4 +33,22 @@ export class CredentialRepository extends RepositoryBase<CredentialEntity> imple
       throw e
     }
   }
+
+  async findByUsername(props: { username: string }, relations?: string[]): Promise<Partial<CredentialEntity> | null> {
+    try {
+      const where: FindOptionsWhere<CredentialEntity> = {
+        username: props.username,
+        enable: true,
+      }
+
+      return await this.findOne({
+        where,
+        relations,
+        withDeleted: false,
+      })
+    } catch (e: any) {
+      this.logger.error(`Error in login: ${e.message}`, e.stack)
+      throw e
+    }
+  }
 }

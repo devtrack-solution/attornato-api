@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToMany } from 'typeorm'
+import { Entity, Column } from 'typeorm'
 
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { PermissionType } from '@/domain/securities/types/permission.type'

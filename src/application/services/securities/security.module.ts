@@ -8,6 +8,10 @@ import { JwtModule } from '@nestjs/jwt'
 import { OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
 import { OnboardingService } from '@/application/services/securities/onboarding.service'
 import process from 'node:process'
+import { ForgotService } from '@/application/services/securities/forgot.service'
+import { ForgotAuthInboundPortToken } from '@/domain/securities/ports/inbound/forgot-auth.inbound-port'
+import { ResetAuthInboundPortToken } from '@/domain/securities/ports/inbound/reset-auth.inbound-port'
+import { ResetService } from '@/application/services/securities/reset.service'
 
 @Module({
   imports: [
@@ -33,6 +37,14 @@ import process from 'node:process'
       provide: OnboardingAuthInboundPortToken,
       useClass: OnboardingService,
     },
+    {
+      provide: ForgotAuthInboundPortToken,
+      useClass: ForgotService,
+    },
+    {
+      provide: ResetAuthInboundPortToken,
+      useClass: ResetService,
+    },
   ],
   exports: [
     {
@@ -46,6 +58,14 @@ import process from 'node:process'
     {
       provide: OnboardingAuthInboundPortToken,
       useClass: OnboardingService,
+    },
+    {
+      provide: ForgotAuthInboundPortToken,
+      useClass: ForgotService,
+    },
+    {
+      provide: ResetAuthInboundPortToken,
+      useClass: ResetService,
     },
     JwtModule
   ],
