@@ -19,7 +19,6 @@ async function bootstrap() {
   const loggerLevels: LogLevel[] = config.logLevel as LogLevel[]
   const app: NestFastifyApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { logger: loggerLevels })
   app.useGlobalPipes(new ParseBooleanPipe())
-  // app.useGlobalFilters(new ValidationExceptionFilter())
 
   const fastifyInstance = app.getHttpAdapter().getInstance()
   fastifyInstance.log.level = config.fastify.logLevel || 'warn'

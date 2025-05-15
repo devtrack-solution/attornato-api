@@ -21,6 +21,9 @@ import {
 } from '@/domain/securities/ports/inbound/reset-auth.inbound-port'
 import { ForgotDto } from '@/presentation/controllers/http/securities/auth/dtos/forgot.dto'
 import { ResetDto } from '@/presentation/controllers/http/securities/auth/dtos/reset.dto'
+import { RolesGuard } from '@/commons/guard/roles.guard'
+import { Permissions } from '@/commons/guard/permissions.decorator'
+import { Roles } from '@/commons/guard/roles'
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -30,9 +33,6 @@ export class AuthHttpController extends BaseHttpController {
     @Inject(OnboardingAuthInboundPortToken) private readonly onboardingService: OnboardingAuthInboundPort,
     @Inject(ForgotAuthInboundPortToken) private readonly forgotService: ForgotAuthInboundPort,
     @Inject(ResetAuthInboundPortToken) private readonly resetService: ResetAuthInboundPort,
-    // @Inject(PatchAuthInboundPortToken) private readonly patchAuthService: PatchAuthInboundPort,
-    // @Inject(DeleteAuthInboundPortToken) private readonly deleteAuthService: DeleteAuthInboundPort,
-    // @Inject(ListToSelectAuthInboundPortToken) private readonly listToSelectAuthService: ListToSelectAuthInboundPort,
   ) {
     super()
   }
@@ -68,19 +68,4 @@ export class AuthHttpController extends BaseHttpController {
   async reset(@Body() body: ForgotDto) {
     return this.forgotService.execute(body)
   }
-
-  //
-  // @Delete(':id')
-  // @ApiOperation({ summary: 'Delete a Auth' })
-  // @ApiResponse({ status: 200, description: 'The item has been deleted.' })
-  // async delete(@Param('id') id: string) {
-  //   return this.deleteAuthService.execute({ id })
-  // }
-  //
-  // @Get('to/selects')
-  // @ApiOperation({ summary: 'List Auth List to select' })
-  // @ApiResponse({ status: 200, description: 'The item has been listed to select.', type: ListToSelectAuthDto })
-  // async findToSelect(@Query() query: CriteriaFindByRequestDto) {
-  //   return this.listToSelectAuthService.execute(query)
-  // }
 }

@@ -43,8 +43,6 @@ export class InfrastructureModule implements NestModule {
           )
         }
 
-        this.logger.log('Serviços registrados com @RegisterInject:', customSerialize(REGISTERED_PROVIDERS))
-
         const providersMap = new Map<symbol, any>()
 
         for (const [token, targets] of REGISTERED_PROVIDERS.entries()) {
@@ -62,13 +60,6 @@ export class InfrastructureModule implements NestModule {
           useClass: target,
         }))
 
-        this.logger.log(
-          'Providers gerados a partir dos serviços registrados:',
-          providers.map((provider: any) => ({
-            provide: provider.provide.toString(),
-            useClass: provider.useClass.name || provider.useClass,
-          })),
-        )
 
         let toExport: any = providers.map((provider: any) => provider.provide)
 
