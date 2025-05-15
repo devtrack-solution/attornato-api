@@ -53,7 +53,7 @@ export class ForgotService implements ForgotAuthInboundPort {
       await this.mailSenderService.send({
         subject: 'Código de recuperação da senha!',
         to: [credential.username!],
-        from: 'contato@desktributario.com.br',
+        from: this.config.aws.ses.from,
         html: RECOVERY_CODE_EMAIL(credential.username!, recoveryCode),
       })
     } catch (e) {

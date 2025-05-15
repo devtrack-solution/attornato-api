@@ -26,6 +26,15 @@ export class MailSenderServiceImplementation implements MailSenderService {
   private config: AppConfig = new ConfigEnvironmentService()
 
   constructor(private readonly configService: ConfigService) {
+    this.logger.log({
+      host: this.config.aws.ses.host,
+      port: this.config.aws.ses.port,
+      secure: this.config.aws.ses.secure,
+      auth: {
+        user: this.config.aws.ses.user,
+        pass: this.config.aws.ses.password,
+      },
+    })
     this.client = nodemailer.createTransport({
       host: this.config.aws.ses.host,
       port: this.config.aws.ses.port,
