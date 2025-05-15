@@ -45,3 +45,4 @@ yarn.lock
 # env
 .env
 !/setup.cmd
+.env.development
