@@ -7,10 +7,10 @@ import { ForgotAuthInboundPort } from '@/domain/securities/ports/inbound/forgot-
 import { hashSync } from 'bcrypt-nodejs'
 import passgem from 'generate-password'
 import { v4 as uuidv4 } from 'uuid'
-import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
 import { MailSenderService, MailSenderServiceSymbol } from '@/infrastructure/adapters/aws/services/mail-sender.service'
 import { RECOVERY_CODE_EMAIL } from '@/infrastructure/adapters/aws/services/email.properties'
 import { DateTime } from 'luxon'
+import { Credential } from '@/domain/securities/business-objects/credential.bo'
 
 @Injectable()
 export class ForgotService implements ForgotAuthInboundPort {
@@ -43,7 +43,7 @@ export class ForgotService implements ForgotAuthInboundPort {
           requestNewPassword: true,
         },
         { id: credential.id! },
-        CredentialEntity,
+        Credential
       )
 
       // Aqui você pode enviar o e-mail com o código
