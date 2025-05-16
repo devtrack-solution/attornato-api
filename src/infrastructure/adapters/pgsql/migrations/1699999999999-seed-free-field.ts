@@ -15,7 +15,7 @@ export default class SeedFreeField1699999999999 implements MigrationInterface {
 
     for (const name of freeFieldNames) {
       await queryRunner.query(
-        `INSERT INTO "free-fields" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+        `INSERT INTO "free_fields" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
         [uuidv4(), name]
       )
     }

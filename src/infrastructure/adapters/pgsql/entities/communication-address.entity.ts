@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm'
+import { Entity, Column, OneToMany } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
 
