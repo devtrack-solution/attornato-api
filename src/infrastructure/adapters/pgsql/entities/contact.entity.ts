@@ -3,7 +3,7 @@ import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base
 import {CommunicationChannelEntity} from "@/infrastructure/adapters/pgsql/entities/communication-channel.entity";
 import {CommunicationAddressEntity} from "@/infrastructure/adapters/pgsql/entities/communication-address.entity";
 
-@Entity('contact')
+@Entity('contacts')
 export class ContactEntity extends EntityBase {
   @Column({ type: 'varchar', length: 17 })
   value!: string

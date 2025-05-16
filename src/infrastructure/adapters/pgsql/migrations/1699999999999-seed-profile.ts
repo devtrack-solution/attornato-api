@@ -21,13 +21,13 @@ export default class SeedProfile1699999999999 implements MigrationInterface {
 
     for (const name of profileNames) {
       await queryRunner.query(
-        `INSERT INTO "profile" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+        `INSERT INTO "profiles" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
         [uuidv4(), name]
       )
     }
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DELETE FROM "profile"`)
+    await queryRunner.query(`DELETE FROM "profiles"`)
   }
 }
