@@ -37,19 +37,18 @@ export class ResetService implements ResetAuthInboundPort {
       if (!credential) {
         throw new UnauthorizedException('Notfound user')
       }
-      this.logger.log(JSON.stringify(credential, null, 2))
       if(!compareSync(data.forgotCode, credential.resetPasswordCode as string)) {
         throw new NotFoundException('Código inválido')
       }
 
-      if (credential.expiredAt === null || credential.expiredCodeAt === null) {
+      if (credential.expiredCodeAt === null) {
         throw new NotFoundException('Código expirado')
       }
 
       const nowTime = DateTime.now().setZone('America/Sao_Paulo')
       const expiredCodeAt = DateTime.fromJSDate(credential.expiredCodeAt!).setZone('America/Sao_Paulo')
 
-      if (expiredCodeAt < nowTime) {
+      if (expiredCodeAt.toMillis() < nowTime.toMillis()) {
         throw new NotFoundException('- Código expirado -')
       }
       data.password = hashSync(data.password)

@@ -34,7 +34,12 @@ export class ForgotService implements ForgotAuthInboundPort {
       const recoveryCode = passgem.generate({ length: 6, numbers: true }).toUpperCase()
       const hashedCode = hashSync(recoveryCode)
       const recoveryToken = uuidv4()
-      const thirtyMinutesLater = DateTime.now().setZone('America/Sao_Paulo').plus({ minutes: 30 })
+      const thirtyMinutesLater = DateTime.now()
+          .setZone('America/Sao_Paulo')
+          .plus({ minutes: 30 })
+          .toJSDate()
+
+      this.logger.log(thirtyMinutesLater)
       await this.credentialRepository.patchObject(
         {
           resetPasswordCode: hashedCode,
