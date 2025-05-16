@@ -12,11 +12,11 @@ export default class SeedCounty1699999999999 implements MigrationInterface {
       'Santo Antônio do Tauá','SÃO DOMINGOS DO CAPIM','São Miguel do Guamá','Tailândia','Tomé Açu','Tucurui','Vigia']
     
     for (const name of countyNames) {
-      await queryRunner.query(`INSERT INTO "countys" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
+      await queryRunner.query(`INSERT INTO "counties" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DELETE FROM "countys"`)
+    await queryRunner.query(`DELETE FROM "counties"`)
   }
 }
