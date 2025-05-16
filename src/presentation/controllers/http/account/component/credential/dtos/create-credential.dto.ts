@@ -3,5 +3,5 @@ import { CredentialDto } from '@/presentation/controllers/http/account/component
 import { CredentialType } from '@/domain/securities/types/credential.type'
 
 export class CreateCredentialDto
-  extends OmitType(CredentialDto, ['userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable'])
+  extends OmitType(CredentialDto, ['userId', 'password', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable'])
   implements CredentialType.Input {}

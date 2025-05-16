@@ -12,6 +12,8 @@ import { ForgotService } from '@/application/services/securities/forgot.service'
 import { ForgotAuthInboundPortToken } from '@/domain/securities/ports/inbound/forgot-auth.inbound-port'
 import { ResetAuthInboundPortToken } from '@/domain/securities/ports/inbound/reset-auth.inbound-port'
 import { ResetService } from '@/application/services/securities/reset.service'
+import { PatchCredentialService } from '@/application/services/securities/patch-credential.service'
+import { PatchCredentialInboundPortToken } from '@/domain/securities/ports/inbound/patch-credential.inbound-port'
 
 @Module({
   imports: [
@@ -45,6 +47,10 @@ import { ResetService } from '@/application/services/securities/reset.service'
       provide: ResetAuthInboundPortToken,
       useClass: ResetService,
     },
+    {
+      provide: PatchCredentialInboundPortToken,
+      useClass: PatchCredentialService,
+    },
   ],
   exports: [
     {
@@ -67,7 +73,11 @@ import { ResetService } from '@/application/services/securities/reset.service'
       provide: ResetAuthInboundPortToken,
       useClass: ResetService,
     },
-    JwtModule
+    {
+      provide: PatchCredentialInboundPortToken,
+      useClass: PatchCredentialService,
+    },
+    JwtModule,
   ],
 })
 export class SecurityModule {}
