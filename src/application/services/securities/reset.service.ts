@@ -55,7 +55,7 @@ export class ResetService implements ResetAuthInboundPort {
 
       await this.credentialRepository.patchObject(
         {
-          password: data.password,
+          passwordHash: data.password,
           resetPasswordCode: null,
           resetPasswordToken: null,
           requestNewPassword: false,

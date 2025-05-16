@@ -39,7 +39,6 @@ export class ForgotService implements ForgotAuthInboundPort {
           .plus({ minutes: 30 })
           .toJSDate()
 
-      this.logger.log(thirtyMinutesLater)
       await this.credentialRepository.patchObject(
         {
           resetPasswordCode: hashedCode,
