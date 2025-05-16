@@ -1,22 +1,22 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 
 export class AccountPersonDto extends BasicDto {
   @ApiProperty({ required: true })
   name!: string
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   birthday!: Date
 
-  @ApiProperty()
-  nickName!: string
+  @ApiPropertyOptional({ required: false })
+  nickName?: string
 
-  @ApiProperty()
-  gender!: string
+  @ApiPropertyOptional({ required: false })
+  gender?: string
 
-  @ApiProperty()
-  avatar!: string
+  @ApiPropertyOptional({ required: false })
+  avatar?: string
 
-  @ApiProperty()
-  governanceSocialIdentity!: string
+  @ApiPropertyOptional({ required: false })
+  governanceSocialIdentity?: string
 }

@@ -1,30 +1,28 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { ListProfileInboundPort } from '@/domain/client/component/profile/ports/inbound/list-profile.inbound-port'
-import { ProfileRepositoryOutboundPort, ProfileRepositoryOutboundPortSymbol } from '@/domain/client/component/profile/ports/outbound/profile-repository.outbound-port'
-import { Profile } from '@/domain/client/component/profile/business-objects/profile.bo'
-import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
 import { Criteria } from '@/core/domain/types/criteria.type'
+import { AccountRepositoryOutboundPort, AccountRepositoryOutboundPortSymbol } from '@/domain/account/ports/outbound/account-repository.outbound-port'
+import { ListAccountInboundPort } from '@/domain/account/ports/inbound/list-account.inbound-port'
+import { AccountType } from '@/domain/account/types/account.type'
 
 @Injectable()
-export class ListProfileService implements ListProfileInboundPort {
+export class ListAccountService implements ListAccountInboundPort {
   constructor(
-    @Inject(ProfileRepositoryOutboundPortSymbol)
-    private readonly profileRepository: ProfileRepositoryOutboundPort,
+    @Inject(AccountRepositoryOutboundPortSymbol)
+    private readonly accountRepository: AccountRepositoryOutboundPort,
   ) {}
 
-  async execute(criteria: Criteria.Paginated): Promise<ProfileType.OutputPaginated> {
-    // const select: string[] = ['id', 'name', 'status', 'createdAt']
+  async execute(criteria: Criteria.Paginated): Promise<AccountType.OutputPaginated> {
     const select: string[] = []
     const relations: string[] = []
-    const searchFields: string[] = ['name']
+    const searchFields: string[] = ['accountPerson.name']
     const order = { createdAt: 'ASC' }
-    let result = await this.profileRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  profile  = result.data.map(( profile ) =>  profile  as ProfileType.Output)
+    let result = await this.accountRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
+    let account = result.data.map((account) => account as AccountType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  profile ,
+      data: account,
     }
   }
 }
