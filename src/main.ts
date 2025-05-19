@@ -30,11 +30,15 @@ async function bootstrap() {
   logger.log(`Database Host: ${config.database.host}`)
   logger.log(`App Server: ${config.appServer}`)
 
-  fastifyInstance.register(fastifyCors, {
+  /* fastifyInstance.register(fastifyCors, {
     origin: config.enableCors.origin,
     methods: config.enableCors.methods,
     allowedHeaders: config.enableCors.allowedHeaders,
     credentials: true,
+  })*/
+
+  await app.register(fastifyCors, {
+    origin: '*',
   })
 
   const options = new DocumentBuilder()
