@@ -35,11 +35,11 @@ async function bootstrap() {
     methods: config.enableCors.methods,
     allowedHeaders: config.enableCors.allowedHeaders,
     credentials: true,
-  })*/
+  })
 
   await app.register(fastifyCors, {
     origin: '*',
-  })
+  })*/
 
   const options = new DocumentBuilder()
     .setTitle(`${config.label} API Service`)
