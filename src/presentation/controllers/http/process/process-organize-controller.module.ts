@@ -17,6 +17,15 @@ import { JudicialHttpControllerModule } from '@/presentation/controllers/http/pr
 import { ProcessHttpControllerModule } from '@/presentation/controllers/http/process/process-http-controller.module'
 import { AdministrativeHttpController } from '@/presentation/controllers/http/process/component/administrative/administrative-http.controller'
 import { AdministrativeHttpControllerModule } from '@/presentation/controllers/http/process/component/administrative/administrative-http-controller.module'
+import {
+  FreeField1HttpControllerModule
+} from '@/presentation/controllers/http/process/component/process-detail/component/free-field-1/free-field-1-http-controller.module'
+import {
+  FreeField2HttpControllerModule
+} from '@/presentation/controllers/http/process/component/process-detail/component/free-field-2/free-field-2-http-controller.module'
+import {
+  FreeField6HttpControllerModule
+} from '@/presentation/controllers/http/process/component/process-detail/component/free-field-6/free-field-6-http-controller.module'
 
 @Module({
   imports: [
@@ -24,6 +33,9 @@ import { AdministrativeHttpControllerModule } from '@/presentation/controllers/h
     ActionObjectHttpControllerModule,
     CountyHttpControllerModule,
     DetailHttpControllerModule,
+    FreeField1HttpControllerModule,
+    FreeField2HttpControllerModule,
+    FreeField6HttpControllerModule,
     GroupProcessHttpControllerModule,
     JudicialHttpControllerModule,
     AdministrativeHttpControllerModule,

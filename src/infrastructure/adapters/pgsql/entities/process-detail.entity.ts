@@ -23,14 +23,14 @@ export class ProcessDetailEntity extends EntityBase {
   @JoinColumn({ name: 'freeField1Id' })
   freeField1?: FreeField1Entity
 
-  @Column({ type: 'uuid', nullable: false })
+  @Column({ type: 'uuid', nullable: true })
   freeField1Id?: string
 
   @ManyToOne(() => FreeField2Entity)
   @JoinColumn({ name: 'freeField2Id' })
   freeField2?: FreeField2Entity
 
-  @Column({ type: 'uuid', nullable: false })
+  @Column({ type: 'uuid', nullable: true })
   freeField2Id?: string
 
   @Column({ type: 'varchar', length: 255 })
@@ -46,7 +46,7 @@ export class ProcessDetailEntity extends EntityBase {
   @JoinColumn({ name: 'freeField6Id' })
   freeField6?: GroupProcessEntity
 
-  @Column({ type: 'uuid', nullable: false })
+  @Column({ type: 'uuid', nullable: true })
   freeField6Id?: string
 
   @ManyToOne(() => GroupProcessEntity)

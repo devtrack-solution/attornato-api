@@ -15,17 +15,17 @@ export class ProcessDetailDto extends BasicDto {
   @ApiProperty()
   detailId!: string
 
-  @ApiProperty({ type: CreateFreeField1Dto })
+  @ApiPropertyOptional({ type: CreateFreeField1Dto })
   freeField1?: CreateFreeField1Dto
 
-  @ApiProperty()
-  freeField1Id!: string
+  @ApiPropertyOptional()
+  freeField1Id?: string
 
-  @ApiProperty({ type: CreateFreeField2Dto })
+  @ApiPropertyOptional({ type: CreateFreeField2Dto })
   freeField2?: CreateFreeField2Dto
 
-  @ApiProperty()
-  freeField2Id!: string
+  @ApiPropertyOptional()
+  freeField2Id?: string
 
   @ApiProperty()
   freeField3!: string
@@ -39,8 +39,8 @@ export class ProcessDetailDto extends BasicDto {
   @ApiPropertyOptional({ type: CreateFreeField6Dto })
   freeField6?: CreateFreeField6Dto
 
-  @ApiProperty()
-  freeField6Id!: string
+  @ApiPropertyOptional()
+  freeField6Id?: string
 
   @ApiPropertyOptional({ type: CreateOriginDto })
   origin?: CreateOriginDto
