@@ -20,7 +20,7 @@ import { Roles } from '@/commons/guard/roles'
 import { Permissions } from '@/commons/guard/permissions.decorator'
 
 @ApiTags('Process')
-@Controller('process/precess-detail/free-field-1')
+@Controller('process/process-detail/free-field-1')
 export class FreeField1HttpController extends BaseHttpController {
   constructor(
     @Inject(CreateFreeField1InboundPortToken) private readonly createFreeField1Service: CreateFreeField1InboundPort,
