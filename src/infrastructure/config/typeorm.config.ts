@@ -38,7 +38,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
   timezone: config.database.timezone,
   debug: config.database.debug,
-  ssl: !sslTemplateConfig ? { rejectUnauthorized: config.database.ssl } : config.database.ssl,
+  ssl: { rejectUnauthorized: true } // !sslTemplateConfig ? { rejectUnauthorized: config.database.ssl } : config.database.ssl,
 }
 
 export const AppDataSource = new DataSource(<DataSourceOptions>typeOrmConfig)
