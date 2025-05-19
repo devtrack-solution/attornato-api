@@ -10,13 +10,11 @@ import { ProcessDetail } from '@/domain/process/component/process-detail/busines
 export interface IAdministrative extends IBusinessObject<AdministrativeType.Input, AdministrativeType.Output> {}
 
 export class Administrative extends Process<AdministrativeType.Repository, AdministrativeType.Output> implements IAdministrative, IValidator {
-  private _cnjNumber!: string
 
   protected override loadData(data: AdministrativeType.Input): AdministrativeType.Output {
     try {
       this._clientId = data.clientId
       this._processId = data.processId
-      this._cnjNumber = data.cnjNumber
       this._groupProcessId = data.groupProcessId
       this._folder = data.folder
       this._label = data.label
@@ -45,10 +43,6 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
     return this.toJson()
   }
 
-  get cnjNumber(): string {
-    return this._cnjNumber
-  }
-
   constructor(props: AdministrativeType.Input) {
     super(props)
     this.loadData(props)
@@ -56,13 +50,11 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
   }
 
   override validate(): void {
-    ValidationBuilder.of({ value: this._cnjNumber, fieldName: 'cnjNumber' }).required().build('Failed to validate Administrative rules')
   }
 
   override toPersistenceObject(): AdministrativeType.Output {
     return {
       id: this._id.toString(),
-      cnjNumber: this._cnjNumber,
       clientId: this._clientId,
       processId: this._processId,
       groupProcessId: this._groupProcessId,
