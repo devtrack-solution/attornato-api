@@ -8,12 +8,12 @@ import { Inject, Injectable } from '@nestjs/common'
 export class CreateIndividualService implements CreateIndividualInboundPort {
   constructor(
     @Inject(IndividualRepositoryOutboundPortSymbol)
-    private readonly IndividualRepository: IndividualRepositoryOutboundPort,
+    private readonly individualRepository: IndividualRepositoryOutboundPort,
   ) {}
 
   async execute(data: IndividualType.Input): Promise<IndividualType.Output> {
     let individual = new Individual(data)
-    await this.IndividualRepository.saveObjectWithRelations(individual.toPersistence())
+    await this.individualRepository.saveObjectWithRelations(individual.toPersistence())
     return individual.toJson()
   }
 }

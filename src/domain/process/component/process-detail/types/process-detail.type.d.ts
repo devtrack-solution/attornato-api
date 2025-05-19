@@ -5,9 +5,9 @@ export namespace ProcessDetailType {
     detailId?: string
     freeField1Id?: string
     freeField2Id?: string
-    freeField3: string
-    freeField4: string
-    freeField5: string
+    freeField3?: string
+    freeField4?: string
+    freeField5?: string
     freeField6Id?: string
     originId?: string
     partnerId?: string

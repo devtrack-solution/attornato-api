@@ -26,7 +26,9 @@ export namespace ProcessType {
     actionObjectId: string
     locatorId: string
     subjectId: string
+    processFinancialId?: string
     processFinancial: ProcessFinancialType.Input
+    processDetailId?: string
     processDetail: ProcessDetailType.Input
   } & BaseType.Input
 

@@ -144,6 +144,8 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       .of({ value: this._localProcedureNumber, fieldName: 'localProcedureNumber' })
       .required()
       .of({ value: this._countyUf, fieldName: 'countyUf' })
+      .of({ value: this._processDetail, fieldName: 'processDetail' })
+      .of({ value: this._processFinancial, fieldName: 'processFinancial' })
       .required()
       .build('Failed to validate Process rules')
   }
@@ -173,7 +175,9 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       actionObjectId: this._actionObjectId,
       locatorId: this._locatorId,
       subjectId: this._subjectId,
+      processFinancialId: this._processFinancial.id,
       processFinancial: this._processFinancial.toPersistenceObject(),
+      processDetailId: this._processDetail.id,
       processDetail: this._processDetail.toPersistenceObject(),
     }
   }

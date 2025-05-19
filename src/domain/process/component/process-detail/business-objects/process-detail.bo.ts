@@ -10,9 +10,9 @@ export class ProcessDetail extends BaseBusinessObject<ProcessDetailType.Reposito
   private _detailId?: string
   private _freeField1Id?: string
   private _freeField2Id?: string
-  private _freeField3!: string
-  private _freeField4!: string
-  private _freeField5!: string
+  private _freeField3?: string
+  private _freeField4?: string
+  private _freeField5?: string
   private _freeField6Id?: string
   private _originId?: string
   private _partnerId?: string
@@ -43,56 +43,53 @@ export class ProcessDetail extends BaseBusinessObject<ProcessDetailType.Reposito
     this.validate()
   }
 
-  // get detailId(): string {
-  //   return this._detailId
-  // }
-  //
-  // get freeField1Id(): string {
-  //   return this._freeField1Id
-  // }
-  //
-  // get freeField2Id(): string {
-  //   return this._freeField2Id
-  // }
+  get detailId(): string | undefined  {
+    return this._detailId
+  }
 
-  get freeField3(): string {
+  get freeField1Id(): string | undefined  {
+    return this._freeField1Id
+  }
+
+  get freeField2Id(): string | undefined {
+    return this._freeField2Id
+  }
+
+  get freeField3(): string | undefined  {
     return this._freeField3
   }
 
-  get freeField4(): string {
+  get freeField4(): string | undefined  {
     return this._freeField4
   }
 
-  get freeField5(): string {
+  get freeField5(): string | undefined  {
     return this._freeField5
   }
 
-  // get freeField6Id(): string {
-  //   return this._freeField6Id
-  // }
-  //
-  // get originId(): string  {
-  //   return this._originId
-  // }
-  //
-  // get partnerId(): string {
-  //   return this._partnerId
-  // }
-  //
-  // get prognosisId(): string {
-  //   return this._prognosisId
-  // }
+  get freeField6Id(): string | undefined  {
+    return this._freeField6Id
+  }
+
+  get originId(): string | undefined  {
+    return this._originId
+  }
+
+  get partnerId(): string | undefined  {
+    return this._partnerId
+  }
+
+  get prognosisId(): string | undefined  {
+    return this._prognosisId
+  }
 
   validate(): void {
     ValidationBuilder.of({ value: this._detailId, fieldName: 'detailId' })
       .of({ value: this._freeField1Id, fieldName: 'freeField1Id' })
       .of({ value: this._freeField2Id, fieldName: 'freeField2Id' })
       .of({ value: this._freeField3, fieldName: 'freeField3' })
-      .required()
       .of({ value: this._freeField4, fieldName: 'freeField4' })
-      .required()
       .of({ value: this._freeField5, fieldName: 'freeField5' })
-      .required()
       .of({ value: this._freeField6Id, fieldName: 'freeField6Id' })
       .of({ value: this._originId, fieldName: 'originId' })
       .of({ value: this._partnerId, fieldName: 'partnerId' })

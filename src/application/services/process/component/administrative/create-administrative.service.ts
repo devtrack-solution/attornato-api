@@ -2,10 +2,12 @@ import { Administrative } from '@/domain/process/component/administrative/busine
 import { CreateAdministrativeInboundPort } from '@/domain/process/component/administrative/ports/inbound/create-administrative-responsible.inbound-port'
 import { AdministrativeRepositoryOutboundPortSymbol, AdministrativeRepositoryOutboundPort } from '@/domain/process/component/administrative/ports/outbound/administrative-repository.outbound-port'
 import { AdministrativeType } from '@/domain/process/component/administrative/types/administrative.type'
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 
 @Injectable()
 export class CreateAdministrativeService implements CreateAdministrativeInboundPort {
+  private readonly logger = new Logger(CreateAdministrativeService.name)
+
   constructor(
     @Inject(AdministrativeRepositoryOutboundPortSymbol)
     private readonly administrativeRepository: AdministrativeRepositoryOutboundPort,
@@ -13,7 +15,8 @@ export class CreateAdministrativeService implements CreateAdministrativeInboundP
 
   async execute(data: AdministrativeType.Input): Promise<AdministrativeType.Output> {
     let administrative = new Administrative(data)
-    await this.administrativeRepository.saveObject(administrative.toPersistence())
+    this.logger.log(JSON.stringify(administrative, null, 2))
+    await this.administrativeRepository.saveObjectWithRelations(administrative.toPersistence())
     return administrative.toJson()
   }
 }

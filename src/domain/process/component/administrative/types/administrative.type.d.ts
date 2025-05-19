@@ -2,7 +2,6 @@ import { ProcessType } from '@/domain/process/types/process.type'
 
 export namespace AdministrativeType {
   export type Input = {
-    cnjNumber: string
   } & ProcessType.Input
 
   export type Output = Input

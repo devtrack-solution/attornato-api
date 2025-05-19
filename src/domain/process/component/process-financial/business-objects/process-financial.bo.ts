@@ -100,6 +100,7 @@ export class ProcessFinancial extends BaseBusinessObject<ProcessFinancialType.Re
 
   toPersistenceObject(): ProcessFinancialType.Output {
     return {
+      id: this._id.toString(),
       hiring: this._hiring,
       resJudicata: this._resJudicata,
       closure: this._closure,
