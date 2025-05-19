@@ -4,5 +4,5 @@ import { ActionObjectDto } from '@/presentation/controllers/http/process/compone
 
 export class ListActionObjectDto extends CriteriaPaginatedResponseDto<ActionObjectDto> {
   @ApiProperty({ type: ActionObjectDto, isArray: true })
-  declare data: Partial<ActionObjectDto>[];
+  declare data: Partial<ActionObjectDto>[]
 }

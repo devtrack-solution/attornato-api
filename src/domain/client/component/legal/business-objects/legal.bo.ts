@@ -70,11 +70,10 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
   }
 
   override validate(): void {
-    ValidationBuilder
-      .of({
-        value: this._responsible,
-        fieldName: 'responsible',
-      })
+    ValidationBuilder.of({
+      value: this._responsible,
+      fieldName: 'responsible',
+    })
       .required()
       .of({
         value: this._companyName,

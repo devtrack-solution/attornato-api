@@ -104,7 +104,6 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
     }
   }
 
-
   /**
    * Converts the entity to a JSON format.
    *

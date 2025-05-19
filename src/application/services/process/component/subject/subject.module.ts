@@ -16,8 +16,8 @@ import { PatchSubjectInboundPortToken } from '@/domain/process/component/subject
   controllers: [],
   providers: [
     {
-      provide:CreateSubjectInboundPortToken,
-      useClass:CreateSubjectService,
+      provide: CreateSubjectInboundPortToken,
+      useClass: CreateSubjectService,
     },
     {
       provide: DeleteSubjectInboundPortToken,
@@ -38,8 +38,8 @@ import { PatchSubjectInboundPortToken } from '@/domain/process/component/subject
   ],
   exports: [
     {
-      provide:CreateSubjectInboundPortToken,
-      useClass:CreateSubjectService,
+      provide: CreateSubjectInboundPortToken,
+      useClass: CreateSubjectService,
     },
     {
       provide: DeleteSubjectInboundPortToken,

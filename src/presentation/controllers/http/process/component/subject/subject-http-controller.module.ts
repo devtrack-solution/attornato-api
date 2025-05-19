@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { SubjectHttpController } from './subject-http.controller';
+import { SubjectHttpController } from './subject-http.controller'
 import { SubjectModule } from '@/application/services/process/component/subject/subject.module'
 
 @Module({

@@ -1,9 +1,5 @@
-import { LocatorType } from '@/domain/process/component/locator/types/locator.type';
-import { OmitType } from '@nestjs/swagger';
-import { CreateLocatorDto } from './create-locator.dto';
+import { LocatorType } from '@/domain/process/component/locator/types/locator.type'
+import { OmitType } from '@nestjs/swagger'
+import { CreateLocatorDto } from './create-locator.dto'
 
-
-export class ListToSelectLocatorDto
-  extends OmitType(CreateLocatorDto, [])
-
-  implements Partial<LocatorType.Input> {}
+export class ListToSelectLocatorDto extends OmitType(CreateLocatorDto, []) implements Partial<LocatorType.Input> {}

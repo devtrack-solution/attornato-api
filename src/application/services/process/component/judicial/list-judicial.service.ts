@@ -33,17 +33,15 @@ export class ListJudicialService implements ListJudicialInboundPort {
       'processFinancial.partner',
       'processFinancial.prognosis',
     ]
-    const searchFields: string[] = [
-
-    ]
+    const searchFields: string[] = []
     const order = { createdAt: 'ASC' }
     let result = await this.judicialRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  judicial  = result.data.map(( judicial ) =>  judicial  as JudicialType.Output)
+    let judicial = result.data.map((judicial) => judicial as JudicialType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  judicial ,
+      data: judicial,
     }
   }
 }

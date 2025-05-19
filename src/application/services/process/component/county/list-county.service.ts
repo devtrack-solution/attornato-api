@@ -18,12 +18,12 @@ export class ListCountyService implements ListCountyInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.CountyRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  county  = result.data.map(( county ) =>  county  as CountyType.Output)
+    let county = result.data.map((county) => county as CountyType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  county ,
+      data: county,
     }
   }
 }

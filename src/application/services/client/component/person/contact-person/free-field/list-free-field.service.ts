@@ -2,10 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { FreeFieldType } from '@/domain/client/component/person/contact-person/free-field/types/free-field.type'
 import { ListFreeFieldInboundPort } from '@/domain/client/component/person/contact-person/free-field/ports/inbound/list-free-field.inbound-port'
-import {
-  FreeFieldRepositoryOutboundPort,
-  FreeFieldRepositoryOutboundPortSymbol,
-} from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
+import { FreeFieldRepositoryOutboundPort, FreeFieldRepositoryOutboundPortSymbol } from '@/domain/client/component/person/contact-person/free-field/ports/outbound/free-field-repository.outbound-port'
 
 @Injectable()
 export class ListFreeFieldService implements ListFreeFieldInboundPort {
@@ -21,12 +18,12 @@ export class ListFreeFieldService implements ListFreeFieldInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.freeFieldRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  freeField  = result.data.map(( freeField ) =>  freeField  as FreeFieldType.Output)
+    let freeField = result.data.map((freeField) => freeField as FreeFieldType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  freeField ,
+      data: freeField,
     }
   }
 }

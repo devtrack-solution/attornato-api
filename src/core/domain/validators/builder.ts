@@ -56,7 +56,6 @@ export class ValidationBuilder {
     return this
   }
 
-
   hasNoWhiteSpace(): this {
     if (this.currentField && typeof this.currentField.value === 'string' && /\s/.test(this.currentField.value)) {
       this.addError('Field contain whitespace')

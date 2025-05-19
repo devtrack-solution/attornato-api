@@ -6,7 +6,6 @@ import { SecurityModule } from '@/application/services/securities/security.modul
 import process from 'node:process'
 import { RolesGuard } from '@/commons/guard/roles.guard'
 
-
 @Module({
   imports: [
     forwardRef(() => ApplicationModule),
@@ -19,12 +18,12 @@ import { RolesGuard } from '@/commons/guard/roles.guard'
     }),
     SecurityModule,
   ],
-  providers:[
+  providers: [
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
   ],
-  exports: [JwtModule]
+  exports: [JwtModule],
 })
 export class AuthModule {}

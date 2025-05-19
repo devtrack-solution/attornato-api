@@ -18,12 +18,12 @@ export class ListPhaseService implements ListPhaseInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.phaseRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  phase  = result.data.map(( phase ) =>  phase  as PhaseType.Output)
+    let phase = result.data.map((phase) => phase as PhaseType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  phase ,
+      data: phase,
     }
   }
 }

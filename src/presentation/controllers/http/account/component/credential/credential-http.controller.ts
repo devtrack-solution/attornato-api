@@ -5,7 +5,7 @@ import { RolesGuard } from '@/commons/guard/roles.guard'
 import { Roles } from '@/commons/guard/roles'
 import { Permissions } from '@/commons/guard/permissions.decorator'
 import { PatchCredentialDto } from '@/presentation/controllers/http/account/component/credential/dtos/patch-credential.dto'
-import { PatchCredentialInboundPort, PatchCredentialInboundPortToken } from '@/domain/securities/ports/inbound/patch-credential.inbound-port'
+import { PatchCredentialInboundPort, PatchCredentialInboundPortToken } from '@/domain/securities/ports/inbound/component/auth/patch-credential.inbound-port'
 
 @ApiTags('Accounts')
 @Controller('account/credential')

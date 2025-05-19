@@ -15,12 +15,8 @@ import { ResponsibleHttpControllerModule } from '@/presentation/controllers/http
 import { SubjectHttpControllerModule } from '@/presentation/controllers/http/process/component/subject/subject-http-controller.module'
 import { JudicialHttpControllerModule } from '@/presentation/controllers/http/process/component/judicial/judicial-http-controller.module'
 import { ProcessHttpControllerModule } from '@/presentation/controllers/http/process/process-http-controller.module'
-import {
-  AdministrativeHttpController
-} from '@/presentation/controllers/http/process/component/administrative/administrative-http.controller'
-import {
-  AdministrativeHttpControllerModule
-} from '@/presentation/controllers/http/process/component/administrative/administrative-http-controller.module'
+import { AdministrativeHttpController } from '@/presentation/controllers/http/process/component/administrative/administrative-http.controller'
+import { AdministrativeHttpControllerModule } from '@/presentation/controllers/http/process/component/administrative/administrative-http-controller.module'
 
 @Module({
   imports: [

@@ -1,8 +1,5 @@
-import { OmitType } from '@nestjs/swagger';
-import { CreateProfileDto } from './create-profile.dto';
+import { OmitType } from '@nestjs/swagger'
+import { CreateProfileDto } from './create-profile.dto'
 import { ProfileType } from '@/domain/client/component/profile/types/profile.type'
 
-export class ListToSelectProfileDto
-  extends OmitType(CreateProfileDto, [])
-
-  implements Partial<ProfileType.Input> {}
+export class ListToSelectProfileDto extends OmitType(CreateProfileDto, []) implements Partial<ProfileType.Input> {}

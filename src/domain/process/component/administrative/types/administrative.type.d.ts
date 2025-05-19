@@ -5,7 +5,6 @@ export namespace AdministrativeType {
     cnjNumber: string
   } & ProcessType.Input
 
-
   export type Output = Input
 
   export type OutputPaginated = {

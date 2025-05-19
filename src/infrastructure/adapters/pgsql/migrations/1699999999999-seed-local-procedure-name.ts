@@ -180,10 +180,7 @@ export default class SeedLocalProcedureName1699999999999 implements MigrationInt
     ]
 
     for (const name of names) {
-      await queryRunner.query(
-        `INSERT INTO "local_procedure_names" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-        [uuidv4(), name],
-      )
+      await queryRunner.query(`INSERT INTO "local_procedure_names" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 

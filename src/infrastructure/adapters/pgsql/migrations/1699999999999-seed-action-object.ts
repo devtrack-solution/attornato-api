@@ -192,14 +192,11 @@ export default class SeedActionObject1699999999999 implements MigrationInterface
       'Verbas Remuneratórias indeniza',
       ': Verbas Rescisórias',
       'VT + DM',
-      'VT - PEDIDOS NOVOS'
+      'VT - PEDIDOS NOVOS',
     ]
 
     for (const name of names) {
-      await queryRunner.query(
-        `INSERT INTO "action_objects" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-        [uuidv4(), name],
-      )
+      await queryRunner.query(`INSERT INTO "action_objects" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 

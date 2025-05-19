@@ -29,9 +29,7 @@ export class ActionObject extends BaseBusinessObject<ActionObjectType.Repository
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate ActionObject rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate ActionObject rules')
   }
 
   toPersistenceObject(): ActionObjectType.Output {

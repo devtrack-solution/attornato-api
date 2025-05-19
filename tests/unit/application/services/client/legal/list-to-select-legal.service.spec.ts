@@ -36,5 +36,4 @@ describe('[APPLICATION] - ListToSelectLegalService', () => {
     expect(result).toHaveLength(1)
     expect(result[0]).toEqual(expect.objectContaining(legalSerialized))
   })
-
 })

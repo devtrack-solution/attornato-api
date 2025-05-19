@@ -16,8 +16,8 @@ import { PatchAdministrativeService } from './patch-administrative.service'
   controllers: [],
   providers: [
     {
-      provide:CreateAdministrativeInboundPortToken,
-      useClass:CreateAdministrativeService,
+      provide: CreateAdministrativeInboundPortToken,
+      useClass: CreateAdministrativeService,
     },
     {
       provide: DeleteAdministrativeInboundPortToken,
@@ -38,8 +38,8 @@ import { PatchAdministrativeService } from './patch-administrative.service'
   ],
   exports: [
     {
-      provide:CreateAdministrativeInboundPortToken,
-      useClass:CreateAdministrativeService,
+      provide: CreateAdministrativeInboundPortToken,
+      useClass: CreateAdministrativeService,
     },
     {
       provide: DeleteAdministrativeInboundPortToken,

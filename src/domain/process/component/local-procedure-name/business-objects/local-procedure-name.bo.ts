@@ -29,9 +29,7 @@ export class LocalProcedureName extends BaseBusinessObject<LocalProcedureNameTyp
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate LocalProcedureName rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate LocalProcedureName rules')
   }
 
   toPersistenceObject(): LocalProcedureNameType.Output {

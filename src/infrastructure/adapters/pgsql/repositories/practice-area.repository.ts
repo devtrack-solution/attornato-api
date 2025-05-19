@@ -2,10 +2,7 @@ import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import {
-  PracticeAreaRepositoryOutboundPort,
-  PracticeAreaRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { PracticeAreaEntity } from '@/infrastructure/adapters/pgsql/entities/practice-area.entity'
 
 @BindProvider(PracticeAreaRepositoryOutboundPortSymbol)

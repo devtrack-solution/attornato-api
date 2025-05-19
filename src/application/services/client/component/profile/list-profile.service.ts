@@ -19,12 +19,12 @@ export class ListProfileService implements ListProfileInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.profileRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  profile  = result.data.map(( profile ) =>  profile  as ProfileType.Output)
+    let profile = result.data.map((profile) => profile as ProfileType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  profile ,
+      data: profile,
     }
   }
 }

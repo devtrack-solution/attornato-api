@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common'
 import { PreferenceModule } from '@/application/services/account/component/preference/preference.module'
 
 @Module({
-  imports: [
-    PreferenceModule
-  ],
+  imports: [PreferenceModule],
   controllers: [],
   providers: [],
   exports: [],

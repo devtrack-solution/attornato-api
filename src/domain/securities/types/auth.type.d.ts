@@ -1,4 +1,3 @@
-
 export namespace AuthType {
   export type LoginOutput = {
     username: string
@@ -19,7 +18,6 @@ export namespace AuthType {
     username: string
     enable?: boolean
   }
-
 
   export type ForgotPasswordOutput = {
     username: string

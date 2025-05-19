@@ -10,33 +10,9 @@ import { PatchAccountPersonDto } from '@/presentation/controllers/http/account/c
 @ApiTags('Accounts')
 @Controller('account/persons')
 export class AccountPersonHttpController extends BaseHttpController {
-  constructor(
-    // @Inject(ListAccountPersonInboundPortToken) private readonly listAccountPersonService: ListAccountPersonInboundPort,
-    @Inject(PatchAccountPersonInboundPortToken) private readonly patchAccountPersonService: PatchAccountPersonInboundPort,
-    // @Inject(CreateAccountPersonInboundPortToken) private readonly createAccountPersonService: CreateAccountPersonInboundPort,
-    // @Inject(DeleteAccountPersonInboundPortToken) private readonly deleteAccountPersonService: DeleteAccountPersonInboundPort,
-  ) {
+  constructor(@Inject(PatchAccountPersonInboundPortToken) private readonly patchAccountPersonService: PatchAccountPersonInboundPort) {
     super()
   }
-
-  // @Post()
-  // @ApiBearerAuth()
-  // @UseGuards(RolesGuard)
-  // @ApiOperation({ summary: 'Create a new AccountPerson' })
-  // @ApiResponse({ status: 201, description: 'The item has been created.' })
-  // async create(@Body() body: CreateAccountPersonDto) {
-  //   return this.createAccountPersonService.execute(body)
-  // }
-
-  // @Get()
-  // @ApiBearerAuth()
-  // @UseGuards(RolesGuard)
-  // @Permissions(Roles.ADMINISTRATOR)
-  // @ApiOperation({ summary: 'Find a AccountPerson List' })
-  // @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListAccountPersonDto })
-  // async find(@Query() query: CriteriaPaginatedRequestDto, @Req() req: any) {
-  //   return this.listAccountPersonService.execute(query)
-  // }
 
   @Patch(':id')
   @ApiBearerAuth()
@@ -47,13 +23,4 @@ export class AccountPersonHttpController extends BaseHttpController {
   async patch(@Param('id') id: string, @Body() body: PatchAccountPersonDto) {
     return this.patchAccountPersonService.execute(body, { id })
   }
-
-  // @Delete(':id')
-  // @ApiBearerAuth()
-  // @UseGuards(RolesGuard)
-  // @ApiOperation({ summary: 'Delete a AccountPerson' })
-  // @ApiResponse({ status: 200, description: 'The item has been deleted.' })
-  // async delete(@Param('id') id: string) {
-  //   return this.deleteAccountPersonService.execute({ id })
-  // }
 }

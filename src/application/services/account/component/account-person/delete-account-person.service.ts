@@ -10,7 +10,7 @@
 //     private readonly accountPersonRepository: AccountPersonRepositoryOutboundPort,
 //   ) {}
 //
-//   async execute(criteria: Criteria.ById): Promise<void> {
+//  async execute(criteria: Criteria.ById): Promise<void> {
 //     await this.accountPersonRepository.deleteObject(criteria.id)
 //   }
 // }

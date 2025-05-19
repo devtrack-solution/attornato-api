@@ -1,5 +1,5 @@
-import { OmitType } from '@nestjs/swagger';
-import { ClientDto } from './client.dto';
+import { OmitType } from '@nestjs/swagger'
+import { ClientDto } from './client.dto'
 import { ClientType } from '@/domain/client/types/client.type'
 
 export class CreateClientDto

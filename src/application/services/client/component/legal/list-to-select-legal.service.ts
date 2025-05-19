@@ -16,7 +16,7 @@ export class ListToSelectLegalService implements ListToSelectLegalInboundPort {
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  legal  = await this.legalRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  legal.map(( legal ) => new Legal( legal  as LegalType.Output).toJson())
+    let legal = await this.legalRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return legal.map((legal) => new Legal(legal as LegalType.Output).toJson())
   }
 }

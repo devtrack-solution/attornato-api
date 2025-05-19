@@ -38,7 +38,7 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
     return {
       id: this._id.toString(),
       cnjNumber: this._cnjNumber,
-      ...super.toPersistenceObject()
+      ...super.toPersistenceObject(),
     }
   }
 }

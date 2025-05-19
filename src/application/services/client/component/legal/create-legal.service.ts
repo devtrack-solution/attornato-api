@@ -12,8 +12,8 @@ export class CreateLegalService implements CreateLegalInboundPort {
   ) {}
 
   async execute(data: LegalType.Input): Promise<LegalType.Output> {
-    let  legal  = new Legal(data)
+    let legal = new Legal(data)
     await this.LegalRepository.saveObjectWithRelations(legal.toPersistence())
-    return  legal.toJson()
+    return legal.toJson()
   }
 }

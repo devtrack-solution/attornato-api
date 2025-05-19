@@ -2,10 +2,7 @@ import { DataSource, FindOptionsWhere } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import {
-  CredentialRepositoryOutboundPort,
-  CredentialRepositoryOutboundPortSymbol,
-} from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
+import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
 import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { AuthType } from '@/domain/securities/types/auth.type'

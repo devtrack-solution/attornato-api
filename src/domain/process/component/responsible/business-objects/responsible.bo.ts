@@ -29,9 +29,7 @@ export class Responsible extends BaseBusinessObject<ResponsibleType.Repository, 
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Responsible rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Responsible rules')
   }
 
   toPersistenceObject(): ResponsibleType.Output {

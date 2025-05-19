@@ -29,9 +29,7 @@ export class ProceduralStatus extends BaseBusinessObject<ProceduralStatusType.Re
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate ProceduralStatus rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate ProceduralStatus rules')
   }
 
   toPersistenceObject(): ProceduralStatusType.Output {

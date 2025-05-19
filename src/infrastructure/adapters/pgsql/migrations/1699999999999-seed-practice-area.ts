@@ -42,10 +42,7 @@ export default class SeedPracticeArea1699999999999 implements MigrationInterface
     ]
 
     for (const name of names) {
-      await queryRunner.query(
-        `INSERT INTO "practice_areas" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-        [uuidv4(), name],
-      )
+      await queryRunner.query(`INSERT INTO "practice_areas" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 

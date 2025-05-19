@@ -4,5 +4,5 @@ import { PrognosisDto } from '@/presentation/controllers/http/process/component/
 
 export class ListPrognosisDto extends CriteriaPaginatedResponseDto<PrognosisDto> {
   @ApiProperty({ type: PrognosisDto, isArray: true })
-  declare data: Partial<PrognosisDto>[];
+  declare data: Partial<PrognosisDto>[]
 }

@@ -17,12 +17,12 @@ export class ListAdministrativeService implements ListAdministrativeInboundPort 
     const searchFields: string[] = []
     const order = { createdAt: 'ASC' }
     let result = await this.administrativeRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  administrative  = result.data.map(( administrative ) =>  administrative  as AdministrativeType.Output)
+    let administrative = result.data.map((administrative) => administrative as AdministrativeType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  administrative ,
+      data: administrative,
     }
   }
 }

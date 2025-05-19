@@ -72,7 +72,7 @@ describe('Credential', () => {
     const partialInput: CredentialType.Input = {
       username: 'noOptionals',
       password: '@Aabc123',
-      requestNewPassword: false
+      requestNewPassword: false,
     }
 
     const credential = new Credential(partialInput)
@@ -108,8 +108,8 @@ describe('Credential', () => {
   })
 
   it('deve retornar dados corretos de toPersistenceRole', () => {
-    const credentialWithRoles = new Credential(mockInput);
-    const persistenceRolesWithRoles = credentialWithRoles.toPersistenceRole();
+    const credentialWithRoles = new Credential(mockInput)
+    const persistenceRolesWithRoles = credentialWithRoles.toPersistenceRole()
 
     // Cenário 1: Roles definidos
     expect(persistenceRolesWithRoles).toEqual([
@@ -117,15 +117,15 @@ describe('Credential', () => {
         credentialId: credentialWithRoles.id,
         roleId: mockInput?.roles[0].id,
       },
-    ]);
+    ])
 
     // Cenário 2: Roles indefinidos
-    const inputWithoutRoles = { ...mockInput, roles: undefined };
-    const credentialWithoutRoles = new Credential(inputWithoutRoles);
-    const persistenceRolesWithoutRoles = credentialWithoutRoles.toPersistenceRole();
+    const inputWithoutRoles = { ...mockInput, roles: undefined }
+    const credentialWithoutRoles = new Credential(inputWithoutRoles)
+    const persistenceRolesWithoutRoles = credentialWithoutRoles.toPersistenceRole()
 
-    expect(persistenceRolesWithoutRoles).toEqual([]);
-  });
+    expect(persistenceRolesWithoutRoles).toEqual([])
+  })
 
   it('deve lançar erro se senha for muito longa', () => {
     const invalidInput = { ...mockInput, password: 'A'.repeat(101) }

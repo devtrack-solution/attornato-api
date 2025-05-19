@@ -29,9 +29,7 @@ export class Phase extends BaseBusinessObject<PhaseType.Repository, PhaseType.Ou
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Phase rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Phase rules')
   }
 
   toPersistenceObject(): PhaseType.Output {

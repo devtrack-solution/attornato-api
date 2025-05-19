@@ -12,8 +12,8 @@ export class CreateProfileService implements CreateProfileInboundPort {
   ) {}
 
   async execute(data: ProfileType.Input): Promise<ProfileType.Output> {
-    let  profile  = new Profile(data)
-    await this.profileRepository.saveObject( profile.toPersistence())
-    return  profile.toJson()
+    let profile = new Profile(data)
+    await this.profileRepository.saveObject(profile.toPersistence())
+    return profile.toJson()
   }
 }

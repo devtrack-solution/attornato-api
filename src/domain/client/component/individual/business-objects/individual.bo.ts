@@ -8,7 +8,7 @@ import { Person } from '@/domain/client/component/person/business-objects/person
 
 export interface IIndividual extends IBusinessObject<IndividualType.Input, IndividualType.Output> {}
 
-export class Individual extends Client <IndividualType.Repository, IndividualType.Output> implements IIndividual, IValidator  {
+export class Individual extends Client<IndividualType.Repository, IndividualType.Output> implements IIndividual, IValidator {
   private _name!: string
   private _nationality!: string
   private _occupation!: string
@@ -82,8 +82,7 @@ export class Individual extends Client <IndividualType.Repository, IndividualTyp
   }
 
   override validate(): void {
-    ValidationBuilder
-      .of({ value: this._name, fieldName: 'name' })
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
       .required()
       .of({ value: this._nationality, fieldName: 'nationality' })
       .required()

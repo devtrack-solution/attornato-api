@@ -16,8 +16,8 @@ import { PatchResponsibleService } from './patch-responsible.service'
   controllers: [],
   providers: [
     {
-      provide:CreateResponsibleInboundPortToken,
-      useClass:CreateResponsibleService,
+      provide: CreateResponsibleInboundPortToken,
+      useClass: CreateResponsibleService,
     },
     {
       provide: DeleteResponsibleInboundPortToken,
@@ -38,8 +38,8 @@ import { PatchResponsibleService } from './patch-responsible.service'
   ],
   exports: [
     {
-      provide:CreateResponsibleInboundPortToken,
-      useClass:CreateResponsibleService,
+      provide: CreateResponsibleInboundPortToken,
+      useClass: CreateResponsibleService,
     },
     {
       provide: DeleteResponsibleInboundPortToken,

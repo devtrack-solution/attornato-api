@@ -1,11 +1,4 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  Logger,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common'
+import { BadRequestException, Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { AuthType } from '@/domain/securities/types/auth.type'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
 import { AppConfig } from '@/domain/app-config.interface'
@@ -15,7 +8,7 @@ import { MODIFY_DATA } from '@/infrastructure/adapters/aws/services/email.proper
 import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
 import { compareSync, hashSync } from 'bcrypt-nodejs'
 import { DateTime } from 'luxon'
-import { ResetAuthInboundPort } from '@/domain/securities/ports/inbound/reset-auth.inbound-port'
+import { ResetAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/reset-auth.inbound-port'
 
 @Injectable()
 export class ResetService implements ResetAuthInboundPort {
@@ -37,7 +30,7 @@ export class ResetService implements ResetAuthInboundPort {
       if (!credential) {
         throw new UnauthorizedException('Notfound user')
       }
-      if(!compareSync(data.forgotCode, credential.resetPasswordCode as string)) {
+      if (!compareSync(data.forgotCode, credential.resetPasswordCode as string)) {
         throw new NotFoundException('Código inválido')
       }
 
@@ -82,11 +75,9 @@ export class ResetService implements ResetAuthInboundPort {
     }
   }
 
-
   private comparePassword(password: string, passwordConfirm: string): void {
     if (password !== passwordConfirm) {
       throw new BadRequestException('As senhas não coincidem')
     }
   }
-
 }

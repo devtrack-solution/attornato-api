@@ -29,9 +29,7 @@ describe('[APPLICATION] - CreateGroupProcessService', () => {
     expect(result).toEqual(expect.objectContaining(inputData))
   })
 
-  it.each([
-    ['name is empty', GroupProcessTestBuilder.getFailOnEmptyName()],
-  ])('should fail when %s', async (_, inputData) => {
+  it.each([['name is empty', GroupProcessTestBuilder.getFailOnEmptyName()]])('should fail when %s', async (_, inputData) => {
     await expect(service.execute(inputData)).rejects.toThrow()
   })
 })

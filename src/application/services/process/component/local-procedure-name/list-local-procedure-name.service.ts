@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { LocalProcedureNameType } from '@/domain/process/component/local-procedure-name/types/local-procedure-name.type'
-import {
-  ListLocalProcedureNameInboundPort
-} from '@/domain/process/component/local-procedure-name/ports/inbound/list-local-procedure-name.inbound-port'
+import { ListLocalProcedureNameInboundPort } from '@/domain/process/component/local-procedure-name/ports/inbound/list-local-procedure-name.inbound-port'
 import {
   LocalProcedureNameRepositoryOutboundPort,
   LocalProcedureNameRepositoryOutboundPortSymbol,
@@ -23,12 +21,12 @@ export class ListLocalProcedureNameService implements ListLocalProcedureNameInbo
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.localProcedureNameRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  localProcedureName  = result.data.map(( localProcedureName ) =>  localProcedureName  as LocalProcedureNameType.Output)
+    let localProcedureName = result.data.map((localProcedureName) => localProcedureName as LocalProcedureNameType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  localProcedureName ,
+      data: localProcedureName,
     }
   }
 }

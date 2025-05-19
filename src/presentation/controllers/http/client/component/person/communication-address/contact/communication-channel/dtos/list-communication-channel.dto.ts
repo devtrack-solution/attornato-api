@@ -4,5 +4,5 @@ import { CommunicationChannelDto } from '@/presentation/controllers/http/client/
 
 export class ListCommunicationChannelDto extends CriteriaPaginatedResponseDto<CommunicationChannelDto> {
   @ApiProperty({ type: CommunicationChannelDto, isArray: true })
-  declare data: Partial<CommunicationChannelDto>[];
+  declare data: Partial<CommunicationChannelDto>[]
 }

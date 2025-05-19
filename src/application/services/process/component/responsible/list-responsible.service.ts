@@ -18,12 +18,12 @@ export class ListResponsibleService implements ListResponsibleInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.responsibleRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  responsible  = result.data.map(( responsible ) =>  responsible  as ResponsibleType.Output)
+    let responsible = result.data.map((responsible) => responsible as ResponsibleType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  responsible ,
+      data: responsible,
     }
   }
 }

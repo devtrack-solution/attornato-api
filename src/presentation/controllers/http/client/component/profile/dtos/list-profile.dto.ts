@@ -4,5 +4,5 @@ import { ProfileDto } from '@/presentation/controllers/http/client/component/pro
 
 export class ListProfileDto extends CriteriaPaginatedResponseDto<ProfileDto> {
   @ApiProperty({ type: ProfileDto, isArray: true })
-  declare data: Partial<ProfileDto>[];
+  declare data: Partial<ProfileDto>[]
 }

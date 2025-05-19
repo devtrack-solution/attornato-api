@@ -5,7 +5,6 @@ import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/rep
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
 import { ContactRepositoryOutboundPort, ContactRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/ports/outbound/contact-repository.outbound-port'
 
-
 @BindProvider(ContactRepositoryOutboundPortSymbol)
 export class ContactRepository extends RepositoryBase<ContactEntity> implements ContactRepositoryOutboundPort {
   constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {

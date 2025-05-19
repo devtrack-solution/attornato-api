@@ -3,7 +3,7 @@ import { AuthType } from '@/domain/securities/types/auth.type'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
-import { ForgotAuthInboundPort } from '@/domain/securities/ports/inbound/forgot-auth.inbound-port'
+import { ForgotAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/forgot-auth.inbound-port'
 import { hashSync } from 'bcrypt-nodejs'
 import passgem from 'generate-password'
 import { v4 as uuidv4 } from 'uuid'
@@ -28,16 +28,13 @@ export class ForgotService implements ForgotAuthInboundPort {
     try {
       const credential = await this.credentialRepository.findByUsername(data)
       if (!credential) {
-        throw new UnauthorizedException('Not found username: ' + data.username )
+        throw new UnauthorizedException('Not found username: ' + data.username)
       }
 
       const recoveryCode = passgem.generate({ length: 6, numbers: true }).toUpperCase()
       const hashedCode = hashSync(recoveryCode)
       const recoveryToken = uuidv4()
-      const thirtyMinutesLater = DateTime.now()
-          .setZone('America/Sao_Paulo')
-          .plus({ minutes: 30 })
-          .toJSDate()
+      const thirtyMinutesLater = DateTime.now().setZone('America/Sao_Paulo').plus({ minutes: 30 }).toJSDate()
 
       await this.credentialRepository.patchObject(
         {
@@ -47,12 +44,11 @@ export class ForgotService implements ForgotAuthInboundPort {
           requestNewPassword: true,
         },
         { id: credential.id! },
-        Credential
+        Credential,
       )
 
       // Aqui você pode enviar o e-mail com o código
       this.logger.log(`Código de recuperação: ${recoveryCode}`)
-
 
       await this.mailSenderService.send({
         subject: 'Código de recuperação da senha!',

@@ -1,12 +1,4 @@
-import {
-  FindManyOptions,
-  FindOptionsWhere,
-  ILike,
-  ObjectLiteral,
-  Repository,
-  DeepPartial,
-  FindOptionsOrder,
-} from 'typeorm'
+import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial, FindOptionsOrder } from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
@@ -293,8 +285,8 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
   private getSearchesWithILike(searchFields: string[], searchValue: string): Record<string, any>[] {
     if (!searchFields || !searchValue) return []
 
-    return searchFields.map(field => ({
-      [field]: ILike(`%${searchValue}%`)
+    return searchFields.map((field) => ({
+      [field]: ILike(`%${searchValue}%`),
     }))
   }
 
@@ -309,7 +301,6 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
     return conditions
   }
-
 
   /**
    * Find entities to populate a dropdown or select box.
@@ -392,7 +383,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
    * @param ChildEntityClass - Constructor to create and validate child entities.
    * @returns A promise that resolves when all children are successfully created.
    */ /*
-  async createChildrenForParent<Child>(
+ async createChildrenForParent<Child>(
     parentId: string,
     childrenInputs: Partial<Child>[],
     ChildEntityClass: new (...args: any[]) => Child
@@ -434,7 +425,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
    * @param relations - Optional relationships to include when fetching child entities.
    * @returns A promise that resolves when all children are successfully updated.
    */ /*
-  async patchChildrenForParent<Child>(
+ async patchChildrenForParent<Child>(
     updateInputs: { criteria: Criteria.ByChildren; data: Partial<Child> }[],
     ChildEntityClass: new (...args: any[]) => Child,
     relations?: string[]

@@ -3,9 +3,7 @@ import { ProcessModule } from '@/application/services/process/process.module'
 import { ProcessHttpController } from '@/presentation/controllers/http/process/process-http.controller'
 
 @Module({
-  imports: [
-    ProcessModule
-  ],
+  imports: [ProcessModule],
   controllers: [ProcessHttpController],
   exports: [],
 })

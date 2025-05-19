@@ -18,12 +18,12 @@ export class ListLocatorService implements ListLocatorInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.locatorRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  locator  = result.data.map(( locator ) =>  locator  as LocatorType.Output)
+    let locator = result.data.map((locator) => locator as LocatorType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  locator ,
+      data: locator,
     }
   }
 }

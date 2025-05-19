@@ -29,9 +29,7 @@ describe('[APPLICATION] - CreateFreeFieldService', () => {
     expect(result).toEqual(expect.objectContaining(inputData))
   })
 
-  it.each([
-    ['name is empty', FreeFieldTestBuilder.getFailOnEmptyName()],
-  ])('should fail when %s', async (_, inputData) => {
+  it.each([['name is empty', FreeFieldTestBuilder.getFailOnEmptyName()]])('should fail when %s', async (_, inputData) => {
     await expect(service.execute(inputData)).rejects.toThrow()
   })
 })

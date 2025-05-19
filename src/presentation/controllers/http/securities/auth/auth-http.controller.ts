@@ -2,23 +2,11 @@ import { Controller, Post, Body, Inject, Req, UseGuards, Patch, Param, Query } f
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { LoginAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/login-auth.dto'
-import {
-  LoginAuthInboundPort,
-  LoginAuthInboundPortToken,
-} from '@/domain/securities/ports/inbound/login-auth.inbound-port'
+import { LoginAuthInboundPort, LoginAuthInboundPortToken } from '@/domain/securities/ports/inbound/component/auth/login-auth.inbound-port'
 import { OnboardingAuthDto } from '@/presentation/controllers/http/securities/auth/dtos/onboarding-auth.dto'
-import {
-  OnboardingAuthInboundPort,
-  OnboardingAuthInboundPortToken,
-} from '@/domain/securities/ports/inbound/onboarding-auth.inbound-port'
-import {
-  ForgotAuthInboundPort,
-  ForgotAuthInboundPortToken,
-} from '@/domain/securities/ports/inbound/forgot-auth.inbound-port'
-import {
-  ResetAuthInboundPort,
-  ResetAuthInboundPortToken,
-} from '@/domain/securities/ports/inbound/reset-auth.inbound-port'
+import { OnboardingAuthInboundPort, OnboardingAuthInboundPortToken } from '@/domain/securities/ports/inbound/component/auth/onboarding-auth.inbound-port'
+import { ForgotAuthInboundPort, ForgotAuthInboundPortToken } from '@/domain/securities/ports/inbound/component/auth/forgot-auth.inbound-port'
+import { ResetAuthInboundPort, ResetAuthInboundPortToken } from '@/domain/securities/ports/inbound/component/auth/reset-auth.inbound-port'
 import { ForgotDto } from '@/presentation/controllers/http/securities/auth/dtos/forgot.dto'
 import { ResetDto } from '@/presentation/controllers/http/securities/auth/dtos/reset.dto'
 import { RolesGuard } from '@/commons/guard/roles.guard'
@@ -55,10 +43,7 @@ export class AuthHttpController extends BaseHttpController {
   @Patch('guest/reset-password')
   @ApiOperation({ summary: 'Reset password' })
   @ApiResponse({ status: 200, description: 'The item has been patched.' })
-  async patch(
-    @Query('username') username: string,
-    @Query('code') forgotCode: string,
-    @Body() body: ResetDto) {
+  async patch(@Query('username') username: string, @Query('code') forgotCode: string, @Body() body: ResetDto) {
     return this.resetService.execute({ ...body, username, forgotCode })
   }
 

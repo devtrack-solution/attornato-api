@@ -15,8 +15,8 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
     const exceptionsUrl = ['/auth/login', '/auth/forgot/password', '/auth/guest/reset-password']
     const url = req.originalUrl
     this.logger.log('URL:', url)
-    if (req.method === 'OPTIONS') return next();
-    if (!exceptionsUrl.some(path => url.startsWith(path))) {
+    if (req.method === 'OPTIONS') return next()
+    if (!exceptionsUrl.some((path) => url.startsWith(path))) {
       if (!req.headers.authorization) {
         throw new UnauthorizedException()
       }
@@ -29,7 +29,6 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
       })
       if (url.includes('/auth/onboarding')) {
         try {
-
           ;(req as any).headers.profile = {
             accountId: tokenValue.profile?.accountId ?? '',
             roles: tokenValue.profile?.roles ?? [],

@@ -29,8 +29,7 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .build('Failed to validate GroupCustomer rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).build('Failed to validate GroupCustomer rules')
   }
 
   toPersistenceObject(): GroupCustomerType.Output {

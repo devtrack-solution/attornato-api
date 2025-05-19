@@ -9,16 +9,7 @@ import { LegalModule } from '@/application/services/client/component/legal/legal
 import { ClientModule } from '@/application/services/client/client.module'
 
 @Module({
-  imports: [
-    ClientModule,
-    CommunicationChannelModule,
-    FreeFieldModule,
-    GroupCustomerModule,
-    IndividualModule,
-    IdentifierModule,
-    LegalModule,
-    ProfileModule,
-  ],
+  imports: [ClientModule, CommunicationChannelModule, FreeFieldModule, GroupCustomerModule, IndividualModule, IdentifierModule, LegalModule, ProfileModule],
   controllers: [],
   providers: [],
   exports: [],

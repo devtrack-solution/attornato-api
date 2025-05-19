@@ -15,7 +15,7 @@ import { ProcessFinancialEntity } from '@/infrastructure/adapters/pgsql/entities
 import { ProcessDetailEntity } from '@/infrastructure/adapters/pgsql/entities/process-detail.entity'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 
-@Entity({ name: 'processes'})
+@Entity({ name: 'processes' })
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export abstract class ProcessBaseEntity extends EntityBase {
   @ManyToOne(() => ClientBaseEntity)
@@ -38,41 +38,41 @@ export abstract class ProcessBaseEntity extends EntityBase {
   @Column({ type: 'integer', nullable: false })
   folder!: number
 
-  @Column({ type: 'varchar', length: 255})
+  @Column({ type: 'varchar', length: 255 })
   label!: string
 
   @Column({ default: false })
-  favorite!:  boolean
+  favorite!: boolean
 
-  @Column({ default: "Aguardando numeração", length: 255 })
-  processNumber!:  string
+  @Column({ default: 'Aguardando numeração', length: 255 })
+  processNumber!: string
 
   @Column({ type: 'integer' })
-  localProcedureNumber!:  number
+  localProcedureNumber!: number
 
   @ManyToOne(() => LocalProcedureNameEntity, { eager: true })
   @JoinColumn({ name: 'localProcedureNameId', referencedColumnName: 'id' })
-  localProcedureName!:  LocalProcedureNameEntity
+  localProcedureName!: LocalProcedureNameEntity
 
   @Column({ type: 'uuid', nullable: true })
   localProcedureNameId!: string
 
   @ManyToOne(() => ProceduralStatusEntity, { eager: true })
   @JoinColumn({ name: 'proceduralStatusId', referencedColumnName: 'id' })
-  proceduralStatus!:  ProceduralStatusEntity
+  proceduralStatus!: ProceduralStatusEntity
 
   @Column({ type: 'uuid', nullable: true })
   proceduralStatusId!: string
 
   @ManyToOne(() => CountyEntity, { eager: true })
   @JoinColumn({ name: 'countyId', referencedColumnName: 'id' })
-  county!:  CountyEntity
+  county!: CountyEntity
 
   @Column({ type: 'uuid', nullable: true })
   countyId!: string
 
-  @Column({ type: "varchar" , length: 10 })
-  countyUf!:  string
+  @Column({ type: 'varchar', length: 10 })
+  countyUf!: string
 
   @Column({ nullable: true })
   request!: string
@@ -88,42 +88,42 @@ export abstract class ProcessBaseEntity extends EntityBase {
 
   @ManyToOne(() => PhaseEntity, { eager: true })
   @JoinColumn({ name: 'phaseId', referencedColumnName: 'id' })
-  phase!:  PhaseEntity
+  phase!: PhaseEntity
 
   @Column({ type: 'uuid', nullable: true })
   phaseId!: string
 
   @ManyToOne(() => PracticeAreaEntity, { eager: true })
   @JoinColumn({ name: 'practiceAreaId', referencedColumnName: 'id' })
-  practiceArea!:  PracticeAreaEntity
+  practiceArea!: PracticeAreaEntity
 
   @Column({ type: 'uuid', nullable: true })
   practiceAreaId!: string
 
   @ManyToOne(() => ResponsibleEntity, { eager: true })
   @JoinColumn({ name: 'responsibleId', referencedColumnName: 'id' })
-  responsible!:  ResponsibleEntity
+  responsible!: ResponsibleEntity
 
   @Column({ type: 'uuid', nullable: true })
   responsibleId!: string
 
   @ManyToOne(() => ActionObjectEntity, { eager: true })
   @JoinColumn({ name: 'actionObjectId', referencedColumnName: 'id' })
-  actionObject!:  ActionObjectEntity
+  actionObject!: ActionObjectEntity
 
   @Column({ type: 'uuid', nullable: true })
   actionObjectId!: string
 
   @ManyToOne(() => LocatorEntity, { eager: true })
   @JoinColumn({ name: 'locatorId', referencedColumnName: 'id' })
-  locator!:  LocatorEntity
+  locator!: LocatorEntity
 
   @Column({ type: 'uuid', nullable: true })
   locatorId!: string
 
   @ManyToOne(() => SubjectEntity, { eager: true })
   @JoinColumn({ name: 'subjectId', referencedColumnName: 'id' })
-  subject!:  SubjectEntity
+  subject!: SubjectEntity
 
   @Column({ type: 'uuid', nullable: true })
   subjectId!: string

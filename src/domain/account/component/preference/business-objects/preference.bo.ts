@@ -41,8 +41,7 @@ export class Preference extends BaseBusinessObject<PreferenceType.Repository, Pr
   }
 
   validate(): void {
-    ValidationBuilder
-      .of({ value: this._accountId, fieldName: 'accountId' })
+    ValidationBuilder.of({ value: this._accountId, fieldName: 'accountId' })
       .required()
       .of({ value: this._key, fieldName: 'key' })
       .required()

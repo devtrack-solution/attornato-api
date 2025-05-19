@@ -29,9 +29,7 @@ export class GroupProcess extends BaseBusinessObject<GroupProcessType.Repository
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate GroupProcess rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate GroupProcess rules')
   }
 
   toPersistenceObject(): GroupProcessType.Output {

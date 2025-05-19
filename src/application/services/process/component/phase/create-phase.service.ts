@@ -12,8 +12,8 @@ export class CreatePhaseService implements CreatePhaseInboundPort {
   ) {}
 
   async execute(data: PhaseType.Input): Promise<PhaseType.Output> {
-    let  phase  = new Phase(data)
-    await this.phaseRepository.saveObject( phase.toPersistence())
-    return  phase.toJson()
+    let phase = new Phase(data)
+    await this.phaseRepository.saveObject(phase.toPersistence())
+    return phase.toJson()
   }
 }

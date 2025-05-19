@@ -4,5 +4,5 @@ import { FreeFieldDto } from '@/presentation/controllers/http/client/component/p
 
 export class ListFreeFieldDto extends CriteriaPaginatedResponseDto<FreeFieldDto> {
   @ApiProperty({ type: FreeFieldDto, isArray: true })
-  declare data: Partial<FreeFieldDto>[];
+  declare data: Partial<FreeFieldDto>[]
 }

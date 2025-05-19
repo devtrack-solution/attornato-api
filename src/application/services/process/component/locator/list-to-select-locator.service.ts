@@ -16,7 +16,7 @@ export class ListToSelectLocatorService implements ListToSelectLocatorInboundPor
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  locator  = await this.locatorRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  locator .map(( locator ) => new Locator( locator  as LocatorType.Output).toJson())
+    let locator = await this.locatorRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return locator.map((locator) => new Locator(locator as LocatorType.Output).toJson())
   }
 }

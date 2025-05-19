@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import { PatchCredentialInboundPort } from '@/domain/securities/ports/inbound/patch-credential.inbound-port'
+import { PatchCredentialInboundPort } from '@/domain/securities/ports/inbound/component/auth/patch-credential.inbound-port'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
 import { CredentialType } from '@/domain/securities/types/credential.type'
 

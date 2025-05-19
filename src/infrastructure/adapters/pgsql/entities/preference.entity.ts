@@ -6,7 +6,7 @@ import { AccountEntity } from '@/infrastructure/adapters/pgsql/entities/account.
 export class PreferenceEntity extends EntityBase {
   @Column({ type: 'varchar', length: 255 })
   key!: string
-  
+
   @Column({ type: 'varchar', length: 255 })
   value!: string
 

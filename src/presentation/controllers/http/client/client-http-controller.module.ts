@@ -3,9 +3,7 @@ import { ClientHttpController } from '@/presentation/controllers/http/client/cli
 import { ClientModule } from '@/application/services/client/client.module'
 
 @Module({
-  imports: [
-    ClientModule,
-  ],
+  imports: [ClientModule],
   controllers: [ClientHttpController],
   exports: [],
 })

@@ -15,21 +15,11 @@ import { Permissions } from '@/commons/guard/permissions.decorator'
 @Controller('process')
 export class ProcessHttpController extends BaseHttpController {
   constructor(
-    // @Inject(CreateProcessInboundPortToken) private readonly createProcessService: CreateProcessInboundPort,
     @Inject(ListProcessInboundPortToken) private readonly listProcessService: ListProcessInboundPort,
-    // @Inject(PatchProcessInboundPortToken) private readonly patchProcessService: PatchProcessInboundPort,
-    // @Inject(DeleteProcessInboundPortToken) private readonly deleteProcessService: DeleteProcessInboundPort,
     @Inject(ListToSelectProcessInboundPortToken) private readonly listToSelectProcessService: ListToSelectProcessInboundPort,
   ) {
     super()
   }
-
-  // @Post()
-  // @ApiOperation({ summary: 'Create a new Process' })
-  // @ApiResponse({ status: 201, description: 'The item has been created.' })
-  // async create(@Body() body: CreateProcessDto) {
-  //   return this.createProcessService.execute(body)
-  // }
 
   @Get()
   @ApiBearerAuth()
@@ -40,20 +30,6 @@ export class ProcessHttpController extends BaseHttpController {
   async find(@Query() query: CriteriaPaginatedRequestDto) {
     return this.listProcessService.execute(query)
   }
-
-  // @Patch(':id')
-  // @ApiOperation({ summary: 'Patch a Process' })
-  // @ApiResponse({ status: 200, description: 'The item has been patched.' })
-  // async patch(@Param('id') id: string, @Body() body: PatchProcessDto) {
-  //   return this.patchProcessService.execute(body, { id })
-  // }
-  //
-  // @Delete(':id')
-  // @ApiOperation({ summary: 'Delete a Process' })
-  // @ApiResponse({ status: 200, description: 'The item has been deleted.' })
-  // async delete(@Param('id') id: string) {
-  //   return this.deleteProcessService.execute({ id })
-  // }
 
   @Get('to/selects')
   @ApiBearerAuth()

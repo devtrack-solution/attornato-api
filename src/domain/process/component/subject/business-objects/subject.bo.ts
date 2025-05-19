@@ -29,9 +29,7 @@ export class Subject extends BaseBusinessObject<SubjectType.Repository, SubjectT
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Subject rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Subject rules')
   }
 
   toPersistenceObject(): SubjectType.Output {

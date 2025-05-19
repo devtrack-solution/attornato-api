@@ -12,8 +12,8 @@ export class CreatePartnerService implements CreatePartnerInboundPort {
   ) {}
 
   async execute(data: PartnerType.Input): Promise<PartnerType.Output> {
-    let  partner  = new Partner(data)
-    await this.partnerRepository.saveObject( partner.toPersistence())
-    return  partner.toJson()
+    let partner = new Partner(data)
+    await this.partnerRepository.saveObject(partner.toPersistence())
+    return partner.toJson()
   }
 }

@@ -4,5 +4,5 @@ import { ProceduralStatusDto } from '@/presentation/controllers/http/process/com
 
 export class ListProceduralStatusDto extends CriteriaPaginatedResponseDto<ProceduralStatusDto> {
   @ApiProperty({ type: ProceduralStatusDto, isArray: true })
-  declare data: Partial<ProceduralStatusDto>[];
+  declare data: Partial<ProceduralStatusDto>[]
 }

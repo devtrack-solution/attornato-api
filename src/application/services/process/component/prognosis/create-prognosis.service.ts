@@ -12,8 +12,8 @@ export class CreatePrognosisService implements CreatePrognosisInboundPort {
   ) {}
 
   async execute(data: PrognosisType.Input): Promise<PrognosisType.Output> {
-    let  prognosis  = new Prognosis(data)
-    await this.prognosisRepository.saveObject( prognosis.toPersistence())
-    return  prognosis.toJson()
+    let prognosis = new Prognosis(data)
+    await this.prognosisRepository.saveObject(prognosis.toPersistence())
+    return prognosis.toJson()
   }
 }

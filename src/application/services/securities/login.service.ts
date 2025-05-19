@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common'
-import { LoginAuthInboundPort } from '@/domain/securities/ports/inbound/login-auth.inbound-port'
+import { LoginAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/login-auth.inbound-port'
 import { AuthType } from '@/domain/securities/types/auth.type'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
 import { compareSync } from 'bcrypt-nodejs'

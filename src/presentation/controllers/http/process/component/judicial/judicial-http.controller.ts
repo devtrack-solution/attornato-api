@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { BaseHttpController } from '@/presentation/controllers/http/base-http-controller'
 import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
 import { CriteriaFindByRequestDto } from '@/presentation/controllers/http/dtos/criteria-find-by.dto'
-import { CreateJudicialInboundPortToken, CreateJudicialInboundPort } from '@/domain/process/component/judicial/ports/inbound/create-judicial-responsible.inbound-port'
+import { CreateJudicialInboundPortToken, CreateJudicialInboundPort } from '@/domain/process/component/judicial/ports/inbound/create-judicial.inbound-port'
 import { DeleteJudicialInboundPortToken, DeleteJudicialInboundPort } from '@/domain/process/component/judicial/ports/inbound/delete-judicial.inbound-port'
 import { ListJudicialInboundPortToken, ListJudicialInboundPort } from '@/domain/process/component/judicial/ports/inbound/list-judicial.inbound-port'
 import { ListToSelectJudicialInboundPortToken, ListToSelectJudicialInboundPort } from '@/domain/process/component/judicial/ports/inbound/list-to-select-judicial.inbound-port'

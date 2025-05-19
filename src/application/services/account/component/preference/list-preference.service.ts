@@ -17,12 +17,12 @@ export class ListPreferenceService implements ListPreferenceInboundPort {
     const order = { createdAt: 'ASC' }
     const whereByValue = { accountId: criteria.accountId }
     let result = await this.preferenceRepository.findAllByCriteria(criteria, order, select, searchFields, relations, whereByValue)
-    let  preference  = result.data.map(( preference ) =>  preference  as PreferenceType.Output)
+    let preference = result.data.map((preference) => preference as PreferenceType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  preference,
+      data: preference,
     }
   }
 }

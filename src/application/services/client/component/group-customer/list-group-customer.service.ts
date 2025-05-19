@@ -19,12 +19,12 @@ export class ListGroupCustomerService implements ListGroupCustomerInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.groupCustomerRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  groupCustomer  = result.data.map(( groupCustomer ) =>  groupCustomer  as GroupCustomerType.Output)
+    let groupCustomer = result.data.map((groupCustomer) => groupCustomer as GroupCustomerType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  groupCustomer ,
+      data: groupCustomer,
     }
   }
 }

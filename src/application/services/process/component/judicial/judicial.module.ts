@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { CoreModule } from '@/core/core.module'
-import { CreateJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/create-judicial-responsible.inbound-port'
+import { CreateJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/create-judicial.inbound-port'
 import { DeleteJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/delete-judicial.inbound-port'
 import { ListJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/list-judicial.inbound-port'
 import { ListToSelectJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/list-to-select-judicial.inbound-port'
@@ -16,8 +16,8 @@ import { PatchJudicialService } from './patch-judicial.service'
   controllers: [],
   providers: [
     {
-      provide:CreateJudicialInboundPortToken,
-      useClass:CreateJudicialService,
+      provide: CreateJudicialInboundPortToken,
+      useClass: CreateJudicialService,
     },
     {
       provide: DeleteJudicialInboundPortToken,
@@ -38,8 +38,8 @@ import { PatchJudicialService } from './patch-judicial.service'
   ],
   exports: [
     {
-      provide:CreateJudicialInboundPortToken,
-      useClass:CreateJudicialService,
+      provide: CreateJudicialInboundPortToken,
+      useClass: CreateJudicialService,
     },
     {
       provide: DeleteJudicialInboundPortToken,

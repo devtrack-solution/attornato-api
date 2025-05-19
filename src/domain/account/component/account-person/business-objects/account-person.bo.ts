@@ -59,8 +59,7 @@ export class AccountPerson extends BaseBusinessObject<AccountPersonType.Reposito
   }
 
   validate(): void {
-    ValidationBuilder
-      .of({ value: this._name, fieldName: 'name' })
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
       .required()
       .of({ value: this._birthday, fieldName: 'birthday' })
       .required()
@@ -79,7 +78,7 @@ export class AccountPerson extends BaseBusinessObject<AccountPersonType.Reposito
       nickName: this._nickName,
       gender: this._gender,
       avatar: this._avatar,
-      governanceSocialIdentity: this._governanceSocialIdentity
+      governanceSocialIdentity: this._governanceSocialIdentity,
     }
   }
 }

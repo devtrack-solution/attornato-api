@@ -38,10 +38,7 @@ export default class SeedGroupProcess1699999999999 implements MigrationInterface
     ]
 
     for (const name of groupProcessNames) {
-      await queryRunner.query(
-        `INSERT INTO "group_process" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-        [uuidv4(), name],
-      )
+      await queryRunner.query(`INSERT INTO "group_process" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 

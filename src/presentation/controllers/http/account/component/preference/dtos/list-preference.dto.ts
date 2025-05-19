@@ -4,5 +4,5 @@ import { PreferenceDto } from '@/presentation/controllers/http/account/component
 
 export class ListPreferenceDto extends CriteriaPaginatedResponseDto<PreferenceDto> {
   @ApiProperty({ type: PreferenceDto, isArray: true })
-  declare data: Partial<PreferenceDto>[];
+  declare data: Partial<PreferenceDto>[]
 }

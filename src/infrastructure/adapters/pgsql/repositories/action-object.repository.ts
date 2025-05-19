@@ -2,10 +2,7 @@ import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-import {
-  ActionObjectRepositoryOutboundPort,
-  ActionObjectRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/action-object/ports/outbound/action-object-repository.outbound-port'
+import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/component/action-object/ports/outbound/action-object-repository.outbound-port'
 import { ActionObjectEntity } from '@/infrastructure/adapters/pgsql/entities/action-object.entity'
 
 @BindProvider(ActionObjectRepositoryOutboundPortSymbol)

@@ -6,32 +6,32 @@ import { AccountEntity } from '@/infrastructure/adapters/pgsql/entities/account.
 @Entity('credentials')
 export class CredentialEntity extends EntityBase {
   @Column({ name: 'username', type: 'varchar', length: 50, nullable: false })
-  username!: string;
+  username!: string
 
   @Column({ name: 'last_login', type: 'timestamp', nullable: true })
-  lastLogin!: Date | null;
+  lastLogin!: Date | null
 
   @Column({ name: 'password_hash', type: 'varchar', length: 100, nullable: false })
-  passwordHash!: string;
+  passwordHash!: string
 
-  @Column({ name: 'request_change_password', type: 'boolean',  nullable: false, default: true })
-  requestNewPassword!: boolean;
+  @Column({ name: 'request_change_password', type: 'boolean', nullable: false, default: true })
+  requestNewPassword!: boolean
 
   @Column({ name: 'expired_at', type: 'timestamp', nullable: true })
-  expiredAt!: Date | null;
+  expiredAt!: Date | null
 
   @Column({ name: 'expired_code_at', type: 'timestamp', nullable: true })
-  expiredCodeAt!: Date | null;
+  expiredCodeAt!: Date | null
 
   @Column({ name: 'reset_password_token', type: 'varchar', length: 255, nullable: true })
-  resetPasswordToken!: string | null;
+  resetPasswordToken!: string | null
 
   @Column({ name: 'reset_password_code', type: 'varchar', length: 255, nullable: true })
-  resetPasswordCode!: string | null;
+  resetPasswordCode!: string | null
 
   @ManyToMany(() => RoleEntity, {
     cascade: true,
-    eager: true
+    eager: true,
   })
   @JoinTable({
     name: 'credential_role',

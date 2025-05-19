@@ -2,9 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { LocalProcedureName } from '@/domain/process/component/local-procedure-name/business-objects/local-procedure-name.bo'
-import {
-  PatchLocalProcedureNameInboundPort
-} from '@/domain/process/component/local-procedure-name/ports/inbound/patch-local-procedure-name.inbound-port'
+import { PatchLocalProcedureNameInboundPort } from '@/domain/process/component/local-procedure-name/ports/inbound/patch-local-procedure-name.inbound-port'
 import {
   LocalProcedureNameRepositoryOutboundPort,
   LocalProcedureNameRepositoryOutboundPortSymbol,

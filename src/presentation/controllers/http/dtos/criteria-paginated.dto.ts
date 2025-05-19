@@ -29,18 +29,18 @@ export class CriteriaPaginatedRequestDto implements Criteria.Paginated {
  */
 export class CriteriaPaginatedResponseDto<T> {
   @ApiProperty({ description: 'Total number of records available', example: 100 })
-  count!: number;
+  count!: number
 
   @ApiProperty({ description: 'Number of records returned per page', example: 10 })
-  limit!: number;
+  limit!: number
 
   @ApiProperty({ description: 'Offset for pagination', example: 0 })
-  offset!: number;
+  offset!: number
 
   @ApiProperty({
     description: 'Data array containing the paginated items',
     isArray: true,
     type: Object,
   })
-  data!: Partial<T>[];
+  data!: Partial<T>[]
 }

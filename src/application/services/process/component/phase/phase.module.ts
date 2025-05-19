@@ -16,8 +16,8 @@ import { PatchPhaseService } from './patch-phase.service'
   controllers: [],
   providers: [
     {
-      provide:CreatePhaseInboundPortToken,
-      useClass:CreatePhaseService,
+      provide: CreatePhaseInboundPortToken,
+      useClass: CreatePhaseService,
     },
     {
       provide: DeletePhaseInboundPortToken,
@@ -38,8 +38,8 @@ import { PatchPhaseService } from './patch-phase.service'
   ],
   exports: [
     {
-      provide:CreatePhaseInboundPortToken,
-      useClass:CreatePhaseService,
+      provide: CreatePhaseInboundPortToken,
+      useClass: CreatePhaseService,
     },
     {
       provide: DeletePhaseInboundPortToken,

@@ -29,9 +29,7 @@ export class Detail extends BaseBusinessObject<DetailType.Repository, DetailType
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Detail rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Detail rules')
   }
 
   toPersistenceObject(): DetailType.Output {

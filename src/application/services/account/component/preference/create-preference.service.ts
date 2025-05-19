@@ -12,8 +12,8 @@ export class CreatePreferenceService implements CreatePreferenceInboundPort {
   ) {}
 
   async execute(data: PreferenceType.Input): Promise<PreferenceType.Output> {
-    let  preference  = new Preference(data)
+    let preference = new Preference(data)
     await this.preferenceRepository.saveObject(preference.toPersistence())
-    return  preference.toJson()
+    return preference.toJson()
   }
 }

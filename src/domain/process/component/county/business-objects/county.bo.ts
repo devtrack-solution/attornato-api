@@ -29,9 +29,7 @@ export class County extends BaseBusinessObject<CountyType.Repository, CountyType
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate County rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate County rules')
   }
 
   toPersistenceObject(): CountyType.Output {

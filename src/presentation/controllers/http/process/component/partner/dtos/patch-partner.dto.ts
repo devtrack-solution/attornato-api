@@ -1,4 +1,4 @@
-import { OmitType } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger'
 import { CreatePartnerDto } from '@/presentation/controllers/http/process/component/partner/dtos/create-partner.dto'
 import { PartnerType } from '@/domain/process/component/partner/types/partner.type'
 

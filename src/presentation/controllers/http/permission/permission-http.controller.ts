@@ -33,37 +33,7 @@ export class PermissionHttpController extends BaseHttpController {
   async create(@Body() body: CreatePermissionDto) {
     return this.createPermissionService.execute(body)
   }
-  /*
-  @Get()
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
-  @ApiOperation({ summary: 'Find a Permission List' })
-  @ApiResponse({ status: 200, description: 'The item has been listed.' })
-  async find(@Body() body: any) {
-    throw new Error('Method not implemented.');
-  }
 
-  @Get(':id')
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
-  @ApiOperation({ summary: 'Find a Permission by Id' })
-  @ApiResponse({ status: 200, description: 'The item has been found.' })
-  async findById(@Param('id') id: string, @Body() body: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  @Put(':id')
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Permissions(Roles.ADMINISTRATOR)
-  @ApiOperation({ summary: 'Update a Permission' })
-  @ApiResponse({ status: 200, description: 'The item has been updated.' })
-  async update(@Param('id') id: string, @Body() body: UpdatePermissionDto) {
-    throw new Error('Method not implemented.');
-  }
-*/
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)

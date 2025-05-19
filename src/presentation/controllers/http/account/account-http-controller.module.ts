@@ -3,9 +3,7 @@ import { AccountHttpController } from '@/presentation/controllers/http/account/a
 import { AccountModule } from '@/application/services/account/account.module'
 
 @Module({
-  imports: [
-    AccountModule
-  ],
+  imports: [AccountModule],
   controllers: [AccountHttpController],
   exports: [],
 })

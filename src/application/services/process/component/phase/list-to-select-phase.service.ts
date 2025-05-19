@@ -16,7 +16,7 @@ export class ListToSelectPhaseService implements ListToSelectPhaseInboundPort {
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  phase  = await this.phaseRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  phase .map(( phase ) => new Phase( phase  as PhaseType.Output).toJson())
+    let phase = await this.phaseRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return phase.map((phase) => new Phase(phase as PhaseType.Output).toJson())
   }
 }

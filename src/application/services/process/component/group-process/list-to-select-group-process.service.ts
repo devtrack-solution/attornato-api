@@ -16,7 +16,7 @@ export class ListToSelectGroupProcessService implements ListToSelectGroupProcess
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  groupProcess  = await this.groupProcessRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  groupProcess .map(( groupProcess ) => new GroupProcess( groupProcess  as GroupProcessType.Output).toJson())
+    let groupProcess = await this.groupProcessRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return groupProcess.map((groupProcess) => new GroupProcess(groupProcess as GroupProcessType.Output).toJson())
   }
 }

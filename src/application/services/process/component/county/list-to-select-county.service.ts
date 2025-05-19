@@ -16,7 +16,7 @@ export class ListToSelectCountyService implements ListToSelectCountyInboundPort 
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  county  = await this.CountyRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  county .map(( county ) => new County( county  as CountyType.Output).toJson())
+    let county = await this.CountyRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return county.map((county) => new County(county as CountyType.Output).toJson())
   }
 }

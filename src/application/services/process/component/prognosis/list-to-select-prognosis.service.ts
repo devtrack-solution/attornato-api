@@ -16,7 +16,7 @@ export class ListToSelectPrognosisService implements ListToSelectPrognosisInboun
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  prognosis  = await this.prognosisRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  prognosis .map(( prognosis ) => new Prognosis( prognosis  as PrognosisType.Output).toJson())
+    let prognosis = await this.prognosisRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return prognosis.map((prognosis) => new Prognosis(prognosis as PrognosisType.Output).toJson())
   }
 }

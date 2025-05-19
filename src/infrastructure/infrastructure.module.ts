@@ -60,7 +60,6 @@ export class InfrastructureModule implements NestModule {
           useClass: target,
         }))
 
-
         let toExport: any = providers.map((provider: any) => provider.provide)
 
         toExport = Array.from(new Set(toExport))
@@ -71,10 +70,7 @@ export class InfrastructureModule implements NestModule {
 
         this.instance = {
           global: true,
-          imports: [
-            AdapterModule,
-            MailSenderModule,
-          ],
+          imports: [AdapterModule, MailSenderModule],
           module: InfrastructureModule,
           providers,
           exports: [AdapterModule, MailSenderModule, ...toExport],

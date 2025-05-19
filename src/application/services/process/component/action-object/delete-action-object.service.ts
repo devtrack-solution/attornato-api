@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import {
-  ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/action-object/ports/outbound/action-object-repository.outbound-port'
+import { ActionObjectRepositoryOutboundPort, ActionObjectRepositoryOutboundPortSymbol } from '@/domain/process/component/action-object/ports/outbound/action-object-repository.outbound-port'
 import { DeleteActionObjectInboundPort } from '@/domain/process/component/action-object/ports/inbound/delete-action-object.inbound-port'
 
 @Injectable()

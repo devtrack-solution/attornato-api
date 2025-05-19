@@ -12,8 +12,8 @@ export class CreateIndividualService implements CreateIndividualInboundPort {
   ) {}
 
   async execute(data: IndividualType.Input): Promise<IndividualType.Output> {
-    let  individual  = new Individual(data)
+    let individual = new Individual(data)
     await this.IndividualRepository.saveObjectWithRelations(individual.toPersistence())
-    return  individual.toJson()
+    return individual.toJson()
   }
 }

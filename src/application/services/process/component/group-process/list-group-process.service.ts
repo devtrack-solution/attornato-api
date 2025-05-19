@@ -19,12 +19,12 @@ export class ListGroupProcessService implements ListGroupProcessInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.groupProcessRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  groupProcess  = result.data.map(( groupProcess ) =>  groupProcess  as GroupProcessType.Output)
+    let groupProcess = result.data.map((groupProcess) => groupProcess as GroupProcessType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  groupProcess ,
+      data: groupProcess,
     }
   }
 }

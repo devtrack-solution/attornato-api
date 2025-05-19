@@ -4,8 +4,7 @@ import process from 'node:process'
 
 @Injectable()
 export class ConfigEnvironmentService implements AppConfig {
-  constructor() {
-  }
+  constructor() {}
 
   get environment(): string | undefined {
     return process.env.ENVIRONMENT || 'DEVELOPMENT'
@@ -82,7 +81,7 @@ export class ConfigEnvironmentService implements AppConfig {
       refreshTokenExpInSec: Number(process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC) || 86400,
       publicKeyBase64: process.env.JWT_PUBLIC_KEY_BASE64 || '',
       privateKeyBase64: process.env.JWT_PRIVATE_KEY_BASE64 || '',
-      algorithm: process.env.JWT_ALGORITHM || 'RS512'
+      algorithm: process.env.JWT_ALGORITHM || 'RS512',
     }
   }
 
@@ -95,14 +94,14 @@ export class ConfigEnvironmentService implements AppConfig {
         password: process.env.AWS_SES_PASS || '',
         region: process.env.AWS_SES_REGION || '',
         from: process.env.AWS_SES_FROM || '',
-        secure: process.env.AWS_SES_SECURE === 'true'
-      }
+        secure: process.env.AWS_SES_SECURE === 'true',
+      },
     }
   }
   get project(): AppConfig['project'] {
     return {
       name: process.env.NAME || 'ATTORNATO',
-      url: process.env.URL || 'http://localhost:4200'
+      url: process.env.URL || 'http://localhost:4200',
     }
   }
   /**

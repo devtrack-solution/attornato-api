@@ -16,7 +16,7 @@ export class ListToSelectProfileService implements ListToSelectProfileInboundPor
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  profile  = await this.profileRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  profile .map(( profile ) => new Profile( profile  as ProfileType.Output).toJson())
+    let profile = await this.profileRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return profile.map((profile) => new Profile(profile as ProfileType.Output).toJson())
   }
 }

@@ -6,7 +6,7 @@ export namespace PersonType {
   export type Input = {
     clientId: string
     communicationAddress: CommunicationAddressType.Input
-    contactPerson:  ContactPersonType.Input
+    contactPerson: ContactPersonType.Input
   } & BaseType.Input
 
   export type Output = Input

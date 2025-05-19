@@ -4,5 +4,5 @@ import { PracticeAreaDto } from '@/presentation/controllers/http/process/compone
 
 export class ListPracticeAreaDto extends CriteriaPaginatedResponseDto<PracticeAreaDto> {
   @ApiProperty({ type: PracticeAreaDto, isArray: true })
-  declare data: Partial<PracticeAreaDto>[];
+  declare data: Partial<PracticeAreaDto>[]
 }

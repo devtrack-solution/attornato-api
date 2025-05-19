@@ -16,7 +16,7 @@ export class ListToSelectResponsibleService implements ListToSelectResponsibleIn
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  responsible  = await this.responsibleRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  responsible .map(( responsible ) => new Responsible( responsible  as ResponsibleType.Output).toJson())
+    let responsible = await this.responsibleRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return responsible.map((responsible) => new Responsible(responsible as ResponsibleType.Output).toJson())
   }
 }

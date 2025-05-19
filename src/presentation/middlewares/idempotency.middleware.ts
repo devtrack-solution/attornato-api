@@ -10,7 +10,7 @@ export class IdempotencyMiddleware implements NestMiddleware {
 
   constructor(
     private readonly adapterHost: HttpAdapterHost,
-    private readonly idempotencyService: IdempotencyService
+    private readonly idempotencyService: IdempotencyService,
   ) {}
 
   async use(@Req() req: FastifyRequest, res: FastifyReply, next: () => void) {

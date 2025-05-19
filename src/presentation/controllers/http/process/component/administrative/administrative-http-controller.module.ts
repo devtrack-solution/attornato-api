@@ -1,6 +1,6 @@
-import { AdministrativeModule } from '@/application/services/process/component/administrative/administrative.module';
+import { AdministrativeModule } from '@/application/services/process/component/administrative/administrative.module'
 import { Module } from '@nestjs/common'
-import { AdministrativeHttpController } from './administrative-http.controller';
+import { AdministrativeHttpController } from './administrative-http.controller'
 
 @Module({
   imports: [AdministrativeModule],

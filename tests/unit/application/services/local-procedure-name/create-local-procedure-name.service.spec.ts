@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { LocalProcedureNameRepositoryOutboundPort, LocalProcedureNameRepositoryOutboundPortSymbol } from '@/domain/process/component/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
+import {
+  LocalProcedureNameRepositoryOutboundPort,
+  LocalProcedureNameRepositoryOutboundPortSymbol,
+} from '@/domain/process/component/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CreateLocalProcedureNameService } from '@/application/services/process/component/local-procedure-name/create-local-procedure-name.service'
 import { LocalProcedureNameTestBuilder } from '@tests/unit/application/services/local-procedure-name/local-procedure-name-test.builder'
@@ -29,9 +32,7 @@ describe('[APPLICATION] - CreateLocalProcedureNameService', () => {
     expect(result).toEqual(expect.objectContaining(inputData))
   })
 
-  it.each([
-    ['name is empty', LocalProcedureNameTestBuilder.getFailOnEmptyName()],
-  ])('should fail when %s', async (_, inputData) => {
+  it.each([['name is empty', LocalProcedureNameTestBuilder.getFailOnEmptyName()]])('should fail when %s', async (_, inputData) => {
     await expect(service.execute(inputData)).rejects.toThrow()
   })
 })

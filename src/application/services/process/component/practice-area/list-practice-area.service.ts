@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { PracticeAreaType } from '@/domain/process/component/practice-area/types/practice-area.type'
-import {
-  PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
+import { PracticeAreaRepositoryOutboundPort, PracticeAreaRepositoryOutboundPortSymbol } from '@/domain/process/component/practice-area/ports/outbound/practice-area-repository.outbound-port'
 import { ListPracticeAreaInboundPort } from '@/domain/process/component/practice-area/ports/inbound/list-practice-area.inbound-port'
 
 @Injectable()
@@ -20,12 +18,12 @@ export class ListPracticeAreaService implements ListPracticeAreaInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.practiceAreaRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  practiceArea  = result.data.map(( practiceArea ) =>  practiceArea  as PracticeAreaType.Output)
+    let practiceArea = result.data.map((practiceArea) => practiceArea as PracticeAreaType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  practiceArea ,
+      data: practiceArea,
     }
   }
 }

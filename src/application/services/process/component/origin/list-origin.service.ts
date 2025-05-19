@@ -1,9 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import {
-  OriginRepositoryOutboundPort,
-  OriginRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/origin/ports/outbound/origin-repository.outbound-port'
+import { OriginRepositoryOutboundPort, OriginRepositoryOutboundPortSymbol } from '@/domain/process/component/origin/ports/outbound/origin-repository.outbound-port'
 import { ListOriginInboundPort } from '@/domain/process/component/origin/ports/inbound/list-origin.inbound-port'
 import { OriginType } from '@/domain/process/component/origin/types/origin.type'
 
@@ -21,12 +18,12 @@ export class ListOriginService implements ListOriginInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.originRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  origin  = result.data.map(( origin ) =>  origin  as OriginType.Output)
+    let origin = result.data.map((origin) => origin as OriginType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  origin ,
+      data: origin,
     }
   }
 }

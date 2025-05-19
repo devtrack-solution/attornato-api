@@ -29,9 +29,7 @@ export class PracticeArea extends BaseBusinessObject<PracticeAreaType.Repository
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate PracticeArea rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate PracticeArea rules')
   }
 
   toPersistenceObject(): PracticeAreaType.Output {

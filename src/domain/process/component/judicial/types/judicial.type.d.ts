@@ -5,7 +5,6 @@ export namespace JudicialType {
     cnjNumber: string
   } & ProcessType.Input
 
-
   export type Output = Input
 
   export type OutputPaginated = {

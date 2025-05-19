@@ -29,8 +29,7 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .build('Failed to validate Profile rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).build('Failed to validate Profile rules')
   }
 
   toPersistenceObject(): ProfileType.Output {

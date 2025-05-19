@@ -1,2 +1,1 @@
-export declare class RootTestModule {
-}
+export declare class RootTestModule {}

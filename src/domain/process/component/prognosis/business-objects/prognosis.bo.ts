@@ -29,9 +29,7 @@ export class Prognosis extends BaseBusinessObject<PrognosisType.Repository, Prog
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Prognosis rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Prognosis rules')
   }
 
   toPersistenceObject(): PrognosisType.Output {

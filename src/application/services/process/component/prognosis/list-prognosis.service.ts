@@ -19,12 +19,12 @@ export class ListPrognosisService implements ListPrognosisInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.prognosisRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  prognosis  = result.data.map(( prognosis ) =>  prognosis  as PrognosisType.Output)
+    let prognosis = result.data.map((prognosis) => prognosis as PrognosisType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  prognosis ,
+      data: prognosis,
     }
   }
 }

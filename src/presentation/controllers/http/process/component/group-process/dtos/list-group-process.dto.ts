@@ -4,5 +4,5 @@ import { GroupProcessDto } from '@/presentation/controllers/http/process/compone
 
 export class ListGroupProcessDto extends CriteriaPaginatedResponseDto<GroupProcessDto> {
   @ApiProperty({ type: GroupProcessDto, isArray: true })
-  declare data: Partial<GroupProcessDto>[];
+  declare data: Partial<GroupProcessDto>[]
 }

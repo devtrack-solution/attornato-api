@@ -32,7 +32,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       this._requestNewPassword = data?.requestNewPassword ?? true
       this._resetPasswordToken = data.resetPasswordToken
       this._resetPasswordCode = data.resetPasswordCode
-      this._roles = (data?.roles ?? []).map((role: RoleType.Input) => new Role(role));
+      this._roles = (data?.roles ?? []).map((role: RoleType.Input) => new Role(role))
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading credential entity`))
     }
@@ -116,12 +116,12 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       resetPasswordCode: this.resetPasswordCode,
       roles: this._roles.map((role) => role.toJson()),
     }
-    if (this._requestNewPassword) {
-      result.roles = result.roles.map((role: RoleType.Input) => {
-        const permissions = role.permissions.find((permission: PermissionType.Output) => permission.name === PermissionConstants.PERMISSION_UPDATE_PASSWORD);
-        return { ...role, permissions }
-      })
-    }
+    // if (this._requestNewPassword) {
+    //   result.roles = result.roles.map((role: RoleType.Input) => {
+    //     const permissions = role.permissions.find((permission: PermissionType.Output) => permission.name === PermissionConstants.PERMISSION_UPDATE_PASSWORD);
+    //     return { ...role, permissions }
+    //   })
+    // }
     return result
   }
 

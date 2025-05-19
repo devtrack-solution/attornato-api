@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { SubjectType } from '@/domain/process/component/subject/types/subject.type'
-import {
-  SubjectRepositoryOutboundPort,
-  SubjectRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/subject/ports/outbound/subject-repository.outbound-port'
+import { SubjectRepositoryOutboundPort, SubjectRepositoryOutboundPortSymbol } from '@/domain/process/component/subject/ports/outbound/subject-repository.outbound-port'
 import { ListSubjectInboundPort } from '@/domain/process/component/subject/ports/inbound/list-subject.inbound-port'
 
 @Injectable()
@@ -21,12 +18,12 @@ export class ListSubjectService implements ListSubjectInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.subjectRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  subject  = result.data.map(( subject ) =>  subject  as SubjectType.Output)
+    let subject = result.data.map((subject) => subject as SubjectType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  subject ,
+      data: subject,
     }
   }
 }

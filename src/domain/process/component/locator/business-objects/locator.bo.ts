@@ -29,9 +29,7 @@ export class Locator extends BaseBusinessObject<LocatorType.Repository, LocatorT
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Locator rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Locator rules')
   }
 
   toPersistenceObject(): LocatorType.Output {

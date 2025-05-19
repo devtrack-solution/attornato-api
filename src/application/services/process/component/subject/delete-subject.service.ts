@@ -1,9 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
-import {
-  SubjectRepositoryOutboundPort,
-  SubjectRepositoryOutboundPortSymbol,
-} from '@/domain/process/component/subject/ports/outbound/subject-repository.outbound-port'
+import { SubjectRepositoryOutboundPort, SubjectRepositoryOutboundPortSymbol } from '@/domain/process/component/subject/ports/outbound/subject-repository.outbound-port'
 import { DeleteSubjectInboundPort } from '@/domain/process/component/subject/ports/inbound/delete-subject.inbound-port'
 
 @Injectable()

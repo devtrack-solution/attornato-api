@@ -1,4 +1,4 @@
-import { OmitType } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger'
 import { ProceduralStatusDto } from '@/presentation/controllers/http/process/component/procedural-status/dtos/procedural-status.dto'
 import { ProceduralStatusType } from '@/domain/process/component/procedural-status/types/procedural-status.type'
 

@@ -3,11 +3,9 @@
  * Created by wof on 20/12/2023
  */
 
-
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { PermissionEntity } from '@/infrastructure/adapters/pgsql/entities/permission.entity'
-
 
 @Entity('roles')
 export class RoleEntity extends EntityBase {

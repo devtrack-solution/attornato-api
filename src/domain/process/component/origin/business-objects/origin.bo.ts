@@ -29,9 +29,7 @@ export class Origin extends BaseBusinessObject<OriginType.Repository, OriginType
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Origin rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Origin rules')
   }
 
   toPersistenceObject(): OriginType.Output {

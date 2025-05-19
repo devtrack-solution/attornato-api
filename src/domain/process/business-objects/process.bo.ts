@@ -10,7 +10,10 @@ import { ProcessFinancialType } from '@/domain/process/component/process-financi
 
 export interface IProcess extends IBusinessObject<ProcessType.Input, ProcessType.Output> {}
 
-export class Process<TRepository extends ProcessType.Input = ProcessType.Repository, TOutput extends ProcessType.Output = ProcessType.Output> extends BaseBusinessObject<TRepository, TOutput> implements IProcess {
+export class Process<TRepository extends ProcessType.Input = ProcessType.Repository, TOutput extends ProcessType.Output = ProcessType.Output>
+  extends BaseBusinessObject<TRepository, TOutput>
+  implements IProcess
+{
   protected _clientId!: string
   protected _processId!: string
   protected _groupProcessId!: string
@@ -150,7 +153,7 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       id: this._id.toString(),
       clientId: this._clientId,
       processId: this._processId,
-      groupProcessId:this._groupProcessId,
+      groupProcessId: this._groupProcessId,
       folder: this._folder,
       label: this._label,
       favorite: this._favorite,

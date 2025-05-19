@@ -16,7 +16,7 @@ export class ListToSelectPartnerService implements ListToSelectPartnerInboundPor
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  partner  = await this.partnerRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  partner .map(( partner ) => new Partner( partner  as PartnerType.Output).toJson())
+    let partner = await this.partnerRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return partner.map((partner) => new Partner(partner as PartnerType.Output).toJson())
   }
 }

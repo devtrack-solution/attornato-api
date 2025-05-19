@@ -5,29 +5,10 @@ export default class SeedProceduralStatus1699999999999 implements MigrationInter
   name = 'SeedProceduralStatus1699999999999'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const names = [
-      'DEMANDADO',
-      'DEMANDANTE',
-      'acusado',
-      'AGRAVANTE',
-      'AUTOR',
-      'Embargado',
-      'Embargante',
-      'IMPETRANTE',
-      'PRO',
-      'PROTOCOLADO',
-      'RECLAMADO',
-      'reclamante',
-      'REQUERENTE',
-      'SEGURADO',
-      'VITIMA',
-    ]
+    const names = ['DEMANDADO', 'DEMANDANTE', 'acusado', 'AGRAVANTE', 'AUTOR', 'Embargado', 'Embargante', 'IMPETRANTE', 'PRO', 'PROTOCOLADO', 'RECLAMADO', 'reclamante', 'REQUERENTE', 'SEGURADO', 'VITIMA']
 
     for (const name of names) {
-      await queryRunner.query(
-        `INSERT INTO "procedural_status" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-        [uuidv4(), name],
-      )
+      await queryRunner.query(`INSERT INTO "procedural_status" ("id", "name") VALUES ($1, $2) ON CONFLICT DO NOTHING`, [uuidv4(), name])
     }
   }
 

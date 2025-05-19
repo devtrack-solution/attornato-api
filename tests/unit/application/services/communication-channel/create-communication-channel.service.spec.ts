@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { CommunicationChannelRepositoryOutboundPort, CommunicationChannelRepositoryOutboundPortSymbol } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import {
+  CommunicationChannelRepositoryOutboundPort,
+  CommunicationChannelRepositoryOutboundPortSymbol,
+} from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
 import { mock } from 'jest-mock-extended'
 import { CreateCommunicationChannelService } from '@/application/services/client/component/person/communication-address/contact/communication-channel/create-communication-channel.service'
 import { CommunicationChannelTestBuilder } from '@tests/unit/application/services/communication-channel/communication-channel-test.builder'
@@ -29,9 +32,7 @@ describe('[APPLICATION] - CreateCommunicationChannelService', () => {
     expect(result).toEqual(expect.objectContaining(inputData))
   })
 
-  it.each([
-    ['name is empty', CommunicationChannelTestBuilder.getFailOnEmptyName()],
-  ])('should fail when %s', async (_, inputData) => {
+  it.each([['name is empty', CommunicationChannelTestBuilder.getFailOnEmptyName()]])('should fail when %s', async (_, inputData) => {
     await expect(service.execute(inputData)).rejects.toThrow()
   })
 })

@@ -21,7 +21,7 @@ export class PermissionRepository extends RepositoryBase<PermissionEntity> imple
     }
   }
 
-  async findByCriteria(props: Criteria.ById): Promise<Partial<PermissionType.Repository> | null> {
+ async findByCriteria(props: Criteria.ById): Promise<Partial<PermissionType.Repository> | null> {
     try {
       return await this.findOneBy({ ...props })
       return null
@@ -31,7 +31,7 @@ export class PermissionRepository extends RepositoryBase<PermissionEntity> imple
     }
   }
 
-  async deleteObject(id: string): Promise<void> {
+ async deleteObject(id: string): Promise<void> {
     try {
       if (await this.existsBy({ id })) {
         await this.softRemove({ id })
@@ -42,7 +42,7 @@ export class PermissionRepository extends RepositoryBase<PermissionEntity> imple
     }
   }
 
-  async findAllByCriteria(props: Criteria.ById): Promise<Partial<PermissionType.Repository>[]> {
+ async findAllByCriteria(props: Criteria.ById): Promise<Partial<PermissionType.Repository>[]> {
     try {
       return await this.findBy({ ...props })
     } catch (e) {
@@ -70,7 +70,7 @@ export class PermissionRepository extends RepositoryBase<PermissionEntity> imple
     }
   }
 
-  async updateObject(permission: Partial<PermissionType.Input>): Promise<void> {
+ async updateObject(permission: Partial<PermissionType.Input>): Promise<void> {
     try {
       const loadPermission = await this.findOneBy({ id: permission.id })
       if (!loadPermission) {
@@ -84,7 +84,7 @@ export class PermissionRepository extends RepositoryBase<PermissionEntity> imple
     }
   }
 
-  async patchObject(permission: Partial<PermissionType.Input>, props: Criteria.ById): Promise<void> {
+ async patchObject(permission: Partial<PermissionType.Input>, props: Criteria.ById): Promise<void> {
     try {
       const loadPermission = await this.findOneBy({ id: props.id })
       if (!loadPermission) {

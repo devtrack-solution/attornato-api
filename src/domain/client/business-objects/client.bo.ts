@@ -35,8 +35,7 @@ export class Client<TRepository extends ClientType.Input = ClientType.Repository
   }
 
   validate(): void {
-    ValidationBuilder
-      .of({ value: this._groupCustomerId, fieldName: 'groupCustomerId' })
+    ValidationBuilder.of({ value: this._groupCustomerId, fieldName: 'groupCustomerId' })
       .of({ value: this._profileId, fieldName: 'profileId' })
       .of({ value: this._person, fieldName: 'person' })
       .required()

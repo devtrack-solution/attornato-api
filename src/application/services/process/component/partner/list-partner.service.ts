@@ -19,12 +19,12 @@ export class ListPartnerService implements ListPartnerInboundPort {
     const searchFields: string[] = ['name']
     const order = { createdAt: 'ASC' }
     let result = await this.partnerRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let  partner  = result.data.map(( partner ) =>  partner  as PartnerType.Output)
+    let partner = result.data.map((partner) => partner as PartnerType.Output)
     return {
       count: result.count,
       limit: result.limit,
       offset: result.offset,
-      data:  partner ,
+      data: partner,
     }
   }
 }

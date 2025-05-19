@@ -11,7 +11,7 @@
 //     private readonly accountPersonRepository: AccountPersonRepositoryOutboundPort,
 //   ) {}
 //
-//   async execute(data: AccountPersonType.Input): Promise<AccountPersonType.Output> {
+//  async execute(data: AccountPersonType.Input): Promise<AccountPersonType.Output> {
 //     let accountPerson = new AccountPerson(data)
 //     await this.accountPersonRepository.saveObject(accountPerson.toPersistence())
 //     return accountPerson.toJson()

@@ -38,7 +38,7 @@ export class Judicial extends Process<JudicialType.Repository, JudicialType.Outp
     return {
       id: this._id.toString(),
       cnjNumber: this._cnjNumber,
-      ...super.toPersistenceObject()
+      ...super.toPersistenceObject(),
     }
   }
 }

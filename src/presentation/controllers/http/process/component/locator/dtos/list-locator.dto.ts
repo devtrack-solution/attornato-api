@@ -4,5 +4,5 @@ import { LocatorDto } from '@/presentation/controllers/http/process/component/lo
 
 export class ListLocatorDto extends CriteriaPaginatedResponseDto<LocatorDto> {
   @ApiProperty({ type: LocatorDto, isArray: true })
-  declare data: Partial<LocatorDto>[];
+  declare data: Partial<LocatorDto>[]
 }

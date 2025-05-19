@@ -37,10 +37,7 @@ export class Account extends BaseBusinessObject<AccountType.Repository, AccountT
   }
 
   validate(): void {
-    ValidationBuilder
-      .of({ value: this._accountPerson, fieldName: 'accountPerson' })
-      .of({ value: this._credential, fieldName: 'credential' })
-      .build('Failed to validate Account rules')
+    ValidationBuilder.of({ value: this._accountPerson, fieldName: 'accountPerson' }).of({ value: this._credential, fieldName: 'credential' }).build('Failed to validate Account rules')
   }
 
   toPersistenceObject(): AccountType.Output {

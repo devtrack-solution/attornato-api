@@ -29,8 +29,7 @@ export class FreeField6 extends BaseBusinessObject<FreeField6Type.Repository, Fr
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .build('Failed to validate FreeField6 rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).build('Failed to validate FreeField6 rules')
   }
   toPersistenceObject(): FreeField6Type.Output {
     return {

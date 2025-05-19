@@ -4,5 +4,5 @@ import { GroupCustomerDto } from '@/presentation/controllers/http/client/compone
 
 export class ListGroupCustomerDto extends CriteriaPaginatedResponseDto<GroupCustomerDto> {
   @ApiProperty({ type: GroupCustomerDto, isArray: true })
-  declare data: Partial<GroupCustomerDto>[];
+  declare data: Partial<GroupCustomerDto>[]
 }

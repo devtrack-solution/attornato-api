@@ -4,7 +4,7 @@ import { ProfileEntity } from '@/infrastructure/adapters/pgsql/entities/profile.
 import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 
-@Entity({ name: 'clients'})
+@Entity({ name: 'clients' })
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export abstract class ClientBaseEntity extends EntityBase {
   @ManyToOne(() => GroupCustomerEntity, (groupCustomer) => groupCustomer.client)

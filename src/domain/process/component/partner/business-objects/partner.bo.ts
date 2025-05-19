@@ -29,9 +29,7 @@ export class Partner extends BaseBusinessObject<PartnerType.Repository, PartnerT
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._name, fieldName: 'name' })
-      .required()
-      .build('Failed to validate Partner rules')
+    ValidationBuilder.of({ value: this._name, fieldName: 'name' }).required().build('Failed to validate Partner rules')
   }
 
   toPersistenceObject(): PartnerType.Output {

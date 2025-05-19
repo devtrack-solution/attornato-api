@@ -16,7 +16,7 @@ export class ListToSelectGroupCustomerService implements ListToSelectGroupCustom
     const select: string[] = ['id', 'name']
     const searchFields: string[] = ['name']
     const order = { name: 'ASC' }
-    let  groupCustomer  = await this.groupCustomerRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return  groupCustomer .map(( groupCustomer ) => new GroupCustomer( groupCustomer  as GroupCustomerType.Output).toJson())
+    let groupCustomer = await this.groupCustomerRepository.findForSelectByCriteria(criteria, order, select, searchFields)
+    return groupCustomer.map((groupCustomer) => new GroupCustomer(groupCustomer as GroupCustomerType.Output).toJson())
   }
 }

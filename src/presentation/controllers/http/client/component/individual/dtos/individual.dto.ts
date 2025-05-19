@@ -33,4 +33,3 @@ export class IndividualDto extends ClientDto {
   @ApiProperty({ example: '123.45678.90-0' })
   pis!: string
 }
-

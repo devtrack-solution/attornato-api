@@ -1,4 +1,4 @@
-import { OmitType } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger'
 import { FreeFieldType } from '@/domain/client/component/person/contact-person/free-field/types/free-field.type'
 import { CreateFreeFieldDto } from '@/presentation/controllers/http/client/component/person/contact-person/free-field/dtos/create-free-field.dto'
 
