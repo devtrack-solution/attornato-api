@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
-import { hashSync } from 'bcrypt-nodejs'
+import { HashUtil } from '@/core/utils/hash.util'
 
 export default class CreateDemoAccounts1699999999999 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -10,7 +10,7 @@ export default class CreateDemoAccounts1699999999999 implements MigrationInterfa
       { name: 'Anderson', email: 'anderson@devtrack.com.br' },
     ]
 
-    const passwordHash = hashSync('123456')
+    const passwordHash = HashUtil.generateHash('123456')
 
     // Busca os IDs das roles ADMINISTRATOR e COLLABORATOR
     const rolesResult = await queryRunner.query(`

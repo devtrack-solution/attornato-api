@@ -2,11 +2,11 @@ import { Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/commo
 import { LoginAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/login-auth.inbound-port'
 import { AuthType } from '@/domain/securities/types/auth.type'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
-import { compareSync } from 'bcrypt-nodejs'
 import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
 import { JwtService } from '@nestjs/jwt'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { HashUtil } from '@/core/utils/hash.util'
 
 @Injectable()
 export class LoginService implements LoginAuthInboundPort {
@@ -41,7 +41,7 @@ export class LoginService implements LoginAuthInboundPort {
   }
 
   async validateCredential(credential: { passwordHash: string }, data: { password: string }): Promise<boolean> {
-    return compareSync(data.password, credential.passwordHash)
+    return HashUtil.compareHash(data.password, credential.passwordHash)
   }
 
   async makeResponseAuth(credential: CredentialEntity): Promise<any> {

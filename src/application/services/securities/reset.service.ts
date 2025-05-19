@@ -6,9 +6,9 @@ import { ConfigEnvironmentService } from '@/infrastructure/config/config-environ
 import { MailSenderService, MailSenderServiceSymbol } from '@/infrastructure/adapters/aws/services/mail-sender.service'
 import { MODIFY_DATA } from '@/infrastructure/adapters/aws/services/email.properties'
 import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
-import { compareSync, hashSync } from 'bcrypt-nodejs'
 import { DateTime } from 'luxon'
 import { ResetAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/reset-auth.inbound-port'
+import { HashUtil } from '@/core/utils/hash.util'
 
 @Injectable()
 export class ResetService implements ResetAuthInboundPort {
@@ -30,7 +30,7 @@ export class ResetService implements ResetAuthInboundPort {
       if (!credential) {
         throw new UnauthorizedException('Notfound user')
       }
-      if (!compareSync(data.forgotCode, credential.resetPasswordCode as string)) {
+      if (!await HashUtil.compareHash(data.forgotCode, credential.resetPasswordCode as string)) {
         throw new NotFoundException('Código inválido')
       }
 
@@ -44,7 +44,7 @@ export class ResetService implements ResetAuthInboundPort {
       if (expiredCodeAt.toMillis() < nowTime.toMillis()) {
         throw new NotFoundException('- Código expirado -')
       }
-      data.password = hashSync(data.password)
+      data.password = HashUtil.generateHash(data.password)
 
       await this.credentialRepository.patchObject(
         {

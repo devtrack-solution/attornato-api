@@ -4,13 +4,14 @@ import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbo
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { ForgotAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/forgot-auth.inbound-port'
-import { hashSync } from 'bcrypt-nodejs'
+
 import passgem from 'generate-password'
 import { v4 as uuidv4 } from 'uuid'
 import { MailSenderService, MailSenderServiceSymbol } from '@/infrastructure/adapters/aws/services/mail-sender.service'
 import { RECOVERY_CODE_EMAIL } from '@/infrastructure/adapters/aws/services/email.properties'
 import { DateTime } from 'luxon'
 import { Credential } from '@/domain/securities/business-objects/credential.bo'
+import { HashUtil } from '@/core/utils/hash.util'
 
 @Injectable()
 export class ForgotService implements ForgotAuthInboundPort {
@@ -32,7 +33,7 @@ export class ForgotService implements ForgotAuthInboundPort {
       }
 
       const recoveryCode = passgem.generate({ length: 6, numbers: true }).toUpperCase()
-      const hashedCode = hashSync(recoveryCode)
+      const hashedCode =  HashUtil.generateHash(recoveryCode)
       const recoveryToken = uuidv4()
       const thirtyMinutesLater = DateTime.now().setZone('America/Sao_Paulo').plus({ minutes: 30 }).toJSDate()
 

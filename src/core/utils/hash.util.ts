@@ -9,7 +9,7 @@ export class HashUtil {
     return bcrypt.hashSync(plain, salt)
   }
 
-  static async compareHash(plain: string, hashed: string): Promise<boolean> {
+  static compareHash(plain: string, hashed: string): Promise<boolean> {
     return bcrypt.compare(plain, hashed)
   }
 }
