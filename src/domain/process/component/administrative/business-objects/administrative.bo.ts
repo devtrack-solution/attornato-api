@@ -1,4 +1,4 @@
-import { ValidationBuilder, IValidator } from '@/core/domain/validators'
+import { IValidator } from '@/core/domain/validators'
 import { IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'

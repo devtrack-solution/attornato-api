@@ -41,7 +41,7 @@ export class ConfigEnvironmentService implements AppConfig {
       sync: process.env.DB_SYNC === 'true',
       format: process.env.DB_LOG_FORMAT,
       timezone: process.env.DB_TIMEZONE,
-      ssl: process.env.DB_SSL === 'true',
+      ssl: process.env.DB_SSL === 'false',
     }
   }
 
