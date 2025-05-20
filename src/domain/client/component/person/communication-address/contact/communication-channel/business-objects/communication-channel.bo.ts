@@ -13,7 +13,7 @@ export class CommunicationChannel extends BaseBusinessObject<CommunicationChanne
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading CommunicationChannel entity`))
+      throw e
     }
     return this.toJson()
   }

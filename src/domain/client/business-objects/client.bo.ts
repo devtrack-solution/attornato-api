@@ -19,7 +19,7 @@ export class Client<TRepository extends ClientType.Input = ClientType.Repository
       this._profileId = data.profileId
       this._person = new Person(data.person)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Client entity`))
+      throw e
     }
     return this.toJson()
   }

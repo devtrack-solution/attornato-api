@@ -13,7 +13,7 @@ export class Phase extends BaseBusinessObject<PhaseType.Repository, PhaseType.Ou
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Phase entity`))
+      throw e
     }
     return this.toJson()
   }

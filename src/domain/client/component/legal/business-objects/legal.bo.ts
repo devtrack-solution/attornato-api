@@ -30,7 +30,7 @@ export class Legal extends Client<LegalType.Repository, LegalType.Output> implem
       this._profileId = data.profileId
       this._person = new Person(data.person)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Legal entity`))
+      throw e
     }
     return this.toJson()
   }

@@ -25,7 +25,7 @@ export class ContactPerson extends BaseBusinessObject<ContactPersonType.Reposito
       this._fatherName = data.fatherName
       this._motherName = data.motherName
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading ContactPerson entity`))
+      throw e
     }
     return this.toJson()
   }

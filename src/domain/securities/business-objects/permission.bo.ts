@@ -17,7 +17,7 @@ export class Permission extends BaseBusinessObject<PermissionType.Repository, Pe
       this._description = data.description
       this._resource = data.resource
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading permission entity`))
+      throw e
     }
     return this
   }

@@ -23,7 +23,7 @@ export class AccountPerson extends BaseBusinessObject<AccountPersonType.Reposito
       this._avatar = data.avatar
       this._governanceSocialIdentity = data.governanceSocialIdentity
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading AccountPerson entity`))
+      throw e
     }
     return this.toJson()
   }

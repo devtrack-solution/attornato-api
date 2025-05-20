@@ -29,7 +29,7 @@ export class ProcessFinancial extends BaseBusinessObject<ProcessFinancialType.Re
       this._otherValue = data.otherValue
       this._contingency = data.contingency
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading ProcessFinancial entity`))
+      throw e
     }
     return this.toJson()
   }

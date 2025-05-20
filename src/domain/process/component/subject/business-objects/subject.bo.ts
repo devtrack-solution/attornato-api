@@ -13,7 +13,7 @@ export class Subject extends BaseBusinessObject<SubjectType.Repository, SubjectT
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Subject entity`))
+      throw e
     }
     return this.toJson()
   }

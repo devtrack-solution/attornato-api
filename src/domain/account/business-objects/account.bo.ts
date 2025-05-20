@@ -19,7 +19,7 @@ export class Account extends BaseBusinessObject<AccountType.Repository, AccountT
       this._accountPerson = new AccountPerson(data.accountPerson)
       this._credential = new Credential(data.credential)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Account entity`))
+      throw e
     }
     return this.toJson()
   }

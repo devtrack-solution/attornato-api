@@ -13,7 +13,7 @@ export class LocalProcedureName extends BaseBusinessObject<LocalProcedureNameTyp
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading LocalProcedureName entity`))
+      throw e
     }
     return this.toJson()
   }

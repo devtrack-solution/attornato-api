@@ -16,7 +16,7 @@ export class Identifier extends BaseBusinessObject<IdentifierType.Repository, Id
       this._value = data.value
       this._clientCategory = data.clientCategory
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Identifier entity`))
+      throw e
     }
     return this.toJson()
   }

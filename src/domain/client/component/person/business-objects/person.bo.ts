@@ -21,7 +21,7 @@ export class Person extends BaseBusinessObject<PersonType.Repository, PersonType
       this._communicationAddress = new CommunicationAddress(data.communicationAddress)
       this._contactPerson = new ContactPerson(data.contactPerson)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Individual entity`))
+      throw e
     }
     return this.toJson()
   }

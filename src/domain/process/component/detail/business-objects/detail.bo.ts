@@ -13,7 +13,7 @@ export class Detail extends BaseBusinessObject<DetailType.Repository, DetailType
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Detail entity`))
+      throw e
     }
     return this.toJson()
   }

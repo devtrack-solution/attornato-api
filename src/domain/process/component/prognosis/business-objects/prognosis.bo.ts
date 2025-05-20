@@ -13,7 +13,7 @@ export class Prognosis extends BaseBusinessObject<PrognosisType.Repository, Prog
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Prognosis entity`))
+      throw e
     }
     return this.toJson()
   }

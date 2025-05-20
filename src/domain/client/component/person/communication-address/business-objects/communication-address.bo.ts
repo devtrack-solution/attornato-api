@@ -25,7 +25,7 @@ export class CommunicationAddress extends BaseBusinessObject<CommunicationAddres
       this._state = data.state
       this._contacts = (data.contacts ?? []).filter((c) => c !== undefined && c !== null).map((c) => new Contact(c))
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading CommunicationAddress entity`))
+      throw e
     }
     return this.toJson()
   }

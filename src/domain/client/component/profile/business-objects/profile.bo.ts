@@ -13,7 +13,7 @@ export class Profile extends BaseBusinessObject<ProfileType.Repository, ProfileT
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Profile entity`))
+      throw e
     }
     return this.toJson()
   }

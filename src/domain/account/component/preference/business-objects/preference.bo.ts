@@ -17,7 +17,7 @@ export class Preference extends BaseBusinessObject<PreferenceType.Repository, Pr
       this._key = data.key
       this._value = data.value
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Preference entity`))
+      throw e
     }
     return this.toJson()
   }

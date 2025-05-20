@@ -13,7 +13,7 @@ export class FreeField1 extends BaseBusinessObject<FreeField1Type.Repository, Fr
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading FreeField1 entity`))
+      throw e
     }
     return this.toJson()
   }

@@ -29,7 +29,7 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
       this._permissionIds = data?.permissionIds ?? []
       this._permissions = data?.permissions ?? []
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading role entity`))
+      throw e
     }
     return this
   }

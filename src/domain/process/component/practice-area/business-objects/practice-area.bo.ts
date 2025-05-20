@@ -13,7 +13,7 @@ export class PracticeArea extends BaseBusinessObject<PracticeAreaType.Repository
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading PracticeArea entity`))
+      throw e
     }
     return this.toJson()
   }

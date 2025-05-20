@@ -15,7 +15,7 @@ export class Judicial extends Process<JudicialType.Repository, JudicialType.Outp
       super.loadData(data)
       this._cnjNumber = data.cnjNumber
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Judicial entity`))
+      throw e
     }
     return this.toJson()
   }

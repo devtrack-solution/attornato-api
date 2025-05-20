@@ -13,7 +13,7 @@ export class GroupProcess extends BaseBusinessObject<GroupProcessType.Repository
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading GroupProcess entity`))
+      throw e
     }
     return this.toJson()
   }

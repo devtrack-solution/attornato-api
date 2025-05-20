@@ -13,7 +13,7 @@ export class Origin extends BaseBusinessObject<OriginType.Repository, OriginType
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Origin entity`))
+      throw e
     }
     return this.toJson()
   }

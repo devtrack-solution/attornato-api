@@ -13,7 +13,7 @@ export class County extends BaseBusinessObject<CountyType.Repository, CountyType
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading County entity`))
+      throw e
     }
     return this.toJson()
   }

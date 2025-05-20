@@ -38,7 +38,7 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
       this._processFinancial = new ProcessFinancial(data.processFinancial)
       this._processDetail = new ProcessDetail(data.processDetail)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Administrative entity`))
+      throw e
     }
     return this.toJson()
   }

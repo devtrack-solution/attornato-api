@@ -13,7 +13,7 @@ export class Responsible extends BaseBusinessObject<ResponsibleType.Repository, 
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Responsible entity`))
+      throw e
     }
     return this.toJson()
   }

@@ -15,7 +15,7 @@
 //       this._username = data.username
 //       this._password = data.password ?? ''
 //     } catch (e) {
-//       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading role entity`))
+//       throw e
 //     }
 //     return this
 //   }

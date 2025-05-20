@@ -36,7 +36,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       this._roleIds = data.roleIds!
       this._roles = data.roles
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading credential entity`))
+      throw e
     }
     return this.toJson()
   }

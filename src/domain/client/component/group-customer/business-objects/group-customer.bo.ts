@@ -13,7 +13,7 @@ export class GroupCustomer extends BaseBusinessObject<GroupCustomerType.Reposito
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading GroupCustomer entity`))
+      throw e
     }
     return this.toJson()
   }

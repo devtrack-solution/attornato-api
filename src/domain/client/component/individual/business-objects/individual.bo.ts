@@ -34,7 +34,7 @@ export class Individual extends Client<IndividualType.Repository, IndividualType
       this._profileId = data.profileId
       this._person = new Person(data.person)
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Individual entity`))
+      throw e
     }
     return this.toJson()
   }

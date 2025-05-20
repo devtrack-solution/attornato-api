@@ -13,7 +13,7 @@ export class Locator extends BaseBusinessObject<LocatorType.Repository, LocatorT
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Locator entity`))
+      throw e
     }
     return this.toJson()
   }

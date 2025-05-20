@@ -13,7 +13,7 @@ export class Partner extends BaseBusinessObject<PartnerType.Repository, PartnerT
     try {
       this._name = data.name ?? ''
     } catch (e) {
-      throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading Partner entity`))
+      throw e
     }
     return this.toJson()
   }
