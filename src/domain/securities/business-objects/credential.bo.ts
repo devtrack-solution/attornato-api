@@ -111,6 +111,7 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       .hasNoWhiteSpace()
       .min(3)
       .max(50)
+      .isEmail()
       .required()
       .of({ value: this._passwordHash?.toString(), fieldName: 'passwordHash' })
       .of({ value: this._lastLogin, fieldName: 'lastLogin' })
