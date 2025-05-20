@@ -8,17 +8,17 @@ import { PreferenceEntity } from '@/infrastructure/adapters/pgsql/entities/prefe
 export class AccountEntity extends EntityBase {
   @OneToOne(() => AccountPersonEntity, (accountPerson) => accountPerson.account, { cascade: true, eager: true })
   @JoinColumn({ name: 'accountPersonId', referencedColumnName: 'id' })
-  accountPerson!: AccountPersonEntity
+  accountPerson?: AccountPersonEntity
 
-  @Column({ type: 'uuid', nullable: false })
-  accountPersonId!: string
+  @Column({ type: 'uuid', nullable: true })
+  accountPersonId?: string
 
   @OneToOne(() => CredentialEntity, (credential) => credential.account, { cascade: true, eager: true })
   @JoinColumn({ name: 'credentialId', referencedColumnName: 'id' })
-  credential!: CredentialEntity
+  credential?: CredentialEntity
 
-  @Column({ type: 'uuid', nullable: false })
-  credentialId!: string
+  @Column({ type: 'uuid', nullable: true })
+  credentialId?: string
 
   @OneToMany(() => PreferenceEntity, (preference) => preference.account, { eager: true })
   preferences?: PreferenceEntity[]

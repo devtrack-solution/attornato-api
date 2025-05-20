@@ -4,7 +4,9 @@ import { CredentialType } from '@/domain/securities/types/credential.type'
 
 export namespace AccountType {
   export type Input = {
+    accountPersonId?: string
     accountPerson: AccountPersonType.Input
+    credentialId?: string
     credential: CredentialType.Input
   } & BaseType.Input
 

@@ -5,10 +5,12 @@ import { ValidationErrorResponse } from '@/core/domain/validators/validation-err
 import { AccountType } from '@/domain/account/types/account.type'
 import { AccountPerson } from '@/domain/account/component/account-person/business-objects/account-person.bo'
 import { Credential } from '@/domain/securities/business-objects/credential.bo'
+import { Logger } from '@nestjs/common'
 
 export interface IAccount extends IBusinessObject<AccountType.Input, AccountType.Output> {}
 
 export class Account extends BaseBusinessObject<AccountType.Repository, AccountType.Output> implements IAccount, IValidator {
+  private readonly logger = new Logger(Account.name)
   private _accountPerson!: AccountPerson
   private _credential!: Credential
 
@@ -37,13 +39,18 @@ export class Account extends BaseBusinessObject<AccountType.Repository, AccountT
   }
 
   validate(): void {
-    ValidationBuilder.of({ value: this._accountPerson, fieldName: 'accountPerson' }).of({ value: this._credential, fieldName: 'credential' }).build('Failed to validate Account rules')
+    ValidationBuilder
+      .of({ value: this._accountPerson, fieldName: 'accountPerson' })
+      .of({ value: this._credential, fieldName: 'credential' })
+      .build('Failed to validate Account rules')
   }
 
   toPersistenceObject(): AccountType.Output {
     return {
       id: this._id.toString(),
+      accountPersonId: this._accountPerson.id.toString(),
       accountPerson: this._accountPerson.toPersistenceObject(),
+      credentialId: this._credential.id.toString(),
       credential: this._credential.toPersistenceObject(),
     }
   }

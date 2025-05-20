@@ -1,5 +1,6 @@
 import { BaseType } from '@/core/domain/types/base.type'
 import { Criteria } from '@/core/domain/types/criteria.type'
+import { RoleType } from '@/domain/securities/types/role.type'
 
 export namespace CredentialType {
   export type Input = {
@@ -13,6 +14,7 @@ export namespace CredentialType {
     requestNewPassword?: boolean
     resetPasswordCode?: string | any
     roles?: RoleType.Input[] | [] | any
+    roleIds?: string[]
   } & BaseType.Input
 
   export type Output = Input
@@ -22,13 +24,7 @@ export namespace CredentialType {
   export type Persistence = {
     id?: string
     username: string
-    lastLogin: Date | null
-    passwordHash: any
-    requestNewPassword?: boolean
-    expiredAt: Date | null
-    expiredCodeAt: Date | null
-    resetPasswordToken: string | any
-    resetPasswordCode: string | any
+    roles: RoleType.Input[]
   }
 
   export type PersistenceRole = {

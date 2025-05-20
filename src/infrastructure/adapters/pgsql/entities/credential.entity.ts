@@ -11,8 +11,8 @@ export class CredentialEntity extends EntityBase {
   @Column({ name: 'last_login', type: 'timestamp', nullable: true })
   lastLogin!: Date | null
 
-  @Column({ name: 'password_hash', type: 'varchar', length: 100, nullable: false })
-  passwordHash!: string
+  @Column({ name: 'password_hash', type: 'varchar', length: 100, nullable: true })
+  passwordHash?: string
 
   @Column({ name: 'request_change_password', type: 'boolean', nullable: false, default: true })
   requestNewPassword!: boolean

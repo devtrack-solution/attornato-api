@@ -9,6 +9,8 @@ import { BadRequestException, Logger } from '@nestjs/common'
 export interface IRole extends IBusinessObject<RoleType.Input, RoleType.Output> {}
 
 export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Output> implements IRole, IValidator {
+  private readonly logger = new Logger(Role.name)
+
   private _name!: string
   private _description!: string
   private _level!: number
@@ -17,6 +19,7 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
 
   private async loadData(data: RoleType.Input): Promise<RoleType.Input> {
     try {
+      this.logger.log(JSON.stringify(data, null, 2))
       if (this._permissionIds.length < 1 && this._permissions.length < 1) {
         throw new BadRequestException('At least one permission is required')
       }

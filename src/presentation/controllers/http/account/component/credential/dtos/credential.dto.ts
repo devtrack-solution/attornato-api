@@ -8,6 +8,6 @@ export class CredentialDto extends BasicDto {
   @ApiPropertyOptional({ required: false })
   password?: string
 
-  @ApiProperty({ required: true })
-  roleId!: string
+  @ApiProperty({ example: "['1f2fa729-5bce-4f01-8158-335000b3c2b2']",required: true })
+  roleIds!: string[]
 }

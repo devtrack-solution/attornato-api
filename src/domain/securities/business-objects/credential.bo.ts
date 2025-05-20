@@ -20,23 +20,25 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
   private _requestNewPassword?: boolean
   private _resetPasswordToken?: string | any
   private _resetPasswordCode?: string | any
-  private _roles!: Role[]
+  private _roles?: Role[]
+  private _roleIds!: string[]
 
   private loadData(data: CredentialType.Input): CredentialType.Output {
     try {
       this._username = data.username
-      this._passwordHash = new PasswordVo(data.password)
-      this._lastLogin = data.lastLogin
-      this._expiredAt = data.expiredAt
-      this._expiredCodeAt = data.expiredCodeAt
-      this._requestNewPassword = data?.requestNewPassword ?? true
-      this._resetPasswordToken = data.resetPasswordToken
-      this._resetPasswordCode = data.resetPasswordCode
-      this._roles = (data?.roles ?? []).map((role: RoleType.Input) => new Role(role))
+      this._passwordHash = data.passwordHash === undefined ? undefined : new PasswordVo(data.password)
+      this._lastLogin = data.lastLogin === undefined ? undefined : data.lastLogin
+      this._expiredAt = data.expiredAt === undefined ? undefined : data.expiredAt
+      this._expiredCodeAt = data.expiredCodeAt === undefined ? undefined : data.expiredCodeAt
+      this._requestNewPassword = data?.requestNewPassword === undefined ? undefined : data.requestNewPassword
+      this._resetPasswordToken = data.resetPasswordToken === undefined ? undefined : data.resetPasswordToken
+      this._resetPasswordCode = data.resetPasswordCode === undefined ? undefined : data.resetPasswordCode
+      this._roleIds = data.roleIds!
+      this._roles = data.roles
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse(`Error loading credential entity`))
     }
-    return this
+    return this.toJson()
   }
 
   constructor(props: CredentialType.Input) {
@@ -77,53 +79,32 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
     return this._resetPasswordCode || null
   }
 
-  get roles(): Role[] {
-    return this._roles
+  get roles(): Role[] | [] {
+    return this._roles ?? []
+  }
+
+  set roles(roles: RoleType.Output[] | []) {
+    this._roles = roles.map(role => new Role(role))
   }
 
   toPersistenceObject(): CredentialType.Persistence {
     return {
-      id: this.id,
-      username: this.username,
-      lastLogin: this.lastLogin,
-      passwordHash: this.passwordHash,
-      expiredAt: this.expiredAt,
-      expiredCodeAt: this.expiredCodeAt,
-      resetPasswordToken: this.resetPasswordToken,
-      resetPasswordCode: this.resetPasswordCode,
+      id: this._id.toString(),
+      username: this._username,
+      roles: this._roles ?? []
     }
   }
 
-  toPersistenceRole(): CredentialType.PersistenceRole[] {
-    return (
-      this._roles?.map((role: Role) => {
-        return {
-          credentialId: this.id,
-          roleId: role.id,
-        }
-      }) || []
-    )
-  }
-
-  override toJson(): CredentialType.Output {
-    const result = {
-      id: this.id,
-      username: this.username,
-      lastLogin: this.lastLogin,
-      expiredAt: this.expiredAt,
-      expiredCodeAt: this.expiredCodeAt,
-      resetPasswordToken: this.resetPasswordToken,
-      resetPasswordCode: this.resetPasswordCode,
-      roles: this._roles.map((role) => role.toJson()),
-    }
-    // if (this._requestNewPassword) {
-    //   result.roles = result.roles.map((role: RoleType.Input) => {
-    //     const permissions = role.permissions.find((permission: PermissionType.Output) => permission.name === PermissionConstants.PERMISSION_UPDATE_PASSWORD);
-    //     return { ...role, permissions }
-    //   })
-    // }
-    return result
-  }
+  // toPersistenceRole(): CredentialType.PersistenceRole[] {
+  //   return (
+  //     this._roles?.map((role: Role) => {
+  //       return {
+  //         credentialId: this.id,
+  //         roleId: role.id,
+  //       }
+  //     }) || []
+  //   )
+  // }
 
   validate(): void {
     ValidationBuilder.of({ value: this._username, fieldName: 'username' })
@@ -132,12 +113,9 @@ export class Credential extends BaseBusinessObject<CredentialType.Repository, Cr
       .max(50)
       .required()
       .of({ value: this._passwordHash?.toString(), fieldName: 'passwordHash' })
-      .max(100)
-      .required()
       .of({ value: this._lastLogin, fieldName: 'lastLogin' })
-      .isDateOrNull()
       .of({ value: this._expiredAt, fieldName: 'expiredAt' })
-      .isDateOrNull()
+      .of({ value: this._roleIds, fieldName: 'roleIds' })
       .build('Failed to validate role rules')
   }
 }
