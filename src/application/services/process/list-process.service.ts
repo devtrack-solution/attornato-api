@@ -12,10 +12,9 @@ export class ListProcessService implements ListProcessInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<ProcessType.OutputPaginated> {
-    // const select: string[] = ['id', 'name', 'status', 'createdAt']
     const select: string[] = []
-    const relations: string[] = []
-    const searchFields: string[] = ['name']
+    const relations: string[] = ['processDetail', 'processFinancial']
+    const searchFields: string[] = ['folder', 'processNumber', 'client.companyName', 'client.name']
     const order = { createdAt: 'ASC' }
     let result = await this.processRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let process = result.data.map((process) => process as ProcessType.Output)
