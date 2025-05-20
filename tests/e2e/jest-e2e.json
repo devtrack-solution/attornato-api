@@ -1,7 +1,7 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": "../../",
-  "globalSetup": "<rootDir>/test/e2e/setup.ts",
+  "globalSetup": "<rootDir>/tests/e2e/setup.ts",
   "testEnvironment": "node",
   "testTimeout": 30000,
   "testRegex": ".e2e-spec.ts$",
