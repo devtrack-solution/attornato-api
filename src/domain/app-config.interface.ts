@@ -61,6 +61,7 @@ export interface AppConfig {
   project: {
     name: string
     url: string
+    timeZone: string
   }
   logLevel: string[]
   fastify: {

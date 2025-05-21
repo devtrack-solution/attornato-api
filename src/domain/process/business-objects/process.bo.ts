@@ -1,4 +1,4 @@
-import { ValidationBuilder, IValidator } from '@/core/domain/validators'
+import { ValidationBuilder } from '@/core/domain/validators'
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { EntityBadDataLoadException } from '@/core/domain/exceptions'
 import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
@@ -18,26 +18,26 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
   protected _processId!: string
   protected _groupProcessId!: string
   protected _folder!: number
-  protected _label!: string
-  protected _favorite!: boolean
   protected _processNumber!: string
-  protected _localProcedureNumber!: number
-  protected _localProcedureNameId!: string
-  protected _proceduralStatusId!: string
-  protected _countyId!: string
-  protected _countyUf!: string
-  protected _request!: string
-  protected _note!: string
-  protected _justiceSecret!: boolean
-  protected _captureProcedures!: boolean
-  protected _phaseId!: string
-  protected _practiceAreaId!: string
-  protected _responsibleId!: string
-  protected _actionObjectId!: string
-  protected _locatorId!: string
-  protected _subjectId!: string
-  protected _processFinancial!: ProcessFinancial
-  protected _processDetail!: ProcessDetail
+  protected _label?: string
+  protected _favorite?: boolean
+  protected _localProcedureNumber?: number
+  protected _localProcedureNameId?: string
+  protected _proceduralStatusId?: string
+  protected _countyId?: string
+  protected _countyUf?: string
+  protected _request?: string
+  protected _note?: string
+  protected _justiceSecret?: boolean
+  protected _captureProcedures?: boolean
+  protected _phaseId?: string
+  protected _practiceAreaId?: string
+  protected _responsibleId?: string
+  protected _actionObjectId?: string
+  protected _locatorId?: string
+  protected _subjectId?: string
+  protected _processFinancial?: ProcessFinancial
+  protected _processDetail?: ProcessDetail
 
   protected loadData(data: ProcessType.Input): ProcessType.Output {
     try {
@@ -45,9 +45,9 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       this._processId = data.processId
       this._groupProcessId = data.groupProcessId
       this._folder = data.folder
+      this._processNumber = data.processNumber
       this._label = data.label
       this._favorite = data.favorite
-      this._processNumber = data.processNumber
       this._localProcedureNumber = data.localProcedureNumber
       this._localProcedureNameId = data.localProcedureNameId
       this._proceduralStatusId = data.proceduralStatusId
@@ -63,8 +63,8 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       this._actionObjectId = data.actionObjectId
       this._locatorId = data.locatorId
       this._subjectId = data.subjectId
-      this._processFinancial = new ProcessFinancial(data.processFinancial)
-      this._processDetail = new ProcessDetail(data.processDetail)
+      this._processFinancial = data.processFinancial === undefined ? undefined :new ProcessFinancial(data.processFinancial)
+      this._processDetail = data.processDetail  === undefined ? undefined : new ProcessDetail(data.processDetail)
     } catch (e) {
       throw new EntityBadDataLoadException(new ValidationErrorResponse('Error loading Process entity'))
     }
@@ -86,47 +86,47 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
     return this._folder
   }
 
-  get label(): string {
+  get label(): string | undefined {
     return this._label
   }
 
-  get favorite(): boolean {
+  get favorite(): boolean | undefined {
     return this._favorite
   }
 
-  get processNumber(): string {
+  get processNumber(): string | undefined {
     return this._processNumber
   }
 
-  get localProcedureNumber(): number {
+  get localProcedureNumber(): number | undefined {
     return this._localProcedureNumber
   }
 
-  get countyUf(): string {
+  get countyUf(): string | undefined {
     return this._countyUf
   }
 
-  get request(): string {
+  get request(): string | undefined{
     return this._request
   }
 
-  get note(): string {
+  get note(): string | undefined {
     return this._note
   }
 
-  get justiceSecret(): boolean {
+  get justiceSecret(): boolean | undefined {
     return this._justiceSecret
   }
 
-  get captureProcedures(): boolean {
+  get captureProcedures(): boolean | undefined {
     return this._captureProcedures
   }
 
-  get processFinancial(): ProcessFinancialType.Input {
+  get processFinancial(): ProcessFinancialType.Input | undefined {
     return this._processFinancial
   }
 
-  get processDetail(): ProcessDetailType.Input {
+  get processDetail(): ProcessDetailType.Input | undefined {
     return this._processDetail
   }
 
@@ -175,10 +175,10 @@ export class Process<TRepository extends ProcessType.Input = ProcessType.Reposit
       actionObjectId: this._actionObjectId,
       locatorId: this._locatorId,
       subjectId: this._subjectId,
-      processFinancialId: this._processFinancial.id,
-      processFinancial: this._processFinancial.toPersistenceObject(),
-      processDetailId: this._processDetail.id,
-      processDetail: this._processDetail.toPersistenceObject(),
+      processFinancialId: this._processFinancial?.id,
+      processFinancial: this.processFinancial === undefined ? undefined : this._processFinancial?.toPersistenceObject(),
+      processDetailId: this._processDetail?.id,
+      processDetail: this._processDetail === undefined ? undefined : this._processDetail?.toPersistenceObject(),
     }
   }
 }

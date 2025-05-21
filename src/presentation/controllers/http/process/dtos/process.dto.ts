@@ -13,110 +13,111 @@ import { CreateSubjectDto } from '@/presentation/controllers/http/process/compon
 import { CreateProcessDetailDto } from '@/presentation/controllers/http/process/component/process-detail/dtos/create-process-detail.dto'
 import { CreateProcessFinancialDto } from '@/presentation/controllers/http/process/component/process-financial/dtos/create-process-financial.dto'
 import { CreateClientDto } from '@/presentation/controllers/http/client/dtos/create-client.dto'
+import { number } from 'zod'
 
 export class ProcessDto extends BasicDto {
   @ApiPropertyOptional({ type: CreateClientDto })
   client?: CreateClientDto
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   clientId!: string
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   processId!: string
 
   @ApiPropertyOptional({ type: CreateGroupProcessDto })
   groupProcess?: CreateGroupProcessDto
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   groupProcessId!: string
 
-  @ApiProperty()
-  folder!: number
-
-  @ApiProperty()
-  label!: string
-
-  @ApiProperty()
-  favorite!: boolean
-
-  @ApiProperty()
+  @ApiProperty({ required: true })
   processNumber!: string
 
-  @ApiProperty()
-  localProcedureNumber!: number
+  @ApiProperty({ type: number, example: 1, required: true })
+  folder!: number
+
+  @ApiPropertyOptional()
+  label?: string
+
+  @ApiPropertyOptional()
+  favorite?: boolean
+
+  @ApiPropertyOptional()
+  localProcedureNumber?: number
 
   @ApiPropertyOptional({ type: CreateLocalProcedureNameDto })
   localProcedureName?: CreateLocalProcedureNameDto
 
-  @ApiProperty()
-  localProcedureNameId!: string
+  @ApiPropertyOptional()
+  localProcedureNameId?: string
 
   @ApiPropertyOptional({ type: CreateProceduralStatusDto })
   proceduralStatus?: CreateProceduralStatusDto
 
-  @ApiProperty()
-  proceduralStatusId!: string
+  @ApiPropertyOptional()
+  proceduralStatusId?: string
 
   @ApiPropertyOptional({ type: CreateCountyDto })
   county?: CreateCountyDto
 
-  @ApiProperty()
-  countyId!: string
+  @ApiPropertyOptional()
+  countyId?: string
 
-  @ApiProperty()
-  countyUf!: string
+  @ApiPropertyOptional()
+  countyUf?: string
 
-  @ApiProperty()
-  request!: string
+  @ApiPropertyOptional()
+  request?: string
 
-  @ApiProperty()
-  note!: string
+  @ApiPropertyOptional()
+  note?: string
 
-  @ApiProperty()
-  justiceSecret!: boolean
+  @ApiPropertyOptional()
+  justiceSecret?: boolean
 
-  @ApiProperty()
-  captureProcedures!: boolean
+  @ApiPropertyOptional()
+  captureProcedures?: boolean
 
   @ApiPropertyOptional({ type: CreatePhaseDto })
   phase?: CreatePhaseDto
 
-  @ApiProperty()
-  phaseId!: string
+  @ApiPropertyOptional()
+  phaseId?: string
 
   @ApiPropertyOptional({ type: CreatePracticeAreaDto })
   practiceArea?: CreatePracticeAreaDto
 
-  @ApiProperty()
-  practiceAreaId!: string
+  @ApiPropertyOptional()
+  practiceAreaId?: string
 
   @ApiPropertyOptional({ type: CreateResponsibleDto })
   responsible?: CreateResponsibleDto
 
-  @ApiProperty()
-  responsibleId!: string
+  @ApiPropertyOptional()
+  responsibleId?: string
 
   @ApiPropertyOptional({ type: CreateActionObjectDto })
   actionObject?: CreateActionObjectDto
 
-  @ApiProperty()
-  actionObjectId!: string
+  @ApiPropertyOptional()
+  actionObjectId?: string
 
   @ApiPropertyOptional({ type: CreateLocatorDto })
   locator?: CreateLocatorDto
 
-  @ApiProperty()
-  locatorId!: string
+  @ApiPropertyOptional()
+  locatorId?: string
 
   @ApiPropertyOptional({ type: CreateSubjectDto })
   subject?: CreateSubjectDto
 
-  @ApiProperty()
-  subjectId!: string
+  @ApiPropertyOptional()
+  subjectId?: string
 
-  @ApiProperty({ type: CreateProcessFinancialDto })
-  processFinancial!: CreateProcessFinancialDto
+  @ApiPropertyOptional({ type: CreateProcessFinancialDto })
+  processFinancial?: CreateProcessFinancialDto
 
-  @ApiProperty({ type: CreateProcessDetailDto })
-  processDetail!: CreateProcessDetailDto
+  @ApiPropertyOptional({ type: CreateProcessDetailDto })
+  processDetail?: CreateProcessDetailDto
 }

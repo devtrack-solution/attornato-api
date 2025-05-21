@@ -38,8 +38,8 @@ export class ResetService implements ResetAuthInboundPort {
         throw new NotFoundException('Código expirado')
       }
 
-      const nowTime = DateTime.now().setZone('America/Sao_Paulo')
-      const expiredCodeAt = DateTime.fromJSDate(credential.expiredCodeAt!).setZone('America/Sao_Paulo')
+      const nowTime = DateTime.now().setZone(this.config.project.timeZone)
+      const expiredCodeAt = DateTime.fromJSDate(credential.expiredCodeAt!).setZone(this.config.project.timeZone)
 
       if (expiredCodeAt.toMillis() < nowTime.toMillis()) {
         throw new NotFoundException('- Código expirado -')

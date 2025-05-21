@@ -60,10 +60,10 @@ export class Judicial extends Process<JudicialType.Repository, JudicialType.Outp
       actionObjectId: this._actionObjectId,
       locatorId: this._locatorId,
       subjectId: this._subjectId,
-      processFinancialId: this._processFinancial.id,
-      processFinancial: this._processFinancial.toPersistenceObject(),
-      processDetailId: this._processDetail.id,
-      processDetail: this._processDetail.toPersistenceObject(),
+      processFinancialId: this._processFinancial?.id,
+      processFinancial: this._processFinancial?.toPersistenceObject(),
+      processDetailId: this._processDetail?.id,
+      processDetail: this._processDetail?.toPersistenceObject(),
     }
   }
 }

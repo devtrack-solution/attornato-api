@@ -8,28 +8,28 @@ export namespace ProcessType {
     processId: string
     groupProcessId: string
     folder: number
-    label: string
-    favorite: boolean
+    label?: string
+    favorite?: boolean
     processNumber: string
-    localProcedureNumber: number
-    localProcedureNameId: string
-    proceduralStatusId: string
-    countyId: string
-    countyUf: string
-    request: string
-    note: string
-    justiceSecret: boolean
-    captureProcedures: boolean
-    phaseId: string
-    practiceAreaId: string
-    responsibleId: string
-    actionObjectId: string
-    locatorId: string
-    subjectId: string
+    localProcedureNumber?: number
+    localProcedureNameId?: string
+    proceduralStatusId?: string
+    countyId?: string
+    countyUf?: string
+    request?: string
+    note?: string
+    justiceSecret?: boolean
+    captureProcedures?: boolean
+    phaseId?: string
+    practiceAreaId?: string
+    responsibleId?: string
+    actionObjectId?: string
+    locatorId?: string
+    subjectId?: string
     processFinancialId?: string
-    processFinancial: ProcessFinancialType.Input
+    processFinancial?: ProcessFinancialType.Input
     processDetailId?: string
-    processDetail: ProcessDetailType.Input
+    processDetail?: ProcessDetailType.Input
   } & BaseType.Input
 
   export type Output = Input

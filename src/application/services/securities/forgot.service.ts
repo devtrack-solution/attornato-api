@@ -4,7 +4,6 @@ import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbo
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { ForgotAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/forgot-auth.inbound-port'
-
 import passgem from 'generate-password'
 import { v4 as uuidv4 } from 'uuid'
 import { MailSenderService, MailSenderServiceSymbol } from '@/infrastructure/adapters/aws/services/mail-sender.service'
@@ -35,7 +34,7 @@ export class ForgotService implements ForgotAuthInboundPort {
       const recoveryCode = passgem.generate({ length: 6, numbers: true }).toUpperCase()
       const hashedCode =  HashUtil.generateHash(recoveryCode)
       const recoveryToken = uuidv4()
-      const thirtyMinutesLater = DateTime.now().setZone('America/Sao_Paulo').plus({ minutes: 30 }).toJSDate()
+      const thirtyMinutesLater = DateTime.now().setZone(this.config.project.timeZone).plus({ minutes: 30 }).toJSDate()
 
       await this.credentialRepository.patchObject(
         {

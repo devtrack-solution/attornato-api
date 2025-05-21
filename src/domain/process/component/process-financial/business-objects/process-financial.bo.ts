@@ -7,66 +7,66 @@ import { ProcessFinancialType } from '../types/process-financial.type'
 export interface IProcessFinancial extends IBusinessObject<ProcessFinancialType.Input, ProcessFinancialType.Output> {}
 
 export class ProcessFinancial extends BaseBusinessObject<ProcessFinancialType.Repository, ProcessFinancialType.Output> implements IProcessFinancial, IValidator {
-  private _hiring!: Date
-  private _resJudicata!: Date
-  private _closure!: Date
-  private _sentence!: Date
-  private _distribution!: Date
-  private _execution!: Date
-  private _causeValue!: number
-  private _otherValue!: number
-  private _contingency!: number
+  private _hiring?: Date
+  private _resJudicata?: Date
+  private _closure?: Date
+  private _sentence?: Date
+  private _distribution?: Date
+  private _execution?: Date
+  private _causeValue?: number
+  private _otherValue?: number
+  private _contingency?: number
 
   private loadData(data: ProcessFinancialType.Input): ProcessFinancialType.Output {
     try {
-      this._hiring = data.hiring
-      this._resJudicata = data.resJudicata
-      this._closure = data.closure
-      this._sentence = data.sentence
-      this._distribution = data.distribution
-      this._execution = data.execution
-      this._causeValue = data.causeValue
-      this._otherValue = data.otherValue
-      this._contingency = data.contingency
+      this._hiring = data.hiring === undefined ? undefined : data.hiring
+      this._resJudicata = data.resJudicata === undefined ? undefined : data.resJudicata
+      this._closure = data.closure === undefined ? undefined : data.closure
+      this._sentence = data.sentence === undefined ? undefined : data.sentence
+      this._distribution = data.distribution === undefined ? undefined : data.distribution
+      this._execution = data.execution === undefined ? undefined : data.execution
+      this._causeValue = data.causeValue === undefined ? undefined : data.causeValue
+      this._otherValue = data.otherValue === undefined ? undefined : data.otherValue
+      this._contingency = data.contingency === undefined ? undefined : data.contingency
     } catch (e) {
       throw e
     }
     return this.toJson()
   }
 
-  get hiring(): Date {
+  get hiring(): Date | undefined {
     return this._hiring
   }
 
-  get resJudicata(): Date {
+  get resJudicata(): Date | undefined {
     return this._resJudicata
   }
 
-  get closure(): Date {
+  get closure(): Date | undefined {
     return this._closure
   }
 
-  get sentence(): Date {
+  get sentence(): Date | undefined {
     return this._sentence
   }
 
-  get distribution(): Date {
+  get distribution(): Date | undefined {
     return this._distribution
   }
 
-  get execution(): Date {
+  get execution(): Date | undefined {
     return this._execution
   }
 
-  get causeValue(): number {
+  get causeValue(): number | undefined {
     return this._causeValue
   }
 
-  get otherValue(): number {
+  get otherValue(): number | undefined {
     return this._otherValue
   }
 
-  get contingency(): number {
+  get contingency(): number | undefined {
     return this._contingency
   }
 
@@ -78,23 +78,14 @@ export class ProcessFinancial extends BaseBusinessObject<ProcessFinancialType.Re
 
   validate(): void {
     ValidationBuilder.of({ value: this._hiring, fieldName: 'hiring' })
-      .required()
       .of({ value: this._resJudicata, fieldName: 'resJudicata' })
-      .required()
       .of({ value: this._closure, fieldName: 'closure' })
-      .required()
       .of({ value: this._sentence, fieldName: 'sentence' })
-      .required()
       .of({ value: this._distribution, fieldName: 'distribution' })
-      .required()
       .of({ value: this._execution, fieldName: 'execution' })
-      .required()
       .of({ value: this._causeValue, fieldName: 'causeValue' })
-      .required()
       .of({ value: this._otherValue, fieldName: 'otherValue' })
-      .required()
       .of({ value: this._contingency, fieldName: 'contingency' })
-      .required()
       .build('Failed to validate ProcessFinancial rules')
   }
 

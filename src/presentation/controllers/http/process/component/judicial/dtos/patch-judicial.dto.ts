@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/swagger'
-import { CreateJudicialDto } from './create-judicial.dto'
 import { JudicialType } from '@/domain/process/component/judicial/types/judicial.type'
+import { PatchProcessDto } from '@/presentation/controllers/http/process/dtos/patch-process.dto'
 
-export class PatchJudicialDto extends OmitType(CreateJudicialDto, []) implements Partial<JudicialType.Input> {}
+export class PatchJudicialDto extends OmitType(PatchProcessDto, []) implements Partial<JudicialType.Input> {}

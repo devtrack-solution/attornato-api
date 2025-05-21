@@ -16,7 +16,7 @@ export class ProcessDetailEntity extends EntityBase {
 
   @ManyToOne(() => DetailEntity)
   @JoinColumn({ name: 'detailId', referencedColumnName: 'id' })
-  detail!: DetailEntity
+  detail?: DetailEntity
 
   @Column({ type: 'uuid', nullable: true })
   detailId?: string
@@ -36,13 +36,13 @@ export class ProcessDetailEntity extends EntityBase {
   freeField2Id?: string
 
   @Column({ type: 'varchar', length: 255 })
-  freeField3!: string
+  freeField3?: string
 
   @Column({ type: 'varchar', length: 255 })
-  freeField4!: string
+  freeField4?: string
 
   @Column({ type: 'varchar', length: 255 })
-  freeField5!: string
+  freeField5?: string
 
   @ManyToOne(() => FreeField6Entity)
   @JoinColumn({ name: 'freeField6Id', referencedColumnName: 'id' })
@@ -53,22 +53,22 @@ export class ProcessDetailEntity extends EntityBase {
 
   @ManyToOne(() => OriginEntity)
   @JoinColumn({ name: 'originId', referencedColumnName: 'id' })
-  origin!: OriginEntity
+  origin?: OriginEntity
 
   @Column({ type: 'uuid', nullable: true })
   originId?: string
 
   @ManyToOne(() => PartnerEntity)
   @JoinColumn({ name: 'partnerId', referencedColumnName: 'id' })
-  partner!: PartnerEntity
+  partner?: PartnerEntity
 
   @Column({ type: 'uuid', nullable: true })
   partnerId?: string
 
   @ManyToOne(() => PrognosisEntity)
   @JoinColumn({ name: 'prognosisId', referencedColumnName: 'id' })
-  prognosis!: PrognosisEntity
+  prognosis?: PrognosisEntity
 
   @Column({ type: 'uuid', nullable: false })
-  prognosisId!: string
+  prognosisId?: string
 }

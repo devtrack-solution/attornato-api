@@ -8,29 +8,29 @@ export class ProcessFinancialEntity extends EntityBase {
   processBase!: ProcessBaseEntity
 
   @Column({ type: 'date' })
-  hiring!: Date
+  hiring?: Date
 
   @Column({ type: 'date' })
-  resJudicata!: Date
+  resJudicata?: Date
 
   @Column({ type: 'date' })
-  closure!: Date
+  closure?: Date
 
   @Column({ type: 'date' })
-  sentence!: Date
+  sentence?: Date
 
   @Column({ type: 'date' })
-  distribution!: Date
+  distribution?: Date
 
   @Column({ type: 'date' })
-  execution!: Date
+  execution?: Date
 
   @Column({ type: 'decimal', precision: 15, scale: 2 })
-  causeValue!: number
+  causeValue?: number
 
   @Column({ type: 'decimal', precision: 15, scale: 2 })
-  otherValue!: number
+  otherValue?: number
 
   @Column({ type: 'decimal', precision: 15, scale: 2 })
-  contingency!: number
+  contingency?: number
 }

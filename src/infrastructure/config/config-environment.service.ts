@@ -102,6 +102,7 @@ export class ConfigEnvironmentService implements AppConfig {
     return {
       name: process.env.NAME || 'ATTORNATO',
       url: process.env.URL || 'http://localhost:4200',
+      timeZone: process.env.TIMEZONE || 'America/Sao_Paulo'
     }
   }
   /**

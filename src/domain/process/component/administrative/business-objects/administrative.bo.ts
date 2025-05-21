@@ -35,8 +35,8 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
       this._actionObjectId = data.actionObjectId
       this._locatorId = data.locatorId
       this._subjectId = data.subjectId
-      this._processFinancial = new ProcessFinancial(data.processFinancial)
-      this._processDetail = new ProcessDetail(data.processDetail)
+      this._processFinancial = data.processFinancial === undefined ? undefined : new ProcessFinancial(data.processFinancial)
+      this._processDetail = data.processDetail === undefined ? undefined : new ProcessDetail(data.processDetail)
     } catch (e) {
       throw e
     }
@@ -77,10 +77,10 @@ export class Administrative extends Process<AdministrativeType.Repository, Admin
       actionObjectId: this._actionObjectId,
       locatorId: this._locatorId,
       subjectId: this._subjectId,
-      processFinancialId: this._processFinancial.id,
-      processFinancial: this._processFinancial.toPersistenceObject(),
-      processDetailId: this._processDetail.id,
-      processDetail: this._processDetail.toPersistenceObject(),
+      processFinancialId: this._processFinancial?.id,
+      processFinancial: this._processFinancial?.toPersistenceObject(),
+      processDetailId: this._processDetail?.id,
+      processDetail: this._processDetail?.toPersistenceObject(),
     }
   }
 }

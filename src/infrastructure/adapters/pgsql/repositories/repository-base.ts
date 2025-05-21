@@ -4,6 +4,8 @@ import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
 import { Logger } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
+import { DateTime } from 'luxon'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 /**
  * Utility function to compute search criteria for use in queries.
  */
@@ -480,6 +482,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
    * Soft delete an entity by ID.
    */
   async deleteObject(id: string): Promise<void> {
+    const config = new ConfigEnvironmentService()
     try {
       const repository: Repository<T> = this.manager.getRepository(this.target)
       const filters: FindManyOptions<T> = { id, enable: true } as FindManyOptions<T>
@@ -490,7 +493,10 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
 
       if (!entityExists) throw new Error('Entity not found or already deleted')
 
-      await repository.softDelete(id)
+      await repository.update(id, {
+        enable: false,
+        updatedAt: DateTime.now().setZone(config.project.timeZone).toJSDate(),
+      } as any)
     } catch (e: any) {
       this.logger.error(`Error deleting object: ${e.message}`, e.stack)
       throw e
