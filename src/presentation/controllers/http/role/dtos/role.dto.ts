@@ -3,13 +3,13 @@ import { BasicDto } from '@/presentation/controllers/http/dtos/basic.dto'
 import { CreatePermissionDto } from '@/presentation/controllers/http/permission/dtos/create-permission.dto'
 
 export class RoleDto extends BasicDto {
-  @ApiProperty({ description: 'The name of the role', example: 'Administrativo', required: true })
+  @ApiProperty({ description: 'The name of the role', example: 'Role01', required: true })
   name!: string
 
-  @ApiPropertyOptional({ description: 'The description of the role', example: 'Administrativo', required: false })
-  description?: string
+  @ApiProperty({ description: 'The description of the role', example: 'Role01 description', required: true })
+  description!: string
 
-  @ApiProperty({ description: 'The level of the role', example: 'Administrativo', required: false })
+  @ApiProperty({ description: 'The level of the role', example: 1, required: true })
   level!: number
 
   @ApiPropertyOptional({
@@ -20,7 +20,7 @@ export class RoleDto extends BasicDto {
   permissionIds?: string[]
 
   @ApiPropertyOptional({
-    type: CreatePermissionDto,
+    type: [CreatePermissionDto],
     required: false,
   })
   permissions?: CreatePermissionDto[]

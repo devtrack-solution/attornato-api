@@ -1,7 +1,5 @@
 import { BaseBusinessObject, IBusinessObject } from '@/core/domain/business-objects/base.bo'
 import { ValidationBuilder, IValidator } from '@/core/domain/validators'
-import { EntityBadDataLoadException } from '@/core/domain/exceptions'
-import { ValidationErrorResponse } from '@/core/domain/validators/validation-error-response'
 import { RoleType } from '@/domain/securities/types/role.type'
 import { Permission } from '@/domain/securities/business-objects/permission.bo'
 import { BadRequestException, Logger } from '@nestjs/common'
@@ -19,8 +17,7 @@ export class Role extends BaseBusinessObject<RoleType.Repository, RoleType.Outpu
 
   private async loadData(data: RoleType.Input): Promise<RoleType.Input> {
     try {
-      this.logger.log(JSON.stringify(data, null, 2))
-      if (this._permissionIds.length < 1 && this._permissions.length < 1) {
+      if (this._permissionIds?.length < 1 && this._permissions?.length < 1) {
         throw new BadRequestException('At least one permission is required')
       }
       this._name = data.name ?? ''
