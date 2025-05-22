@@ -1,13 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { OmitType } from '@nestjs/swagger'
+import { PermissionDto } from '@/presentation/controllers/http/permission/dtos/permission.dto'
 import { PermissionType } from '@/domain/securities/types/permission.type'
 
-export class CreatePermissionDto implements PermissionType.Input {
-  @ApiProperty({ description: 'The name of the permission', example: 'VIEW_DASHBOARD', required: true })
-  name!: string
-
-  @ApiProperty({ description: 'A short description to show in front-end', example: 'Dashboard', required: true })
-  description!: string
-
-  @ApiProperty({ description: 'The resource associated with this permission', example: 'DASHBOARD', required: true })
-  resource!: string
-}
+export class CreatePermissionDto extends OmitType(PermissionDto, ['userId', 'lastUpdatedUserId', 'createdUserId', 'createdAt', 'updatedAt', 'deletedAt', 'enable']) implements PermissionType.Input {}

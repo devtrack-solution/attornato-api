@@ -11,6 +11,9 @@ import { PatchPermissionInboundPort, PatchPermissionInboundPortToken } from '@/d
 import { RolesGuard } from '@/commons/guard/roles.guard'
 import { Roles } from '@/commons/guard/roles'
 import { Permissions } from '@/commons/guard/permissions.decorator'
+import { ListRoleDto } from '@/presentation/controllers/http/role/dtos/list-role.dto'
+import { CriteriaPaginatedRequestDto } from '@/presentation/controllers/http/dtos/criteria-paginated.dto'
+import { ListPermissionInboundPort, ListPermissionInboundPortToken } from '@/domain/securities/ports/inbound/component/permission/list-permission.inbound-port'
 
 @ApiTags('Permissions')
 @Controller('permissions')
@@ -19,6 +22,7 @@ export class PermissionHttpController extends BaseHttpController {
     @Inject(CreatePermissionInboundPortToken) private readonly createPermissionService: CreatePermissionInboundPort,
     @Inject(PatchPermissionInboundPortToken) private readonly patchPermissionService: PatchPermissionInboundPort,
     @Inject(DeletePermissionInboundPortToken) private readonly deletePermissionService: DeletePermissionInboundPort,
+    @Inject(ListPermissionInboundPortToken) private readonly listPermissionService: ListPermissionInboundPort,
     @Inject(ListToSelectPermissionInboundPortToken) private readonly listToSelectPermissionService: ListToSelectPermissionInboundPort,
   ) {
     super()
@@ -32,6 +36,16 @@ export class PermissionHttpController extends BaseHttpController {
   @ApiResponse({ status: 201, description: 'The item has been created.' })
   async create(@Body() body: CreatePermissionDto) {
     return this.createPermissionService.execute(body)
+  }
+
+  @Get()
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @Permissions(Roles.ADMINISTRATOR)
+  @ApiOperation({ summary: 'Find a Permission List' })
+  @ApiResponse({ status: 200, description: 'The item has been listed.', type: ListRoleDto })
+  async find(@Query() query: CriteriaPaginatedRequestDto) {
+    return this.listPermissionService.execute(query)
   }
 
   @Patch(':id')
