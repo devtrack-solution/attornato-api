@@ -2,10 +2,11 @@ import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, De
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
-import { Logger } from '@nestjs/common'
+import { Logger, NotFoundException } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { DateTime } from 'luxon'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+
 /**
  * Utility function to compute search criteria for use in queries.
  */
@@ -253,21 +254,45 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     data: Partial<T>[]
   }> {
     try {
+      // Converte strings booleanas para boolean real
+      for (const key in props) {
+        if (props[key] === 'true') props[key] = true
+        if (props[key] === 'false') props[key] = false
+      }
+
       const searches = this.getSearchesWithILike(searchFields, props.search)
       const filterConditions = this.getWhereByValue(whereByValue)
 
-      const combinedWhere = []
+      // Filtros diretos excluindo controle e paginação
+      const directFilters: Record<string, any> = Object.keys(props)
+        .filter((key) => !['search', 'limit', 'offset', 'isActive'].includes(key))
+        .reduce(
+          (acc, key) => {
+            acc[key] = props[key]
+            return acc
+          },
+          {} as Record<string, any>,
+        )
+
+      // Aplica filtro para enable com base em isActive
+      if (props.isActive !== undefined) {
+        directFilters['enable'] = props.isActive === undefined ? true : props.isActive
+      }
+
+      const combinedWhere: any[] = []
+
       if (searches.length > 0) combinedWhere.push(...searches)
       if (filterConditions) combinedWhere.push(filterConditions)
+      if (Object.keys(directFilters).length > 0) combinedWhere.push(directFilters)
 
       const filters: FindManyOptions<T> = {
         select,
         where: combinedWhere.length > 0 ? combinedWhere : {},
         relations,
         order,
-        withDeleted: props.isActive !== undefined ? !props.isActive : undefined,
         take: props.limit,
         skip: props.offset,
+        withDeleted: props.isActive === undefined ? false : !props.isActive,
       }
 
       const [data, count] = await this.manager.getRepository(this.target).findAndCount(filters)
@@ -310,12 +335,16 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
   async findForSelectByCriteria(props: Criteria.FindBy, order: Record<string, string> = { createdAt: 'ASC' }, select: string[] = [], searchFields: string[] = []): Promise<T[]> {
     try {
       const searches = getSearches(searchFields, props)
-
+      const isActive = props.isActive === undefined ? true : props.isActive
+      // Filtro para enable com base em isActive
+      const where: any = searches || {}
+      where.enable = isActive
+      const withDeleted = isActive === true ? false : true
       const filters: FindManyOptions<T | any> = {
         select,
-        where: searches || {},
+        where,
         order,
-        withDeleted: props.isActive !== undefined ? !props.isActive : undefined,
+        withDeleted,
       }
 
       const repository: Repository<T> = this.manager.getRepository(this.target)
@@ -354,14 +383,15 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
   async patchObject(input: Partial<T>, props: Criteria.ById, EntityClass: new (...args: any[]) => T, relations?: string[]): Promise<void> {
     try {
       const repository: Repository<T> = this.manager.getRepository(this.target)
-      const where: FindOptionsWhere<T | any> = { id: props.id, enable: true }
+      const where: FindOptionsWhere<T | any> = { id: props.id }
 
       const existingEntity = await repository.findOne({
         where,
         relations,
+        withDeleted: true,
       })
 
-      if (!existingEntity) throw new Error('Entity not found')
+      if (!existingEntity) throw new NotFoundException('Entity not found')
 
       Object.assign(existingEntity, input)
 
@@ -375,108 +405,6 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
       throw e
     }
   }
-
-  /**
-   * Creates multiple new child entities associated with a given parent.
-   * Rolls back the operation if any child creation or validation fails.
-   *
-   * @param parentId - The ID of the parent entity.
-   * @param childrenInputs - Array of input data for creating new child entities.
-   * @param ChildEntityClass - Constructor to create and validate child entities.
-   * @returns A promise that resolves when all children are successfully created.
-   */ /*
- async createChildrenForParent<Child>(
-    parentId: string,
-    childrenInputs: Partial<Child>[],
-    ChildEntityClass: new (...args: any[]) => Child
-  ): Promise<void> {
-    if (!childrenInputs.length) {
-      throw new Error('Children inputs must not be empty.');
-    }
-
-    try {
-      await this.manager.transaction(async (transactionalEntityManager) => {
-        const repository = transactionalEntityManager.getRepository(ChildEntityClass);
-
-        for (let childInput of childrenInputs) {
-          try {
-            // Validate the input and create the child
-            childInput = new ChildEntityClass(childInput, parentId);
-            // Save the child
-
-          } catch (createError: any) {
-            throw new Error(
-              `Failed to create child: ${JSON.stringify(childInput)}. Error: ${createError.message}`
-            );
-          }
-        }
-        await repository.save(childrenInputs);
-      });
-    } catch (error: any) {
-      console.error('Transaction failed while creating children:', error.message);
-      throw new Error('Failed to create children for the parent. Transaction rolled back.');
-    }
-  }*/
-
-  /**
-   * Updates multiple existing child entities for a given parent.
-   * Rolls back the operation if any child update or validation fails.
-   *
-   * @param updateInputs - Array of criteria and data for updating child entities.
-   * @param ChildEntityClass - Constructor to validate child entities.
-   * @param relations - Optional relationships to include when fetching child entities.
-   * @returns A promise that resolves when all children are successfully updated.
-   */ /*
- async patchChildrenForParent<Child>(
-    updateInputs: { criteria: Criteria.ByChildren; data: Partial<Child> }[],
-    ChildEntityClass: new (...args: any[]) => Child,
-    relations?: string[]
-  ): Promise<void> {
-    if (!updateInputs.length) {
-      throw new Error('Update inputs must not be empty.');
-    }
-
-    try {
-      await this.manager.transaction(async (transactionalEntityManager) => {
-        const repository = transactionalEntityManager.getRepository(ChildEntityClass);
-
-        for (const updateInput of updateInputs) {
-          const { criteria, data } = updateInput;
-
-          try {
-            // Find the existing child by criteria
-            const existingChild = await repository.findOne({
-              where: {
-                id: criteria.childrenId,
-                parentId: criteria.parentId,
-              },
-              relations,
-            });
-
-            if (!existingChild) {
-              throw new Error(
-                `Child entity with ID (${criteria.childrenId}) and Parent ID (${criteria.parentId}) not found.`
-              );
-            }
-
-            // Update the existing child with new data
-            Object.assign(existingChild, data);
-            const updatedChild = new ChildEntityClass(existingChild);
-
-            // Save changes
-            await repository.save(updatedChild);
-          } catch (updateError) {
-            throw new Error(
-              `Failed to update child (ID: ${criteria.childrenId}, Parent ID: ${criteria.parentId}). Error: ${updateError.message}`
-            );
-          }
-        }
-      });
-    } catch (error) {
-      console.error('Transaction failed while updating children:', error.message);
-      throw new Error('Failed to update children for the parent. Transaction rolled back.');
-    }
-  }*/
 
   /**
    * Soft delete an entity by ID.

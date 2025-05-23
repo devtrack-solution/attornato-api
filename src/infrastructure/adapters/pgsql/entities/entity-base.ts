@@ -2,7 +2,16 @@
  * Created by Wilton Oliveira Ferreira on 24/01/2023
  */
 
-import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Index, DeleteDateColumn, PrimaryColumn } from 'typeorm'
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Index,
+  DeleteDateColumn,
+  PrimaryColumn,
+  AfterLoad, BeforeUpdate,
+} from 'typeorm'
 
 /**
  * Abstract base class for business-objects with common fields such as ID, creation date, update date, deletion date, and more.
@@ -33,7 +42,7 @@ export abstract class EntityBase extends BaseEntity {
    */
   @DeleteDateColumn({ name: 'deleted_at' })
   @Index({ unique: false })
-  deletedAt!: Date
+  deletedAt!: Date | null
 
   /**
    * Indicates whether the entity is active.
@@ -60,4 +69,18 @@ export abstract class EntityBase extends BaseEntity {
   @Column({ name: 'created_by_user_id', nullable: true })
   @Index({ unique: false })
   createdByUser!: string
+
+  private previousEnable?: boolean
+
+  @AfterLoad()
+  loadPreviousState() {
+    this.previousEnable = this.enable
+  }
+
+  @BeforeUpdate()
+  resetDeletedAtIfReenabled() {
+    if (this.previousEnable === false && this.enable === true) {
+      this.deletedAt = null
+    }
+  }
 }

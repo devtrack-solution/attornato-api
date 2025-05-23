@@ -9,7 +9,7 @@ export namespace BaseType {
     createdUserId?: string
     createdAt?: Date
     updatedAt?: Date
-    deletedAt?: Date
+    deletedAt?: Date | null
     enable?: boolean
   }
 
