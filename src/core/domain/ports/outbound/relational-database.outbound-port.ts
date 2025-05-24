@@ -43,6 +43,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param searchFields - Define fields to search text.
    * @param relations - Objects relative to return.
    * @param filters - List of elements with parameter and value to be checked
+   * @param whereByValue - filter for this value
    * @returns A promise that resolves to an array of found objects.
    */
   findAllByCriteria(
@@ -52,6 +53,7 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
     searchFields?: string[],
     relations?: string[],
     filters?: Record<string, any>,
+    whereByValue?: Record<string, any>,
   ): Promise<{
     count: number
     limit: number
@@ -66,9 +68,10 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param order - Define properties and order for find.
    * @param select - Define the properties of root object to return.
    * @param searchFields - Define fields to search text.
+   * @param whereByValue
    * @returns A promise that resolves to an array of found objects.
    */
-  findForSelectByCriteria(props: Criteria.FindBy, order?: Record<string, string>, select?: string[], searchFields?: string[]): Promise<Partial<T>[]>
+  findForSelectByCriteria(props: Criteria.FindBy, order?: Record<string, string>, select?: string[], searchFields?: string[], whereByValue?: Record<string, any>): Promise<Partial<T>[]>
 
   /**
    * Updates an object in the database.

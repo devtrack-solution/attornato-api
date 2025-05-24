@@ -1,4 +1,13 @@
-import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial, FindOptionsOrder } from 'typeorm'
+import {
+  FindManyOptions,
+  FindOptionsWhere,
+  ILike,
+  ObjectLiteral,
+  Repository,
+  DeepPartial,
+  FindOptionsOrder,
+  Brackets
+} from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
@@ -241,12 +250,13 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
    * Includes dynamic searching and filtering by fields.
    */
   async findAllByCriteria(
-    props: Record<string, any>,
-    order: FindOptionsOrder<T> = { createdAt: 'ASC' as any },
-    select: string[] = [],
-    searchFields: string[] = [],
-    relations: string[] = [],
-    whereByValue: Record<string, any> = {},
+      props: Criteria.Paginated,
+      order: Record<string, string> = { createdAt: 'ASC' },
+      select: string[] = [],
+      searchFields: string[] = [],
+      relations: string[] = [],
+      filters: Record<string, any> = {},
+      whereByValue: Record<string, any> = {}
   ): Promise<{
     count: number
     limit: number
@@ -254,54 +264,74 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     data: Partial<T>[]
   }> {
     try {
-      // Converte strings booleanas para boolean real
-      for (const key in props) {
-        if (props[key] === 'true') props[key] = true
-        if (props[key] === 'false') props[key] = false
+      const alias = 'entity'
+      const repository = this.manager.getRepository(this.target)
+      const queryBuilder = repository.createQueryBuilder(alias)
+
+      // Adiciona joins
+      for (const relation of relations) {
+        queryBuilder.leftJoinAndSelect(`${alias}.${relation}`, relation)
       }
 
-      const searches = this.getSearchesWithILike(searchFields, props.search)
-      const filterConditions = this.getWhereByValue(whereByValue)
+      // Converte valores string 'true'/'false' em booleanos reais
+      const propsAny = props as Record<string, any>
+      for (const key in propsAny) {
+        if (propsAny[key] === 'true') propsAny[key] = true
+        if (propsAny[key] === 'false') propsAny[key] = false
+      }
 
-      // Filtros diretos excluindo controle e paginação
-      const directFilters: Record<string, any> = Object.keys(props)
-        .filter((key) => !['search', 'limit', 'offset', 'isActive'].includes(key))
-        .reduce(
-          (acc, key) => {
-            acc[key] = props[key]
-            return acc
-          },
-          {} as Record<string, any>,
+      // Busca por texto
+      if (props.search && searchFields.length) {
+        queryBuilder.andWhere(
+            new Brackets((qb) => {
+              for (const field of searchFields) {
+                qb.orWhere(`LOWER(${field}) LIKE LOWER(:search)`, { search: `%${props.search}%` })
+              }
+            })
         )
+      }
 
-      // Aplica filtro para enable com base em isActive
+      // Aplica filtros exatos
+      for (const key in filters) {
+        if (filters[key] !== undefined) {
+          queryBuilder.andWhere(`${key} = :${key}`, { [key]: filters[key] })
+        }
+      }
+
+      // Aplica filtros whereByValue
+      for (const key in whereByValue) {
+        if (whereByValue[key] !== undefined) {
+          queryBuilder.andWhere(`${key} = :${key}`, { [key]: whereByValue[key] })
+        }
+      }
+
+      // Filtro por enable se definido
       if (props.isActive !== undefined) {
-        directFilters['enable'] = props.isActive === undefined ? true : props.isActive
+        queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
       }
 
-      const combinedWhere: any[] = []
-
-      if (searches.length > 0) combinedWhere.push(...searches)
-      if (filterConditions) combinedWhere.push(filterConditions)
-      if (Object.keys(directFilters).length > 0) combinedWhere.push(directFilters)
-
-      const filters: FindManyOptions<T> = {
-        select,
-        where: combinedWhere.length > 0 ? combinedWhere : {},
-        relations,
-        order,
-        take: props.limit,
-        skip: props.offset,
-        withDeleted: props.isActive === undefined ? false : !props.isActive,
+      // Select de campos
+      if (select?.length) {
+        queryBuilder.select(select.map((field) => `${alias}.${field}`))
       }
 
-      const [data, count] = await this.manager.getRepository(this.target).findAndCount(filters)
+      // Ordenação
+      for (const key in order) {
+        queryBuilder.addOrderBy(`${alias}.${key}`, order[key].toUpperCase() as 'ASC' | 'DESC')
+      }
+
+      // Paginação
+      queryBuilder.skip(props.offset ?? 0)
+      queryBuilder.take(props.limit ?? 10)
+
+      // Executa
+      const [data, count] = await queryBuilder.getManyAndCount()
 
       return {
         count,
-        limit: props.limit,
-        offset: props.offset,
-        data,
+        limit: props.limit ?? 10,
+        offset: props.offset ?? 0,
+        data
       }
     } catch (e: any) {
       this.logger.error(`Error finding all objects by criteria: ${e.message}`, e.stack)
@@ -309,46 +339,69 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     }
   }
 
-  private getSearchesWithILike(searchFields: string[], searchValue: string): Record<string, any>[] {
-    if (!searchFields || !searchValue) return []
-
-    return searchFields.map((field) => ({
-      [field]: ILike(`%${searchValue}%`),
-    }))
-  }
-
-  private getWhereByValue(whereByValue: Record<string, any>): Record<string, any> | undefined {
-    if (!whereByValue) return undefined
-
-    const conditions: any = {}
-    for (const key in whereByValue) {
-      if (Object.hasOwnProperty.call(whereByValue, key)) {
-        conditions[key] = whereByValue[key]
-      }
-    }
-    return conditions
-  }
 
   /**
    * Find entities to populate a dropdown or select box.
    */
-  async findForSelectByCriteria(props: Criteria.FindBy, order: Record<string, string> = { createdAt: 'ASC' }, select: string[] = [], searchFields: string[] = []): Promise<T[]> {
+  async findForSelectByCriteria(
+      props: Criteria.FindBy,
+      order: Record<string, string> = { createdAt: 'ASC' },
+      select: string[] = [],
+      searchFields: string[] = [],
+      whereByValue: Record<string, any> = {}
+  ): Promise<T[]> {
     try {
-      const searches = getSearches(searchFields, props)
-      const isActive = props.isActive === undefined ? true : props.isActive
-      // Filtro para enable com base em isActive
-      const where: any = searches || {}
-      where.enable = isActive
-      const withDeleted = isActive === true ? false : true
-      const filters: FindManyOptions<T | any> = {
-        select,
-        where,
-        order,
-        withDeleted,
+      const alias = 'entity'
+      const repository = this.manager.getRepository(this.target)
+      const queryBuilder = repository.createQueryBuilder(alias)
+
+      // Adiciona SELECT personalizado, se necessário
+      if (select.length > 0) {
+        queryBuilder.select(select.map((field) => `${alias}.${field}`))
       }
 
-      const repository: Repository<T> = this.manager.getRepository(this.target)
-      return await repository.find(filters)
+      // JOINs para searchFields aninhados
+      const joins = new Set<string>()
+      for (const field of searchFields) {
+        if (field.includes('.')) {
+          const [relation] = field.split('.')
+          joins.add(relation)
+        }
+      }
+      joins.forEach((relation) => {
+        queryBuilder.leftJoinAndSelect(`${alias}.${relation}`, relation)
+      })
+
+      // Filtro por texto (search)
+      if (props.search && searchFields.length > 0) {
+        queryBuilder.andWhere(
+            new Brackets((qb) => {
+              for (const field of searchFields) {
+                qb.orWhere(`LOWER(${field}) LIKE LOWER(:search)`, { search: `%${props.search}%` })
+              }
+            })
+        )
+      }
+
+      // Filtro adicional: whereByValue
+      for (const key in whereByValue) {
+        if (whereByValue[key] !== undefined) {
+          queryBuilder.andWhere(`${key} = :${key}`, { [key]: whereByValue[key] })
+        }
+      }
+
+      // Filtro por enable (ativo/desativado)
+      if (props.isActive !== undefined) {
+        queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
+      }
+
+      // Ordenação
+      for (const [field, direction] of Object.entries(order)) {
+        queryBuilder.addOrderBy(`${alias}.${field}`, direction.toUpperCase() as 'ASC' | 'DESC')
+      }
+
+      // Exibe resultados
+      return await queryBuilder.getMany()
     } catch (e: any) {
       this.logger.error(`Error finding for select by criteria: ${e.message}`, e.stack)
       throw e
