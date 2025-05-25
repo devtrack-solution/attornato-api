@@ -291,11 +291,18 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
         )
       }
 
-      // Aplica filtros exatos
-      for (const key in filters) {
-        if (filters[key] !== undefined) {
-          queryBuilder.andWhere(`${key} = :${key}`, { [key]: filters[key] })
-        }
+      // Busca por texto
+      if (props.search && searchFields.length) {
+        queryBuilder.andWhere(
+          new Brackets((qb) => {
+            for (const field of searchFields) {
+              const qualifiedField = field.includes('.') ? field : `${alias}.${field}`
+              qb.orWhere(`LOWER(${qualifiedField}) LIKE LOWER(:search)`, {
+                search: `%${props.search}%`,
+              })
+            }
+          }),
+        )
       }
 
       // Aplica filtros whereByValue
