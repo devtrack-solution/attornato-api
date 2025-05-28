@@ -13,10 +13,11 @@ export class ListToSelectAccountService implements ListToSelectAccountInboundPor
   ) {}
 
   async execute(criteria: Criteria.FindBy): Promise<Partial<AccountType.Output[]>> {
-    const select: string[] = ['id', 'accountPerson.name']
+    const select: string[] = ['id', 'accountPerson.id', 'accountPerson.name']
     const searchFields: string[] = ['accountPerson.name']
-    const order = { name: 'ASC' }
-    let account = await this.accountRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return account.map((account) => new Account(account as AccountType.Output).toJson())
+    const order = { 'accountPerson.name' : 'ASC' }
+    const relations: string[] = ['accountPerson']
+    let account = await this.accountRepository.findForSelectByCriteria(criteria, order, select, searchFields, relations)
+    return account.map((account) => account as AccountType.Output)
   }
 }

@@ -35,16 +35,93 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
   findOneByCriteria(props: X, relations?: string[]): Promise<Partial<T> | null>
 
   /**
-   * Finds all objects by criteria.
+   * Finds all entities matching pagination and filter criteria.
    *
-   * @param props - The criteria to find the objects.
-   * @param order - Define properties and order for find.
-   * @param select - Define the properties of root object to return.
-   * @param searchFields - Define fields to search text.
-   * @param relations - Objects relative to return.
-   * @param filters - List of elements with parameter and value to be checked
-   * @param whereByValue - filter for this value
-   * @returns A promise that resolves to an array of found objects.
+   * @param props - Objeto de paginação e parâmetros base da requisição.
+   * Deve conter as propriedades `limit`, `offset`, `search`, `isActive` entre outras.
+   *
+   * Exemplo:
+   * ```ts
+   * {
+   *   limit: 10,
+   *   offset: 0,
+   *   search: 'joão',
+   *   isActive: true
+   * }
+   * ```
+   *
+   * @param mainEntity
+   * @param order - Objeto que define os campos de ordenação e suas direções (ASC ou DESC).
+   * As chaves são os campos da entidade, e os valores são as direções de ordenação.
+   *
+   * Exemplo:
+   * ```ts
+   * { createdAt: 'ASC', name: 'DESC' }
+   * ```
+   *
+   * @param select - Lista de campos da entidade principal (`T`) que devem ser retornados.
+   * Se omitido, todos os campos serão retornados.
+   *
+   * Exemplo:
+   * ```ts
+   * ['id', 'name', 'createdAt']
+   * ```
+   *
+   * @param searchFields - Lista de campos nos quais será aplicada a busca textual (`search`).
+   * Os campos podem ser diretos ou relacionais, como `accountPerson.name`.
+   *
+   * Exemplo:
+   * ```ts
+   * ['name', 'accountPerson.email']
+   * ```
+   *
+   * @param relations - Relações a serem carregadas com `leftJoinAndSelect`. Deve conter o nome das propriedades da entidade.
+   *
+   * Exemplo:
+   * ```ts
+   * ['accountPerson', 'preferences']
+   * ```
+   *
+   * @param filters - Filtros dinâmicos com suporte a operadores como `_from`, `_to`, `_like`.
+   * Usado para criar condições como intervalo de datas, busca parcial ou igualdade.
+   *
+   * Exemplo:
+   * ```ts
+   * {
+   *   'createdAt_from': '2025-01-01',
+   *   'createdAt_to': '2025-12-31',
+   *   'accountPerson.name_like': 'laercio'
+   * }
+   * ```
+   * Operadores suportados:
+   * - `_from`: campo >= valor
+   * - `_to`: campo <= valor
+   * - `_like`: campo ILIKE '%valor%'
+   * - sem sufixo: campo = valor
+   *
+   * @param whereByValue - Filtros diretos aplicados via igualdade exata.
+   * Geralmente usado para filtros fixos como `status`, `type`, etc.
+   * Ao contrário de `filters`, não suporta operadores.
+   *
+   * Exemplo:
+   * ```ts
+   * {
+   *   'entity.status': 'PENDING',
+   *   'accountPerson.gender': 'MALE'
+   * }
+   * ```
+   *
+   * @returns Um objeto contendo a lista paginada de dados encontrados, junto com a contagem total.
+   *
+   * Exemplo de retorno:
+   * ```ts
+   * {
+   *   count: 25,
+   *   limit: 10,
+   *   offset: 0,
+   *   data: [ { id: '...', name: '...', ... }, ... ]
+   * }
+   * ```
    */
   findAllByCriteria(
     props: Criteria.Paginated,
@@ -68,10 +145,11 @@ export interface IRelationalDatabaseOutboundPort<X, Y, T> {
    * @param order - Define properties and order for find.
    * @param select - Define the properties of root object to return.
    * @param searchFields - Define fields to search text.
-   * @param whereByValue
+   * @param relations - Objects relative to return.
+   * @param whereByValue - filter for this value
    * @returns A promise that resolves to an array of found objects.
    */
-  findForSelectByCriteria(props: Criteria.FindBy, order?: Record<string, string>, select?: string[], searchFields?: string[], whereByValue?: Record<string, any>): Promise<Partial<T>[]>
+  findForSelectByCriteria(props: Criteria.FindBy, order?: Record<string, string>, select?: string[], searchFields?: string[], relations?: string[], whereByValue?: Record<string, any>): Promise<Partial<T>[]>
 
   /**
    * Updates an object in the database.
