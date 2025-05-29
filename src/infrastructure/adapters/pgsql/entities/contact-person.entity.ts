@@ -1,6 +1,7 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, ManyToOne, JoinColumn, OneToOne } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { FreeFieldEntity } from '@/infrastructure/adapters/pgsql/entities/free-field.entity'
+import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
 
 @Entity('contact_person')
 export class ContactPersonEntity extends EntityBase {
@@ -28,4 +29,7 @@ export class ContactPersonEntity extends EntityBase {
 
   @Column({ type: 'uuid', nullable: true })
   freeFieldId?: string
+
+  @OneToOne(() => PersonEntity, (person) => person.contactPerson)
+  person?: PersonEntity
 }

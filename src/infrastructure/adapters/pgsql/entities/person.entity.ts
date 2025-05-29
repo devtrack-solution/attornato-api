@@ -10,14 +10,14 @@ export class PersonEntity extends EntityBase {
   @Column({ type: 'varchar', unique: true, length: 255, nullable: false })
   clientId!: string
 
-  @OneToOne(() => CommunicationAddressEntity, { cascade: true, eager: true })
+  @OneToOne(() => CommunicationAddressEntity, (communicationAddress) => communicationAddress.person, { cascade: true })
   @JoinColumn({ name: 'communicationAddressId', referencedColumnName: 'id' })
   communicationAddress!: CommunicationAddressEntity
 
   @Column({ type: 'uuid', nullable: true })
   communicationAddressId?: string
 
-  @OneToOne(() => ContactPersonEntity, { cascade: true, eager: true })
+  @OneToOne(() => ContactPersonEntity, (contactPerson) => contactPerson.person, { cascade: true })
   @JoinColumn({ name: 'contactPersonId', referencedColumnName: 'id' })
   contactPerson!: ContactPersonEntity
 

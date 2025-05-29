@@ -1,6 +1,7 @@
-import { Entity, Column, OneToMany } from 'typeorm'
+import { Entity, Column, OneToMany, OneToOne } from 'typeorm'
 import { EntityBase } from '@/infrastructure/adapters/pgsql/entities/entity-base'
 import { ContactEntity } from '@/infrastructure/adapters/pgsql/entities/contact.entity'
+import { PersonEntity } from '@/infrastructure/adapters/pgsql/entities/person.entity'
 
 @Entity('communication_address')
 export class CommunicationAddressEntity extends EntityBase {
@@ -25,4 +26,7 @@ export class CommunicationAddressEntity extends EntityBase {
     orphanedRowAction: 'delete',
   })
   contacts!: ContactEntity[]
+
+  @OneToOne(() => PersonEntity, (person) => person.communicationAddress)
+  person?: PersonEntity
 }

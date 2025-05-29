@@ -8,80 +8,6 @@ import { DateTime } from 'luxon'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 
 /**
- * Utility function to compute search criteria for use in queries.
- */
-function getSearches(searchFields: string[], props: Record<string, any>): Record<string, any> | undefined {
-  if (!searchFields) return undefined
-
-  // Validate and prepare search criteria
-  return searchFields.reduce(
-    (acc, field) => {
-      const formattedField = field.includes('.') ? `"${field}"` : field
-
-      if (props?.search) {
-        // Handle UUID strings with strict equality
-        if (isUuid(props.search)) {
-          acc[formattedField] = props.search
-        }
-        // Handle text fields with partial match
-        else {
-          acc[formattedField] = ILike(`%${props.search}%`)
-        }
-      }
-
-      return acc
-    },
-    {} as Record<string, any>,
-  )
-}
-
-/**
- * Builds filter conditions for the query dynamically based on exact matches or partial match rules.
- * @param filters - An object where keys are field names and values are filter values.
- * @returns A `FindOptionsWhere` object to inject into the `where` clause.
- */
-function getWhereByValue(filters: Record<string, any> = {}): Record<string, any> | undefined {
-  if (!filters || Object.keys(filters).length === 0) return undefined
-
-  // Build conditions dynamically
-  return Object.entries(filters).reduce(
-    (acc, [field, value]) => {
-      if (value === undefined || value === null) {
-        return acc // Skip undefined or null values
-      }
-
-      const formattedField = field.includes('.') ? `"${field}"` : field
-
-      // Use exact match for ID (or UUID fields)
-      if (field === 'id' && isUuid(value)) {
-        acc[formattedField] = value
-      }
-      // Use strict equality for UUIDs
-      else if (typeof value === 'string' && isUuid(value)) {
-        acc[formattedField] = value
-      }
-      // Use ILIKE for text-based fields
-      else if (typeof value === 'string') {
-        acc[formattedField] = ILike(`%${value}%`)
-      }
-      // Use exact match for other data types
-      else {
-        acc[formattedField] = value
-      }
-
-      return acc
-    },
-    {} as Record<string, any>,
-  )
-}
-
-// Helper function to validate if a string is a UUID
-function isUuid(value: string): boolean {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-  return uuidRegex.test(value)
-}
-
-/**
  * Base repository class that provides common, reusable repository operations.
  */
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
@@ -272,7 +198,21 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
 
       // Adiciona joins
       for (const relation of relations) {
-        queryBuilder.leftJoinAndSelect(`${alias}.${relation}`, relation)
+        const parts = relation.split('.')
+        let path = alias
+        let aliasPath = alias
+
+        for (const part of parts) {
+          const nextPath = `${path}.${part}`
+          const nextAlias = `${aliasPath}_${part}` // Substitui ponto por underline
+
+          if (!queryBuilder.expressionMap.joinAttributes.find((j) => j.alias?.name === nextAlias)) {
+            queryBuilder.leftJoinAndSelect(nextPath, nextAlias)
+          }
+
+          path = nextAlias
+          aliasPath = nextAlias
+        }
       }
 
       // Converte valores string 'true'/'false' em booleanos reais
@@ -412,7 +352,21 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
 
       // Adiciona joins
       for (const relation of relations) {
-        queryBuilder.leftJoinAndSelect(`${alias}.${relation}`, relation)
+        const parts = relation.split('.')
+        let path = alias
+        let aliasPath = alias
+
+        for (const part of parts) {
+          const nextPath = `${path}.${part}`
+          const nextAlias = `${aliasPath}_${part}` // Substitui ponto por underline
+
+          if (!queryBuilder.expressionMap.joinAttributes.find((j) => j.alias?.name === nextAlias)) {
+            queryBuilder.leftJoinAndSelect(nextPath, nextAlias)
+          }
+
+          path = nextAlias
+          aliasPath = nextAlias
+        }
       }
 
       // Converte valores string 'true'/'false' em booleanos reais

@@ -21,7 +21,7 @@ export abstract class ClientBaseEntity extends EntityBase {
   @Column({ type: 'uuid', nullable: true })
   profileId?: string
 
-  @OneToOne(() => PersonEntity, (person) => person.client, { cascade: true, eager: true })
+  @OneToOne(() => PersonEntity, (person) => person.client, { cascade: true })
   @JoinColumn({ name: 'personId', referencedColumnName: 'id' })
   person!: PersonEntity
 
