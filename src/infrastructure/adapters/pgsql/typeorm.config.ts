@@ -1,16 +1,17 @@
 import 'dotenv/config'
 import { DataSource } from 'typeorm'
-import process from 'node:process'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+const config = new ConfigEnvironmentService()
 
 export const AppDataSource = new DataSource({
-  type: 'postgres',
-  host: process.env.DB_HOST === 'db' ? 'localhost' : process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  type: config.database.type as 'postgres' | 'mysql' | 'mariadb',
+  host: config.database.host,
+  port: Number(config.database.port),
+  username: config.database.user,
+  password: config.database.password,
+  database: config.database.name,
   entities: [__dirname + '/../**/*.entity.{ts,js}'],
   migrations: [__dirname + '/migrations/**/*.{ts,js}'],
   synchronize: false,
-  ssl: { rejectUnauthorized: process.env.DB_SSL === 'false' }
+  ssl: { rejectUnauthorized: false }
 })

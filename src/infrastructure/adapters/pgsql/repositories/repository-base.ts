@@ -354,7 +354,6 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
         )
       }
 
-
       // Ordenação
       for (const [key, direction] of Object.entries(order)) {
         if (key.includes('.')) {
@@ -473,7 +472,6 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
         )
       }
 
-
       // Ordenação
       for (const [key, direction] of Object.entries(order)) {
         if (key.includes('.')) {
@@ -483,7 +481,6 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
           queryBuilder.addOrderBy(`${alias}.${key}`, direction.toUpperCase() as 'ASC' | 'DESC')
         }
       }
-
 
       return await queryBuilder.getMany()
     } catch (e: any) {
@@ -539,6 +536,33 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
       await repository.save(existingEntity)
     } catch (e: any) {
       this.logger.error(`Error patching object: ${e.message}`, e.stack)
+      throw e
+    }
+  }
+
+  /**
+   * Remove object and its relationships from the database.
+   */
+  async removeObjectDatabase(id: string, relations: string[] = []): Promise<void> {
+    try {
+      const repository = this.manager.getRepository(this.target)
+
+      const entity = await repository.findOne({
+        where: { id } as FindOptionsWhere<any>,
+        relations,
+      })
+
+      if (!entity) {
+        const entityName = typeof this.target === 'function' ? this.target.name : String(this.target)
+        throw new NotFoundException(`${entityName} with id '${id}' not found`)
+      }
+
+      await repository.remove(entity)
+
+      const entityName = typeof this.target === 'function' ? this.target.name : String(this.target)
+      this.logger.log(`Removed ${entityName} and related entities for id: ${id}`)
+    } catch (e) {
+      this.logger.error(`RemoveObjectDatabase: ${id}`, e)
       throw e
     }
   }
