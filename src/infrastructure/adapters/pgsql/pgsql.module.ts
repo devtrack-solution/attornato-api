@@ -56,15 +56,23 @@ import { AdministrativeRepositoryOutboundPortSymbol } from '@/domain/process/com
 import { ClientRepositoryOutboundPortSymbol } from '@/domain/client/ports/outbound/client-repository.outbound-port'
 import { PreferenceRepositoryOutboundPortSymbol } from '@/domain/account/component/preference/ports/outbound/preference-repository.outbound-port'
 import { PreferenceRepository } from '@/infrastructure/adapters/pgsql/repositories/preference.repository'
+import { ConfigModule } from '@/infrastructure/config/config.module'
+import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { AppConfigToken } from '@/domain/app-config.interface'
 
 @Module({
   imports: [
+    ConfigModule,
     TypeOrmModule.forRootAsync({
       name: 'pgsql',
       useFactory: async () => typeOrmConfig,
     }),
   ],
   providers: [
+    {
+      provide: AppConfigToken,
+      useClass: ConfigEnvironmentService,
+    },
     {
       provide: DataSource,
       useFactory: async () => {
@@ -184,6 +192,10 @@ import { PreferenceRepository } from '@/infrastructure/adapters/pgsql/repositori
   exports: [
     DataSource,
     TypeOrmModule,
+    {
+      provide: AppConfigToken,
+      useClass: ConfigEnvironmentService,
+    },
     {
       provide: PermissionRepositoryOutboundPortSymbol,
       useClass: PermissionRepository,

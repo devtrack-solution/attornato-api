@@ -1,15 +1,17 @@
 import { BindProvider } from '@/infrastructure/decorators/bind.decorator'
-import { DataSource, FindManyOptions, FindOptionsWhere, ILike, Repository } from 'typeorm'
+import { DataSource } from 'typeorm'
 import { InjectDataSource } from '@nestjs/typeorm'
 import { RepositoryBase } from '@/infrastructure/adapters/pgsql/repositories/repository-base'
-
 import { PermissionRepositoryOutboundPort, PermissionRepositoryOutboundPortSymbol } from '@/domain/todo/ports/outbound/permission-repository.outbound-port'
 import { PermissionEntity } from '@/infrastructure/adapters/pgsql/entities/permission.entity'
+import { Inject } from '@nestjs/common'
+import { AppConfig, AppConfigToken } from '@/domain/app-config.interface'
+
 
 @BindProvider(PermissionRepositoryOutboundPortSymbol)
 export class PermissionRepository extends RepositoryBase<PermissionEntity> implements PermissionRepositoryOutboundPort {
-  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {
-    super(PermissionEntity, dataSource.createEntityManager(), dataSource.createQueryRunner())
+  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource, @Inject(AppConfigToken) config: AppConfig) {
+    super(PermissionEntity, dataSource.createEntityManager(), config, dataSource.createQueryRunner())
   }
 
   /*  override async saveObject(permission: Partial<PermissionType.Input>): Promise<void> {

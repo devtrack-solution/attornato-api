@@ -1,3 +1,6 @@
+export const AppConfigToken = Symbol('AppConfig')
+
+
 export interface AppConfig {
   environment: string | undefined
   label: string | undefined

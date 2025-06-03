@@ -6,6 +6,12 @@ import { Logger, NotFoundException } from '@nestjs/common'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { DateTime } from 'luxon'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { AppConfig } from '@/domain/app-config.interface'
+import { QueryAliasHelper } from '@/core/utils/query-alias.helper'
+import { SearchQueryHelper } from '@/core/utils/search-query.helper'
+import { FilterQueryHelper } from '@/core/utils/filter-query.helper'
+import { SelectQueryHelper } from '@/core/utils/select-query.helper'
+import { RelationQueryHelper } from '@/core/utils/relation-query.helper'
 
 /**
  * Base repository class that provides common, reusable repository operations.
@@ -13,7 +19,12 @@ import { ConfigEnvironmentService } from '@/infrastructure/config/config-environ
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
   protected readonly logger: Logger
 
-  protected constructor(target: EntityTarget<T>, manager: EntityManager, queryRunner?: QueryRunner) {
+  protected constructor(
+    target: EntityTarget<T>,
+    manager: EntityManager,
+    private readonly config: AppConfig,
+    queryRunner?: QueryRunner,
+  ) {
     super(target, manager, queryRunner)
     this.logger = new Logger(this.constructor.name)
   }
@@ -174,141 +185,72 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     relations: string[] = [],
     filters: Record<string, any> = {},
     whereByValue: Record<string, any> = {},
-  ): Promise<{
-    count: number
-    limit: number
-    offset: number
-    data: Partial<T>[]
-  }> {
+  ): Promise<{ count: number; limit: number; offset: number; data: Partial<T>[] }> {
     try {
-      let alias = 'entity' // valor padrão se for string
-
-      if (typeof this.target === 'function') {
-        alias = this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase())
-      }
+      const alias = typeof this.target === 'function' ? this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase()) : 'entity'
 
       const queryBuilder = this.manager.getRepository(this.target).createQueryBuilder(alias)
-
-      const columnMap: Record<string, string> = {
+      const aliasHelper = new QueryAliasHelper(alias)
+      const searchHelper = new SearchQueryHelper(this.config.database.type as 'mysql' | 'postgres', aliasHelper)
+      const filterHelper = new FilterQueryHelper(aliasHelper, {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         deletedAt: 'deleted_at',
         isActive: 'is_active',
-      }
+      })
+      const relationHelper = new RelationQueryHelper(aliasHelper)
+      const selectHelper = new SelectQueryHelper(aliasHelper)
 
-      // Adiciona joins
-      for (const relation of relations) {
-        const parts = relation.split('.')
-        let path = alias
-        let aliasPath = alias
+      // Joins
+      relationHelper.applyRelations(queryBuilder, alias, relations)
 
-        for (const part of parts) {
-          const nextPath = `${path}.${part}`
-          const nextAlias = `${aliasPath}_${part}` // Substitui ponto por underline
-
-          if (!queryBuilder.expressionMap.joinAttributes.find((j) => j.alias?.name === nextAlias)) {
-            queryBuilder.leftJoinAndSelect(nextPath, nextAlias)
-          }
-
-          path = nextAlias
-          aliasPath = nextAlias
-        }
-      }
-
-      // Converte valores string 'true'/'false' em booleanos reais
+      // Converte 'true'/'false'
       const propsAny = props as Record<string, any>
-      for (const key in propsAny) {
-        if (propsAny[key] === 'true') propsAny[key] = true
-        if (propsAny[key] === 'false') propsAny[key] = false
-      }
+      Object.entries(propsAny).forEach(([key, value]) => {
+        if (value === 'true') propsAny[key] = true
+        if (value === 'false') propsAny[key] = false
+      })
 
-      // Busca por texto
+      // Search
       if (props.search && searchFields.length) {
-        queryBuilder.andWhere(
-          new Brackets((qb) => {
-            for (const field of searchFields) {
-              const [relationAlias, rawField] = field.includes('.') ? field.split('.') : [alias, field]
-
-              const dbField = columnMap[rawField] || rawField
-              const fieldPath = `${relationAlias}.${dbField}`
-
-              // Aplica cast se for campo de data
-              if (['created_at', 'updated_at', 'deleted_at'].includes(dbField)) {
-                qb.orWhere(`LOWER(CAST(${fieldPath} AS TEXT)) LIKE LOWER(:search)`, {
-                  search: `%${props.search}%`,
-                })
-              } else {
-                qb.orWhere(`LOWER(${fieldPath}) LIKE LOWER(:search)`, {
-                  search: `%${props.search}%`,
-                })
-              }
-            }
-          }),
-        )
+        const mappedSearchFields = searchFields.map((field) => {
+          const parts = field.split('.')
+          const rawField = parts.pop()!
+          const prefix = parts.length ? parts.join('.') + '.' : ''
+          const dbField = filterHelper['columnMap'][rawField] || rawField
+          return `${prefix}${dbField}`
+        })
+        searchHelper.applySearch(queryBuilder, props.search, mappedSearchFields)
       }
 
-      // filters dinâmicos
-      for (const key in filters) {
-        if (filters[key] === undefined || filters[key] === null) continue
+      // Filtros dinâmicos
+      filterHelper.applyFilters(queryBuilder, filters, alias)
 
-        const [fieldPath, operator] = key.split('_')
-        const [relationAlias, rawField] = fieldPath.includes('.') ? fieldPath.split('.') : [alias, fieldPath]
-        const field = columnMap[rawField] || rawField
-        const param = `${relationAlias}_${field}_${operator ?? 'eq'}`
-
-        if (operator === 'from') {
-          queryBuilder.andWhere(`${relationAlias}.${field} >= :${param}`, { [param]: filters[key] })
-        } else if (operator === 'to') {
-          queryBuilder.andWhere(`${relationAlias}.${field} <= :${param}`, { [param]: filters[key] })
-        } else if (operator === 'like') {
-          queryBuilder.andWhere(`LOWER(${relationAlias}.${field}) LIKE LOWER(:${param})`, {
-            [param]: `%${filters[key]}%`,
-          })
-        } else {
-          queryBuilder.andWhere(`${relationAlias}.${field} = :${param}`, { [param]: filters[key] })
+      // whereByValue
+      Object.entries(whereByValue).forEach(([key, value]) => {
+        if (value !== undefined) {
+          queryBuilder.andWhere(`${key} = :${key}`, { [key]: value })
         }
-      }
+      })
 
-      // Aplica filtros whereByValue
-      for (const key in whereByValue) {
-        if (whereByValue[key] !== undefined) {
-          queryBuilder.andWhere(`${key} = :${key}`, { [key]: whereByValue[key] })
-        }
-      }
-
-      // Filtro por enable se definido
+      // Ativo
       if (props.isActive !== undefined) {
         queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
       }
 
-      // Select de campos
-      if (select?.length) {
-        queryBuilder.select(
-          select.map((field) => {
-            if (field.includes('.')) {
-              const [relation, column] = field.split('.')
-              return `${relation}.${column}`
-            }
-            return `${alias}.${field}`
-          }),
-        )
-      }
+      // Select
+      selectHelper.applySelect(queryBuilder, select)
 
       // Ordenação
-      for (const [key, direction] of Object.entries(order)) {
-        if (key.includes('.')) {
-          const [relation, column] = key.split('.')
-          queryBuilder.addOrderBy(`${relation}.${column}`, direction.toUpperCase() as 'ASC' | 'DESC')
-        } else {
-          queryBuilder.addOrderBy(`${alias}.${key}`, direction.toUpperCase() as 'ASC' | 'DESC')
-        }
-      }
+      Object.entries(order).forEach(([key, dir]) => {
+        const path = aliasHelper.getColumnPath(key)
+        queryBuilder.addOrderBy(path, dir.toUpperCase() as 'ASC' | 'DESC')
+      })
 
       // Paginação
       queryBuilder.skip(props.offset ?? 0)
       queryBuilder.take(props.limit ?? 10)
 
-      // Executa
       const [data, count] = await queryBuilder.getManyAndCount()
 
       return {
@@ -335,13 +277,13 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     whereByValue: Record<string, any> = {},
   ): Promise<T[]> {
     try {
-      let alias = 'entity' // valor padrão se for string
-
-      if (typeof this.target === 'function') {
-        alias = this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase())
-      }
+      const alias = typeof this.target === 'function' ? this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase()) : 'entity'
 
       const queryBuilder = this.manager.getRepository(this.target).createQueryBuilder(alias)
+      const aliasHelper = new QueryAliasHelper(alias)
+      const searchHelper = new SearchQueryHelper(this.config.database.type as 'mysql' | 'postgres', aliasHelper)
+      const relationHelper = new RelationQueryHelper(aliasHelper)
+      const selectHelper = new SelectQueryHelper(aliasHelper)
 
       const columnMap: Record<string, string> = {
         createdAt: 'created_at',
@@ -350,91 +292,48 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
         isActive: 'is_active',
       }
 
-      // Adiciona joins
-      for (const relation of relations) {
-        const parts = relation.split('.')
-        let path = alias
-        let aliasPath = alias
+      // Joins
+      relationHelper.applyRelations(queryBuilder, alias, relations)
 
-        for (const part of parts) {
-          const nextPath = `${path}.${part}`
-          const nextAlias = `${aliasPath}_${part}` // Substitui ponto por underline
-
-          if (!queryBuilder.expressionMap.joinAttributes.find((j) => j.alias?.name === nextAlias)) {
-            queryBuilder.leftJoinAndSelect(nextPath, nextAlias)
-          }
-
-          path = nextAlias
-          aliasPath = nextAlias
-        }
-      }
-
-      // Converte valores string 'true'/'false' em booleanos reais
+      // Converte 'true'/'false'
       const propsAny = props as Record<string, any>
-      for (const key in propsAny) {
-        if (propsAny[key] === 'true') propsAny[key] = true
-        if (propsAny[key] === 'false') propsAny[key] = false
-      }
+      Object.entries(propsAny).forEach(([key, value]) => {
+        if (value === 'true') propsAny[key] = true
+        if (value === 'false') propsAny[key] = false
+      })
 
-      // Busca por texto
+      // Search
       if (props.search && searchFields.length) {
-        queryBuilder.andWhere(
-          new Brackets((qb) => {
-            for (const field of searchFields) {
-              const [relationAlias, rawField] = field.includes('.') ? field.split('.') : [alias, field]
-
-              const dbField = columnMap[rawField] || rawField
-              const fieldPath = `${relationAlias}.${dbField}`
-
-              // Aplica cast se for campo de data
-              if (['created_at', 'updated_at', 'deleted_at'].includes(dbField)) {
-                qb.orWhere(`LOWER(CAST(${fieldPath} AS TEXT)) LIKE LOWER(:search)`, {
-                  search: `%${props.search}%`,
-                })
-              } else {
-                qb.orWhere(`LOWER(${fieldPath}) LIKE LOWER(:search)`, {
-                  search: `%${props.search}%`,
-                })
-              }
-            }
-          }),
-        )
+        const mappedSearchFields = searchFields.map((field) => {
+          const parts = field.split('.')
+          const rawField = parts.pop()!
+          const prefix = parts.length ? parts.join('.') + '.' : ''
+          const dbField = columnMap[rawField] || rawField
+          return `${prefix}${dbField}`
+        })
+        searchHelper.applySearch(queryBuilder, props.search, mappedSearchFields)
       }
 
-      // Aplica filtros whereByValue
-      for (const key in whereByValue) {
-        if (whereByValue[key] !== undefined) {
-          queryBuilder.andWhere(`${key} = :${key}`, { [key]: whereByValue[key] })
+      // whereByValue
+      Object.entries(whereByValue).forEach(([key, value]) => {
+        if (value !== undefined) {
+          queryBuilder.andWhere(`${key} = :${key}`, { [key]: value })
         }
-      }
+      })
 
-      // Filtro por enable se definido
+      // Ativo
       if (props.isActive !== undefined) {
         queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
       }
 
-      // Select de campos
-      if (select?.length) {
-        queryBuilder.select(
-          select.map((field) => {
-            if (field.includes('.')) {
-              const [relation, column] = field.split('.')
-              return `${relation}.${column}`
-            }
-            return `${alias}.${field}`
-          }),
-        )
-      }
+      // Select
+      selectHelper.applySelect(queryBuilder, select)
 
       // Ordenação
-      for (const [key, direction] of Object.entries(order)) {
-        if (key.includes('.')) {
-          const [relation, column] = key.split('.')
-          queryBuilder.addOrderBy(`${relation}.${column}`, direction.toUpperCase() as 'ASC' | 'DESC')
-        } else {
-          queryBuilder.addOrderBy(`${alias}.${key}`, direction.toUpperCase() as 'ASC' | 'DESC')
-        }
-      }
+      Object.entries(order).forEach(([key, direction]) => {
+        const path = aliasHelper.getColumnPath(key)
+        queryBuilder.addOrderBy(path, direction.toUpperCase() as 'ASC' | 'DESC')
+      })
 
       return await queryBuilder.getMany()
     } catch (e: any) {

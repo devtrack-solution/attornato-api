@@ -7,10 +7,13 @@ import {
   LocalProcedureNameRepositoryOutboundPortSymbol,
 } from '@/domain/process/component/local-procedure-name/ports/outbound/local-procedure-name-repository.outbound-port'
 import { LocalProcedureNameEntity } from '@/infrastructure/adapters/pgsql/entities/local-procedure-name.entity'
+import { Inject } from '@nestjs/common'
+import { AppConfig, AppConfigToken } from '@/domain/app-config.interface'
+
 
 @BindProvider(LocalProcedureNameRepositoryOutboundPortSymbol)
 export class LocalProcedureNameRepository extends RepositoryBase<LocalProcedureNameEntity> implements LocalProcedureNameRepositoryOutboundPort {
-  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {
-    super(LocalProcedureNameEntity, dataSource.createEntityManager(), dataSource.createQueryRunner())
+  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource, @Inject(AppConfigToken) config: AppConfig) {
+    super(LocalProcedureNameEntity, dataSource.createEntityManager(), config, dataSource.createQueryRunner())
   }
 }

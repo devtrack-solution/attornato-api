@@ -7,10 +7,13 @@ import {
   CommunicationChannelRepositoryOutboundPort,
   CommunicationChannelRepositoryOutboundPortSymbol,
 } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/outbound/communication-channel-repository.outbound-port'
+import { Inject } from '@nestjs/common'
+import { AppConfig, AppConfigToken } from '@/domain/app-config.interface'
+
 
 @BindProvider(CommunicationChannelRepositoryOutboundPortSymbol)
 export class CommunicationChannelRepository extends RepositoryBase<CommunicationChannelEntity> implements CommunicationChannelRepositoryOutboundPort {
-  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource) {
-    super(CommunicationChannelEntity, dataSource.createEntityManager(), dataSource.createQueryRunner())
+  constructor(@InjectDataSource('pgsql') private readonly dataSource: DataSource, @Inject(AppConfigToken) config: AppConfig) {
+    super(CommunicationChannelEntity, dataSource.createEntityManager(), config, dataSource.createQueryRunner())
   }
 }
