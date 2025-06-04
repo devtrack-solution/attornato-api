@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateFreeField2Service } from './create-free-field-2.service'
 import { DeleteFreeField2Service } from './delete-free-field-2.service'
 import { ListFreeField2Service } from './list-free-field-2.service'
@@ -12,7 +12,7 @@ import { ListToSelectFreeField2InboundPortToken } from '@/domain/process/compone
 import { PatchFreeField2InboundPortToken } from '@/domain/process/component/process-detail/component/free-field-2/ports/inbound/patch-free-field-2.inbound-port'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

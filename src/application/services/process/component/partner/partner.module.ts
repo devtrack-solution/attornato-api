@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreatePartnerInboundPortToken } from '@/domain/process/component/partner/ports/inbound/create-partner.inbound-port'
 import { DeletePartnerInboundPortToken } from '@/domain/process/component/partner/ports/inbound/delete-partner.inbound-port'
 import { CreatePartnerService } from '@/application/services/process/component/partner/create-partner.service'
@@ -12,7 +12,7 @@ import { PatchPartnerInboundPortToken } from '@/domain/process/component/partner
 import { PatchPartnerService } from '@/application/services/process/component/partner/patch-partner.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { SharedModule } from '@/commons/shared.module'
 import { MailSenderServiceImplementation, MailSenderServiceSymbol } from '@/infrastructure/adapters/aws/services/mail-sender.service'
+import { ConfigModule } from '@/infrastructure/config/config.module'
 
 @Module({
-  imports: [SharedModule],
+  imports: [ConfigModule],
   providers: [
     {
       provide: MailSenderServiceSymbol,

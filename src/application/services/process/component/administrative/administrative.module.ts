@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateAdministrativeInboundPortToken } from '@/domain/process/component/administrative/ports/inbound/create-administrative-responsible.inbound-port'
 import { DeleteAdministrativeInboundPortToken } from '@/domain/process/component/administrative/ports/inbound/delete-administrative.inbound-port'
 import { ListAdministrativeInboundPortToken } from '@/domain/process/component/administrative/ports/inbound/list-administrative.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectAdministrativeService } from './list-to-select-administrati
 import { PatchAdministrativeService } from './patch-administrative.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

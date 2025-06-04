@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateProfileInboundPortToken } from '@/domain/client/component/profile/ports/inbound/create-profile.inbound-port'
 import { DeleteProfileInboundPortToken } from '@/domain/client/component/profile/ports/inbound/delete-profile.inbound-port'
 import { CreateProfileService } from '@/application/services/client/component/profile/create-profile.service'
@@ -12,7 +12,7 @@ import { PatchProfileInboundPortToken } from '@/domain/client/component/profile/
 import { PatchProfileService } from '@/application/services/client/component/profile/patch-profile.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

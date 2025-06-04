@@ -18,7 +18,7 @@ export function MODIFY_DATA(pass?: string) {
             <p>Sua senha foi alterada com sucesso. Se você não realizou esta alteração, recomendamos que você troque sua senha imediatamente para garantir a segurança da sua conta.</p>
             ${pass ? `<p>Senha: ${pass}</p>` : ''}
             <p>Atenciosamente,</p>
-            <p>Equipe ${config.project.name}</p>
+            <p>Equipe ${config.project.projectName}</p>
         </div>
     </body>
     </html>
@@ -43,7 +43,7 @@ export function RECOVERY_CODE_EMAIL(email: string, recoveryCode: string) {
                 <p style="line-height: 1.6;">Este código é válido por 30 minutos.</p>
                 <p style="line-height: 1.6;">Se você não solicitou a recuperação de sua conta, por favor, ignore este e-mail.</p>
                 <p style="line-height: 1.6;">Atenciosamente,</p>
-                <p style="line-height: 1.6;">Equipe ${config.project.name}</p>
+                <p style="line-height: 1.6;">Equipe ${config.project.projectName}</p>
             </div>
 
             <div style="text-align: center; padding: 20px;">

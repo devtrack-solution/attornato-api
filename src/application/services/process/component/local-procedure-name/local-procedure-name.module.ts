@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateLocalProcedureNameInboundPortToken } from '@/domain/process/component/local-procedure-name/ports/inbound/create-local-procedure-name.inbound-port'
 import { CreateLocalProcedureNameService } from '@/application/services/process/component/local-procedure-name/create-local-procedure-name.service'
 import { DeleteLocalProcedureNameInboundPortToken } from '@/domain/process/component/local-procedure-name/ports/inbound/delete-local-procedure.name.inbound-port'
@@ -12,7 +12,7 @@ import { PatchLocalProcedureNameInboundPortToken } from '@/domain/process/compon
 import { PatchLocalProcedureNameService } from '@/application/services/process/component/local-procedure-name/patch-local-procedure-name.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

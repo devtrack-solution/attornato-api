@@ -1,7 +1,7 @@
 import { IRelationalDatabaseOutboundPort } from '@/core/domain/ports/outbound/relational-database.outbound-port'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { AccountType } from '@/domain/account/types/account.type'
-import { AccountEntity } from '@/infrastructure/adapters/pgsql/entities/account.entity'
+import { AccountEntity } from '@/infrastructure/adapters/relational-database/entities/account.entity'
 
 export const AccountRepositoryOutboundPortSymbol = Symbol('AccountRepositoryOutboundPortSymbol')
 

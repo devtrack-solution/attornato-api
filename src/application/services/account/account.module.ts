@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { ListAccountService } from '@/application/services/account/list-account.service'
 import { CreateAccountInboundPortToken } from '@/domain/account/ports/inbound/create-account.inbound-port'
 import { ListAccountInboundPortToken } from '@/domain/account/ports/inbound/list-account.inbound-port'
@@ -10,7 +10,7 @@ import { DeleteAccountService } from '@/application/services/account/delete-acco
 import { ListToSelectAccountService } from '@/application/services/account/list-to-select-account.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

@@ -9,7 +9,7 @@ import { CoreModule } from '@/core/core.module'
   imports: [
     CoreModule,
     ApplicationModule,
-    InfrastructureModule.forRoot(),
+    InfrastructureModule,
     PresentationModule,
     ConfigModule.forRoot({
       isGlobal: true,

@@ -100,9 +100,11 @@ export class ConfigEnvironmentService implements AppConfig {
   }
   get project(): AppConfig['project'] {
     return {
-      name: process.env.NAME || 'default',
+      projectName: process.env.PROJECT_NAME || 'DEFAULT',
       url: process.env.URL || 'http://localhost:4200',
-      timeZone: process.env.TIMEZONE || 'America/Sao_Paulo'
+      timeZone: process.env.TIMEZONE || 'America/Sao_Paulo',
+      nameSpace: process.env.PINECONE_NAMESPACE || 'DEV',
+      uploadURL: process.env.UPLOAD_URL || 'DEFAULT',
     }
   }
   /**

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateResponsibleInboundPortToken } from '@/domain/process/component/responsible/ports/inbound/create-responsible.inbound-port'
 import { CreateResponsibleService } from './create-responsible.service'
 import { DeleteResponsibleInboundPortToken } from '@/domain/process/component/responsible/ports/inbound/delete-responsible.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectResponsibleService } from './list-to-select-responsible.ser
 import { PatchResponsibleService } from './patch-responsible.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

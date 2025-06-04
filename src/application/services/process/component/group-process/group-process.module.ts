@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateGroupProcessInboundPortToken } from '@/domain/process/component/group-process/ports/inbound/create-group-process.inbound-port'
 import { DeleteGroupProcessInboundPortToken } from '@/domain/process/component/group-process/ports/inbound/delete-group-process.inbound-port'
 import { CreateGroupProcessService } from '@/application/services/process/component/group-process/create-group-process.service'
@@ -12,7 +12,7 @@ import { PatchGroupProcessInboundPortToken } from '@/domain/process/component/gr
 import { PatchGroupProcessService } from '@/application/services/process/component/group-process/patch-group-process.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

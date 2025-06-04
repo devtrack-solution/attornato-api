@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/commo
 import { LoginAuthInboundPort } from '@/domain/securities/ports/inbound/component/auth/login-auth.inbound-port'
 import { AuthType } from '@/domain/securities/types/auth.type'
 import { CredentialRepositoryOutboundPort, CredentialRepositoryOutboundPortSymbol } from '@/domain/securities/ports/outbound/credential-repository.outbound-port'
-import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
+import { CredentialEntity } from '@/infrastructure/adapters/relational-database/entities/credential.entity'
 import { JwtService } from '@nestjs/jwt'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'

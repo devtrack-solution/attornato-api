@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateRoleInboundPortToken } from '@/domain/securities/ports/inbound/component/role/create-role.inbound-port'
 import { CreateRoleService } from '@/application/services/role/use-cases/create-role.service'
 import { DeleteRoleInboundPortToken } from '@/domain/securities/ports/inbound/component/role/delete-role.inbound-port'
@@ -12,8 +12,7 @@ import { PatchRoleInboundPortToken } from '@/domain/securities/ports/inbound/com
 import { PatchRoleService } from '@/application/services/role/use-cases/patch-role.service'
 
 @Module({
-  imports: [CoreModule],
-  controllers: [],
+  imports: [InfrastructureModule],
   providers: [
     {
       provide: CreateRoleInboundPortToken,

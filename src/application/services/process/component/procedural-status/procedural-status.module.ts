@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { ListToSelectProceduralStatusService } from '@/application/services/process/component/procedural-status/list-to-select-procedural-status.service'
 import { from } from 'rxjs'
 import { CreateProceduralStatusInboundPortToken } from '@/domain/process/component/procedural-status/ports/inbound/create-procedural-status.inbound-port'
@@ -13,7 +13,7 @@ import { PatchProceduralStatusInboundPortToken } from '@/domain/process/componen
 import { PatchProceduralStatusService } from '@/application/services/process/component/procedural-status/patch-procedural-status.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

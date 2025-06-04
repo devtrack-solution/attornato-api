@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateIndividualInboundPortToken } from '@/domain/client/component/individual/ports/inbound/create-individual.inbound-port'
 import { DeleteIndividualInboundPortToken } from '@/domain/client/component/individual/ports/inbound/delete-individual.inbound-port'
 import { ListIndividualInboundPortToken } from '@/domain/client/component/individual/ports/inbound/list-individual.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectIndividualService } from './list-to-select-individual.servi
 import { PatchIndividualService } from './patch-individual.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

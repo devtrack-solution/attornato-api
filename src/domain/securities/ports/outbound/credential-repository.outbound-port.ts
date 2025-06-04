@@ -2,7 +2,7 @@ import { IRelationalDatabaseOutboundPort } from '@/core/domain/ports/outbound/re
 import { CredentialType } from '@/domain/securities/types/credential.type'
 import { Criteria } from '@/core/domain/types/criteria.type'
 import { AuthType } from '@/domain/securities/types/auth.type'
-import { CredentialEntity } from '@/infrastructure/adapters/pgsql/entities/credential.entity'
+import { CredentialEntity } from '@/infrastructure/adapters/relational-database/entities/credential.entity'
 
 export const CredentialRepositoryOutboundPortSymbol = Symbol('CredentialRepositoryOutboundPortSymbol')
 

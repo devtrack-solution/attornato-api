@@ -1,6 +1,5 @@
 export const AppConfigToken = Symbol('AppConfig')
 
-
 export interface AppConfig {
   environment: string | undefined
   label: string | undefined
@@ -62,9 +61,11 @@ export interface AppConfig {
     }
   }
   project: {
-    name: string
+    projectName: string
     url: string
     timeZone: string
+    nameSpace: string
+    uploadURL: string
   }
   logLevel: string[]
   fastify: {

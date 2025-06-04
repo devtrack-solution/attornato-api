@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateGroupCustomerInboundPortToken } from '@/domain/client/component/group-customer/ports/inbound/create-group-customer.inbound-port'
 import { DeleteGroupCustomerInboundPortToken } from '@/domain/client/component/group-customer/ports/inbound/delete-group-customer.inbound-port'
 import { CreateGroupCustomerService } from '@/application/services/client/component/group-customer/create-group-customer.service'
@@ -12,7 +12,7 @@ import { PatchGroupCustomerInboundPortToken } from '@/domain/client/component/gr
 import { PatchGroupCustomerService } from '@/application/services/client/component/group-customer/patch-group-customer.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

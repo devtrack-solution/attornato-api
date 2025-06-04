@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { DeletePracticeAreaService } from '@/application/services/process/component/practice-area/delete-practice-area.service'
 import { DeletePracticeAreaInboundPortToken } from '@/domain/process/component/practice-area/ports/inbound/delete-practice-area.inbound-port'
 import { CreatePracticeAreaService } from '@/application/services/process/component/practice-area/create-practice-area.service'
@@ -12,7 +12,7 @@ import { PatchPracticeAreaInboundPortToken } from '@/domain/process/component/pr
 import { CreatePracticeAreaInboundPortToken } from '@/domain/process/component/practice-area/ports/inbound/create-practice-area.inbound-port'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

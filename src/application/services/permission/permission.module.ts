@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreatePermissionInboundPortToken } from '@/domain/todo/ports/inbound/permission/create-permission.inbound-port'
 import { CreatePermissionService } from '@/application/services/permission/create-permission.service'
 import { DeletePermissionService } from '@/application/services/permission/delete-permission.service'
@@ -14,7 +14,7 @@ import { PatchPermissionService } from '@/application/services/permission/patch-
 import { ListPermissionInboundPortToken } from '@/domain/securities/ports/inbound/component/permission/list-permission.inbound-port'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

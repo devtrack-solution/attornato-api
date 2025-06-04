@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/create-judicial.inbound-port'
 import { DeleteJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/delete-judicial.inbound-port'
 import { ListJudicialInboundPortToken } from '@/domain/process/component/judicial/ports/inbound/list-judicial.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectJudicialService } from './list-to-select-judicial.service'
 import { PatchJudicialService } from './patch-judicial.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

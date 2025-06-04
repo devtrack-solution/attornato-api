@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreatePreferenceInboundPortToken } from '@/domain/account/component/preference/ports/inbound/create-preference.inbound-port'
 import { DeletePreferenceInboundPortToken } from '@/domain/account/component/preference/ports/inbound/delete-preference.inbound-port'
 import { CreatePreferenceService } from '@/application/services/account/component/preference/create-preference.service'
@@ -10,7 +10,7 @@ import { PatchPreferenceInboundPortToken } from '@/domain/account/component/pref
 import { PatchPreferenceService } from '@/application/services/account/component/preference/patch-preference.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

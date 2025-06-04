@@ -49,15 +49,14 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, options)
 
-  // Add descriptions to API tags
-  // document.tags = [
-  //   {
-  //     name: 'Permissions',
-  //     description: 'Endpoints related to managing permissions in the system',
-  //   },
-  // ];
-
-  SwaggerModule.setup('/docs', app, document)
+  SwaggerModule.setup('/docs', app, document, {
+    customSiteTitle: config.project.projectName,
+    swaggerOptions: {
+      docExpansion: 'none',
+      operationSorter: 'alpha',
+      tagSorter: 'alpha',
+    },
+  })
   logger.log(`${config.label} API Service in ${addressString}/docs`)
   await app.listen(config.apiPort, config.apiHost)
 }

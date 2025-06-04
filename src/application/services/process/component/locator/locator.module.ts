@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateLocatorInboundPortToken } from '@/domain/process/component/locator/ports/inbound/create-locator.inbound-port'
 import { DeleteLocatorInboundPortToken } from '@/domain/process/component/locator/ports/inbound/delete-locator.inbound-port'
 import { ListLocatorInboundPortToken } from '@/domain/process/component/locator/ports/inbound/list-locator.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectLocatorService } from './list-to-select-locator.service'
 import { PatchLocatorService } from './patch-locator.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

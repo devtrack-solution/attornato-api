@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateCommunicationChannelInboundPortToken } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/inbound/create-communication-channel.inbound-port'
 import { DeleteCommunicationChannelInboundPortToken } from '@/domain/client/component/person/communication-address/contact/communication-channel/ports/inbound/delete-communication-channel.inbound-port'
 import { CreateCommunicationChannelService } from '@/application/services/client/component/person/communication-address/contact/communication-channel/create-communication-channel.service'
@@ -12,7 +12,7 @@ import { PatchCommunicationChannelInboundPortToken } from '@/domain/client/compo
 import { PatchCommunicationChannelService } from '@/application/services/client/component/person/communication-address/contact/communication-channel/patch-communication-channel.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

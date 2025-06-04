@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreatePhaseInboundPortToken } from '@/domain/process/component/phase/ports/inbound/create-phase-responsible.inbound-port'
 import { DeletePhaseInboundPortToken } from '@/domain/process/component/phase/ports/inbound/delete-phase.inbound-port'
 import { ListPhaseInboundPortToken } from '@/domain/process/component/phase/ports/inbound/list-phase.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectPhaseService } from './list-to-select-phase.service'
 import { PatchPhaseService } from './patch-phase.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

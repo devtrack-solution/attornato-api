@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreatePrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/create-prognosis.inbound-port'
 import { DeletePrognosisInboundPortToken } from '@/domain/process/component/prognosis/ports/inbound/delete-prognosis.inbound-port'
 import { CreatePrognosisService } from '@/application/services/process/component/prognosis/create-prognosis.service'
@@ -12,7 +12,7 @@ import { PatchPrognosisInboundPortToken } from '@/domain/process/component/progn
 import { PatchPrognosisService } from '@/application/services/process/component/prognosis/patch-prognosis.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

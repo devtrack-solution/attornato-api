@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateOriginService } from './create-origin.service'
 import { DeleteOriginService } from './delete-origin.service'
 import { ListOriginService } from './list-origin.service'
@@ -12,7 +12,7 @@ import { ListToSelectOriginInboundPortToken } from '@/domain/process/component/o
 import { PatchOriginInboundPortToken } from '@/domain/process/component/origin/ports/inbound/patch-origin.inbound-port'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { CoreModule } from '@/core/core.module'
+import { InfrastructureModule } from '@/infrastructure/infrastructure.module'
 import { CreateCountyInboundPortToken } from '@/domain/process/component/county/ports/inbound/create-county.inbound-port'
 import { DeleteCountyInboundPortToken } from '@/domain/process/component/county/ports/inbound/delete-county.inbound-port'
 import { ListCountyInboundPortToken } from '@/domain/process/component/county/ports/inbound/list-county.inbound-port'
@@ -12,7 +12,7 @@ import { ListToSelectCountyService } from './list-to-select-county.service'
 import { PatchCountyService } from './patch-county.service'
 
 @Module({
-  imports: [CoreModule],
+  imports: [InfrastructureModule],
   controllers: [],
   providers: [
     {
