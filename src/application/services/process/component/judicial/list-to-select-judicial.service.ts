@@ -13,9 +13,9 @@ export class ListToSelectJudicialService implements ListToSelectJudicialInboundP
   ) {}
 
   async execute(criteria: Criteria.FindBy): Promise<Partial<JudicialType.Output[]>> {
-    const select: string[] = ['id', 'name']
-    const searchFields: string[] = ['name']
-    const order = { name: 'ASC' }
+    const select: string[] = ['id', 'processNumber']
+    const searchFields: string[] = ['processNumber']
+    const order = { processNumber: 'ASC' }
     let judicial = await this.judicialRepository.findForSelectByCriteria(criteria, order, select, searchFields)
     return judicial.map((judicial) => new Judicial(judicial as JudicialType.Output).toJson())
   }

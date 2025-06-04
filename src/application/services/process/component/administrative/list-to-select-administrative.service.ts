@@ -13,9 +13,9 @@ export class ListToSelectAdministrativeService implements ListToSelectAdministra
   ) {}
 
   async execute(criteria: Criteria.FindBy): Promise<Partial<AdministrativeType.Output[]>> {
-    const select: string[] = ['id', 'name']
-    const searchFields: string[] = ['name']
-    const order = { name: 'ASC' }
+    const select: string[] = ['id', 'processNumber']
+    const searchFields: string[] = ['processNumber']
+    const order = { processNumber: 'ASC' }
     let administrative = await this.administrativeRepository.findForSelectByCriteria(criteria, order, select, searchFields)
     return administrative.map((administrative) => new Administrative(administrative as AdministrativeType.Output).toJson())
   }

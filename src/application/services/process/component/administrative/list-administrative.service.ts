@@ -13,8 +13,29 @@ export class ListAdministrativeService implements ListAdministrativeInboundPort 
 
   async execute(criteria: Criteria.Paginated): Promise<AdministrativeType.OutputPaginated> {
     const select: string[] = []
-    const relations: string[] = ['groupProcess']
-    const searchFields: string[] = []
+    const relations: string[] = [
+      'client',
+      'localProcedureName',
+      'proceduralStatus',
+      'county',
+      'phase',
+      'practiceArea',
+      'responsible',
+      'actionObject',
+      'locator',
+      'subject',
+      'processFinancial',
+      'processDetail.detail',
+      'processDetail.freeField1',
+      'processDetail.freeField2',
+      'processDetail.freeField6',
+      'processDetail.origin',
+      'processDetail.partner',
+      'processDetail.prognosis',
+    ]
+    const searchFields: string[] = [
+      'client.profile.name'
+    ]
     const order = { createdAt: 'ASC' }
     let result = await this.administrativeRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let administrative = result.data.map((administrative) => administrative as AdministrativeType.Output)

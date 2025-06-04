@@ -15,7 +15,6 @@ export class ListJudicialService implements ListJudicialInboundPort {
     const select: string[] = []
     const relations: string[] = [
       'client',
-      'cnjNumber',
       'localProcedureName',
       'proceduralStatus',
       'county',
@@ -25,15 +24,19 @@ export class ListJudicialService implements ListJudicialInboundPort {
       'actionObject',
       'locator',
       'subject',
-      'processFinancial.detail',
-      'processFinancial.freeField1',
-      'processFinancial.freeField2',
-      'processFinancial.freeField6',
-      'processFinancial.origin',
-      'processFinancial.partner',
-      'processFinancial.prognosis',
+      'processFinancial',
+      'processDetail.detail',
+      'processDetail.freeField1',
+      'processDetail.freeField2',
+      'processDetail.freeField6',
+      'processDetail.origin',
+      'processDetail.partner',
+      'processDetail.prognosis',
     ]
-    const searchFields: string[] = []
+    const searchFields: string[] = [
+      'cnjNumber',
+      'client.profile.name'
+    ]
     const order = { createdAt: 'ASC' }
     let result = await this.judicialRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let judicial = result.data.map((judicial) => judicial as JudicialType.Output)
