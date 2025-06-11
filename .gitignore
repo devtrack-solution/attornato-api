@@ -48,3 +48,5 @@ yarn.lock
 .env.development
 setup.cmd
 codex.sh
+
+/tools/pems/
