@@ -24,7 +24,7 @@ export class HttpProxyInterceptorMiddleware implements NestMiddleware {
         throw new UnauthorizedException()
       }
       const token = (req.headers.authorization as string).replace('Bearer ', '')
-      const key = Buffer.from(this.config.jwt.publicKeyBase64, 'base64').toString('utf-8')
+      const key = Buffer.from(this.config.security.publicKey, 'base64').toString('utf-8')
 
       const tokenValue = await this.jwtService.verify(token as string, {
         secret: key,
