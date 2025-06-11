@@ -42,12 +42,14 @@ export interface AppConfig {
     methods: string[] | undefined
     allowedHeaders: string[] | undefined
   }
-  jwt: {
-    accessTokenExpInSec: number
-    refreshTokenExpInSec: number
-    publicKeyBase64: string
-    privateKeyBase64: string
+  security: {
+    expirationToken: number
+    refreshToken: number
+    issuer: string
+    audience: string
     algorithm: string
+    publicKey: string
+    privateKey: string
   }
   aws: {
     ses: {

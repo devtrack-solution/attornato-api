@@ -5,16 +5,17 @@ import { ApplicationModule } from '@/application/application.module'
 import { RolesGuard } from '@/commons/guard/roles.guard'
 import { AppConfig } from '@/domain/app-config.interface'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
+import { Algorithm } from 'jsonwebtoken'
 const config: AppConfig = new ConfigEnvironmentService()
 
 @Module({
   imports: [
     forwardRef(() => ApplicationModule),
     JwtModule.register({
-      publicKey: config.jwt.publicKeyBase64,
+      publicKey: config.security.publicKey,
       signOptions: {
-        algorithm: 'RS512',
-        expiresIn: config.jwt.refreshTokenExpInSec,
+        algorithm: config.security.algorithm as Algorithm,
+        expiresIn: config.security.refreshToken,
       },
     }),
   ],

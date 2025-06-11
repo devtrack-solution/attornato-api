@@ -54,7 +54,7 @@ export class LoginService implements LoginAuthInboundPort {
         ...role,
         permissions: role.permissions?.map((p) => p.name) ?? [],
       }))
-      const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
+      const privateKey = Buffer.from(this.config.security.privateKey, 'base64').toString('utf-8')
 
       return this.jwtService.sign(
         {
@@ -66,7 +66,7 @@ export class LoginService implements LoginAuthInboundPort {
         },
         {
           algorithm: 'RS512',
-          expiresIn: this.config.jwt.accessTokenExpInSec,
+          expiresIn: this.config.security.expirationToken,
           privateKey,
         },
       )

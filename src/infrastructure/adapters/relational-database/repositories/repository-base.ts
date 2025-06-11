@@ -1,4 +1,4 @@
-import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial, FindOptionsOrder, Brackets } from 'typeorm'
+import { FindManyOptions, FindOptionsWhere, ILike, ObjectLiteral, Repository, DeepPartial, FindOptionsOrder, Brackets, SelectQueryBuilder } from 'typeorm'
 import { EntityTarget } from 'typeorm/common/EntityTarget'
 import { EntityManager } from 'typeorm/entity-manager/EntityManager'
 import { QueryRunner } from 'typeorm/query-runner/QueryRunner'
@@ -7,17 +7,20 @@ import { Criteria } from '@/core/domain/types/criteria.type'
 import { DateTime } from 'luxon'
 import { ConfigEnvironmentService } from '@/infrastructure/config/config-environment.service'
 import { AppConfig } from '@/domain/app-config.interface'
-import { QueryAliasHelper } from '@/core/utils/query-alias.helper'
-import { SearchQueryHelper } from '@/core/utils/search-query.helper'
-import { FilterQueryHelper } from '@/core/utils/filter-query.helper'
-import { SelectQueryHelper } from '@/core/utils/select-query.helper'
-import { RelationQueryHelper } from '@/core/utils/relation-query.helper'
+import { EntityHelper } from '@/core/infrastructure/adepters/helper-database/entity.helper'
+import { normalizeSelectFields } from '@/core/infrastructure/adepters/helper-database/normalize-select-fields.helper'
+import { QueryAliasHelper } from '@/core/infrastructure/adepters/helper-database/query-alias.helper'
+import { DataBase } from '@/core/domain/types/database.type'
+import { FilterQueryHelper } from '@/core/infrastructure/adepters/helper-database/filter-query.helper'
+import { SearchQueryHelper } from '@/core/infrastructure/adepters/helper-database/search-query.helper'
+import { RelationQueryHelper } from '@/core/infrastructure/adepters/helper-database/relation-query.helper'
 
 /**
  * Base repository class that provides common, reusable repository operations.
  */
 export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository<T> {
   protected readonly logger: Logger
+  private readonly entityName: string
 
   protected constructor(
     target: EntityTarget<T>,
@@ -26,6 +29,8 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     queryRunner?: QueryRunner,
   ) {
     super(target, manager, queryRunner)
+    const entityHelper = new EntityHelper()
+    this.entityName = entityHelper.getEntityName(target)
     this.logger = new Logger(this.constructor.name)
   }
 
@@ -155,7 +160,14 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
   /**
    * Find a single entity matching the given criteria.
    */
-  async findOneByCriteria(props: Criteria.ById, relations?: string[]): Promise<Partial<T> | null> {
+  async findOneByCriteria(
+    props: Criteria.ById,
+    relations: string[] = [],
+    order: Record<string, string> = { createdAt: 'ASC' },
+    select: string[] = [],
+    searchFields: string[] = [],
+    filters: Record<string, any> = {},
+  ): Promise<Partial<T> | null> {
     try {
       const filters: FindOptionsWhere<T | any> = {
         where: {
@@ -174,96 +186,79 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
   }
 
   /**
-   * Find all entities matching pagination and filter criteria.
-   * Includes dynamic searching and filtering by fields.
+   * Finds all objects by criteria.
+   *
+   * @param props - Pagination and base filters.
+   * @param order - Object fields to sort by (default: createdAt ASC).
+   * @param selectField
+   * @param searchFields - Fields of root entity to apply search (LIKE).
+   * @param relations - List of relation names to include (e.g., ['messages']).
+   * @param filters - Object containing field/value pairs to filter by. Supports nested keys (e.g., 'messages.id').
+   * @returns A paginated list of results with count, limit, offset, and data.
    */
   async findAllByCriteria(
     props: Criteria.Paginated,
     order: Record<string, string> = { createdAt: 'ASC' },
-    select: string[] = [],
+    selectField: string[] = [],
     searchFields: string[] = [],
     relations: string[] = [],
-    filters: Record<string, any> = {},
-    whereByValue: Record<string, any> = {},
-  ): Promise<{ count: number; limit: number; offset: number; data: Partial<T>[] }> {
-    try {
-      const alias = typeof this.target === 'function' ? this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase()) : 'entity'
+    filters: DataBase.Filters[] = [],
+  ): Promise<{
+    count: number
+    limit: number
+    offset: number
+    data: Partial<T>[]
+  }> {
+    const qb = this.createQueryBuilder(this.entityName)
+    const rootAlias = qb.alias
+    const aliasHelper = new QueryAliasHelper(rootAlias)
+    const filterHelper = new FilterQueryHelper(aliasHelper)
+    const searchHelper = new SearchQueryHelper(aliasHelper)
+    const relationHelper = new RelationQueryHelper(aliasHelper)
 
-      const queryBuilder = this.manager.getRepository(this.target).createQueryBuilder(alias)
-      const aliasHelper = new QueryAliasHelper(alias)
-      const searchHelper = new SearchQueryHelper(this.config.database.type as 'mysql' | 'postgres', aliasHelper)
-      const filterHelper = new FilterQueryHelper(aliasHelper, {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-        deletedAt: 'deleted_at',
-        isActive: 'is_active',
-      })
-      const relationHelper = new RelationQueryHelper(aliasHelper)
-      const selectHelper = new SelectQueryHelper(aliasHelper)
+    // Relacionamentos
+    relationHelper.applyRelations(qb, rootAlias, relations)
 
-      // Joins
-      relationHelper.applyRelations(queryBuilder, alias, relations)
+    // Filtro por isActive
+    if (props.isActive !== undefined) {
+      filters.push({ field: 'isActive', operator: '=', value: props.isActive })
+    }
 
-      // Converte 'true'/'false'
-      const propsAny = props as Record<string, any>
-      Object.entries(propsAny).forEach(([key, value]) => {
-        if (value === 'true') propsAny[key] = true
-        if (value === 'false') propsAny[key] = false
-      })
+    // Filtros personalizados
+    filterHelper.applyFilters(qb, filters)
 
-      // Search
-      if (props.search && searchFields.length) {
-        const mappedSearchFields = searchFields.map((field) => {
-          const parts = field.split('.')
-          const rawField = parts.pop()!
-          const prefix = parts.length ? parts.join('.') + '.' : ''
-          const dbField = filterHelper['columnMap'][rawField] || rawField
-          return `${prefix}${dbField}`
-        })
-        searchHelper.applySearch(queryBuilder, props.search, mappedSearchFields)
-      }
+    // Busca textual
+    if (props.search && searchFields.length > 0) {
+      searchHelper.applySearch(qb, props.search, searchFields)
+    }
 
-      // Filtros dinâmicos
-      filterHelper.applyFilters(queryBuilder, filters, alias)
+    // Ordenação
+    for (const [field, dir] of Object.entries(order)) {
+      qb.addOrderBy(aliasHelper.getColumnPath(field), dir.toUpperCase() as 'ASC' | 'DESC')
+    }
 
-      // whereByValue
-      Object.entries(whereByValue).forEach(([key, value]) => {
-        if (value !== undefined) {
-          queryBuilder.andWhere(`${key} = :${key}`, { [key]: value })
-        }
-      })
+    // Paginação
+    const skip = Number(props.offset ?? 0)
+    const take = Number(props.limit ?? 10)
+    qb.skip(skip).take(take)
 
-      // Ativo
-      if (props.isActive !== undefined) {
-        queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
-      }
+    // Select customizado
+    if (selectField.length > 0) {
+      const fields = normalizeSelectFields(selectField, order, aliasHelper)
+      qb.select(fields)
+    }
 
-      // Select
-      selectHelper.applySelect(queryBuilder, select)
+    const [data, count] = await qb.getManyAndCount()
 
-      // Ordenação
-      Object.entries(order).forEach(([key, dir]) => {
-        const path = aliasHelper.getColumnPath(key)
-        queryBuilder.addOrderBy(path, dir.toUpperCase() as 'ASC' | 'DESC')
-      })
-
-      // Paginação
-      queryBuilder.skip(props.offset ?? 0)
-      queryBuilder.take(props.limit ?? 10)
-
-      const [data, count] = await queryBuilder.getManyAndCount()
-
-      return {
-        count,
-        limit: props.limit ?? 10,
-        offset: props.offset ?? 0,
-        data,
-      }
-    } catch (e: any) {
-      this.logger.error(`Error finding all objects by criteria: ${e.message}`, e.stack)
-      throw e
+    return {
+      count,
+      limit: take,
+      offset: skip,
+      data,
     }
   }
+
+
 
   /**
    * Find entities to populate a dropdown or select box.
@@ -274,70 +269,47 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
     select: string[] = [],
     searchFields: string[] = [],
     relations: string[] = [],
-    whereByValue: Record<string, any> = {},
-  ): Promise<T[]> {
+    filters: DataBase.Filters[] = [],
+  ): Promise<Partial<T>[]> {
     try {
-      const alias = typeof this.target === 'function' ? this.target.name.replace(/Entity$/, '').replace(/^./, (c) => c.toLowerCase()) : 'entity'
+      const qb = this.createQueryBuilder(this.entityName)
+      const rootAlias = qb.alias
 
-      const queryBuilder = this.manager.getRepository(this.target).createQueryBuilder(alias)
-      const aliasHelper = new QueryAliasHelper(alias)
-      const searchHelper = new SearchQueryHelper(this.config.database.type as 'mysql' | 'postgres', aliasHelper)
+      const aliasHelper = new QueryAliasHelper(rootAlias)
+      const filterHelper = new FilterQueryHelper(aliasHelper)
+      const searchHelper = new SearchQueryHelper(aliasHelper)
       const relationHelper = new RelationQueryHelper(aliasHelper)
-      const selectHelper = new SelectQueryHelper(aliasHelper)
 
-      const columnMap: Record<string, string> = {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-        deletedAt: 'deleted_at',
-        isActive: 'is_active',
-      }
+      // Relacionamentos
+      relationHelper.applyRelations(qb, rootAlias, relations)
 
-      // Joins
-      relationHelper.applyRelations(queryBuilder, alias, relations)
-
-      // Converte 'true'/'false'
-      const propsAny = props as Record<string, any>
-      Object.entries(propsAny).forEach(([key, value]) => {
-        if (value === 'true') propsAny[key] = true
-        if (value === 'false') propsAny[key] = false
-      })
-
-      // Search
-      if (props.search && searchFields.length) {
-        const mappedSearchFields = searchFields.map((field) => {
-          const parts = field.split('.')
-          const rawField = parts.pop()!
-          const prefix = parts.length ? parts.join('.') + '.' : ''
-          const dbField = columnMap[rawField] || rawField
-          return `${prefix}${dbField}`
-        })
-        searchHelper.applySearch(queryBuilder, props.search, mappedSearchFields)
-      }
-
-      // whereByValue
-      Object.entries(whereByValue).forEach(([key, value]) => {
-        if (value !== undefined) {
-          queryBuilder.andWhere(`${key} = :${key}`, { [key]: value })
-        }
-      })
-
-      // Ativo
+      // Filtro por isActive
       if (props.isActive !== undefined) {
-        queryBuilder.andWhere(`${alias}.enable = :enable`, { enable: props.isActive })
+        filters.push({ field: 'isActive', operator: '=', value: props.isActive })
       }
 
-      // Select
-      selectHelper.applySelect(queryBuilder, select)
+      // Filtros personalizados
+      filterHelper.applyFilters(qb, filters)
+
+      // Busca textual
+      if (props.search && searchFields.length > 0) {
+        searchHelper.applySearch(qb, props.search, searchFields)
+      }
 
       // Ordenação
-      Object.entries(order).forEach(([key, direction]) => {
-        const path = aliasHelper.getColumnPath(key)
-        queryBuilder.addOrderBy(path, direction.toUpperCase() as 'ASC' | 'DESC')
-      })
+      for (const [field, dir] of Object.entries(order)) {
+        qb.addOrderBy(aliasHelper.getColumnPath(field), dir.toUpperCase() as 'ASC' | 'DESC')
+      }
 
-      return await queryBuilder.getMany()
+      // Select customizado
+      if (select.length > 0) {
+        const normalizedFields = normalizeSelectFields(select, order, aliasHelper)
+        qb.select(normalizedFields)
+      }
+
+      return await qb.getMany()
     } catch (e: any) {
-      this.logger.error(`Error finding for select by criteria: ${e.message}`, e.stack)
+      this.logger.error(`Error in findForSelectByCriteria: ${e.message}`, e.stack)
       throw e
     }
   }

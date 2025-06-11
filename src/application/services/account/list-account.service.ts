@@ -12,13 +12,21 @@ export class ListAccountService implements ListAccountInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<AccountType.OutputPaginated> {
-    const select: string[] = []
-    const relations: string[] = ['accountPerson']
-    const searchFields: string[] = ['accountPerson.name', 'createdAt']
-    // const filters = {
-    //   createdAt_from: '2025-05-20',
-    // }
-    const order = { createdAt: 'ASC' }
+    const select: string[] = [
+      'id',
+      'accountPerson.name',
+      'accountPerson.birthday',
+      'accountPerson.nickName',
+      'accountPerson.gender',
+      'accountPerson.avatar',
+      'accountPerson.governanceSocialIdentity',
+      'credential.roles.id',
+      'credential.roles.name',
+    ]
+    const relations: string[] = ['accountPerson', 'credential.roles']
+    const searchFields: string[] = ['accountPerson.name']
+    const order = { 'accountPerson.name': 'ASC' }
+
     let result = await this.accountRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
     let account = result.data.map((account) => account as AccountType.Output)
     return {

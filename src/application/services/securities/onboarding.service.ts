@@ -59,11 +59,11 @@ export class OnboardingService {
         throw new UnauthorizedException()
       }
 
-      const privateKey = Buffer.from(this.config.jwt.privateKeyBase64, 'base64').toString('utf-8')
+      const privateKey = Buffer.from(this.config.security.privateKey, 'base64').toString('utf-8')
       return this.jwtService.sign(payload, {
         algorithm: 'RS512',
         privateKey: privateKey,
-        expiresIn: this.config.jwt.accessTokenExpInSec,
+        expiresIn: this.config.security.expirationToken,
       })
     } catch (e) {
       this.logger.error('MakeResponseAuth:', e)

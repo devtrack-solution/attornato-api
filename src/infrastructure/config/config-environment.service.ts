@@ -75,13 +75,15 @@ export class ConfigEnvironmentService implements AppConfig {
     }
   }
 
-  get jwt(): AppConfig['jwt'] {
+  get security(): AppConfig['security'] {
     return {
-      accessTokenExpInSec: Number(process.env.JWT_ACCESS_TOKEN_EXP_IN_SEC) || 3600,
-      refreshTokenExpInSec: Number(process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC) || 86400,
-      publicKeyBase64: process.env.JWT_PUBLIC_KEY_BASE64 || '',
-      privateKeyBase64: process.env.JWT_PRIVATE_KEY_BASE64 || '',
-      algorithm: process.env.JWT_ALGORITHM || 'RS512',
+      expirationToken: Number(process.env.SECURITY_JWT_ACCESS_TOKEN_EXP_IN_SEC) || 3600, // Expiração: ex. 1 hora depois
+      refreshToken: Number(process.env.SECURITY_JWT_REFRESH_TOKEN_EXP_IN_SEC) || 7200, // Refresh: ex. 2
+      issuer: process.env.SECURITY_ISSUER || 'auth', // Quem emitiu o token (issuer)
+      audience: process.env.SECURITY_AUDIENCE || 'app', // Quem vai consumir o token (audience)
+      algorithm: process.env.SECURITY_JWT_ALGORITHM || 'RS512',
+      publicKey: process.env.SECURITY_JWT_PUBLIC_KEY_BASE64 || '',
+      privateKey: process.env.SECURITY_JWT_PRIVATE_KEY_BASE64 || '',
     }
   }
 

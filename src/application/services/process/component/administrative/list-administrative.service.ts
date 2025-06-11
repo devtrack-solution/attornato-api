@@ -25,6 +25,7 @@ export class ListAdministrativeService implements ListAdministrativeInboundPort 
       'locator',
       'subject',
       'processFinancial',
+      'processDetail',
       'processDetail.detail',
       'processDetail.freeField1',
       'processDetail.freeField2',
