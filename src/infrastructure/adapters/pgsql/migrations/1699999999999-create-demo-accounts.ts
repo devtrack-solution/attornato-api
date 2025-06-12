@@ -5,9 +5,10 @@ import { HashUtil } from '@/core/utils/hash.util'
 export default class CreateDemoAccounts1699999999999 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const users = [
-      { name: 'Laercio', email: 'laercio@devtrack.com.br' },
+      { name: 'Laércio', email: 'laercio@devtrack.com.br' },
       { name: 'Wilton', email: 'wilton@devtrack.com.br' },
       { name: 'Anderson', email: 'anderson@devtrack.com.br' },
+      { name: 'Marcio', email: 'marciolandin@gmail.com' },
     ]
 
     const passwordHash = HashUtil.generateHash('123456')
