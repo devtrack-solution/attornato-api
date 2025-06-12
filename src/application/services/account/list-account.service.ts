@@ -3,6 +3,7 @@ import { Criteria } from '@/core/domain/types/criteria.type'
 import { AccountRepositoryOutboundPort, AccountRepositoryOutboundPortSymbol } from '@/domain/account/ports/outbound/account-repository.outbound-port'
 import { ListAccountInboundPort } from '@/domain/account/ports/inbound/list-account.inbound-port'
 import { AccountType } from '@/domain/account/types/account.type'
+import { deepOmit } from '@/core/utils/deep-omit'
 
 @Injectable()
 export class ListAccountService implements ListAccountInboundPort {
@@ -12,23 +13,31 @@ export class ListAccountService implements ListAccountInboundPort {
   ) {}
 
   async execute(criteria: Criteria.Paginated): Promise<AccountType.OutputPaginated> {
-    const select: string[] = [
-      'id',
-      'accountPerson.name',
-      'accountPerson.birthday',
-      'accountPerson.nickName',
-      'accountPerson.gender',
-      'accountPerson.avatar',
-      'accountPerson.governanceSocialIdentity',
-      'credential.roles.id',
-      'credential.roles.name',
-    ]
+    const select: string[] = []
     const relations: string[] = ['accountPerson', 'credential.roles']
     const searchFields: string[] = ['accountPerson.name']
     const order = { 'accountPerson.name': 'ASC' }
 
     let result = await this.accountRepository.findAllByCriteria(criteria, order, select, searchFields, relations)
-    let account = result.data.map((account) => account as AccountType.Output)
+    const account = result.data.map((account) =>
+      deepOmit(account, [
+        'password',
+        'enable',
+        'lastLogin',
+        'passwordHash',
+        'requestNewPassword',
+        'expiredAt',
+        'expiredCodeAt',
+        'resetPasswordToken',
+        'resetPasswordCode',
+        'createdAt',
+        'lastUpdatedByUser',
+        'createdByUser',
+        'previousEnable',
+        'deletedAt',
+        'updatedAt',
+      ]),
+    )
     return {
       count: result.count,
       limit: result.limit,

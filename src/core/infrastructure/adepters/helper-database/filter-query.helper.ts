@@ -1,6 +1,6 @@
 import { SelectQueryBuilder } from 'typeorm'
 import { QueryAliasHelper } from './query-alias.helper'
-import { DataBase } from '../../../../../../api-admin-ia-relatorios/src/core/domain/types/database.type'
+import { DataBase } from '@/core/domain/types/database.type'
 
 export class FilterQueryHelper {
     constructor(private readonly aliasHelper: QueryAliasHelper) {}
