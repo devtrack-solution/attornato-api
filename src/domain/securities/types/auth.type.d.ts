@@ -2,7 +2,7 @@ export namespace AuthType {
   export type LoginOutput = {
     username: string
     password?: string
-    enable?: boolean
+    isActive?: boolean
   }
 
   export type Onboarding = {
@@ -16,7 +16,7 @@ export namespace AuthType {
 
   export type LoginInput = {
     username: string
-    enable?: boolean
+    isActive?: boolean
   }
 
   export type ForgotPasswordOutput = {

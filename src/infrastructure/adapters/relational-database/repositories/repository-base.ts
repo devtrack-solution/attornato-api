@@ -172,7 +172,7 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
       const filters: FindOptionsWhere<T | any> = {
         where: {
           id: props?.id,
-          enable: true,
+          isActive: true,
         },
         relations,
         // order: { description: 'ASC' },
@@ -402,13 +402,13 @@ export abstract class RepositoryBase<T extends ObjectLiteral> extends Repository
       const filters: FindManyOptions<T> = { id, enable: true } as FindManyOptions<T>
 
       const entityExists = await repository.exist({
-        where: { id, enable: true } as any,
+        where: { id, isActive: true } as any,
       })
 
       if (!entityExists) throw new Error('Entity not found or already deleted')
 
       await repository.update(id, {
-        enable: false,
+        isActive: false,
         updatedAt: DateTime.now().setZone(config.project.timeZone).toJSDate(),
       } as any)
     } catch (e: any) {

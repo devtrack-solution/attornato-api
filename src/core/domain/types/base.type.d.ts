@@ -10,7 +10,7 @@ export namespace BaseType {
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date | null
-    enable?: boolean
+    isActive?: boolean
   }
 
   export type Output = {
@@ -20,7 +20,7 @@ export namespace BaseType {
     createdAt?: Date
     updatedAt?: Date
     deletedAt?: Date
-    enable?: boolean
+    isActive?: boolean
   }
 
   export type ProfileInput = {

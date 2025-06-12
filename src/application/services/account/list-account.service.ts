@@ -22,7 +22,7 @@ export class ListAccountService implements ListAccountInboundPort {
     const account = result.data.map((account) =>
       deepOmit(account, [
         'password',
-        'enable',
+        'isActive',
         'lastLogin',
         'passwordHash',
         'requestNewPassword',

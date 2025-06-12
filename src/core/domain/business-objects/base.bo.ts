@@ -26,11 +26,11 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
   protected _createdAt?: Date
   protected _updatedAt?: Date
   protected _deletedAt?: Date
-  protected _enable!: boolean
+  protected _isActive!: boolean
 
   private load(props: BaseType.Input): void {
     this._id = props.id ? IdentityVo.create(props.id) : IdentityVo.generate()
-    this._enable = props.enable || true
+    this._isActive = props.isActive || true
     if (props.userId) {
       this._lastUpdatedUserId = IdentityVo.create(props.userId)
       this._createdUserId = IdentityVo.create(props.userId)
@@ -48,7 +48,7 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
       this._createdAt = props.createdAt || new Date()
       this._updatedAt = props.updatedAt || new Date()
       this._deletedAt = props.deletedAt || undefined
-      this._enable = props.enable || true
+      this._isActive = props.isActive || true
     */
   }
 
@@ -95,7 +95,7 @@ export abstract class BaseBusinessObject<Y, T> implements IBusinessObject<Y, T>,
         createdAt: this._createdAt,
         updatedAt: this._updatedAt,
         deletedAt: this._deletedAt,
-        enable: this._enable,
+        isActive: this._isActive,
         ...result,
       }
     } catch (err) {
