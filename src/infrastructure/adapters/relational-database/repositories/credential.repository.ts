@@ -20,7 +20,7 @@ export class CredentialRepository extends RepositoryBase<CredentialEntity> imple
     try {
       const where: FindOptionsWhere<CredentialEntity> = {
         username: props.username,
-        enable: true,
+        isActive: true,
       }
 
       return await this.findOne({
@@ -38,7 +38,7 @@ export class CredentialRepository extends RepositoryBase<CredentialEntity> imple
     try {
       const where: FindOptionsWhere<CredentialEntity> = {
         username: props.username,
-        enable: true,
+        isActive: true,
       }
 
       return await this.findOne({

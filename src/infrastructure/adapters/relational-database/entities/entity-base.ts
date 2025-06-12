@@ -54,7 +54,7 @@ export abstract class EntityBase extends BaseEntity {
     default: true,
   })
   @Index({ unique: false })
-  enable!: boolean
+  isActive!: boolean
 
   /**
    * Identifier of the user who last updated the entity.
@@ -74,12 +74,12 @@ export abstract class EntityBase extends BaseEntity {
 
   @AfterLoad()
   loadPreviousState() {
-    this.previousEnable = this.enable
+    this.previousEnable = this.isActive
   }
 
   @BeforeUpdate()
   resetDeletedAtIfReenabled() {
-    if (this.previousEnable === false && this.enable === true) {
+    if (this.previousEnable === false && this.isActive === true) {
       this.deletedAt = null
     }
   }
