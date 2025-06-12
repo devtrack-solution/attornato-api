@@ -17,6 +17,6 @@ export class ListToSelectAdministrativeService implements ListToSelectAdministra
     const searchFields: string[] = ['processNumber']
     const order = { processNumber: 'ASC' }
     let administrative = await this.administrativeRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return administrative.map((administrative) => new Administrative(administrative as AdministrativeType.Output).toJson())
+    return administrative.map((administrative) => administrative as AdministrativeType.Output)
   }
 }

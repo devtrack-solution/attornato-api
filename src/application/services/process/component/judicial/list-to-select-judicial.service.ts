@@ -17,6 +17,6 @@ export class ListToSelectJudicialService implements ListToSelectJudicialInboundP
     const searchFields: string[] = ['processNumber']
     const order = { processNumber: 'ASC' }
     let judicial = await this.judicialRepository.findForSelectByCriteria(criteria, order, select, searchFields)
-    return judicial.map((judicial) => new Judicial(judicial as JudicialType.Output).toJson())
+    return judicial.map((judicial) => judicial as JudicialType.Output)
   }
 }
