@@ -38,7 +38,10 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   logger: config.database.format as 'advanced-console' | 'simple-console' | 'file' | 'debug',
   timezone: config.database.timezone,
   debug: config.database.debug,
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
+  extra: {
+    max: 75, // controla o número máximo de conexões simultâneas
+  },
 }
 
 export const AppDataSource = new DataSource(<DataSourceOptions>typeOrmConfig)

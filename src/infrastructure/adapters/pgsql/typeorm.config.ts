@@ -13,5 +13,8 @@ export const AppDataSource = new DataSource({
   entities: [__dirname + '/../**/*.entity.{ts,js}'],
   migrations: [__dirname + '/migrations/**/*.{ts,js}'],
   synchronize: false,
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
+  extra: {
+    max: 75, // controla o número máximo de conexões simultâneas
+  },
 })
